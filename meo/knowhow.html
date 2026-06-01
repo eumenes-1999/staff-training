@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MEO運用ノウハウ情報</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary: #0f766e;
+      --primary-dark: #134e4a;
+      --primary-soft: #ccfbf1;
+      --blue: #2563eb;
+      --blue-soft: #dbeafe;
+      --orange: #d97706;
+      --orange-soft: #ffedd5;
+      --red: #dc2626;
+      --red-soft: #fee2e2;
+      --green: #059669;
+      --green-soft: #d1fae5;
+      --purple: #7c3aed;
+      --purple-soft: #ede9fe;
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --sidebar: #172554;
+      --sidebar-active: #0f766e;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.8;
+      font-size: 15px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      background: linear-gradient(180deg, #172554 0%, #0f172a 100%);
+      color: #cbd5e1;
+      padding: 24px 0 32px;
+    }
+
+    .sidebar-header {
+      padding: 0 20px 18px;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .sidebar-header .label {
+      color: #5eead4;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .sidebar-header h2 {
+      color: #f8fafc;
+      font-size: 17px;
+      line-height: 1.45;
+    }
+
+    nav { padding: 14px 0 24px; }
+
+    nav a {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      color: #aebed4;
+      text-decoration: none;
+      font-size: 13px;
+      padding: 8px 20px;
+      border-left: 3px solid transparent;
+    }
+
+    nav a:hover,
+    nav a.active {
+      background: rgba(20, 184, 166, 0.14);
+      color: #f8fafc;
+      border-left-color: var(--sidebar-active);
+    }
+
+    .nav-num {
+      display: inline-grid;
+      place-items: center;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      color: #99f6e4;
+      font-size: 11px;
+      font-weight: 800;
+      flex: 0 0 auto;
+    }
+
+    main {
+      max-width: 1180px;
+      width: 100%;
+      padding: 36px 42px 64px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #0f766e 0%, #2563eb 100%);
+      color: #fff;
+      border-radius: 24px;
+      padding: 36px;
+      margin-bottom: 28px;
+      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.18);
+    }
+
+    .hero .eyebrow {
+      display: inline-block;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.28);
+      border-radius: 999px;
+      padding: 4px 12px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      margin-bottom: 14px;
+    }
+
+    .hero h1 {
+      font-size: 34px;
+      line-height: 1.35;
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      max-width: 820px;
+      color: #e0f2fe;
+      font-size: 16px;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .meta span {
+      background: rgba(255,255,255,0.16);
+      border: 1px solid rgba(255,255,255,0.24);
+      border-radius: 10px;
+      padding: 6px 10px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 28px;
+      margin-bottom: 22px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
+    }
+
+    section h2 {
+      font-size: 24px;
+      color: var(--primary-dark);
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--primary-soft);
+    }
+
+    section h3 {
+      font-size: 18px;
+      color: #0f172a;
+      margin: 22px 0 10px;
+    }
+
+    p + p { margin-top: 10px; }
+
+    ul, ol {
+      padding-left: 22px;
+      margin: 10px 0;
+    }
+
+    li { margin: 5px 0; }
+
+    strong { color: #0f172a; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0 6px;
+      overflow: hidden;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+
+    th, td {
+      padding: 12px 14px;
+      text-align: left;
+      vertical-align: top;
+      border-bottom: 1px solid var(--border);
+    }
+
+    th {
+      background: #f1f5f9;
+      color: #0f172a;
+      font-size: 13px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    tr:last-child td { border-bottom: 0; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin: 16px 0;
+    }
+
+    .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+    .card {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px;
+      background: #fff;
+    }
+
+    .card h3,
+    .card h4 {
+      margin: 0 0 8px;
+      color: #0f172a;
+      font-size: 16px;
+    }
+
+    .card p { color: var(--muted); font-size: 14px; }
+
+    .point {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+      margin: 10px 0;
+    }
+
+    .point .icon {
+      display: inline-grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 10px;
+      background: var(--primary-soft);
+      color: var(--primary-dark);
+      font-weight: 900;
+      flex: 0 0 auto;
+    }
+
+    .tag {
+      display: inline-block;
+      border-radius: 999px;
+      padding: 3px 9px;
+      font-size: 12px;
+      font-weight: 800;
+      margin-right: 6px;
+      margin-bottom: 6px;
+    }
+
+    .tag.green { background: var(--green-soft); color: #065f46; }
+    .tag.blue { background: var(--blue-soft); color: #1d4ed8; }
+    .tag.orange { background: var(--orange-soft); color: #9a3412; }
+    .tag.red { background: var(--red-soft); color: #991b1b; }
+    .tag.purple { background: var(--purple-soft); color: #5b21b6; }
+
+    .note {
+      border-left: 5px solid var(--primary);
+      background: #ecfeff;
+      padding: 15px 18px;
+      border-radius: 12px;
+      margin: 16px 0;
+    }
+
+    .warning {
+      border-left: 5px solid var(--red);
+      background: #fff7ed;
+      padding: 15px 18px;
+      border-radius: 12px;
+      margin: 16px 0;
+    }
+
+    .checklist {
+      display: grid;
+      gap: 9px;
+      margin: 14px 0;
+    }
+
+    .checkitem {
+      display: grid;
+      grid-template-columns: 24px 1fr;
+      gap: 10px;
+      align-items: start;
+      padding: 10px 12px;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    .box {
+      display: inline-grid;
+      place-items: center;
+      width: 18px;
+      height: 18px;
+      border: 2px solid #94a3b8;
+      border-radius: 4px;
+      margin-top: 4px;
+    }
+
+    .flow {
+      display: grid;
+      gap: 12px;
+      counter-reset: step;
+      margin: 16px 0;
+    }
+
+    .step {
+      position: relative;
+      padding: 16px 18px 16px 58px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: #fff;
+    }
+
+    .step::before {
+      counter-increment: step;
+      content: counter(step);
+      position: absolute;
+      left: 16px;
+      top: 16px;
+      display: inline-grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #fff;
+      font-weight: 900;
+    }
+
+    .step h3 {
+      margin: 0 0 6px;
+      font-size: 16px;
+    }
+
+    .source-list a {
+      color: var(--blue);
+      word-break: break-all;
+    }
+
+    @media (max-width: 980px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar {
+        position: relative;
+        height: auto;
+      }
+      nav {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      main { padding: 22px 16px 48px; }
+      .hero { padding: 26px 20px; }
+      .hero h1 { font-size: 26px; }
+      .grid,
+      .grid.two { grid-template-columns: 1fr; }
+      table { font-size: 13px; }
+      th, td { padding: 10px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="label">MEO Operation</div>
+        <h2>MEO運用ノウハウ情報</h2>
+      </div>
+      <nav>
+        <a href="#overview"><span class="nav-num">1</span>全体像</a>
+        <a href="#ranking"><span class="nav-num">2</span>順位の考え方</a>
+        <a href="#setup"><span class="nav-num">3</span>初期整備</a>
+        <a href="#routine"><span class="nav-num">4</span>日常運用</a>
+        <a href="#content"><span class="nav-num">5</span>投稿・写真</a>
+        <a href="#review"><span class="nav-num">6</span>口コミ対応</a>
+        <a href="#keyword"><span class="nav-num">7</span>キーワード</a>
+        <a href="#ng"><span class="nav-num">8</span>NG施策</a>
+        <a href="#kpi"><span class="nav-num">9</span>KPI改善</a>
+        <a href="#checklist"><span class="nav-num">10</span>チェックリスト</a>
+      </nav>
+    </aside>
+
+    <main>
+      <header class="hero">
+        <div class="eyebrow">新人研修・運用担当者向け</div>
+        <h1>MEO運用で見るべきポイントと毎月やること</h1>
+        <p>
+          Googleマップで店舗を見つけてもらい、来店・予約・問い合わせにつなげるための運用ノウハウです。
+          Googleビジネスプロフィールの整備、投稿、写真、口コミ、NAP統一、順位改善の見方を実務向けに整理しています。
+        </p>
+        <div class="meta">
+          <span>対象: MEO運用担当・新人</span>
+          <span>目的: 上位表示・来店導線改善</span>
+          <span>更新日: 2026年5月28日</span>
+        </div>
+      </header>
+
+      <section id="overview">
+        <h2>1. MEOの全体像</h2>
+        <p>
+          MEO（Map Engine Optimization）は、Googleマップやローカル検索で店舗情報を上位表示させるための施策です。
+          SEOがWebサイト全体の検索対策であるのに対し、MEOは「地域名 + 業種」「近くのサービス」など、来店に近い検索行動を対象にします。
+        </p>
+
+        <div class="grid">
+          <div class="card">
+            <h3>狙う検索</h3>
+            <p>「渋谷 美容院」「近くの歯医者」「新宿 ランチ」など、地域と目的が明確な検索。</p>
+          </div>
+          <div class="card">
+            <h3>主な成果</h3>
+            <p>表示回数、電話、経路案内、Webサイト遷移、予約、来店数の増加。</p>
+          </div>
+          <div class="card">
+            <h3>運用の基本</h3>
+            <p>正確な情報、定期更新、口コミ対応、写真追加、競合との差別化を継続する。</p>
+          </div>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>比較項目</th>
+              <th>MEO</th>
+              <th>SEO</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>表示場所</td>
+              <td>Googleマップ、ローカルパック</td>
+              <td>通常の検索結果</td>
+            </tr>
+            <tr>
+              <td>目的</td>
+              <td>来店・電話・経路案内・予約</td>
+              <td>サイト訪問・問い合わせ・資料請求</td>
+            </tr>
+            <tr>
+              <td>競合範囲</td>
+              <td>同じ商圏の同業店舗</td>
+              <td>全国または広域のWebサイト</td>
+            </tr>
+            <tr>
+              <td>運用軸</td>
+              <td>GBP情報、口コミ、写真、投稿、NAP</td>
+              <td>記事、サイト構造、被リンク、技術SEO</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="note">
+          <strong>運用の結論:</strong> MEOは「一度設定して終わり」ではありません。
+          店舗情報を最新に保ち、ユーザーの反応を見ながら小さく改善し続けることで成果につながります。
+        </div>
+      </section>
+
+      <section id="ranking">
+        <h2>2. Googleマップ順位の考え方</h2>
+        <p>
+          Googleマップの順位は主に「関連性」「距離」「知名度」の3要素で判断されます。
+          距離は操作できませんが、関連性と知名度は日々の運用で改善できます。
+        </p>
+
+        <div class="grid">
+          <div class="card">
+            <span class="tag green">関連性</span>
+            <h3>検索意図と合っているか</h3>
+            <p>カテゴリ、サービス、説明文、投稿内容、口コミ内の言葉が検索キーワードと自然に一致している状態。</p>
+          </div>
+          <div class="card">
+            <span class="tag blue">距離</span>
+            <h3>検索者との近さ</h3>
+            <p>ユーザーの現在地や検索した地域から近い店舗が出やすい。商圏外の検索で無理に上位を狙いすぎない。</p>
+          </div>
+          <div class="card">
+            <span class="tag purple">知名度</span>
+            <h3>オンライン上の信頼</h3>
+            <p>口コミ数、評価、写真、Web上の言及、SNS、地域サイトでの紹介などが信頼性のシグナルになる。</p>
+          </div>
+        </div>
+
+        <h3>順位改善で意識する順番</h3>
+        <div class="flow">
+          <div class="step">
+            <h3>情報の正確性を整える</h3>
+            <p>店名、住所、電話番号、営業時間、カテゴリ、URL、メニュー、属性を最新化します。</p>
+          </div>
+          <div class="step">
+            <h3>検索との一致度を高める</h3>
+            <p>地域名、業種、主力サービス、悩み、利用シーンを説明文・投稿・口コミ返信に自然に含めます。</p>
+          </div>
+          <div class="step">
+            <h3>行動されるプロフィールにする</h3>
+            <p>写真、投稿、口コミ返信、予約リンク、商品・サービス情報を整え、電話や経路案内につなげます。</p>
+          </div>
+          <div class="step">
+            <h3>数値で改善する</h3>
+            <p>順位だけでなく、表示回数、クリック、電話、経路案内、口コミ増加を見て改善します。</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="setup">
+        <h2>3. 初期整備で必ず確認する項目</h2>
+        <p>
+          初期整備が弱いと、投稿や口コミ対応を頑張っても成果が出にくくなります。
+          新規案件・引き継ぎ案件では、まずGoogleビジネスプロフィールの土台を確認します。
+        </p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>項目</th>
+              <th>確認内容</th>
+              <th>注意点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>オーナー確認</td>
+              <td>管理権限があり、投稿・編集・口コミ返信ができる状態か</td>
+              <td>未確認だと運用できる範囲が限られる</td>
+            </tr>
+            <tr>
+              <td>店名</td>
+              <td>実店舗名・看板名と一致しているか</td>
+              <td>キーワードの詰め込みはNG</td>
+            </tr>
+            <tr>
+              <td>カテゴリ</td>
+              <td>メインカテゴリが主力サービスを正しく表しているか</td>
+              <td>曖昧な大分類より具体的なカテゴリを優先</td>
+            </tr>
+            <tr>
+              <td>NAP</td>
+              <td>Name、Address、Phoneが公式サイト・SNS・ポータルと揃っているか</td>
+              <td>表記ゆれもできるだけ統一</td>
+            </tr>
+            <tr>
+              <td>営業時間</td>
+              <td>通常営業、祝日、臨時休業、年末年始が正しいか</td>
+              <td>誤表示は来店機会損失と低評価の原因</td>
+            </tr>
+            <tr>
+              <td>URL・予約導線</td>
+              <td>公式サイト、予約ページ、メニュー、SNSへの導線が正しいか</td>
+              <td>リンク切れ・古いLPに注意</td>
+            </tr>
+            <tr>
+              <td>商品・サービス</td>
+              <td>主力メニュー、料金、説明、写真が登録されているか</td>
+              <td>ユーザーが比較しやすい情報にする</td>
+            </tr>
+            <tr>
+              <td>属性</td>
+              <td>支払い方法、駐車場、Wi-Fi、バリアフリーなどが事実通りか</td>
+              <td>存在しない設備を登録しない</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="warning">
+          <strong>最初に直すべき危険箇所:</strong>
+          営業時間ミス、電話番号ミス、住所ミス、予約URLミス、店名へのキーワード詰め込み、閉業済み店舗の放置。
+          これらは順位以前にユーザー体験を大きく落とします。
+        </div>
+      </section>
+
+      <section id="routine">
+        <h2>4. 日常運用の型</h2>
+        <p>
+          MEOは継続運用が大切です。毎週・毎月の作業を固定化し、抜け漏れを防ぎます。
+        </p>
+
+        <div class="grid two">
+          <div class="card">
+            <h3>毎週見ること</h3>
+            <ul>
+              <li>投稿が反映されているか</li>
+              <li>口コミが増えていないか</li>
+              <li>低評価口コミや未返信口コミがないか</li>
+              <li>営業時間・臨時休業の変更がないか</li>
+              <li>競合店舗の投稿・写真・口コミ状況</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>毎月見ること</h3>
+            <ul>
+              <li>検索順位の推移</li>
+              <li>表示回数、電話、経路案内、Webクリック</li>
+              <li>投稿テーマの偏り</li>
+              <li>写真の追加状況</li>
+              <li>口コミ件数・平均評価・返信率</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3>月次運用フロー</h3>
+        <div class="flow">
+          <div class="step">
+            <h3>前月数値を確認</h3>
+            <p>順位、表示回数、電話、経路案内、口コミ、投稿反応を確認し、良かった点と落ちた点を整理します。</p>
+          </div>
+          <div class="step">
+            <h3>今月の重点キーワードを決める</h3>
+            <p>「地域名 + 業種」「地域名 + サービス」「悩み + 店舗種別」など、狙う検索を明確にします。</p>
+          </div>
+          <div class="step">
+            <h3>投稿・写真・口コミ返信を実行</h3>
+            <p>投稿だけに偏らず、写真更新や口コミ対応もセットで進めます。</p>
+          </div>
+          <div class="step">
+            <h3>競合との差を埋める</h3>
+            <p>上位店舗と比べて不足している情報、写真、口コミ、メニュー、投稿頻度を改善します。</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="content">
+        <h2>5. 投稿・写真・コンテンツ運用</h2>
+        <p>
+          投稿と写真は、プロフィールの鮮度と魅力を伝える重要な運用です。
+          ただし、毎回同じ内容を出すだけでは効果が弱いため、検索意図と来店判断に役立つ情報を入れます。
+        </p>
+
+        <h3>投稿テーマ例</h3>
+        <div>
+          <span class="tag green">サービス紹介</span>
+          <span class="tag blue">季節需要</span>
+          <span class="tag orange">キャンペーン</span>
+          <span class="tag purple">よくある質問</span>
+          <span class="tag green">症例・事例</span>
+          <span class="tag blue">アクセス案内</span>
+          <span class="tag orange">スタッフ紹介</span>
+          <span class="tag purple">予約の流れ</span>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>投稿タイプ</th>
+              <th>書く内容</th>
+              <th>入れると良い要素</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>サービス紹介</td>
+              <td>主力メニューの特徴、対象者、利用メリット</td>
+              <td>地域名、サービス名、悩み、料金目安、予約導線</td>
+            </tr>
+            <tr>
+              <td>季節テーマ</td>
+              <td>季節の悩みや需要に合わせた案内</td>
+              <td>「梅雨」「年末」「新生活」など時期性のある言葉</td>
+            </tr>
+            <tr>
+              <td>FAQ</td>
+              <td>来店前によく聞かれる質問への回答</td>
+              <td>所要時間、持ち物、支払い方法、駐車場、予約方法</td>
+            </tr>
+            <tr>
+              <td>実績・事例</td>
+              <td>提供実績、利用シーン、ビフォーアフターの説明</td>
+              <td>誇大表現を避け、事実ベースで記載</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>写真追加の考え方</h3>
+        <div class="grid">
+          <div class="card">
+            <h3>外観</h3>
+            <p>初回来店者が迷わないよう、入口・看板・周辺目印を掲載します。</p>
+          </div>
+          <div class="card">
+            <h3>内観</h3>
+            <p>清潔感、席、個室、待合、設備など、来店前の不安を減らします。</p>
+          </div>
+          <div class="card">
+            <h3>商品・サービス</h3>
+            <p>料理、施術、商品、メニュー、スタッフ対応など、選ぶ理由を見せます。</p>
+          </div>
+        </div>
+
+        <div class="note">
+          <strong>写真の目安:</strong> 初期は最低10枚、できれば30枚以上を目標にします。
+          その後は月1回以上、季節・新商品・イベント・店内変更に合わせて追加します。
+        </div>
+      </section>
+
+      <section id="review">
+        <h2>6. 口コミ対応の基本</h2>
+        <p>
+          口コミはMEOの知名度要素に関わるだけでなく、ユーザーの来店判断に直結します。
+          件数・評価・内容・返信の丁寧さをセットで管理します。
+        </p>
+
+        <div class="grid two">
+          <div class="card">
+            <h3>口コミを増やす時のポイント</h3>
+            <ul>
+              <li>来店後、自然なタイミングで投稿をお願いする</li>
+              <li>良い口コミだけを選んで依頼しない</li>
+              <li>割引・特典・報酬と引き換えに依頼しない</li>
+              <li>顧客本人の体験として書いてもらう</li>
+              <li>QRコードや案内カードで投稿導線を用意する</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>返信時のポイント</h3>
+            <ul>
+              <li>感謝を伝える</li>
+              <li>口コミ内の具体的な内容に触れる</li>
+              <li>店舗名・サービス名を自然に入れる</li>
+              <li>低評価にも冷静に謝意と改善姿勢を示す</li>
+              <li>個人情報や詳細なトラブル内容を書きすぎない</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3>返信テンプレート</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>状況</th>
+              <th>返信例</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>高評価</td>
+              <td>この度はご来店いただき、また温かい口コミをありがとうございます。〇〇についてご満足いただけたとのこと、大変嬉しく思います。今後も地域の皆さまに安心してご利用いただけるよう努めてまいります。</td>
+            </tr>
+            <tr>
+              <td>具体的な褒め言葉あり</td>
+              <td>スタッフ対応についてお褒めいただきありがとうございます。初めての方にも分かりやすくご案内できるよう心がけておりますので、その点を評価いただけて励みになります。</td>
+            </tr>
+            <tr>
+              <td>低評価</td>
+              <td>この度はご期待に沿えず申し訳ございません。いただいたご意見を真摯に受け止め、接客・ご案内方法の改善に努めてまいります。貴重なご意見をお寄せいただきありがとうございました。</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="warning">
+          <strong>口コミで絶対に避けること:</strong>
+          自作自演、関係者レビュー、報酬付き依頼、良い評価だけを依頼する行為、代理投稿、感情的な返信。
+          Googleポリシー違反や信頼低下につながります。
+        </div>
+      </section>
+
+      <section id="keyword">
+        <h2>7. キーワード選定と競合調査</h2>
+        <p>
+          MEOでは、いきなり大きなキーワードだけを狙うより、商圏・業種・サービス・悩みに分けて現実的に狙えるキーワードから改善します。
+        </p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>種類</th>
+              <th>例</th>
+              <th>使い方</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>地域 + 業種</td>
+              <td>渋谷 美容院、池袋 歯医者</td>
+              <td>基本キーワード。競合が多いので土台整備が必須。</td>
+            </tr>
+            <tr>
+              <td>地域 + サービス</td>
+              <td>渋谷 髪質改善、新宿 インプラント</td>
+              <td>具体的な需要を取りやすい。投稿やメニューで強化。</td>
+            </tr>
+            <tr>
+              <td>地域 + 悩み</td>
+              <td>渋谷 肩こり、横浜 ニキビ治療</td>
+              <td>説明文、FAQ、投稿で自然に拾う。</td>
+            </tr>
+            <tr>
+              <td>近くの + 業種</td>
+              <td>近くの整体、近くのカフェ</td>
+              <td>距離要素が強い。営業時間・口コミ・写真の充実が重要。</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>競合調査で見るポイント</h3>
+        <div class="checklist">
+          <div class="checkitem"><span class="box"></span><span>上位3店舗のカテゴリ、説明文、商品・サービス登録を確認する</span></div>
+          <div class="checkitem"><span class="box"></span><span>口コミ件数、平均評価、直近口コミの頻度を確認する</span></div>
+          <div class="checkitem"><span class="box"></span><span>投稿頻度と投稿テーマを確認する</span></div>
+          <div class="checkitem"><span class="box"></span><span>写真枚数、写真の種類、最新写真の有無を確認する</span></div>
+          <div class="checkitem"><span class="box"></span><span>公式サイト、予約導線、SNS、地域メディア掲載の有無を確認する</span></div>
+        </div>
+
+        <div class="note">
+          <strong>キーワードの入れ方:</strong>
+          店名に無理やり入れるのではなく、カテゴリ、説明文、商品・サービス、投稿、口コミ返信、公式サイト内で自然に表現します。
+        </div>
+      </section>
+
+      <section id="ng">
+        <h2>8. 順位低下・停止につながるNG施策</h2>
+        <p>
+          MEOは短期的に順位を上げようとして不自然な施策を行うと、かえって順位低下やプロフィール停止につながることがあります。
+        </p>
+
+        <div class="grid two">
+          <div class="card">
+            <span class="tag red">NG</span>
+            <h3>店名へのキーワード詰め込み</h3>
+            <p>正式名称ではない「地域名・業種・売り文句」を店名に入れる行為は避けます。</p>
+          </div>
+          <div class="card">
+            <span class="tag red">NG</span>
+            <h3>報酬付き口コミ依頼</h3>
+            <p>割引、特典、金銭と引き換えに口コミを書いてもらう行為はポリシー違反リスクがあります。</p>
+          </div>
+          <div class="card">
+            <span class="tag red">NG</span>
+            <h3>架空住所・虚偽情報</h3>
+            <p>実体のない拠点や実際と違う営業時間・設備・サービスを登録しない。</p>
+          </div>
+          <div class="card">
+            <span class="tag red">NG</span>
+            <h3>低品質な外部リンク施策</h3>
+            <p>不自然な被リンクを大量に増やすより、地域性・関連性のある自然な掲載を重視します。</p>
+          </div>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>よくあるミス</th>
+              <th>起きる問題</th>
+              <th>正しい対応</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>営業時間を放置</td>
+              <td>来店機会損失、低評価、信頼低下</td>
+              <td>祝日・臨時休業・年末年始を事前更新</td>
+            </tr>
+            <tr>
+              <td>同じ投稿を使い回す</td>
+              <td>鮮度や有用性が弱くなる</td>
+              <td>季節・サービス・FAQ・事例でテーマを分ける</td>
+            </tr>
+            <tr>
+              <td>口コミ未返信</td>
+              <td>顧客対応が弱く見える</td>
+              <td>高評価・低評価どちらも丁寧に返信</td>
+            </tr>
+            <tr>
+              <td>情報の表記ゆれ</td>
+              <td>Googleが同一店舗と認識しにくい</td>
+              <td>GBP、公式サイト、SNS、ポータルのNAPを統一</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="kpi">
+        <h2>9. KPIと改善の見方</h2>
+        <p>
+          MEOでは順位だけを追うと判断を誤ります。
+          ユーザー行動につながっているかを見て、プロフィールの改善に落とし込みます。
+        </p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>KPI</th>
+              <th>見る意味</th>
+              <th>改善アクション</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>表示回数</td>
+              <td>検索結果に出ている量</td>
+              <td>カテゴリ、説明文、投稿、サービス情報、NAPを見直す</td>
+            </tr>
+            <tr>
+              <td>電話数</td>
+              <td>問い合わせ意欲</td>
+              <td>営業時間、サービス説明、料金目安、投稿訴求を改善</td>
+            </tr>
+            <tr>
+              <td>経路案内</td>
+              <td>来店意欲</td>
+              <td>外観写真、アクセス案内、駐車場、最寄駅情報を追加</td>
+            </tr>
+            <tr>
+              <td>Webクリック</td>
+              <td>詳細確認・予約導線</td>
+              <td>URL、予約ページ、スマホ表示、CTAを確認</td>
+            </tr>
+            <tr>
+              <td>口コミ数・評価</td>
+              <td>信頼性と知名度</td>
+              <td>口コミ依頼導線、返信品質、低評価原因の改善</td>
+            </tr>
+            <tr>
+              <td>順位</td>
+              <td>検索面での競争力</td>
+              <td>競合比較、キーワード別の不足情報、投稿・写真・口コミを改善</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>改善判断の例</h3>
+        <div class="point">
+          <span class="icon">A</span>
+          <div>
+            <strong>表示回数は増えたが電話が増えない</strong>
+            <p>プロフィールを見た後に選ばれていない可能性があります。写真、口コミ、料金、予約導線、投稿の訴求を見直します。</p>
+          </div>
+        </div>
+        <div class="point">
+          <span class="icon">B</span>
+          <div>
+            <strong>順位は高いが経路案内が少ない</strong>
+            <p>商圏や検索意図がずれている可能性があります。実際の来店につながるキーワードやアクセス情報を強化します。</p>
+          </div>
+        </div>
+        <div class="point">
+          <span class="icon">C</span>
+          <div>
+            <strong>口コミは増えたが評価が下がった</strong>
+            <p>返信だけでなく、実店舗側のサービス改善が必要です。低評価理由を分類し、店舗へ共有します。</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="checklist">
+        <h2>10. 運用チェックリスト</h2>
+        <p>
+          作業前後に以下を確認すると、抜け漏れを防ぎやすくなります。
+        </p>
+
+        <h3>初期整備チェック</h3>
+        <div class="checklist">
+          <div class="checkitem"><span class="box"></span><span>オーナー確認・管理権限がある</span></div>
+          <div class="checkitem"><span class="box"></span><span>店名、住所、電話番号が正確で、他媒体と表記が揃っている</span></div>
+          <div class="checkitem"><span class="box"></span><span>メインカテゴリ・追加カテゴリが実態に合っている</span></div>
+          <div class="checkitem"><span class="box"></span><span>通常営業時間、祝日、臨時休業が登録されている</span></div>
+          <div class="checkitem"><span class="box"></span><span>公式サイト、予約ページ、SNS、メニューURLが正しい</span></div>
+          <div class="checkitem"><span class="box"></span><span>商品・サービス・属性・支払い方法・駐車場情報が登録されている</span></div>
+        </div>
+
+        <h3>毎月の運用チェック</h3>
+        <div class="checklist">
+          <div class="checkitem"><span class="box"></span><span>今月の投稿テーマと狙うキーワードを決めた</span></div>
+          <div class="checkitem"><span class="box"></span><span>投稿文に地域名・サービス名・利用シーンが自然に入っている</span></div>
+          <div class="checkitem"><span class="box"></span><span>新しい写真を追加、または既存写真を見直した</span></div>
+          <div class="checkitem"><span class="box"></span><span>未返信口コミがない</span></div>
+          <div class="checkitem"><span class="box"></span><span>低評価口コミの原因を分類し、必要に応じて店舗へ共有した</span></div>
+          <div class="checkitem"><span class="box"></span><span>順位・表示回数・電話・経路案内・Webクリックを前月と比較した</span></div>
+          <div class="checkitem"><span class="box"></span><span>上位競合との差分を1つ以上改善した</span></div>
+        </div>
+
+        <h3>参考情報</h3>
+        <ul class="source-list">
+          <li><a href="https://local-mieruca.com/blog/meo_measures_self/" target="_blank" rel="noopener noreferrer">ローカルミエルカ: MEO対策を自分で行う方法</a></li>
+          <li><a href="https://gmotech.jp/semlabo/meo/" target="_blank" rel="noopener noreferrer">GMO TECH WEB集客ラボ: MEOとは？基本の対策とGoogleマップで上位表示させる方法</a></li>
+          <li><a href="https://www.google.com/intl/ja_jp/business/" target="_blank" rel="noopener noreferrer">Google ビジネス プロフィール</a></li>
+        </ul>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const links = Array.from(document.querySelectorAll('nav a'));
+    const sections = links
+      .map((link) => document.querySelector(link.getAttribute('href')))
+      .filter(Boolean);
+
+    const activateCurrentSection = () => {
+      let currentId = sections[0]?.id;
+      sections.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= 140) currentId = section.id;
+      });
+
+      links.forEach((link) => {
+        link.classList.toggle('active', link.getAttribute('href') === `#${currentId}`);
+      });
+    };
+
+    window.addEventListener('scroll', activateCurrentSection, { passive: true });
+    activateCurrentSection();
+  </script>
+</body>
+</html>
