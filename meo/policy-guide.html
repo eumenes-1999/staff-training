@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MEOポリシー抵触ガイド（新人研修用）</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary: #b45309;
+      --primary-dark: #78350f;
+      --primary-soft: #fef3c7;
+      --red: #dc2626;
+      --red-soft: #fee2e2;
+      --green: #059669;
+      --green-soft: #dcfce7;
+      --blue: #2563eb;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --sidebar: #1f2937;
+    }
+
+    body {
+      font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.85;
+      font-size: 15px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      background: linear-gradient(180deg, #1f2937 0%, #111827 100%);
+      color: #d1d5db;
+      padding: 24px 0 32px;
+    }
+
+    .sidebar-header {
+      padding: 0 20px 18px;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .sidebar-header .label {
+      color: #fbbf24;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .sidebar-header h2 {
+      color: #f9fafb;
+      font-size: 16px;
+      line-height: 1.45;
+    }
+
+    .sidebar-links {
+      padding: 14px 16px 4px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .sidebar-links a {
+      display: block;
+      color: #e5e7eb;
+      text-decoration: none;
+      font-size: 12px;
+      padding: 8px 10px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.08);
+    }
+
+    .sidebar-links a:hover { background: rgba(255,255,255,0.14); color: #fff; }
+
+    nav { padding: 12px 0 24px; }
+
+    nav a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 13px;
+      padding: 8px 20px;
+      border-left: 3px solid transparent;
+    }
+
+    nav a:hover,
+    nav a.active {
+      background: rgba(245, 158, 11, 0.14);
+      color: #ffffff;
+      border-left-color: #f59e0b;
+    }
+
+    .nav-num {
+      display: inline-grid;
+      place-items: center;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      color: #fde68a;
+      font-size: 11px;
+      font-weight: 900;
+      flex: 0 0 auto;
+    }
+
+    .main {
+      width: 100%;
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 40px 44px 96px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #92400e 0%, #dc2626 100%);
+      color: #ffffff;
+      border-radius: 18px;
+      padding: 38px 42px;
+      margin-bottom: 28px;
+      box-shadow: 0 14px 36px rgba(146, 64, 14, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      right: -90px;
+      top: -90px;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+    }
+
+    .hero .badge {
+      display: inline-block;
+      border: 1px solid rgba(255,255,255,0.35);
+      background: rgba(255,255,255,0.14);
+      border-radius: 999px;
+      padding: 4px 14px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      margin-bottom: 12px;
+      position: relative;
+    }
+
+    .hero h1 {
+      font-size: 30px;
+      line-height: 1.35;
+      margin-bottom: 10px;
+      position: relative;
+    }
+
+    .hero p {
+      max-width: 720px;
+      color: rgba(255,255,255,0.9);
+      font-size: 14px;
+      position: relative;
+    }
+
+    .notice {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 5px solid #f59e0b;
+      border-radius: 12px;
+      padding: 16px 18px;
+      margin-bottom: 28px;
+    }
+
+    .notice strong { color: #92400e; }
+
+    .section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 30px 34px;
+      margin-bottom: 24px;
+      box-shadow: 0 1px 8px rgba(15,23,42,0.04);
+      scroll-margin-top: 24px;
+    }
+
+    .section-header {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      margin-bottom: 18px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .step-num {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      flex: 0 0 auto;
+    }
+
+    .section h2 {
+      font-size: 21px;
+      line-height: 1.45;
+    }
+
+    .summary {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 2px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin: 16px 0;
+    }
+
+    .card {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      background: #ffffff;
+    }
+
+    .card h3 {
+      font-size: 15px;
+      color: var(--primary-dark);
+      margin-bottom: 8px;
+    }
+
+    .card ul {
+      padding-left: 18px;
+      color: #475569;
+      font-size: 13.5px;
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0;
+      font-size: 13.5px;
+      overflow: hidden;
+      border-radius: 10px;
+    }
+
+    .table th,
+    .table td {
+      border: 1px solid var(--border);
+      padding: 10px 12px;
+      vertical-align: top;
+    }
+
+    .table th {
+      background: #f8fafc;
+      color: #334155;
+      font-weight: 800;
+      text-align: left;
+    }
+
+    .alert {
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin: 14px 0;
+      border-left: 5px solid;
+      font-size: 14px;
+    }
+
+    .alert.warning {
+      background: #fffbeb;
+      border-color: #f59e0b;
+      color: #78350f;
+    }
+
+    .alert.danger {
+      background: #fef2f2;
+      border-color: var(--red);
+      color: #7f1d1d;
+    }
+
+    .alert.good {
+      background: #ecfdf5;
+      border-color: var(--green);
+      color: #14532d;
+    }
+
+    .example {
+      background: #f8fafc;
+      border: 1px solid #dbe4ee;
+      border-left: 5px solid var(--primary);
+      border-radius: 12px;
+      padding: 16px 18px;
+      margin: 14px 0;
+    }
+
+    .example-label {
+      color: var(--primary-dark);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      margin-bottom: 8px;
+    }
+
+    .checklist {
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .check-item {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: #ffffff;
+    }
+
+    .check-mark {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: inline-grid;
+      place-items: center;
+      background: var(--primary-soft);
+      color: var(--primary-dark);
+      font-size: 12px;
+      font-weight: 900;
+      flex: 0 0 auto;
+      margin-top: 4px;
+    }
+
+    .flow {
+      counter-reset: flow;
+      display: grid;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .flow-step {
+      counter-increment: flow;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 16px 14px 54px;
+      background: #ffffff;
+      position: relative;
+    }
+
+    .flow-step::before {
+      content: counter(flow);
+      position: absolute;
+      left: 16px;
+      top: 14px;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .flow-step h3 {
+      font-size: 15px;
+      margin-bottom: 4px;
+      color: #334155;
+    }
+
+    .flow-step p {
+      color: #64748b;
+      font-size: 13.5px;
+    }
+
+    .footer {
+      color: var(--muted);
+      text-align: center;
+      font-size: 12px;
+      padding: 20px 0 0;
+    }
+
+    @media (max-width: 880px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar {
+        position: static;
+        height: auto;
+      }
+      nav {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .main { padding: 24px 18px 64px; }
+      .hero { padding: 28px 24px; }
+      .section { padding: 24px 20px; }
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="label">MEO Policy</div>
+        <h2>MEOポリシー抵触<br>原因・解決策ガイド</h2>
+      </div>
+      <div class="sidebar-links">
+        <a href="./MEOクラウド業務マニュアル.html">MEOクラウド業務マニュアルへ</a>
+        <a href="./MEOヒアリングスクリプト.html">MEOヒアリングスクリプトへ</a>
+      </div>
+      <nav>
+        <a href="#overview"><span class="nav-num">1</span>ポリシー抵触とは</a>
+        <a href="#description"><span class="nav-num">2</span>説明文違反</a>
+        <a href="#sexual"><span class="nav-num">3</span>不適切表現</a>
+        <a href="#irrelevant"><span class="nav-num">4</span>関連性なし</a>
+        <a href="#business-name"><span class="nav-num">5</span>ビジネス名違反</a>
+        <a href="#reviews"><span class="nav-num">6</span>口コミ違反</a>
+        <a href="#profile"><span class="nav-num">7</span>登録情報違反</a>
+        <a href="#posting"><span class="nav-num">8</span>高頻度投稿</a>
+        <a href="#auto"><span class="nav-num">9</span>自動反映</a>
+        <a href="#flow"><span class="nav-num">10</span>解決フロー</a>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <header class="hero">
+        <span class="badge">新人研修用</span>
+        <h1>MEOポリシー抵触ガイド</h1>
+        <p>
+          GBPやMEO運用でポリシー抵触・審査落ち・表示停止につながりやすい原因と、
+          修正・再発防止の考え方をまとめた社内向けガイドです。
+        </p>
+      </header>
+
+      <div class="notice">
+        <strong>注意：</strong>
+        お客様へ「必ず復旧します」「必ず表示されます」と断定しない。原因を切り分け、実態に合う情報へ修正し、必要に応じて社内確認する。
+      </div>
+
+      <section class="section" id="overview">
+        <div class="section-header">
+          <div class="step-num">1</div>
+          <div>
+            <h2>ポリシー抵触とは</h2>
+            <p class="summary">GBPの情報や投稿内容がGoogleのガイドラインに合わない状態。</p>
+          </div>
+        </div>
+
+        <div class="grid">
+          <div class="card">
+            <h3>起こり得る影響</h3>
+            <ul>
+              <li>投稿が反映されない</li>
+              <li>情報修正が審査で止まる</li>
+              <li>GBPの一部機能が制限される</li>
+              <li>マップ上で表示されにくくなる</li>
+              <li>アカウント停止・非表示になる</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>基本方針</h3>
+            <ul>
+              <li>実態と違う内容を書かない</li>
+              <li>誤解を与えない</li>
+              <li>店舗と関係ない内容を入れない</li>
+              <li>基本情報を盛らない</li>
+              <li>口コミ投稿に見返りを提示しない</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="description">
+        <div class="section-header">
+          <div class="step-num">2</div>
+          <div>
+            <h2>説明文における違反</h2>
+            <p class="summary">ユーザーの誤解を招く説明や、低品質・低関連性の文章に注意。</p>
+          </div>
+        </div>
+
+        <table class="table">
+          <thead><tr><th>原因</th><th>例</th></tr></thead>
+          <tbody>
+            <tr><td>ユーザーの誤解を招く</td><td>店頭では取り扱いがないのに、取り扱いがあるように書く</td></tr>
+            <tr><td>実態と異なる表現</td><td>24時間営業ではないのに「いつでも対応」と書く</td></tr>
+            <tr><td>説明文の質が低い</td><td>意味の薄い文章、KWの過剰な繰り返し</td></tr>
+            <tr><td>関連性が低い</td><td>店舗サービスと関係のない話題を中心に書く</td></tr>
+          </tbody>
+        </table>
+
+        <div class="alert good">
+          解決策：実際に提供している商品・サービスだけを書く。誇張や断定を削り、公式サイト・メニュー・店舗情報と照合する。
+        </div>
+      </section>
+
+      <section class="section" id="sexual">
+        <div class="section-header">
+          <div class="step-num">3</div>
+          <div>
+            <h2>性的・不適切な表現</h2>
+            <p class="summary">美容・リラクゼーション・医療系では特に表現を慎重に確認する。</p>
+          </div>
+        </div>
+
+        <div class="grid">
+          <div class="card">
+            <h3>主な原因</h3>
+            <ul>
+              <li>性的な表現が含まれる</li>
+              <li>過度に刺激的な表現を使う</li>
+              <li>サービス内容が不適切な意味に見える</li>
+              <li>センシティブな内容を不用意に強調する</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>解決策</h3>
+            <ul>
+              <li>露骨な表現を避ける</li>
+              <li>表現を落ち着かせる</li>
+              <li>身体部位を必要以上に強調しない</li>
+              <li>不安な表現は社内確認する</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="irrelevant">
+        <div class="section-header">
+          <div class="step-num">4</div>
+          <div>
+            <h2>関連性がない内容</h2>
+            <p class="summary">店舗の業種・サービスと無関係な内容はポリシー抵触リスク。</p>
+          </div>
+        </div>
+
+        <div class="alert danger">
+          NG例：整体業なのに飲食店の情報を書く、美容室なのに不動産売買の内容を書く、店舗と無関係なキャンペーンを投稿する。
+        </div>
+
+        <div class="alert good">
+          解決策：投稿前に「この内容は店舗のサービスと直接関係があるか」を確認する。AI生成文は業種・店舗名・サービス内容を必ず確認する。
+        </div>
+      </section>
+
+      <section class="section" id="business-name">
+        <div class="section-header">
+          <div class="step-num">5</div>
+          <div>
+            <h2>ビジネス名での違反</h2>
+            <p class="summary">屋号に検索キーワードを追加して登録しない。</p>
+          </div>
+        </div>
+
+        <table class="table">
+          <thead><tr><th>実際の屋号</th><th>NGの登録名</th></tr></thead>
+          <tbody>
+            <tr><td>〇〇整体院</td><td>〇〇整体院 肩こり 腰痛 骨盤矯正</td></tr>
+            <tr><td>Hair Salon 〇〇</td><td>Hair Salon 〇〇 渋谷 美容室 髪質改善</td></tr>
+          </tbody>
+        </table>
+
+        <div class="alert warning">
+          ビジネス名は看板・公式サイト・登記・媒体上の正式名称と一致している必要がある。KWは投稿文・説明文・サービス欄で自然に扱う。
+        </div>
+      </section>
+
+      <section class="section" id="reviews">
+        <div class="section-header">
+          <div class="step-num">6</div>
+          <div>
+            <h2>口コミでの違反</h2>
+            <p class="summary">プレゼント・割引・サービス提供による口コミ投稿の促進は危険。</p>
+          </div>
+        </div>
+
+        <div class="grid">
+          <div class="card">
+            <h3>NG例</h3>
+            <ul>
+              <li>口コミ投稿で500円割引</li>
+              <li>口コミを書いてくれた方に〇〇サービス</li>
+              <li>口コミ投稿でプレゼント</li>
+              <li>星5評価をお願いします、という誘導</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>解決策</h3>
+            <ul>
+              <li>口コミは任意で依頼する</li>
+              <li>評価内容を指定しない</li>
+              <li>見返りを用意しない</li>
+              <li>率直な意見を依頼する表現に留める</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="alert warning">
+          「投稿で割引」「口コミでサービス提供」はグレーゾーンではなく、口コミ内容に影響を与えるリスクが高い運用として避ける。
+        </div>
+      </section>
+
+      <section class="section" id="profile">
+        <div class="section-header">
+          <div class="step-num">7</div>
+          <div>
+            <h2>登録情報での違反</h2>
+            <p class="summary">掲載サイトの住所とMEO登録住所が一致しない場合は注意。</p>
+          </div>
+        </div>
+
+        <div class="grid">
+          <div class="card">
+            <h3>確認する情報</h3>
+            <ul>
+              <li>店舗名</li>
+              <li>住所</li>
+              <li>電話番号</li>
+              <li>公式サイトURL</li>
+              <li>営業時間・定休日</li>
+              <li>サービス提供エリア</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>解決策</h3>
+            <ul>
+              <li>公式サイトとGBPの情報を照合する</li>
+              <li>主要媒体も確認する</li>
+              <li>住所表記の揺れを統一する</li>
+              <li>変更反映タイミングを揃える</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="posting">
+        <div class="section-header">
+          <div class="step-num">8</div>
+          <div>
+            <h2>高頻度投稿・サイレントBANリスク</h2>
+            <p class="summary">最新情報を1日に3回のような高頻度で投稿する運用は避ける。</p>
+          </div>
+        </div>
+
+        <div class="alert danger">
+          高頻度投稿や低品質投稿の連発は、不自然な運用として表示低下・非表示リスクにつながる可能性がある。明確な通知がないまま表示が弱くなる場合もあるため注意。
+        </div>
+
+        <div class="grid">
+          <div class="card">
+            <h3>原因になりやすい運用</h3>
+            <ul>
+              <li>1日に何度も投稿する</li>
+              <li>同じような文章を連続投稿する</li>
+              <li>KWだけを変えた低品質投稿を大量に出す</li>
+              <li>店舗実態と関係が薄い投稿を繰り返す</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>解決策</h3>
+            <ul>
+              <li>基本は週1本など自然な投稿頻度にする</li>
+              <li>同じ文章の使い回しを避ける</li>
+              <li>投稿ごとにテーマ・KW・内容を変える</li>
+              <li>急な表示低下時は直近投稿を確認する</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="auto">
+        <div class="section-header">
+          <div class="step-num">9</div>
+          <div>
+            <h2>GBPの自動反映に関する注意</h2>
+            <p class="summary">GBPは他サイトの情報も自動収集し、アカウントに反映することがある。</p>
+          </div>
+        </div>
+
+        <div class="grid">
+          <div class="card">
+            <h3>起こり得ること</h3>
+            <ul>
+              <li>営業時間が勝手に変更される</li>
+              <li>電話番号やURLの修正提案が入る</li>
+              <li>他媒体の住所情報が影響する</li>
+              <li>ユーザーからの修正提案が反映される</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>解決策</h3>
+            <ul>
+              <li>GBPの情報を定期的に確認する</li>
+              <li>公式サイト・各媒体の情報を揃える</li>
+              <li>意図しない変更はすぐ修正する</li>
+              <li>案件ファイルに変更履歴を残す</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="flow">
+        <div class="section-header">
+          <div class="step-num">10</div>
+          <div>
+            <h2>確認・解決フロー</h2>
+            <p class="summary">問題発生時は、原因を切り分けて記録する。</p>
+          </div>
+        </div>
+
+        <div class="flow">
+          <div class="flow-step">
+            <h3>どこで問題が起きているか確認</h3>
+            <p>投稿、基本情報、表示回数、口コミ、写真、アカウント表示など、症状を特定する。</p>
+          </div>
+          <div class="flow-step">
+            <h3>直近の変更を確認</h3>
+            <p>ビジネス名・住所・電話番号・URL・投稿頻度・口コミ施策・AI投稿文を確認する。</p>
+          </div>
+          <div class="flow-step">
+            <h3>該当箇所を修正</h3>
+            <p>説明文を実態に合わせ、正式名称・住所・URLを揃え、問題投稿や口コミ依頼表現を見直す。</p>
+          </div>
+          <div class="flow-step">
+            <h3>記録・共有</h3>
+            <p>原因、修正内容、修正日、再発防止策、お客様への共有有無を案件ファイルへ残す。</p>
+          </div>
+        </div>
+
+        <div class="checklist">
+          <div class="check-item"><span class="check-mark">✓</span><div>実態と違うサービスを書いていない</div></div>
+          <div class="check-item"><span class="check-mark">✓</span><div>店舗と関係ない内容を書いていない</div></div>
+          <div class="check-item"><span class="check-mark">✓</span><div>ビジネス名にKWを追加していない</div></div>
+          <div class="check-item"><span class="check-mark">✓</span><div>口コミの見返りとして割引・特典を案内していない</div></div>
+          <div class="check-item"><span class="check-mark">✓</span><div>公式サイトとGBPの住所・電話番号が一致している</div></div>
+          <div class="check-item"><span class="check-mark">✓</span><div>投稿頻度が高すぎない</div></div>
+        </div>
+      </section>
+
+      <div class="footer">
+        MEOポリシー抵触ガイド（新人研修用） / 最終更新: 2026-05-28
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const navLinks = Array.from(document.querySelectorAll('nav a'));
+    const sections = navLinks
+      .map(link => document.querySelector(link.getAttribute('href')))
+      .filter(Boolean);
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        navLinks.forEach(link => link.classList.remove('active'));
+        const active = navLinks.find(link => link.getAttribute('href') === '#' + entry.target.id);
+        if (active) active.classList.add('active');
+      });
+    }, { rootMargin: '-35% 0px -55% 0px', threshold: 0.01 });
+
+    sections.forEach(section => observer.observe(section));
+  </script>
+</body>
+</html>
