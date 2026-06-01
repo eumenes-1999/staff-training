@@ -282,6 +282,11 @@
   </style>
 </head>
 <body>
+<script>
+(function(){
+  if(!sessionStorage.getItem('rb_auth')) location.replace('/staff-training/login.html');
+})();
+</script>
 
 <header>
   <div class="badge">NEW MEMBER GUIDE</div>
