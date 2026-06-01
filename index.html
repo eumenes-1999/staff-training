@@ -7,33 +7,37 @@
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif; background: #f5f5f5; color: #333; }
-    .header { background: linear-gradient(135deg, #c00 0%, #e53935 100%); color: #fff; padding: 28px 32px; }
+    .header { background: linear-gradient(135deg, #c00 0%, #e53935 100%); color: #fff; padding: 28px 32px; display:flex; justify-content:space-between; align-items:center; }
     .header h1 { font-size: 22px; font-weight: 700; }
     .header p  { font-size: 13px; opacity: 0.85; margin-top: 4px; }
+    .logout-btn { background:rgba(255,255,255,0.2); border:1px solid rgba(255,255,255,0.5); color:#fff; padding:6px 14px; border-radius:20px; font-size:13px; cursor:pointer; }
+    .logout-btn:hover { background:rgba(255,255,255,0.3); }
     .wrapper { max-width: 800px; margin: 32px auto; padding: 0 16px 60px; }
     .section { background: #fff; border-radius: 10px; margin-bottom: 20px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
     .section-header { padding: 14px 20px; font-weight: 700; font-size: 15px; color: #fff; }
     .section-header.youtube { background: #c00; }
     .section-header.meo     { background: #1565c0; }
     .file-list { list-style: none; padding: 8px 0; }
-    .file-list li a {
-      display: flex; align-items: center; gap: 10px;
-      padding: 12px 20px; font-size: 14px; color: #1565c0;
-      text-decoration: none; border-bottom: 1px solid #f0f0f0;
-      transition: background 0.15s;
-    }
+    .file-list li a { display: flex; align-items: center; gap: 10px; padding: 12px 20px; font-size: 14px; color: #1565c0; text-decoration: none; border-bottom: 1px solid #f0f0f0; transition: background 0.15s; }
     .file-list li:last-child a { border-bottom: none; }
     .file-list li a:hover { background: #f5f5f5; }
     .file-list li a::before { content: '📄'; font-size: 16px; }
   </style>
 </head>
 <body>
+<script>
+(function(){
+  if(!sessionStorage.getItem('rb_auth')) location.replace('/staff-training/login.html');
+})();
+</script>
   <div class="header">
-    <h1>📚 新人研修用マニュアル一覧</h1>
-    <p>株式会社ランバード｜業務別マニュアル</p>
+    <div>
+      <h1>📚 新人研修用マニュアル一覧</h1>
+      <p>株式会社ランバード｜業務別マニュアル</p>
+    </div>
+    <button class="logout-btn" onclick="sessionStorage.removeItem('rb_auth');location.href='/staff-training/login.html'">ログアウト</button>
   </div>
   <div class="wrapper">
-
     <div class="section">
       <div class="section-header youtube">📺 YouTube広告 仕様書</div>
       <ul class="file-list">
@@ -46,7 +50,6 @@
         <li><a href="youtube/general.html">業務全般</a></li>
       </ul>
     </div>
-
     <div class="section">
       <div class="section-header meo">📍 MEOクラウド 仕様書</div>
       <ul class="file-list">
@@ -56,7 +59,6 @@
         <li><a href="meo/knowhow.html">MEO運用ノウハウ</a></li>
       </ul>
     </div>
-
   </div>
 </body>
 </html>
