@@ -1,0 +1,1531 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>【新人研修】YouTube広告 運用フローマニュアル</title>
+  <meta name="description" content="新人向けYouTube広告運用フローの研修資料。案件の種類・日予算計算・倍回しルール・禁止事項を網羅。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --yt-red: #FF0000;
+      --primary: #c4161c;
+      --primary-dark: #8b0000;
+      --primary-light: #fff0f0;
+      --accent: #FF6D00;
+      --surface: #ffffff;
+      --surface-2: #f8f9fa;
+      --surface-3: #f1f3f4;
+      --text-primary: #202124;
+      --text-secondary: #5f6368;
+      --text-tertiary: #80868b;
+      --border: #e0e0e0;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.08);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.06);
+      --shadow-lg: 0 8px 24px rgba(0,0,0,0.12), 0 4px 8px rgba(0,0,0,0.08);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background: #fff5f5;
+      color: var(--text-primary);
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      background: linear-gradient(135deg, #8b0000 0%, #b71c1c 40%, #c62828 70%, #ef5350 100%);
+      padding: 80px 24px 100px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -20%;
+      width: 60%;
+      height: 200%;
+      background: rgba(255,255,255,0.04);
+      border-radius: 50%;
+      animation: float1 8s ease-in-out infinite;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -30%;
+      right: -10%;
+      width: 50%;
+      height: 150%;
+      background: rgba(255,255,255,0.05);
+      border-radius: 50%;
+      animation: float2 10s ease-in-out infinite;
+    }
+
+    @keyframes float1 {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-30px) rotate(5deg); }
+    }
+
+    @keyframes float2 {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(20px) rotate(-5deg); }
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 6px 16px;
+      border-radius: 100px;
+      margin-bottom: 24px;
+      backdrop-filter: blur(10px);
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero h1 {
+      font-size: clamp(28px, 5vw, 52px);
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -0.5px;
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 1;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.2);
+    }
+
+    .hero h1 span {
+      background: linear-gradient(90deg, #FBBC05, #FF6D00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: clamp(14px, 2vw, 18px);
+      color: rgba(255,255,255,0.85);
+      max-width: 600px;
+      margin: 0 auto 32px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-meta {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255,255,255,0.8);
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .hero-meta-item .icon {
+      width: 32px;
+      height: 32px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    /* ─── NAV ─── */
+    .nav-wrapper {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .nav-inner::-webkit-scrollbar { display: none; }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 14px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-decoration: none;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s ease;
+    }
+
+    .nav-item:hover { color: var(--primary); border-bottom-color: var(--primary); }
+    .nav-item.active { color: var(--primary); border-bottom-color: var(--primary); }
+
+    /* ─── MAIN LAYOUT ─── */
+    .main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    /* ─── SECTION ─── */
+    .section {
+      margin-bottom: 64px;
+      animation: fadeUp 0.5s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 28px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .section-number {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, var(--primary), #ef5350);
+      color: white;
+      font-size: 18px;
+      font-weight: 700;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(196,22,28,0.4);
+    }
+
+    .section-title-wrap h2 {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .section-title-wrap p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+
+    /* ─── CARD ─── */
+    .card {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .card-header {
+      background: linear-gradient(135deg, var(--primary-light), #ffe0e0);
+      padding: 16px 24px;
+      border-bottom: 1px solid #f8c8c5;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .card-header .icon { font-size: 20px; }
+
+    .card-header h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--primary-dark);
+    }
+
+    .card-body { padding: 24px; }
+
+    /* ─── GRID ─── */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+
+    /* ─── PATTERN CARD ─── */
+    .pattern-card {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      transition: all 0.2s ease;
+    }
+
+    .pattern-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .pattern-header {
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .pattern-header.p1 {
+      background: linear-gradient(135deg, #e8f0fe, #d2e3fc);
+      border-bottom: 1px solid #c5d8f8;
+    }
+
+    .pattern-header.p2 {
+      background: linear-gradient(135deg, #f3e5f5, #e1bee7);
+      border-bottom: 1px solid #d7b3e3;
+    }
+
+    .pattern-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 100px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .badge-p1 { background: #1a73e8; color: #fff; }
+    .badge-p2 { background: #7b1fa2; color: #fff; }
+
+    .pattern-header h3 {
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .p1 h3 { color: #0d47a1; }
+    .p2 h3 { color: #4a148c; }
+
+    .pattern-body { padding: 20px 24px; }
+
+    /* ─── STEP LIST ─── */
+    .step-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .step-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      padding: 16px 20px;
+      background: var(--surface-2);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      transition: all 0.2s ease;
+    }
+
+    .step-item:hover {
+      border-color: #f8a9a9;
+      box-shadow: var(--shadow-sm);
+      background: #fff8f8;
+      transform: translateX(4px);
+    }
+
+    .step-num {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, var(--primary), #ef5350);
+      color: white;
+      font-size: 14px;
+      font-weight: 700;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(196,22,28,0.35);
+    }
+
+    .step-content h4 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+    .step-content p, .step-content ul { font-size: 14px; color: var(--text-secondary); }
+    .step-content ul { padding-left: 18px; margin-top: 6px; }
+    .step-content ul li { margin-bottom: 3px; }
+
+    /* ─── INFO BOX ─── */
+    .info-box {
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      margin: 16px 0;
+      font-size: 14px;
+    }
+
+    .info-box.blue   { background: #e8f0fe; border-left: 4px solid #4285F4; color: #1a237e; }
+    .info-box.green  { background: #e6f4ea; border-left: 4px solid #34A853; color: #1b5e20; }
+    .info-box.yellow { background: #fff8e1; border-left: 4px solid #FBBC05; color: #6d4c00; }
+    .info-box.red    { background: #fce8e6; border-left: 4px solid #EA4335; color: #7f0000; }
+    .info-box.purple { background: #f3e5f5; border-left: 4px solid #9c27b0; color: #4a148c; }
+
+    .info-box .info-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+
+    /* ─── SETTING TABLE ─── */
+    .setting-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+
+    .setting-table th {
+      background: linear-gradient(135deg, var(--primary), #ef5350);
+      color: white;
+      padding: 12px 16px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 13px;
+    }
+
+    .setting-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    .setting-table tr:nth-child(even) td { background: var(--surface-2); }
+    .setting-table tr:hover td { background: var(--primary-light); }
+
+    .setting-table .label { font-weight: 600; color: var(--text-primary); white-space: nowrap; }
+    .setting-table .value { color: var(--text-secondary); }
+    .setting-table .example { font-size: 13px; color: var(--primary); font-style: italic; }
+
+    /* ─── TAG ─── */
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .tag-blue   { background: #e8f0fe; color: #1a73e8; }
+    .tag-green  { background: #e6f4ea; color: #137333; }
+    .tag-yellow { background: #fff8e1; color: #f57f17; }
+    .tag-red    { background: #fce8e6; color: #c62828; }
+    .tag-gray   { background: #f1f3f4; color: var(--text-secondary); }
+    .tag-purple { background: #f3e5f5; color: #7b1fa2; }
+
+    /* ─── FORMULA BOX ─── */
+    .formula-box {
+      background: linear-gradient(135deg, #1a1a2e, #16213e);
+      color: #fff;
+      border-radius: var(--radius-lg);
+      padding: 28px 32px;
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    .formula-box .formula-label {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 12px;
+    }
+
+    .formula-box .formula-text {
+      font-size: clamp(16px, 3vw, 22px);
+      font-weight: 700;
+      color: #FBBC05;
+      letter-spacing: 0.5px;
+      margin-bottom: 16px;
+    }
+
+    .formula-box .formula-example {
+      background: rgba(255,255,255,0.08);
+      border-radius: var(--radius-md);
+      padding: 14px 20px;
+      font-size: 14px;
+      color: rgba(255,255,255,0.85);
+      text-align: left;
+      display: inline-block;
+    }
+
+    .formula-example .ex-label {
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 6px;
+    }
+
+    /* ─── RULE CARD ─── */
+    .rule-card {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      margin-bottom: 20px;
+      transition: all 0.2s ease;
+    }
+
+    .rule-card:hover { box-shadow: var(--shadow-md); }
+
+    .rule-header {
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .rule-num {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .rule-num.n1 { background: #c62828; }
+    .rule-num.n2 { background: #1565c0; }
+    .rule-num.n3 { background: #2e7d32; }
+
+    .rule-header h3 {
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .rule-header.h1 { background: linear-gradient(135deg, #fce8e6, #ffcdd2); border-bottom: 1px solid #f8c8c5; }
+    .rule-header.h2 { background: linear-gradient(135deg, #e8f0fe, #d2e3fc); border-bottom: 1px solid #c5d8f8; }
+    .rule-header.h3 { background: linear-gradient(135deg, #e6f4ea, #ceead6); border-bottom: 1px solid #a8d5b5; }
+
+    .rule-body {
+      padding: 20px 24px;
+      background: var(--surface);
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+    }
+
+    /* ─── PROHIBITED CARD ─── */
+    .prohibited-card {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      border: 2px solid #ffcdd2;
+      margin-bottom: 20px;
+    }
+
+    .prohibited-header {
+      background: linear-gradient(135deg, #b71c1c, #c62828);
+      color: #fff;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .prohibited-body {
+      background: var(--surface);
+      padding: 20px 24px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+    }
+
+    /* ─── COMPARISON TABLE ─── */
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+
+    .compare-table th {
+      padding: 12px 16px;
+      text-align: left;
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    .compare-table th.dark {
+      background: #212121;
+      color: #fff;
+    }
+
+    .compare-table th.light {
+      background: var(--surface-3);
+      color: var(--text-primary);
+    }
+
+    .compare-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table .label { font-weight: 600; color: var(--text-primary); }
+    .compare-table .val-dark { background: #fafafa; }
+
+    /* ─── SERVICE SCOPE TABLE ─── */
+    .scope-ok  { background: #e6f4ea; color: #137333; font-weight: 600; }
+    .scope-ng  { background: #fce8e6; color: #c62828; font-weight: 600; }
+    .scope-cnd { background: #fff8e1; color: #f57f17; font-weight: 600; }
+
+    /* ─── SUMMARY BOX ─── */
+    .summary-box {
+      background: linear-gradient(135deg, #8b0000, #b71c1c);
+      color: white;
+      border-radius: var(--radius-xl);
+      padding: 40px;
+      text-align: center;
+      margin-top: 64px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .summary-box::before {
+      content: '';
+      position: absolute;
+      top: -40%;
+      right: -10%;
+      width: 40%;
+      height: 200%;
+      background: rgba(255,255,255,0.05);
+      border-radius: 50%;
+    }
+
+    .summary-box h2 { font-size: 24px; font-weight: 700; margin-bottom: 12px; }
+
+    .summary-box p {
+      font-size: 15px;
+      color: rgba(255,255,255,0.8);
+      max-width: 600px;
+      margin: 0 auto 24px;
+    }
+
+    .flow-steps {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .flow-step {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      backdrop-filter: blur(10px);
+      border-radius: var(--radius-md);
+      padding: 12px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      color: white;
+    }
+
+    .flow-arrow { color: rgba(255,255,255,0.5); font-size: 18px; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      text-align: center;
+      padding: 32px 24px;
+      color: var(--text-tertiary);
+      font-size: 13px;
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    /* ─── UTIL ─── */
+    .mt-16 { margin-top: 16px; }
+    .mt-24 { margin-top: 24px; }
+    .mb-16 { margin-bottom: 16px; }
+    .mb-24 { margin-bottom: 24px; }
+    .flex-col { display: flex; flex-direction: column; gap: 12px; }
+
+    /* ─── TROUBLE CARDS ─── */
+    .trouble-item {
+      display: flex;
+      gap: 20px;
+      padding: 20px 24px;
+      border-radius: var(--radius-md);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      margin-bottom: 16px;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s ease;
+    }
+
+    .trouble-item:hover {
+      box-shadow: var(--shadow-md);
+      border-color: #f8a9a9;
+    }
+
+    .trouble-icon {
+      font-size: 32px;
+      flex-shrink: 0;
+    }
+
+    .trouble-content h4 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    .trouble-content p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
+
+    .solution-list {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .solution-list li {
+      list-style: none;
+      font-size: 14px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .solution-list li::before {
+      content: '✓';
+      color: #34A853;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 640px) {
+      .hero { padding: 56px 16px 72px; }
+      .section-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      .flow-steps { flex-direction: column; }
+      .flow-arrow { transform: rotate(90deg); }
+      .summary-box { padding: 28px 20px; }
+      .formula-box { padding: 20px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── HERO ─── -->
+<header class="hero">
+  <div class="hero-badge">新人研修資料 2025年度版</div>
+  <h1>YouTube広告<br /><span>運用フロー</span> マニュアル</h1>
+  <p class="hero-sub">案件の種類・予算計算・倍回しルール・運用注意事項・禁止事項を網羅した業務リファレンスです。</p>
+  <div class="hero-meta">
+    <div class="hero-meta-item"><div class="icon">📌</div>対象：入社1〜3ヶ月の新人</div>
+    <div class="hero-meta-item"><div class="icon">⏱️</div>所要時間：約30〜45分</div>
+    <div class="hero-meta-item"><div class="icon">🎯</div>目標：案件種別と予算計算を一人でできる</div>
+  </div>
+</header>
+
+<!-- ─── NAVIGATION ─── -->
+<nav class="nav-wrapper" aria-label="セクションナビゲーション">
+  <div class="nav-inner">
+    <a href="#section-types" class="nav-item">📦 案件の種類</a>
+    <a href="#section-budget" class="nav-item">💰 予算計算</a>
+    <a href="#section-double" class="nav-item">🔄 倍回しルール</a>
+    <a href="#section-service" class="nav-item">🏢 サービス位置づけ</a>
+    <a href="#section-prohibited" class="nav-item">🚫 禁止事項</a>
+    <a href="#section-trouble" class="nav-item">🛠️ トラブル対応</a>
+  </div>
+</nav>
+
+<main class="main">
+
+  <!-- ─── 1. 案件の種類 ─── -->
+  <section id="section-types" class="section">
+    <div class="section-header">
+      <div class="section-number">1</div>
+      <div class="section-title-wrap">
+        <h2>案件の種類</h2>
+        <p>担当案件の種別を正しく判断し、設定方法を使い分けましょう</p>
+      </div>
+    </div>
+
+    <div class="grid-2">
+
+      <!-- Pattern 1 -->
+      <div class="pattern-card">
+        <div class="pattern-header p1">
+          <span class="pattern-badge badge-p1">Pattern 1</span>
+          <h3>通常・ライト案件</h3>
+        </div>
+        <div class="pattern-body">
+          <p style="font-size:14px; color:var(--text-secondary); margin-bottom:16px;">
+            ディレクション・撮影・編集を通じて制作した動画を使用するプランです。<br />
+            <strong>ライト案件は廃案なし</strong>のシンプルな構成です。
+          </p>
+
+          <table class="setting-table">
+            <thead>
+              <tr>
+                <th>項目</th>
+                <th>内容</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="label">日予算</td>
+                <td><strong>70円</strong>（基本）</td>
+              </tr>
+              <tr>
+                <td class="label">単価</td>
+                <td>10円</td>
+              </tr>
+              <tr>
+                <td class="label">目標</td>
+                <td>6ヶ月で<strong>2万回再生</strong></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="info-box blue mt-16">
+            <span class="info-icon">💡</span>
+            <p>日予算70円は、倍回し時の浮き幅を確保するために意図的に低く設定されています（詳細はセクション3）。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pattern 2 -->
+      <div class="pattern-card">
+        <div class="pattern-header p2">
+          <span class="pattern-badge badge-p2">Pattern 2</span>
+          <h3>AI動画案件</h3>
+        </div>
+        <div class="pattern-body">
+          <p style="font-size:14px; color:var(--text-secondary); margin-bottom:16px;">
+            写真とAI動画で動画を生成・編集して制作したプランです。<br />
+            日予算ではなく<strong>複数回数で消費</strong>されるため、<strong>計算が必要</strong>です。
+          </p>
+
+          <div class="formula-box">
+            <div class="formula-label">日予算の計算式</div>
+            <div class="formula-text">月間視聴回数 ÷ 30日 × 10円 ＝ 日予算</div>
+            <div class="formula-example">
+              <div class="ex-label">例：月間視聴回数 500回の場合</div>
+              500回 ÷ 30日 × 10円 ＝ <strong style="color:#FBBC05;">167円</strong>（日予算）<br />
+              → 年間<strong style="color:#4fc3f7;">15万円</strong>で固定する
+            </div>
+          </div>
+
+          <div class="info-box purple">
+            <span class="info-icon">⚠️</span>
+            <p>AI動画案件は計算ミスが起きやすいため、必ず計算式を使って確認してから設定してください。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 案件比較 -->
+    <div class="card mt-24">
+      <div class="card-header"><span class="icon">⚖️</span><h3>2つの案件タイプの比較</h3></div>
+      <div class="card-body">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th class="light" style="width:160px;">項目</th>
+              <th class="dark">Pattern 1：通常・ライト案件</th>
+              <th style="background: linear-gradient(135deg,#6a1b9a,#7b1fa2); color:#fff; padding:12px 16px; font-weight:700; font-size:13px;">Pattern 2：AI動画案件</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="label">動画の種類</td>
+              <td>ディレクション・撮影・編集で制作した動画</td>
+              <td>写真＋AIで生成・編集した動画</td>
+            </tr>
+            <tr>
+              <td class="label">日予算の決め方</td>
+              <td>固定：<strong>70円</strong></td>
+              <td>計算が必要：<strong>月間回数 ÷ 30 × 10円</strong></td>
+            </tr>
+            <tr>
+              <td class="label">視聴単価</td>
+              <td>10円</td>
+              <td>10円</td>
+            </tr>
+            <tr>
+              <td class="label">注意点</td>
+              <td>倍回し時の浮き幅を確保するため70円設定</td>
+              <td>計算ミスに注意。年間15万円で固定</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 2. 予算計算 ─── -->
+  <section id="section-budget" class="section">
+    <div class="section-header">
+      <div class="section-number">2</div>
+      <div class="section-title-wrap">
+        <h2>予算計算の基礎</h2>
+        <p>各案件タイプの予算計算を正確に行いましょう</p>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header"><span class="icon">📊</span><h3>通常案件の予算構造</h3></div>
+        <div class="card-body">
+          <div class="step-list">
+            <div class="step-item">
+              <div class="step-num">1</div>
+              <div class="step-content">
+                <h4>日予算：70円（基本設定）</h4>
+                <p>本来の日予算は100円ですが、<strong>倍回し時の浮き幅</strong>を確保するために70円で入力します。</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">2</div>
+              <div class="step-content">
+                <h4>視聴単価：10円</h4>
+                <p>1視聴あたり10円。CPV（広告視聴単価）方式で課金されます。</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-box yellow mt-16">
+            <span class="info-icon">⚠️</span>
+            <p><strong>入力値と実際の予算は異なります。</strong>70円設定でも実際の上限は約100円（浮き幅含む）として運用されます。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="icon">🤖</span><h3>AI動画案件の予算計算</h3></div>
+        <div class="card-body">
+          <div class="formula-box" style="margin:0 0 16px;">
+            <div class="formula-label">計算式</div>
+            <div class="formula-text">月間視聴回数 ÷ 30 × 10 ＝ 日予算（円）</div>
+          </div>
+
+          <table class="setting-table">
+            <thead>
+              <tr>
+                <th>月間視聴回数</th>
+                <th>計算</th>
+                <th>日予算</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="label">300回/月</td>
+                <td class="value">300 ÷ 30 × 10</td>
+                <td><strong>100円</strong></td>
+              </tr>
+              <tr>
+                <td class="label">500回/月</td>
+                <td class="value">500 ÷ 30 × 10</td>
+                <td><strong>167円</strong></td>
+              </tr>
+              <tr>
+                <td class="label">700回/月</td>
+                <td class="value">700 ÷ 30 × 10</td>
+                <td><strong>233円</strong></td>
+              </tr>
+              <tr>
+                <td class="label">1,000回/月</td>
+                <td class="value">1,000 ÷ 30 × 10</td>
+                <td><strong>333円</strong></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="info-box green mt-16">
+            <span class="info-icon">✅</span>
+            <p>AI動画案件の年間契約は<strong>15万円固定</strong>が基本です。計算結果がそれを超えないか確認しましょう。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 契約年数別の日予算計算 -->
+    <div class="card mt-24">
+      <div class="card-header"><span class="icon">📅</span><h3>契約年数に応じた日予算計算（AI動画案件）</h3></div>
+      <div class="card-body">
+        <div class="info-box yellow mb-16">
+          <span class="info-icon">⚠️</span>
+          <p><strong>契約年数によって日予算が変わります。</strong>必ず契約書の「総視聴回数」と「契約年数」を確認してから計算してください。</p>
+        </div>
+
+        <div class="formula-box" style="margin:0 0 20px;">
+          <div class="formula-label">契約年数込みの計算式</div>
+          <div class="formula-text">総視聴回数 ÷ (契約年数 × 12ヶ月 × 30日) × 10円 × 0.7 ＝ 日予算</div>
+          <div class="formula-example">
+            <div class="ex-label">簡略版（×0.7 は倍回し用の70円設定と同じ調整）</div>
+            <strong style="color:#FBBC05;">総視聴回数 ÷ (契約年数 × 360) × 7 ＝ 日予算（円）</strong>
+          </div>
+        </div>
+
+        <table class="setting-table">
+          <thead>
+            <tr>
+              <th>契約年数</th>
+              <th>総視聴回数</th>
+              <th>計算式</th>
+              <th>日予算</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="label">3年</td>
+              <td class="value">1.5万回</td>
+              <td class="value">15,000 ÷ 1,080 × 7</td>
+              <td><strong>95円</strong></td>
+            </tr>
+            <tr>
+              <td class="label">4年</td>
+              <td class="value">3万回</td>
+              <td class="value">30,000 ÷ 1,440 × 7</td>
+              <td><strong>140円</strong></td>
+            </tr>
+            <tr>
+              <td class="label">5年</td>
+              <td class="value">1万回</td>
+              <td class="value">10,000 ÷ 1,800 × 7</td>
+              <td><strong>40円</strong></td>
+            </tr>
+            <tr>
+              <td class="label">7年</td>
+              <td class="value">3万回</td>
+              <td class="value">30,000 ÷ 2,520 × 7</td>
+              <td><strong>83円</strong></td>
+            </tr>
+            <tr>
+              <td class="label">5年</td>
+              <td class="value">3万回</td>
+              <td class="value">30,000 ÷ 1,800 × 7</td>
+              <td><strong>115円</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 3. 倍回しルール ─── -->
+  <section id="section-double" class="section">
+    <div class="section-header">
+      <div class="section-number">3</div>
+      <div class="section-title-wrap">
+        <h2>倍回しルール</h2>
+        <p>効果測定のために一時的に日予算を引き上げる手法</p>
+      </div>
+    </div>
+
+    <div class="card mb-24">
+      <div class="card-header"><span class="icon">🔄</span><h3>倍回しとは？</h3></div>
+      <div class="card-body">
+        <p style="font-size:15px; margin-bottom:16px;">
+          本来の日予算は<strong>100円</strong>ですが、70円設定で入力済みにすることで<strong>浮き幅（約30円）</strong>を確保しています。この浮き幅を活用して日予算を倍（<strong>約140円</strong>）に引き上げる手法を<strong>「倍回し」</strong>といいます。
+        </p>
+
+        <div class="grid-2">
+          <div>
+            <div class="formula-box" style="margin:0;">
+              <div class="formula-label">倍回し時の日予算</div>
+              <div class="formula-text">70円 × 2 ＝ 約140円/日</div>
+              <div class="formula-example">
+                <div class="ex-label">通常との違い</div>
+                通常設定：70円/日<br />
+                倍回し時：<strong style="color:#FBBC05;">約140円/日</strong>（一時的）
+              </div>
+            </div>
+          </div>
+          <div class="step-list" style="gap:12px;">
+            <div class="step-item" style="padding:12px 16px;">
+              <div class="step-num" style="background: linear-gradient(135deg,#1565c0,#42a5f5);">用</div>
+              <div class="step-content">
+                <h4>主な使用場面</h4>
+                <p>効果測定・データ収集を加速させたいとき</p>
+              </div>
+            </div>
+            <div class="step-item" style="padding:12px 16px;">
+              <div class="step-num" style="background: linear-gradient(135deg,#e65100,#ff8f00);">上</div>
+              <div class="step-content">
+                <h4>倍回し上限期間</h4>
+                <p>半月ひろなら<strong>2〜3ヶ月以内</strong>に収める</p>
+              </div>
+            </div>
+            <div class="step-item" style="padding:12px 16px;">
+              <div class="step-num" style="background: linear-gradient(135deg,#1b5e20,#388e3c);">手</div>
+              <div class="step-content">
+                <h4>使用前の手続き</h4>
+                <p>担当者主導で<strong>同会への許可を取ること</strong></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-box red mt-16">
+          <span class="info-icon">🚨</span>
+          <div>
+            <strong>倍回しを使うたびに前回の組み合わせが変わります。多用は禁物。</strong><br />
+            使っても同社1〜2ヶ月に収めること。頻繁に使うと学習データが蓄積されず、広告効果が不安定になります。
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header"><span class="icon">✅</span><h3>倍回しを使うべき状況</h3></div>
+        <div class="card-body">
+          <ul style="list-style:none; padding:0; display:flex; flex-direction:column; gap:10px;">
+            <li style="display:flex; align-items:flex-start; gap:10px; font-size:14px;">
+              <span style="color:#34A853; font-weight:700; flex-shrink:0; font-size:16px;">✓</span>
+              配信開始から1〜2ヶ月が経過し、効果測定データを早急に集めたいとき
+            </li>
+            <li style="display:flex; align-items:flex-start; gap:10px; font-size:14px;">
+              <span style="color:#34A853; font-weight:700; flex-shrink:0; font-size:16px;">✓</span>
+              上長または同会の承認が得られているとき
+            </li>
+            <li style="display:flex; align-items:flex-start; gap:10px; font-size:14px;">
+              <span style="color:#34A853; font-weight:700; flex-shrink:0; font-size:16px;">✓</span>
+              直近1〜2ヶ月間、倍回しを使用していないとき
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="icon">🚫</span><h3>倍回しを避けるべき状況</h3></div>
+        <div class="card-body">
+          <ul style="list-style:none; padding:0; display:flex; flex-direction:column; gap:10px;">
+            <li style="display:flex; align-items:flex-start; gap:10px; font-size:14px;">
+              <span style="color:#EA4335; font-weight:700; flex-shrink:0; font-size:16px;">✗</span>
+              前回の倍回しから1〜2ヶ月以内の場合
+            </li>
+            <li style="display:flex; align-items:flex-start; gap:10px; font-size:14px;">
+              <span style="color:#EA4335; font-weight:700; flex-shrink:0; font-size:16px;">✗</span>
+              同会からの許可が取れていない場合
+            </li>
+            <li style="display:flex; align-items:flex-start; gap:10px; font-size:14px;">
+              <span style="color:#EA4335; font-weight:700; flex-shrink:0; font-size:16px;">✗</span>
+              期間設定なしに「とりあえず倍回し」するとき（目的が明確でないとき）
+            </li>
+          </ul>
+
+          <div class="info-box yellow mt-16">
+            <span class="info-icon">⚠️</span>
+            <p>倍回しの記録は必ず残してください。いつ・何ヶ月・誰が許可したかをメモしましょう。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 4. サービスの位置づけ・運用ルール ─── -->
+  <section id="section-service" class="section">
+    <div class="section-header">
+      <div class="section-number">4</div>
+      <div class="section-title-wrap">
+        <h2>サービスの位置づけと運用ルール</h2>
+        <p>自社サービスのスコープを正しく理解し、対応の範囲を把握しましょう</p>
+      </div>
+    </div>
+
+    <div class="info-box red mb-24" style="font-size:15px;">
+      <span class="info-icon">📌</span>
+      <div>
+        <strong>本サービスは「マーケティング全般」ではありません。</strong><br />
+        広告運用のサポートを行うお客様向けのサービスです。スコープ外の対応を求められた場合は、丁寧に断りましょう。
+      </div>
+    </div>
+
+    <div class="card mb-24">
+      <div class="card-header"><span class="icon">📋</span><h3>対応可否の一覧</h3></div>
+      <div class="card-body">
+        <table class="setting-table">
+          <thead>
+            <tr>
+              <th>項目</th>
+              <th>対応</th>
+              <th>備考</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="label">KPI設定・市場調査・コンサルティング</td>
+              <td><span class="scope-ng" style="padding:4px 10px; border-radius:4px;">対応不要</span></td>
+              <td class="value">サービス範囲外</td>
+            </tr>
+            <tr>
+              <td class="label">分析・改善提案</td>
+              <td><span class="scope-cnd" style="padding:4px 10px; border-radius:4px;">条件付きOK</span></td>
+              <td class="value">お客様の相談のもと対応可</td>
+            </tr>
+            <tr>
+              <td class="label">訴求間隔・回数</td>
+              <td><span class="scope-cnd" style="padding:4px 10px; border-radius:4px;">都度確認</span></td>
+              <td class="value">案件ごとに異なるため毎回確認</td>
+            </tr>
+            <tr>
+              <td class="label">部職業登録</td>
+              <td><span class="scope-ok" style="padding:4px 10px; border-radius:4px;">OK</span></td>
+              <td class="value">アカウントが正規に直接繋がることが目的</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="grid-3">
+      <div class="rule-card">
+        <div class="rule-header h1">
+          <div class="rule-num n1">①</div>
+          <h3>スコープ外は断る</h3>
+        </div>
+        <div class="rule-body">
+          KPI設定・コンサルティング・市場調査などはサービス外です。「こちらの範囲外になります」と明確に伝えてください。
+        </div>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-header h2">
+          <div class="rule-num n2">②</div>
+          <h3>改善提案は相談ベースで</h3>
+        </div>
+        <div class="rule-body">
+          分析や改善提案はお客様から相談があった場合のみ対応可能です。勝手に提案を行うと責任の所在が曖昧になります。
+        </div>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-header h3">
+          <div class="rule-num n3">③</div>
+          <h3>訴求は都度確認</h3>
+        </div>
+        <div class="rule-body">
+          訴求の間隔・回数は案件ごとに異なります。前回の設定を参考にせず、必ず案件資料を確認して設定してください。
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 5. 禁止事項 ─── -->
+  <section id="section-prohibited" class="section">
+    <div class="section-header">
+      <div class="section-number">5</div>
+      <div class="section-title-wrap">
+        <h2>禁止事項</h2>
+        <p>これらのルールは責任の所在を明確にし、問題なく運用するためのものです</p>
+      </div>
+    </div>
+
+    <div class="info-box red mb-24">
+      <span class="info-icon">🚨</span>
+      <p>以下の禁止事項は<strong>責任の所在を明確にするための重要なルール</strong>です。知らなかったでは済まされません。必ず全員が理解してください。</p>
+    </div>
+
+    <div class="prohibited-card">
+      <div class="prohibited-header">
+        <span style="font-size:22px;">①</span>
+        <span>約金・利益の告知をしない</span>
+      </div>
+      <div class="prohibited-body">
+        <p>営業が断難した案件の分類・業務について<strong>告知をしてはならない</strong>。</p>
+        <p style="margin-top:8px;">これは計算上の問題だけでなく、<strong>私（運用担当者）が対応すべき内容ではない</strong>ため、このような内容は一切口にしないこと。</p>
+        <div class="info-box red" style="margin:12px 0 0;">
+          <span class="info-icon">📌</span>
+          <p>「月にいくら稼げる」「利益がいくら出る」など、金銭的な成果を約束・示唆するような発言はすべてNG。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="prohibited-card">
+      <div class="prohibited-header">
+        <span style="font-size:22px;">②</span>
+        <span>契約内容の改変をしない</span>
+      </div>
+      <div class="prohibited-body">
+        <p>「契約時にこうなっていた」などの話は<strong>そもそも対応できない</strong>。</p>
+        <p style="margin-top:8px;">基本的にはバックグラウンドで、<strong>運営サポートはあくまでお客様が主案</strong>となり、担当者の問題化をお任意自以上は対応するものではない。</p>
+        <div class="info-box yellow" style="margin:12px 0 0;">
+          <span class="info-icon">⚠️</span>
+          <div>
+            <strong>具体例：やってはいけないこと</strong>
+            <ul style="padding-left:18px; margin-top:6px;">
+              <li>契約書にない追加サービスを「前からそうだった」と認める</li>
+              <li>担当者間で合意したとして設定を勝手に変更する</li>
+              <li>お客様から「こうしてほしい」と言われた内容を確認なく実行する</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="prohibited-card">
+      <div class="prohibited-header">
+        <span style="font-size:22px;">③</span>
+        <span>お客様への感情的対応</span>
+      </div>
+      <div class="prohibited-body">
+        <p>お客様の要望が多くて理不尽に感じても、<strong>必ず冷静に対応</strong>すること。</p>
+        <p style="margin-top:8px;">ただし、理不尽な要望を<strong>そのまま受け入れる必要はありません</strong>。感情的にならず、毅然とした態度で対応してください。</p>
+        <div class="grid-2" style="margin-top:12px; gap:12px;">
+          <div class="info-box green" style="margin:0;">
+            <span class="info-icon">✅</span>
+            <div>
+              <strong>OK な対応</strong>
+              <ul style="padding-left:18px; margin-top:4px; font-size:13px;">
+                <li>「確認してから回答します」と返答する</li>
+                <li>上長に相談してから対応する</li>
+                <li>落ち着いた口調で現状を説明する</li>
+              </ul>
+            </div>
+          </div>
+          <div class="info-box red" style="margin:0;">
+            <span class="info-icon">🚫</span>
+            <div>
+              <strong>NG な対応</strong>
+              <ul style="padding-left:18px; margin-top:4px; font-size:13px;">
+                <li>感情的に反論する</li>
+                <li>その場で即答して約束してしまう</li>
+                <li>不満をSNS等で発言する</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box blue mt-24">
+      <span class="info-icon">💡</span>
+      <div>
+        <strong>困ったときは必ず上長に相談してください。</strong><br />
+        「自分で解決しなければ」と思って抱え込むことが最大のリスクです。報告・連絡・相談を徹底しましょう。
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 6. トラブルシューティング ─── -->
+  <section id="section-trouble" class="section">
+    <div class="section-header">
+      <div class="section-number">6</div>
+      <div class="section-title-wrap">
+        <h2>トラブルシューティング</h2>
+        <p>配信が止まったときの原因特定と対処法</p>
+      </div>
+    </div>
+
+    <div class="trouble-item">
+      <div class="trouble-icon">💸</div>
+      <div class="trouble-content">
+        <h4>予算が上限に達して配信が止まっている</h4>
+        <p>1日の予算上限に達すると自動的に配信が停止されます。</p>
+        <ul class="solution-list">
+          <li>管理画面でキャンペーンの「予算」を確認する</li>
+          <li>クライアントと相談のうえ、予算を増額する<br /><span style="font-size:13px; color:var(--text-secondary);">※ただし使用できる金額は日予算の2倍まで（倍回しルール参照）。使用期間は次の定例会開催日まで。</span></li>
+          <li>配信スケジュールを見直して予算消化を分散させる</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="trouble-item">
+      <div class="trouble-icon">📉</div>
+      <div class="trouble-content">
+        <h4>視聴回数が目標ペースに達していない</h4>
+        <p>契約で定めた総視聴回数の進捗が遅れている場合の対処法です。</p>
+        <ul class="solution-list">
+          <li>管理画面で累計視聴回数と経過日数を確認し、目標ペースとのズレを把握する</li>
+          <li>日予算が実際に消化されているか確認する（消化不足ならターゲット範囲を見直す）</li>
+          <li>ペースが大幅に遅れている場合は、条件を満たせば「倍回し」を検討する（セクション3参照）</li>
+          <li>入札単価（CPV）を見直し、広告配信の競争力を高める</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="trouble-item">
+      <div class="trouble-icon">⚠️</div>
+      <div class="trouble-content">
+        <h4>ポリシー違反で広告が停止・不承認になっている</h4>
+        <p>YouTubeの広告ポリシーに違反すると配信が停止または不承認になります。</p>
+        <ul class="solution-list">
+          <li>管理画面の「ポリシーの詳細」で違反理由を確認する</li>
+          <li>動画や広告テキストを修正してポリシーに準拠させる</li>
+          <li>修正後に再入稿して審査を受ける</li>
+          <li>不明な場合はGoogleサポートへ問い合わせる、または上長に相談する</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="trouble-item">
+      <div class="trouble-icon">🔄</div>
+      <div class="trouble-content">
+        <h4>その他の原因で配信が止まっている</h4>
+        <p>上記以外の原因も考えられます。順番に確認しましょう。</p>
+        <ul class="solution-list">
+          <li>キャンペーンが「一時停止」になっていないか確認する</li>
+          <li>配信開始日・終了日の設定を確認する</li>
+          <li>クレジットカードの決済エラーがないか確認する</li>
+          <li>動画がYouTubeで非公開・削除されていないか確認する</li>
+          <li>それでも解決しない場合は上長またはLINE Worksで相談する</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="info-box green">
+      <span class="info-icon">💡</span>
+      <p><strong>基本の確認手順：</strong>配信が止まったら まず ①予算 → ②視聴ペース → ③ポリシー → ④その他 の順番で確認していきましょう。</p>
+    </div>
+  </section>
+
+  <!-- ─── SUMMARY ─── -->
+  <div class="summary-box">
+    <h2>YouTube広告 運用フロー まとめ</h2>
+    <p>以下の順番で確認することで、スムーズに案件を進められます。</p>
+    <div class="flow-steps">
+      <div class="flow-step">① 案件種別の確認</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">② 日予算の計算</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">③ 倍回し有無の判断</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">④ スコープ確認</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">⑤ 禁止事項チェック</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">⑥ 配信開始</div>
+    </div>
+    <div style="margin-top:28px; display:flex; justify-content:center; gap:16px; flex-wrap:wrap;">
+      <div style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); border-radius:12px; padding:16px 24px; text-align:center;">
+        <div style="font-size:28px; margin-bottom:6px;">💰</div>
+        <div style="font-size:12px; color:rgba(255,255,255,0.7);">通常案件 日予算</div>
+        <div style="font-size:15px; font-weight:700;">70円（基本）</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); border-radius:12px; padding:16px 24px; text-align:center;">
+        <div style="font-size:28px; margin-bottom:6px;">🤖</div>
+        <div style="font-size:12px; color:rgba(255,255,255,0.7);">AI動画 計算式</div>
+        <div style="font-size:15px; font-weight:700;">月間回数 ÷ 30 × 10円</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); border-radius:12px; padding:16px 24px; text-align:center;">
+        <div style="font-size:28px; margin-bottom:6px;">🔄</div>
+        <div style="font-size:12px; color:rgba(255,255,255,0.7);">倍回し上限</div>
+        <div style="font-size:15px; font-weight:700;">同社1〜2ヶ月に1回</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); border-radius:12px; padding:16px 24px; text-align:center;">
+        <div style="font-size:28px; margin-bottom:6px;">🎯</div>
+        <div style="font-size:12px; color:rgba(255,255,255,0.7);">6ヶ月目標</div>
+        <div style="font-size:15px; font-weight:700;">2万回再生</div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <p>YouTube広告 運用フロー 新人研修資料 &copy; 2025 RUNBIRD | 社内研修用・社外秘</p>
+</footer>
+
+<script>
+  const sections = document.querySelectorAll('section[id]');
+  const navItems = document.querySelectorAll('.nav-item');
+
+  function updateActiveNav() {
+    let current = '';
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop - 100;
+      if (window.scrollY >= sectionTop) {
+        current = section.getAttribute('id');
+      }
+    });
+    navItems.forEach(item => {
+      item.classList.remove('active');
+      if (item.getAttribute('href') === '#' + current) {
+        item.classList.add('active');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', updateActiveNav, { passive: true });
+  updateActiveNav();
+
+  navItems.forEach(item => {
+    item.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(item.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.animationPlayState = 'running';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.section').forEach(section => {
+    section.style.animationPlayState = 'paused';
+    observer.observe(section);
+  });
+</script>
+
+</body>
+</html>
