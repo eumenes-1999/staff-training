@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ログイン｜新人研修用マニュアル</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Hiragino Kaku Gothic ProN','Meiryo',sans-serif;background:#f5f5f5;display:flex;align-items:center;justify-content:center;min-height:100vh;}
+    .card{background:#fff;border-radius:12px;padding:40px 36px;width:100%;max-width:360px;box-shadow:0 4px 20px rgba(0,0,0,0.1);text-align:center;}
+    .logo{font-size:40px;margin-bottom:12px;}
+    h1{font-size:18px;font-weight:700;color:#333;margin-bottom:6px;}
+    p{font-size:13px;color:#888;margin-bottom:28px;}
+    input{width:100%;padding:12px 14px;border:2px solid #e0e0e0;border-radius:8px;font-size:15px;outline:none;transition:border 0.2s;}
+    input:focus{border-color:#c00;}
+    button{width:100%;margin-top:14px;padding:12px;background:#c00;color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;transition:background 0.2s;}
+    button:hover{background:#a00;}
+    .error{color:#c00;font-size:13px;margin-top:12px;display:none;}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="logo">🔐</div>
+    <h1>新人研修用マニュアル</h1>
+    <p>株式会社ランバード｜社内資料</p>
+    <input type="password" id="pw" placeholder="パスワードを入力" onkeydown="if(event.key==='Enter')login()">
+    <button onclick="login()">ログイン</button>
+    <div class="error" id="err">パスワードが正しくありません</div>
+  </div>
+  <script>
+    async function login(){
+      const pw = document.getElementById('pw').value;
+      const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(pw));
+      const hash = Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+      if(hash === '8d79ccdc4a3becedae6fc1e5aca824292274b488cfd05905144a1829aa9ccc4f'){
+        sessionStorage.setItem('rb_auth','1');
+        location.href = '/staff-training/';
+      } else {
+        document.getElementById('err').style.display='block';
+        document.getElementById('pw').value='';
+        document.getElementById('pw').focus();
+      }
+    }
+  </script>
+</body>
+</html>
