@@ -1,0 +1,1394 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YouTube広告 定例会スクリプト（新人研修用）</title>
+  <style>
+    :root {
+      --primary: #1a56db;
+      --teal: #0e7490;
+      --green: #059669;
+      --orange: #d97706;
+      --purple: #7c3aed;
+      --red: #dc2626;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --sidebar-w: 260px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ===== SIDEBAR ===== */
+    #sidebar {
+      width: var(--sidebar-w);
+      background: #1e293b;
+      color: #cbd5e1;
+      position: fixed;
+      top: 0; left: 0; bottom: 0;
+      overflow-y: auto;
+      z-index: 100;
+    }
+
+    #sidebar-header {
+      padding: 20px 16px 14px;
+      border-bottom: 1px solid #334155;
+    }
+
+    #sidebar-header .label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #64748b;
+      margin-bottom: 4px;
+    }
+
+    #sidebar-header h2 {
+      font-size: 13px;
+      font-weight: 700;
+      color: #f1f5f9;
+      line-height: 1.4;
+    }
+
+    .sidebar-link-to {
+      display: block;
+      margin: 10px 16px 0;
+      padding: 7px 10px;
+      background: #334155;
+      border-radius: 6px;
+      font-size: 12px;
+      color: #94a3b8;
+      text-decoration: none;
+      text-align: center;
+    }
+
+    .sidebar-link-to:hover { background: #475569; color: #f1f5f9; }
+
+    #nav { padding: 12px 0 24px; }
+
+    .nav-section-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #64748b;
+      padding: 10px 16px 4px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 16px;
+      font-size: 13px;
+      color: #94a3b8;
+      text-decoration: none;
+      border-left: 3px solid transparent;
+      transition: all 0.15s;
+    }
+
+    .nav-item:hover { background: #334155; color: #f1f5f9; border-left-color: #475569; }
+    .nav-item.active { background: #1e3a5f; color: #93c5fd; border-left-color: var(--primary); }
+
+    .nav-step-num {
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      background: #334155;
+      color: #94a3b8;
+      font-size: 10px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .nav-item.active .nav-step-num { background: var(--primary); color: white; }
+
+    /* ===== MAIN ===== */
+    #main {
+      margin-left: var(--sidebar-w);
+      flex: 1;
+      max-width: 860px;
+      padding: 32px 40px 100px;
+    }
+
+    /* PAGE HEADER */
+    .page-header {
+      background: linear-gradient(135deg, #059669 0%, #0e7490 100%);
+      color: white;
+      border-radius: 12px;
+      padding: 28px 32px;
+      margin-bottom: 36px;
+    }
+
+    .page-header .tag {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      font-size: 11px; font-weight: 700;
+      padding: 2px 10px;
+      border-radius: 20px;
+      margin-bottom: 8px;
+    }
+
+    .page-header h1 { font-size: 21px; font-weight: 800; margin-bottom: 8px; }
+    .page-header p  { font-size: 13px; opacity: 0.9; line-height: 1.6; }
+
+    /* ===== TIMELINE ===== */
+    .timeline { position: relative; }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 19px; top: 0; bottom: 0;
+      width: 2px;
+      background: var(--border);
+    }
+
+    /* ===== STEP ===== */
+    .step {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 32px;
+      scroll-margin-top: 24px;
+      position: relative;
+    }
+
+    .step-left { flex-shrink: 0; display: flex; flex-direction: column; align-items: center; }
+
+    .step-circle {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px; font-weight: 800; color: white;
+      position: relative; z-index: 1;
+      flex-shrink: 0;
+    }
+
+    .step-body { flex: 1; padding-bottom: 4px; }
+
+    .step-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .step-tag {
+      font-size: 10px; font-weight: 700;
+      padding: 2px 8px; border-radius: 4px;
+    }
+
+    .step-title {
+      font-size: 16px; font-weight: 800; color: var(--text);
+    }
+
+    .step-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 20px;
+    }
+
+    /* ===== STEP COLORS ===== */
+    .s-green  .step-circle { background: #059669; }
+    .s-blue   .step-circle { background: #1a56db; }
+    .s-teal   .step-circle { background: #0e7490; }
+    .s-orange .step-circle { background: #d97706; }
+    .s-purple .step-circle { background: #7c3aed; }
+    .s-red    .step-circle { background: #dc2626; }
+    .s-slate  .step-circle { background: #475569; }
+
+    .s-green  .step-tag { background: #dcfce7; color: #166534; }
+    .s-blue   .step-tag { background: #dbeafe; color: #1e40af; }
+    .s-teal   .step-tag { background: #cffafe; color: #155e75; }
+    .s-orange .step-tag { background: #fef3c7; color: #92400e; }
+    .s-purple .step-tag { background: #ede9fe; color: #5b21b6; }
+    .s-red    .step-tag { background: #fee2e2; color: #991b1b; }
+    .s-slate  .step-tag { background: #f1f5f9; color: #475569; }
+
+    .s-green  .step-card { border-top: 3px solid #059669; }
+    .s-blue   .step-card { border-top: 3px solid #1a56db; }
+    .s-teal   .step-card { border-top: 3px solid #0e7490; }
+    .s-orange .step-card { border-top: 3px solid #d97706; }
+    .s-purple .step-card { border-top: 3px solid #7c3aed; }
+    .s-red    .step-card { border-top: 3px solid #dc2626; }
+    .s-slate  .step-card { border-top: 3px solid #475569; }
+
+    /* ===== INNER ELEMENTS ===== */
+    .script-main {
+      background: #f0f9ff;
+      border-left: 3px solid #0ea5e9;
+      border-radius: 0 6px 6px 0;
+      padding: 12px 16px;
+      margin: 10px 0;
+      font-size: 14px; line-height: 1.85; color: #0c4a6e;
+    }
+
+    .script-main::before {
+      content: '📞 セリフ';
+      display: block;
+      font-size: 11px; font-weight: 700; color: #0ea5e9;
+      margin-bottom: 6px;
+    }
+
+    .branch-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 10px 0;
+    }
+
+    .branch {
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-size: 13px; line-height: 1.7;
+    }
+
+    .branch-yes {
+      background: #f0fdf4;
+      border: 1px solid #86efac;
+      color: #14532d;
+    }
+
+    .branch-no {
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      color: #7c2d12;
+    }
+
+    .branch-label {
+      font-size: 12px; font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .branch-yes .branch-label { color: #059669; }
+    .branch-no  .branch-label { color: #d97706; }
+
+    .note-box {
+      background: #fffbeb;
+      border: 1px solid #fcd34d;
+      border-radius: 6px;
+      padding: 10px 14px;
+      margin: 10px 0;
+      font-size: 13px; line-height: 1.7; color: #78350f;
+    }
+
+    .note-box::before {
+      content: '⚠️ 注意';
+      display: block;
+      font-size: 11px; font-weight: 700; color: #d97706;
+      margin-bottom: 4px;
+    }
+
+    .tip-box {
+      background: #f5f3ff;
+      border-left: 3px solid #7c3aed;
+      border-radius: 0 6px 6px 0;
+      padding: 10px 14px;
+      margin: 10px 0;
+      font-size: 13px; line-height: 1.7; color: #4c1d95;
+    }
+
+    .tip-box::before {
+      content: '💡 ポイント';
+      display: block;
+      font-size: 11px; font-weight: 700; color: #7c3aed;
+      margin-bottom: 4px;
+    }
+
+    .sub-section {
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px dashed var(--border);
+    }
+
+    .sub-section:first-child { margin-top: 0; padding-top: 0; border-top: none; }
+
+    .sub-title {
+      font-size: 13px; font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      display: flex; align-items: center; gap: 6px;
+    }
+
+    .sub-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--text-muted);
+      flex-shrink: 0;
+    }
+
+    .arrow-note {
+      font-size: 12px; color: var(--text-muted);
+      margin-top: 6px;
+      padding-left: 4px;
+    }
+
+    p.body-text {
+      font-size: 13px; line-height: 1.75; color: #334155;
+      margin: 6px 0;
+    }
+
+    /* ===== QA SECTION ===== */
+    #qa-section {
+      background: var(--card);
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      margin-top: 32px;
+      overflow: hidden;
+    }
+
+    #qa-header {
+      background: #1e293b;
+      color: #f1f5f9;
+      padding: 16px 20px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+
+    #qa-header h2 { font-size: 15px; font-weight: 700; }
+    #qa-header .chevron { transition: transform 0.2s; }
+    #qa-section.open #qa-header .chevron { transform: rotate(180deg); }
+    #qa-body { display: none; padding: 16px 20px 20px; }
+    #qa-section.open #qa-body { display: block; }
+
+    .qa-section-title {
+      font-size: 12px; font-weight: 700;
+      color: var(--text-muted);
+      padding: 14px 0 6px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 10px;
+      text-transform: uppercase; letter-spacing: 0.05em;
+    }
+
+    .qa-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 8px;
+      overflow: hidden;
+    }
+
+    .qa-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+
+    .qa-question {
+      padding: 12px 16px;
+      cursor: pointer;
+      display: flex; align-items: flex-start; gap: 10px;
+    }
+
+    .q-badge {
+      background: #fef3c7; color: #92400e;
+      font-size: 11px; font-weight: 800;
+      padding: 2px 7px; border-radius: 4px; flex-shrink: 0; margin-top: 1px;
+    }
+
+    .qa-question-text { font-size: 13px; font-weight: 600; flex: 1; line-height: 1.5; }
+    .chevron-sm { color: var(--text-muted); font-size: 12px; flex-shrink: 0; margin-top: 3px; transition: transform 0.2s; }
+    .qa-card.open .chevron-sm { transform: rotate(180deg); }
+
+    .qa-answer {
+      display: none;
+      padding: 0 16px 14px;
+      border-top: 1px solid var(--border);
+    }
+
+    .qa-card.open .qa-answer { display: block; }
+
+    .a-label {
+      display: inline-block;
+      background: #dcfce7; color: #166534;
+      font-size: 11px; font-weight: 800;
+      padding: 2px 7px; border-radius: 4px;
+      margin: 10px 0 6px;
+    }
+
+    .qa-answer .answer-main { font-size: 13px; line-height: 1.75; color: #334155; }
+
+    .answer-script {
+      background: #f0f9ff;
+      border-left: 3px solid #0ea5e9;
+      border-radius: 0 6px 6px 0;
+      padding: 10px 14px;
+      margin: 6px 0;
+      font-size: 13px; line-height: 1.75; color: #0c4a6e;
+    }
+
+    .answer-script::before {
+      content: '💬 回答例';
+      display: block; font-size: 11px; font-weight: 700; color: #0ea5e9; margin-bottom: 4px;
+    }
+
+    .answer-example {
+      background: #fff7ed;
+      border-left: 3px solid #f97316;
+      border-radius: 0 6px 6px 0;
+      padding: 10px 14px;
+      margin: 6px 0;
+      font-size: 13px; line-height: 1.75; color: #7c2d12;
+    }
+
+    .answer-example::before {
+      content: '📌 例え話';
+      display: block; font-size: 11px; font-weight: 700; color: #f97316; margin-bottom: 4px;
+    }
+
+    .answer-strong {
+      background: #fff1f2;
+      border-left: 3px solid #f43f5e;
+      border-radius: 0 6px 6px 0;
+      padding: 10px 14px;
+      margin: 6px 0;
+      font-size: 13px; line-height: 1.75; color: #881337;
+    }
+
+    .answer-strong::before {
+      content: '⚡ 強めの回答';
+      display: block; font-size: 11px; font-weight: 700; color: #f43f5e; margin-bottom: 4px;
+    }
+
+    .answer-hearing {
+      background: #f0fdf4;
+      border-left: 3px solid #22c55e;
+      border-radius: 0 6px 6px 0;
+      padding: 10px 14px;
+      margin: 6px 0;
+      font-size: 13px; line-height: 1.75; color: #14532d;
+    }
+
+    .answer-hearing::before {
+      content: '🔍 ヒアリング展開';
+      display: block; font-size: 11px; font-weight: 700; color: #22c55e; margin-bottom: 4px;
+    }
+
+    .answer-warn {
+      background: #fffbeb;
+      border: 1px solid #fcd34d;
+      border-radius: 6px;
+      padding: 10px 14px;
+      margin: 6px 0;
+      font-size: 13px; line-height: 1.75; color: #78350f;
+    }
+
+    .answer-warn::before {
+      content: '⚠️ 注意';
+      display: block; font-size: 11px; font-weight: 700; color: #d97706; margin-bottom: 4px;
+    }
+
+    .qa-list { padding-left: 16px; margin: 6px 0; }
+    .qa-list li { font-size: 13px; line-height: 1.8; color: #334155; }
+
+    .phase-list { list-style: none; padding: 0; margin: 6px 0; }
+    .phase-item { display: flex; align-items: flex-start; gap: 10px; padding: 6px 0; border-bottom: 1px dashed var(--border); font-size: 13px; line-height: 1.6; }
+    .phase-item:last-child { border-bottom: none; }
+    .phase-dot { width: 22px; height: 22px; border-radius: 50%; background: var(--primary); color: white; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+
+    .hearing-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 8px; overflow: hidden; }
+    .hearing-card-header { padding: 10px 14px; background: #f8fafc; font-size: 13px; font-weight: 700; border-bottom: 1px solid var(--border); cursor: pointer; display: flex; align-items: center; justify-content: space-between; }
+    .hearing-card-body { padding: 12px 14px; display: none; }
+    .hearing-card.open .hearing-card-body { display: block; }
+    .hearing-card.open .hearing-card-header .chevron-sm { transform: rotate(180deg); }
+    .hearing-item { margin-bottom: 8px; font-size: 13px; line-height: 1.7; }
+    .hearing-label { display: inline-block; background: #e0f2fe; color: #0369a1; font-size: 11px; font-weight: 700; padding: 1px 6px; border-radius: 4px; margin-bottom: 3px; }
+    .tag-list { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 3px; }
+    .tag { background: #f1f5f9; border: 1px solid #cbd5e1; color: #475569; font-size: 11px; padding: 2px 8px; border-radius: 20px; }
+    .tag.core { background: #eff6ff; border-color: #bfdbfe; color: #1d4ed8; }
+    .tag.niche { background: #f5f3ff; border-color: #ddd6fe; color: #6d28d9; }
+    .tag.potential { background: #fff7ed; border-color: #fed7aa; color: #c2410c; }
+
+    .flow-steps { display: flex; flex-direction: column; }
+    .flow-step { display: flex; gap: 10px; align-items: flex-start; }
+    .flow-line { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+    .flow-circle { width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; color: white; flex-shrink: 0; }
+    .flow-connector { width: 2px; height: 18px; background: var(--border); margin: 2px 0; }
+    .flow-content { padding-bottom: 14px; flex: 1; }
+    .flow-title { font-size: 13px; font-weight: 700; margin-bottom: 3px; }
+    .flow-desc { font-size: 12px; color: var(--text-muted); line-height: 1.6; }
+    .flow-example { font-size: 12px; color: #0369a1; font-style: italic; margin-top: 3px; }
+
+    .matsu-take-ume { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin: 8px 0; }
+    .mtm-card { border-radius: 8px; padding: 10px 12px; font-size: 12px; line-height: 1.6; }
+    .mtm-card.matsu { background: #fef9ee; border: 1px solid #fcd34d; }
+    .mtm-card.take  { background: #f0fdf4; border: 1px solid #86efac; }
+    .mtm-card.ume   { background: #fdf4ff; border: 1px solid #e9d5ff; }
+    .mtm-label { font-size: 13px; font-weight: 800; margin-bottom: 4px; }
+    .matsu .mtm-label { color: #92400e; }
+    .take  .mtm-label { color: #166534; }
+    .ume   .mtm-label { color: #6b21a8; }
+
+    /* ===== EXAMPLE SECTION ===== */
+    #example {
+      background: var(--card);
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      margin-top: 40px;
+      overflow: hidden;
+    }
+
+    #example-header {
+      background: #1e293b;
+      color: #f1f5f9;
+      padding: 16px 20px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+
+    #example-header h2 { font-size: 15px; font-weight: 700; }
+
+    #example-header .ex-tag {
+      font-size: 11px;
+      background: rgba(255,255,255,0.15);
+      padding: 2px 8px; border-radius: 4px;
+    }
+
+    #example-header .chevron { transition: transform 0.2s; }
+    #example.open #example-header .chevron { transform: rotate(180deg); }
+
+    #example-body { display: none; padding: 20px 24px; }
+    #example.open #example-body { display: block; }
+
+    .ex-step {
+      margin-bottom: 20px;
+    }
+
+    .ex-step-title {
+      font-size: 13px; font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      padding-bottom: 4px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .ex-script {
+      background: #f8fafc;
+      border-left: 3px solid #94a3b8;
+      border-radius: 0 6px 6px 0;
+      padding: 10px 14px;
+      font-size: 13px; line-height: 1.8; color: #334155;
+    }
+
+    /* ===== QA SECTION ===== */
+    #qa-section { background: var(--card); border: 2px solid #e2e8f0; border-radius: 12px; margin-top: 32px; overflow: hidden; }
+    #qa-header { background: #1e293b; color: #f1f5f9; padding: 16px 20px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; }
+    #qa-header h2 { font-size: 15px; font-weight: 700; }
+    #qa-header .chevron { transition: transform 0.2s; }
+    #qa-section.open #qa-header .chevron { transform: rotate(180deg); }
+    #qa-body { display: none; padding: 16px 20px 20px; }
+    #qa-section.open #qa-body { display: block; }
+    .qa-section-title { font-size: 11px; font-weight: 700; color: var(--text-muted); padding: 14px 0 6px; border-bottom: 1px solid var(--border); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .qa-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 8px; overflow: hidden; }
+    .qa-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .qa-question { padding: 12px 16px; cursor: pointer; display: flex; align-items: flex-start; gap: 10px; }
+    .q-badge { background: #fef3c7; color: #92400e; font-size: 11px; font-weight: 800; padding: 2px 7px; border-radius: 4px; flex-shrink: 0; margin-top: 1px; }
+    .qa-question-text { font-size: 13px; font-weight: 600; flex: 1; line-height: 1.5; }
+    .chevron-sm { color: var(--text-muted); font-size: 12px; flex-shrink: 0; margin-top: 3px; transition: transform 0.2s; }
+    .qa-card.open .chevron-sm { transform: rotate(180deg); }
+    .qa-answer { display: none; padding: 0 16px 14px; border-top: 1px solid var(--border); }
+    .qa-card.open .qa-answer { display: block; }
+    .a-label { display: inline-block; background: #dcfce7; color: #166534; font-size: 11px; font-weight: 800; padding: 2px 7px; border-radius: 4px; margin: 10px 0 6px; }
+    .qa-answer .answer-main { font-size: 13px; line-height: 1.75; color: #334155; }
+    .answer-script { background: #f0f9ff; border-left: 3px solid #0ea5e9; border-radius: 0 6px 6px 0; padding: 10px 14px; margin: 6px 0; font-size: 13px; line-height: 1.75; color: #0c4a6e; }
+    .answer-script::before { content: '💬 回答例'; display: block; font-size: 11px; font-weight: 700; color: #0ea5e9; margin-bottom: 4px; }
+    .answer-example { background: #fff7ed; border-left: 3px solid #f97316; border-radius: 0 6px 6px 0; padding: 10px 14px; margin: 6px 0; font-size: 13px; line-height: 1.75; color: #7c2d12; }
+    .answer-example::before { content: '📌 例え話'; display: block; font-size: 11px; font-weight: 700; color: #f97316; margin-bottom: 4px; }
+    .answer-strong { background: #fff1f2; border-left: 3px solid #f43f5e; border-radius: 0 6px 6px 0; padding: 10px 14px; margin: 6px 0; font-size: 13px; line-height: 1.75; color: #881337; }
+    .answer-strong::before { content: '⚡ 強めの回答'; display: block; font-size: 11px; font-weight: 700; color: #f43f5e; margin-bottom: 4px; }
+    .answer-hearing { background: #f0fdf4; border-left: 3px solid #22c55e; border-radius: 0 6px 6px 0; padding: 10px 14px; margin: 6px 0; font-size: 13px; line-height: 1.75; color: #14532d; }
+    .answer-hearing::before { content: '🔍 ヒアリング展開'; display: block; font-size: 11px; font-weight: 700; color: #22c55e; margin-bottom: 4px; }
+    .answer-warn { background: #fffbeb; border: 1px solid #fcd34d; border-radius: 6px; padding: 10px 14px; margin: 6px 0; font-size: 13px; line-height: 1.75; color: #78350f; }
+    .answer-warn::before { content: '⚠️ 注意'; display: block; font-size: 11px; font-weight: 700; color: #d97706; margin-bottom: 4px; }
+    .qa-list { padding-left: 16px; margin: 6px 0; }
+    .qa-list li { font-size: 13px; line-height: 1.8; color: #334155; }
+    .phase-list { list-style: none; padding: 0; margin: 6px 0; }
+    .phase-item { display: flex; align-items: flex-start; gap: 10px; padding: 6px 0; border-bottom: 1px dashed var(--border); font-size: 13px; line-height: 1.6; }
+    .phase-item:last-child { border-bottom: none; }
+    .phase-dot { width: 22px; height: 22px; border-radius: 50%; background: var(--primary); color: white; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+    .hearing-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 8px; overflow: hidden; }
+    .hearing-card-header { padding: 10px 14px; background: #f8fafc; font-size: 13px; font-weight: 700; border-bottom: 1px solid var(--border); cursor: pointer; display: flex; align-items: center; justify-content: space-between; }
+    .hearing-card-body { padding: 12px 14px; display: none; }
+    .hearing-card.open .hearing-card-body { display: block; }
+    .hearing-card.open .hearing-card-header .chevron-sm { transform: rotate(180deg); }
+    .hearing-item { margin-bottom: 8px; font-size: 13px; line-height: 1.7; }
+    .hearing-label { display: inline-block; background: #e0f2fe; color: #0369a1; font-size: 11px; font-weight: 700; padding: 1px 6px; border-radius: 4px; margin-bottom: 3px; }
+    .tag-list { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 3px; }
+    .tag { background: #f1f5f9; border: 1px solid #cbd5e1; color: #475569; font-size: 11px; padding: 2px 8px; border-radius: 20px; }
+    .tag.core { background: #eff6ff; border-color: #bfdbfe; color: #1d4ed8; }
+    .tag.niche { background: #f5f3ff; border-color: #ddd6fe; color: #6d28d9; }
+    .tag.potential { background: #fff7ed; border-color: #fed7aa; color: #c2410c; }
+    .flow-steps { display: flex; flex-direction: column; }
+    .flow-step { display: flex; gap: 10px; align-items: flex-start; }
+    .flow-line { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+    .flow-circle { width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; color: white; flex-shrink: 0; }
+    .flow-connector { width: 2px; height: 18px; background: var(--border); margin: 2px 0; }
+    .flow-content { padding-bottom: 14px; flex: 1; }
+    .flow-title { font-size: 13px; font-weight: 700; margin-bottom: 3px; }
+    .flow-example { font-size: 12px; color: #0369a1; font-style: italic; margin-top: 3px; }
+    .matsu-take-ume { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin: 8px 0; }
+    .mtm-card { border-radius: 8px; padding: 10px 12px; font-size: 12px; line-height: 1.6; }
+    .mtm-card.matsu { background: #fef9ee; border: 1px solid #fcd34d; }
+    .mtm-card.take  { background: #f0fdf4; border: 1px solid #86efac; }
+    .mtm-card.ume   { background: #fdf4ff; border: 1px solid #e9d5ff; }
+    .mtm-label { font-size: 13px; font-weight: 800; margin-bottom: 4px; }
+    .matsu .mtm-label { color: #92400e; }
+    .take  .mtm-label { color: #166534; }
+    .ume   .mtm-label { color: #6b21a8; }
+
+    /* ===== FOOTER ===== */
+    .page-footer {
+      margin-top: 32px;
+      padding: 14px 18px;
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      border-radius: 10px;
+      font-size: 13px; line-height: 1.7; color: #7c2d12;
+    }
+
+    @media (max-width: 768px) {
+      #sidebar { display: none; }
+      #main { margin-left: 0; padding: 20px 16px 60px; }
+      .branch-wrap { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== SIDEBAR ===== -->
+<nav id="sidebar">
+  <div id="sidebar-header">
+    <div class="label">新人研修用</div>
+    <h2>定例会スクリプト<br>YouTube広告</h2>
+  </div>
+  <a class="sidebar-link-to" href="YouTube広告 定例会アウト集.html">← アウト集を開く</a>
+
+  <div id="nav">
+    <div class="nav-section-label">進行フロー</div>
+    <a href="#step1" class="nav-item">
+      <span class="nav-step-num">1</span>ご挨拶
+    </a>
+    <a href="#step2" class="nav-item">
+      <span class="nav-step-num">2</span>導入・近況ヒアリング
+    </a>
+    <a href="#step3" class="nav-item">
+      <span class="nav-step-num">3</span>本題：運用報告
+    </a>
+    <a href="#step4" class="nav-item">
+      <span class="nav-step-num">4</span>店舗状態ヒアリング
+    </a>
+    <a href="#step5" class="nav-item">
+      <span class="nav-step-num">5</span>変更提案
+    </a>
+    <a href="#step6" class="nav-item">
+      <span class="nav-step-num">6</span>日切り
+    </a>
+    <a href="#step7" class="nav-item">
+      <span class="nav-step-num">7</span>締め
+    </a>
+    <div class="nav-section-label" style="margin-top:8px;">参考</div>
+    <a href="#example" class="nav-item">
+      <span class="nav-step-num" style="font-size:9px;">例</span>Sweet Danish
+    </a>
+    <a href="#qa-section" class="nav-item">
+      <span class="nav-step-num" style="font-size:9px;">Q</span>アウト集
+    </a>
+  </div>
+</nav>
+
+<!-- ===== MAIN ===== -->
+<main id="main">
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="tag">📋 進行スクリプト</div>
+    <h1>定例会スクリプト</h1>
+    <p>STEP順に進めてください。◯◯は実際の数値・名前に置き換えて話してください。<br>
+    お客様から反論・質問が出た場合は「アウト集」を参照してください。</p>
+  </div>
+
+  <div class="timeline">
+
+    <!-- ===== STEP 1 ===== -->
+    <div class="step s-green" id="step1">
+      <div class="step-left">
+        <div class="step-circle">1</div>
+      </div>
+      <div class="step-body">
+        <div class="step-label">
+          <span class="step-tag">ご挨拶</span>
+          <span class="step-title">電話をかける</span>
+        </div>
+        <div class="step-card">
+          <div class="script-main">
+            「恐れ入ります、株式会社ランバードの◯◯と申します。<br>
+            本日◯時よりお時間をいただいておりましたので、お電話いたしました。<br>
+            ご都合は変わらず大丈夫そうでしたか？」
+          </div>
+          <div class="branch-wrap">
+            <div class="branch branch-yes">
+              <div class="branch-label">✅ Yes（都合OK）</div>
+              「承知しました、本日はよろしくお願いします。」<br>
+              <span style="font-size:12px;color:#059669;">→ STEP 2へ進む</span>
+            </div>
+            <div class="branch branch-no">
+              <div class="branch-label">❌ No（都合が悪い）</div>
+              「ご希望の日時などあれば、お伺いさせていただいてもよろしいですか？」<br>
+              または「後ほど日程調整のメールをお送りするので、ご返信のほどお願い致します。」<br>
+              <span style="font-size:12px;color:#d97706;">→ 定例会終了・日程再調整</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== STEP 2 ===== -->
+    <div class="step s-blue" id="step2">
+      <div class="step-left">
+        <div class="step-circle">2</div>
+      </div>
+      <div class="step-body">
+        <div class="step-label">
+          <span class="step-tag">導入</span>
+          <span class="step-title">近況ヒアリング（アイスブレイク）</span>
+        </div>
+        <div class="step-card">
+          <p class="body-text">まず世間話・近況確認でアイスブレイク。データで気づいた点があれば積極的に触れる。</p>
+          <div class="script-main">
+            「最近の店舗さんの状態などいかがでした？」<br>
+            「店舗さんの流入などいかがでしたか？」<br>
+            「MEO・HPBに口コミ増えてましたね！」
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== STEP 3 ===== -->
+    <div class="step s-teal" id="step3">
+      <div class="step-left">
+        <div class="step-circle">3</div>
+      </div>
+      <div class="step-body">
+        <div class="step-label">
+          <span class="step-tag">本題</span>
+          <span class="step-title">運用報告</span>
+        </div>
+        <div class="step-card">
+
+          <!-- 冒頭 -->
+          <div class="sub-section">
+            <div class="script-main" style="border-color:#0e7490;">
+              「本日ですが、◯月〜◯月までの運用結果をご報告させていただきます。」
+            </div>
+            <div class="tip-box">
+              <strong>初月の場合のみ追加：</strong><br>
+              「無事に効果測定も終わって、配信上は問題がないという印象でございました。」
+            </div>
+          </div>
+
+          <!-- 表示・視聴回数 -->
+          <div class="sub-section">
+            <div class="sub-title"><span class="sub-dot"></span>表示回数・視聴回数・視聴率・性別年齢</div>
+            <div class="script-main" style="border-color:#0e7490;">
+              「表示回数が◯回で、視聴回数は◯回となりますので、視聴率は◯％でございます。<br>
+              どのような方へ配信できていたのかですが、まず性別ですが主に◯性で、年齢は◯歳〜◯歳の方でした。」
+            </div>
+          </div>
+
+          <!-- 配信地域 -->
+          <div class="sub-section">
+            <div class="sub-title"><span class="sub-dot"></span>配信地域（複数エリアの場合のみ）</div>
+            <div class="script-main" style="border-color:#0e7490;">
+              「現在、複数箇所に配信をしていますが、配信傾向として◯の方が配信傾向は高かったです。<br>
+              一方で、◇の地域は◯よりも少ないという結果でございます。」
+            </div>
+            <div class="arrow-note">※単一エリアの場合はスキップ可</div>
+          </div>
+
+          <!-- 視聴維持率 -->
+          <div class="sub-section">
+            <div class="sub-title"><span class="sub-dot"></span>視聴維持率</div>
+            <div class="script-main" style="border-color:#0e7490;">
+              「大事な指標というのがあり、視聴維持率です。広告をどの秒数までどれくらいの人が見ていたのかという割合の指標です。<br>
+              先月だと◯％で、広告業界だと視聴維持率の平均が5％〜10％ほどと言われています。<br>
+              この平均と比較をすると先月の結果は、◯◯という所感でございました。」
+            </div>
+            <div class="note-box">
+              業界平均は5〜10%。これを上回っていれば「好調」、下回っていれば「平均的・課題あり」と添えると分かりやすい。
+            </div>
+          </div>
+
+          <!-- 配信時間 -->
+          <div class="sub-section">
+            <div class="sub-title"><span class="sub-dot"></span>配信時間</div>
+            <div class="script-main" style="border-color:#0e7490;">
+              「よく広告が見られる配信時間は◯時頃の傾向がございます。」
+            </div>
+            <div class="tip-box">
+              <strong>ピークが2つある場合（12〜14時・18〜24時頃）：</strong><br>
+              「ピークが2つあるようで、まず1つ目は12時〜14時で、おそらく仕事の合間でYouTubeを見る人がいるので、そのタイミングで配信されるようです。<br>
+              2つ目のピークが18時〜24時頃の仕事終わりで、自宅で自分時間を過ごす方がYouTubeを見て広告も見ているのではないかと思われます。」
+            </div>
+          </div>
+
+          <!-- KW -->
+          <div class="sub-section">
+            <div class="sub-title"><span class="sub-dot"></span>KW・トピック</div>
+            <div class="note-box">
+              オーディエンス・カスタムセグメント・カスタムインタレストなど運用方法によっては、設定KWやセグメント毎にデータが詳細に表示されないことがある。データがある場合のみ共有する。
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== STEP 4 ===== -->
+    <div class="step s-orange" id="step4">
+      <div class="step-left">
+        <div class="step-circle">4</div>
+      </div>
+      <div class="step-body">
+        <div class="step-label">
+          <span class="step-tag">ヒアリング</span>
+          <span class="step-title">店舗状態のヒアリング</span>
+        </div>
+        <div class="step-card">
+          <div class="script-main" style="border-color:#d97706;">
+            「直近の店舗様の状態はいかがでしたか？ご新規様などは、いらっしゃいましたか？」
+          </div>
+          <div class="tip-box">
+            広告のデータを見ながらヒアリングを進める。反論・懸念が出た場合は「アウト集」を参照して対応する。
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== STEP 5 ===== -->
+    <div class="step s-purple" id="step5">
+      <div class="step-left">
+        <div class="step-circle">5</div>
+      </div>
+      <div class="step-body">
+        <div class="step-label">
+          <span class="step-tag">提案</span>
+          <span class="step-title">変更提案（あれば）</span>
+        </div>
+        <div class="step-card">
+          <div class="script-main" style="border-color:#7c3aed;">
+            「こちらの方で一部設定を変更のご提案をしたいのですが、（変更内容の説明・メリット＆デメリットを伝える）いかがでしょうか？」
+          </div>
+          <div class="arrow-note">※提案がない場合はスキップしてSTEP 6へ進む</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== STEP 6 ===== -->
+    <div class="step s-red" id="step6">
+      <div class="step-left">
+        <div class="step-circle">6</div>
+      </div>
+      <div class="step-body">
+        <div class="step-label">
+          <span class="step-tag">日切り</span>
+          <span class="step-title">次回アポイントを取る</span>
+        </div>
+        <div class="step-card">
+          <div class="script-main" style="border-color:#dc2626;">
+            「この設定で2ヶ月運用するので、また2ヶ月後にお電話してもよろしいでしょうか？<br>
+            そうしましたら、次回の日時をお約束してもよろしいでしょうか？」<br><br>
+            （カレンダー確認）「お電話する際に、ご都合の良い曜日やお時間帯はございますか？」<br><br>
+            「◯月◯日◯曜日の◯時でございますね〜お約束させていただきます。」
+          </div>
+          <div class="note-box">
+            次回アポは必ず取る。日切りなしで終わると次回の定例会設定が困難になる。
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== STEP 7 ===== -->
+    <div class="step s-slate" id="step7">
+      <div class="step-left">
+        <div class="step-circle">7</div>
+      </div>
+      <div class="step-body">
+        <div class="step-label">
+          <span class="step-tag">締め</span>
+          <span class="step-title">クロージング</span>
+        </div>
+        <div class="step-card">
+          <div class="script-main" style="border-color:#475569;">
+            「本日は以上となります。<br>
+            最後にオーナー様から何かご確認したい点・ご不明点はございますでしょうか？」
+          </div>
+          <div class="branch-wrap">
+            <div class="branch branch-yes">
+              <div class="branch-label">✅ 質問なし</div>
+              「本日はありがとうございました、失礼いたします。」
+            </div>
+            <div class="branch branch-no">
+              <div class="branch-label">❓ 質問あり</div>
+              アウト集を参照しながら対応する。<br>
+              対応後、再度締めに戻る。
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /timeline -->
+
+  <!-- ===== EXAMPLE ===== -->
+  <div id="example">
+    <div id="example-header" onclick="toggleExample()">
+      <div>
+        <div style="font-size:11px;color:#94a3b8;margin-bottom:2px;">参考トーク例</div>
+        <h2>Sweet Danish（2025年7月データ）</h2>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span class="ex-tag">実例</span>
+        <span class="chevron">▼</span>
+      </div>
+    </div>
+    <div id="example-body">
+
+      <div class="ex-step">
+        <div class="ex-step-title">STEP 1：ご挨拶</div>
+        <div class="ex-script">
+          「お世話になります〜ランバードのアベでございます。<br>
+          本日の◯時より、お時間をいただいておりましたので、ご連絡を致しました。<br>
+          お時間のご都合の方は、変わらず大丈夫そうでしたか？」
+        </div>
+      </div>
+
+      <div class="ex-step">
+        <div class="ex-step-title">STEP 2：導入</div>
+        <div class="ex-script">
+          「前回のお打ち合わせをした際には、配信方法を変えてみるというところで、<br>
+          ①カスタムインタレストへの切り替え、②配信地域の追加、③配信時間の調整などを行いました。<br>
+          調整を加えたので、広告停止されるか心配ではありましたが、停止せずに配信ができておりました。」
+        </div>
+      </div>
+
+      <div class="ex-step">
+        <div class="ex-step-title">STEP 3：表示回数・視聴回数</div>
+        <div class="ex-script">
+          「詳細のデータについてご共有致します。まず表示回数ですが2,867。視聴回数は1,296でした。<br>
+          視聴率は45.2％でしたので、視聴率が高い印象です。」
+        </div>
+      </div>
+
+      <div class="ex-step">
+        <div class="ex-step-title">STEP 3：性別・年齢</div>
+        <div class="ex-script">
+          「どのような方が見ていたのかについてですと、男性の方が若干多くなる傾向があるようで、6:4でした。<br>
+          実際、店舗様にいらっしゃる方の性別の構成比はいかがでしたか？」
+        </div>
+      </div>
+
+      <div class="ex-step">
+        <div class="ex-step-title">STEP 3：視聴維持率</div>
+        <div class="ex-script">
+          「視聴維持率は33％の結果で、ここも変わらず好調でございます。」
+        </div>
+      </div>
+
+      <div class="ex-step">
+        <div class="ex-step-title">STEP 3：配信地域</div>
+        <div class="ex-script">
+          「前回の定例会で配信地域に太田方面の地域を追加・変更しましたが、流入とかは変わりましたか？」
+        </div>
+      </div>
+
+      <div class="ex-step">
+        <div class="ex-step-title">STEP 5：変更提案</div>
+        <div class="ex-script">
+          「前回では深夜帯も配信する戦法にしていましたが、夏休みも開けたので、また配信時間を調整するのはいかがいたしますか？」
+        </div>
+      </div>
+
+      <div class="ex-step">
+        <div class="ex-step-title">STEP 6：日切り</div>
+        <div class="ex-script">
+          「この設定で運用するので、また2ヶ月後にお電話してもよろしいでしょうか？<br>
+          そうしましたら、次回の日時をお約束してもよろしいでしょうか？<br>
+          お電話する際に、ご都合の良い曜日やお時間帯はございますか？<br>
+          ◯月◯日◯曜日の◯時でございますね〜お約束させていただきます。」
+        </div>
+      </div>
+
+      <div class="ex-step">
+        <div class="ex-step-title">STEP 7：締め</div>
+        <div class="ex-script">
+          「本日は以上となります。<br>
+          最後にオーナー様から何かご確認したい点・ご不明点はございますでしょうか？<br>
+          本日はありがとうございました、それでは失礼いたします。」
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== QA SECTION ===== -->
+  <div id="qa-section">
+    <div id="qa-header" onclick="toggleQA()">
+      <div>
+        <div style="font-size:11px;color:#94a3b8;margin-bottom:2px;">定例会中に反論・質問が来たら参照</div>
+        <h2>アウト集（定例会版）</h2>
+      </div>
+      <span class="chevron">▼</span>
+    </div>
+    <div id="qa-body">
+
+      <div class="qa-section-title">1. 広告効果・反響に関するよくある質問</div>
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggleQACard(this)"><span class="q-badge">Q</span><span class="qa-question-text">「YouTube広告を見て来た人がいないんだけど…」</span><span class="chevron-sm">▼</span></div>
+        <div class="qa-answer"><span class="a-label">A</span><div class="answer-main">
+          <strong>大前提：広告を見てもすぐ来店するわけではありません。「候補に上がる」ことが目的です。</strong>
+          <div class="answer-script">「でも、お客さんがお店を探してる時の候補に上がるように、今回の施策を実施しています。1ヶ月で〇〇人以上の人が広告を見てくれていますし、視聴率も高いので、修正を繰り返しながら配信していきましょう。」</div>
+          <div class="answer-script">「今はWeb情報も多いですし、競合さんが多いエリア・業種ほど、ユーザーが比較検討してから行動するまで時間がかかります。きっかけ作りのためにこのまま配信していきましょう。」</div>
+          <div class="answer-hearing">「現状ではこのキーワード設定をしてますけど、こういう方（症状や目的）の利用って現状多いですか？」→「これだけ広告が見られていて、実際のご利用がないのであれば、設定を変えるのも一つの手ではありますね。」</div>
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggleQACard(this)"><span class="q-badge">Q</span><span class="qa-question-text">「新患（新規）さんで1人も（広告を見たという人が）いませんでしたか？」</span><span class="chevron-sm">▼</span></div>
+        <div class="qa-answer"><span class="a-label">A</span><div class="answer-main">
+          <strong>HPや予約サイトからの流入が全くゼロという認識でよろしいでしょうか？</strong><br><br>
+          今のユーザーは<strong>広告を見た後にHPやMEO（マップ）を検索する</strong>人が多いです。アンケートで「サイトを見て来ました」と答えるケースでも、きっかけは広告だったパターンが多々あります。
+          <div class="answer-warn">「俺はYouTube広告を見たら広告を見た！って答える人が絶対いると思うんだ！！！」と言われた場合：<br><br>
+          <strong>【推奨】</strong>「確かにそう感じるのは自然だと思います。ただ、実際のアンケートデータでは『サイトを見て来ました』と答えるケースが多く、きっかけまで遡ると広告だったというパターンが非常に多いんです。」<br><br>
+          <strong>【上長同席時のみ】</strong>「それはオーナー様の主観ですよね。」</div>
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggleQACard(this)"><span class="q-badge">Q</span><span class="qa-question-text">「効果がでてないんですけど…」</span><span class="chevron-sm">▼</span></div>
+        <div class="qa-answer"><span class="a-label">A</span><div class="answer-main">
+          <strong>これまでのデータを元にすると、数値としてはしっかり再生されている状態です。</strong>
+          <div class="answer-script">「お客様も流動的です。仕事で忙しいタイミングとかなら足が遠のいてしまいますので、広告見てすぐ来るわけでもないですよ？」</div>
+          <div class="answer-example">「アサヒビールのCMを見たからと言って、次の日に必ずアサヒビールを買うわけではないですよね？ 行動には選択のタイミングがあるので、今すぐ選んでもらうのは難しいです。」</div>
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggleQACard(this)"><span class="q-badge">Q</span><span class="qa-question-text">「認知されてるのに問い合わせに繋がらないのはなんでですか？」</span><span class="chevron-sm">▼</span></div>
+        <div class="qa-answer"><span class="a-label">A</span><div class="answer-main">
+          <strong>大きく分けて2つの可能性があります。</strong><br><br>
+          <strong>① 配信先のニーズが噛み合っていない可能性</strong>
+          <ul class="qa-list"><li>ターゲティング（KWなど）の再設定を提案できます</li><li>既存のお客様の年齢・職業・性別・利用目的・潜在的な悩みを再度ヒアリングしてください</li></ul>
+          <strong>② 比較検討の際に競合店へ流れている可能性</strong>
+          <ul class="qa-list"><li>広告配信後、HP・マップのアクセス数は上がっていないか確認</li><li>比較検討の基準：<strong>「口コミの評価」</strong>と<strong>「HPサイト」</strong>が重要</li></ul>
+          <div class="answer-hearing">今から店舗側でできること：MEOなら「口コミを投稿してもらう」「投稿を発信する」、そして「サイトを見てくれる人にとって分かりやすいサイトを構築する」ことが有効です。</div>
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggleQACard(this)"><span class="q-badge">Q</span><span class="qa-question-text">「（開始して半年以内の場合）成果が出ない」</span><span class="chevron-sm">▼</span></div>
+        <div class="qa-answer"><span class="a-label">A</span><div class="answer-main">
+          <strong>YouTubeは認知拡大が強みの広告タイプ。認知拡大にはどうしても時間がかかります。</strong>
+          <ul class="phase-list" style="margin-top:10px;">
+            <li class="phase-item"><div class="phase-dot">1</div><div><strong>最初の1〜2ヶ月：</strong>ターゲットの行動・反応を理解し、効果的なキーワードを把握する期間</div></li>
+            <li class="phase-item"><div class="phase-dot">2</div><div><strong>次の1〜2ヶ月：</strong>収集データに基づいてキーワード調整・ターゲット改善を行う期間</div></li>
+            <li class="phase-item"><div class="phase-dot">3</div><div><strong>それ以降：</strong>これまでのデータを元に運用方針を判断する期間</div></li>
+          </ul>
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggleQACard(this)"><span class="q-badge">Q</span><span class="qa-question-text">「再生ほんとにされてるの？」</span><span class="chevron-sm">▼</span></div>
+        <div class="qa-answer"><span class="a-label">A</span><div class="answer-main">
+          <strong>YouTube Studioで確認できます。</strong>
+          <div class="answer-script">「それだけ見られているのに、なんでお問い合わせに来ないの？」という疑問に繋がりますが、そこは競合さんに負けている（選ばれていない）かもしれないですね。</div>
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggleQACard(this)"><span class="q-badge">Q</span><span class="qa-question-text">「視聴率（視聴維持率）低くないですか？」</span><span class="chevron-sm">▼</span></div>
+        <div class="qa-answer"><span class="a-label">A</span><div class="answer-main">
+          100%と比較すると少なく感じるかもしれませんが、<strong>大手でも10〜15%前後</strong>なので、現状の視聴率の数値は問題ないと判断します。
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggleQACard(this)"><span class="q-badge">Q</span><span class="qa-question-text">「アクセス数みたいなのはどうなの？クリック数はどれくらいなの？」</span><span class="chevron-sm">▼</span></div>
+        <div class="qa-answer"><span class="a-label">A</span><div class="answer-main">
+          別ツールで月間の店舗検索数を確認できます。
+          <div class="answer-script">「広告を開始してから前年比で〇〇％上がっているので、認知している人は増えているのではないかという印象です。」</div>
+          クリックや直接的なお問い合わせに繋げる（刈り取る）なら、<strong>「LP制作とリスティング広告」</strong>の方が相性が良いです。
+        </div></div>
+      </div>
+
+      <div class="qa-section-title">2. 予算・設定・システムに関する質問</div>
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggleQACard(this)"><span class="q-badge">Q</span><span class="qa-question-text">「広告費をいくらかければいいの？」</span><span class="chevron-sm">▼</span></div>
+        <div class="qa-answer"><span class="a-label">A</span><div class="answer-main">
+          <strong>たくさんかけたからといって、費用分のお客様が来るとは確約できません。</strong><br><br>
+          お金だけの問題ではなく、ターゲット設定や受け皿となるサイト等の質も重要です。
+          <div class="answer-hearing">「まず現状の配信実績と目標を一緒に整理させてください。今の予算で何ができていて、何が足りていないのかを確認した上で、必要であれば調整を提案します。」</div>
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggleQACard(this)"><span class="q-badge">Q</span><span class="qa-question-text">「俺（オーナー自身）に広告が配信されないんだけど！！」</span><span class="chevron-sm">▼</span></div>
+        <div class="qa-answer"><span class="a-label">A</span><div class="answer-main">
+          <strong>オーナーさんご自身に配信されるようにするのは難しいです。</strong>
+          <ul class="qa-list"><li>競合他社も広告を出しているので、競合の広告オークションに勝った時だけ配信されます</li><li>配信対象は数千〜数億人の想定の中で「オーナー様1人」にドンピシャで見せるのは確率的にかなり難しいです</li></ul>
+          <div class="answer-script">「オーナーさんに流してくださいというのも、そもそも（自分が見るだけなので）広告の意味ないですよね？」</div>
+          <div class="answer-strong">⚠️ 上長またはベテランスタッフ同席時のみ使用。新人は使用しないこと。<br><br>「そんなに広告を自分で見たいなら、オーナーさんの自宅から半径1キロにして…もはや広告の意味がないじゃないですか。」</div>
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggleQACard(this)"><span class="q-badge">Q</span><span class="qa-question-text">「FQ（フリークエンシー＝配信頻度）の適正は？」</span><span class="chevron-sm">▼</span></div>
+        <div class="qa-answer"><span class="a-label">A</span><div class="answer-main">
+          「1人にたくさん配信するか」「たくさんの人に知ってもらうか」によって設定が変わります。
+          <ul class="qa-list">
+            <li><strong>リテラシーがある人向け：</strong>「1人に100回も広告を見せると『しつこい』などネガティブな印象を持たれる可能性があります。1人あたり5回見せて20人にアプローチした方が覚えてもらえそうですよね？」</li>
+            <li><strong>リテラシーがない人向け：</strong>「1人にたくさん広告を流すのではなく、よりたくさんの人にアプローチできるようにする設定です。」</li>
+          </ul>
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggleQACard(this)"><span class="q-badge">Q</span><span class="qa-question-text">「キーワード（KW）はなんでこんなに少ないんですか？」</span><span class="chevron-sm">▼</span></div>
+        <div class="qa-answer"><span class="a-label">A</span><div class="answer-main">
+          YouTube広告は例えば10個設定しても、<strong>実際に動く（配信される）のは5〜6個</strong>程度です。予算制限によってGoogle側が日予算を超えないよう自動調整する仕組みです。
+          <div class="answer-warn"><strong>ターゲティング種別の違いも把握しておくこと：</strong><br>
+          ・<strong>コンテンツ：</strong>設定したKWが含まれる動画やサイトに広告が表示される<br>
+          ・<strong>オーディエンス：</strong>設定したKWを検索・関心を持っている「人」に広告が配信される</div>
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggleQACard(this)"><span class="q-badge">Q</span><span class="qa-question-text">「なんで動いてないキーワードがあるんですか？」</span><span class="chevron-sm">▼</span></div>
+        <div class="qa-answer"><span class="a-label">A</span><div class="answer-main">
+          <strong>Google側のシステム（アルゴリズム）の仕様です。</strong><br><br>
+          Googleが動画内容とKWのマッチ度を加味して配信可否を試行し、配信実績の良いKWが優先される仕組みです。
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggleQACard(this)"><span class="q-badge">Q</span><span class="qa-question-text">「（動いてないKWがある状態で）キーワードを入れ替える理由ってなんですか？」</span><span class="chevron-sm">▼</span></div>
+        <div class="qa-answer"><span class="a-label">A</span><div class="answer-main">
+          他のキーワードに入れ替えることで、<strong>別の確度からどれくらい表示されるかをテスト</strong>できます。
+          <div class="answer-script">「店舗さんをさがしてるKWが実際にどうなのかを比較検討することができますよ。動くかどうかの検証をするのって有意義だと思いませんか？」</div>
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggleQACard(this)"><span class="q-badge">Q</span><span class="qa-question-text">「広告ってどんな仕組みで配信されるの？」</span><span class="chevron-sm">▼</span></div>
+        <div class="qa-answer"><span class="a-label">A</span><div class="answer-main">
+          今の設定では<strong>「オークション制度」</strong>で運用しております。<br><br>
+          KWを検索した人に対して広告枠のオークションが行われ、他社よりも高い金額を提示できた際に広告が配信されます。
+        </div></div>
+      </div>
+
+      <div class="qa-section-title">3. クレーム・契約・サポート範囲に対する回答</div>
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggleQACard(this)"><span class="q-badge">Q</span><span class="qa-question-text">「データ全て（生の数値など）くれないの？スプシで全て見られるようにしてほしい」</span><span class="chevron-sm">▼</span></div>
+        <div class="qa-answer"><span class="a-label">A</span><div class="answer-main">
+          <strong>生データのすべてのお渡し・共有はしておりません。（契約・サポート外です）</strong>
+          <div class="answer-script">「会社からは、必要なデータは口頭および指定のスプレッドシートにて共有をしてくれと言われておりますので、今回このような形で共有をしております。ご理解のほど、よろしくお願いいたします。」</div>
+          さらに求められた場合：「そこは営業の方にご相談ください。」
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggleQACard(this)"><span class="q-badge">Q</span><span class="qa-question-text">「広告の管理画面を見せてください」</span><span class="chevron-sm">▼</span></div>
+        <div class="qa-answer"><span class="a-label">A</span><div class="answer-main">
+          <strong>お見せすることはできかねます。</strong>
+          <ul class="qa-list">
+            <li><strong>一般のお客様へ：</strong>「他のクライアント様の情報も含まれて表示される可能性があるため、お見せすることができません。」</li>
+            <li><strong>プロ・専門知識がある方へ：</strong>「会社からの指示で開示しないようにと言われているため、ご対応できかねます。ご容赦くださいませ。」</li>
+          </ul>
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggleQACard(this)"><span class="q-badge">Q</span><span class="qa-question-text">「HPも重要だなんて聞いてねーぞ！！！」</span><span class="chevron-sm">▼</span></div>
+        <div class="qa-answer"><span class="a-label">A</span><div class="answer-main">
+          <strong>広告を実際に動かしてみることで、HPの重要性が数値として見えてきた、ということです。</strong>
+          <div class="answer-script">「広告配信によってHPへのアクセスが増えた結果、HPの内容がお客様の判断に影響していることが分かってきました。これは運用を進めることで初めて見えてくることで、事前に特定するのが難しい部分なんです。」</div>
+          <div class="answer-warn">営業の説明不足を示唆する表現は避け、「運用を通じた発見」として前向きに伝えること。</div>
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggleQACard(this)"><span class="q-badge">Q</span><span class="qa-question-text">「もっと表示回数を増やしたいです。（月平均の3倍以上など）」</span><span class="chevron-sm">▼</span></div>
+        <div class="qa-answer"><span class="a-label">A</span><div class="answer-main">
+          <strong>いただいてるご予算の範囲内だと、これが限界です。</strong><br><br>
+          もっと表示回数・視聴数を増やしたいなら、別の設定（予算上限を引き上げる等）が必要になります。それでもよろしければ<strong>営業にご相談ください</strong>。
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggleQACard(this)"><span class="q-badge">Q</span><span class="qa-question-text">「HPってどうすればいいですか？何かアドバイスありますか？」</span><span class="chevron-sm">▼</span></div>
+        <div class="qa-answer"><span class="a-label">A</span><div class="answer-main">
+          <strong>申し訳ございません。現状のサポート範囲外となります。</strong>
+          <div class="answer-script">「サイトの知識が十分でない、または自信がない場合は、誤った案内を避けるため回答を控えさせていただきます。サイト改善に関するご相談は、専門の担当者または営業へご相談ください。」</div>
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggleQACard(this)"><span class="q-badge">Q</span><span class="qa-question-text">「広告解約しようか迷います。」</span><span class="chevron-sm">▼</span></div>
+        <div class="qa-answer"><span class="a-label">A</span><div class="answer-main">
+          <strong>まず「何がご不安なのか」を聞くことから始める。</strong>
+          <div class="answer-hearing"><strong>【Step1】まず理由を聞く：</strong>「もし差し支えなければ、どういった点がご不安なのか聞かせていただけますか？もしかすると改善できる点があるかもしれません。」<br><br>
+          理由を聞いた上で解決できそうな課題であればその場で対応策を提案する。改善策を提案してもご意向が変わらない場合は営業にエスカレーション。</div>
+          <div class="answer-script"><strong>【Step2】それでも解約希望の場合：</strong>「承知しました。解約のお手続きは担当の営業が対応しますので、ご連絡していただけますか？」</div>
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggleQACard(this)"><span class="q-badge">Q</span><span class="qa-question-text">「定例会の連絡が来ないんだけれども」</span><span class="chevron-sm">▼</span></div>
+        <div class="qa-answer"><span class="a-label">A</span><div class="answer-main">
+          <div class="answer-script">「こちらからメールをお送りしております。迷惑メールフォルダに入っていないか等のご確認をお願いします。」</div>
+        </div></div>
+      </div>
+
+      <div class="qa-section-title">4. ターゲット再設定のためのヒアリング集（業種別）</div>
+
+      <div style="background:#f0fdf4;border:1px solid #86efac;border-radius:8px;padding:12px 14px;margin-bottom:10px;font-size:13px;line-height:1.7;color:#14532d;">
+        <strong>共通のゴール：</strong>「動画のメッセージとサービスの強み、利用傾向を加味したキーワード設定が必要になる。もしズレている可能性があるなら、再提案していいですか？」と繋げること。
+      </div>
+
+      <div class="hearing-card">
+        <div class="hearing-card-header" onclick="toggleHearing(this)">📋 全業種共通で深掘りする基本項目 <span class="chevron-sm">▼</span></div>
+        <div class="hearing-card-body">
+          <div class="hearing-item"><div class="hearing-label">性別・年齢・職業</div><div>学生？デスクワーク？夜職？パート？専業主婦？</div></div>
+          <div class="hearing-item"><div class="hearing-label">いつ利用？</div><div>平日？土日？時間帯は？</div></div>
+          <div class="hearing-item"><div class="hearing-label">決め手は？</div><div>近いから？安いから？人柄？リピートされる理由は？</div></div>
+          <div class="hearing-item"><div class="hearing-label">どこから・移動手段は？</div><div>近隣？遠方？都内？ 車で10分＝6km圏内、車で30分＝20km圏内</div></div>
+          <div class="hearing-item"><div class="hearing-label">サービスの利用傾向・悩みは？</div><div>潜在的な悩みは何か？</div></div>
+        </div>
+      </div>
+
+      <div class="hearing-card">
+        <div class="hearing-card-header" onclick="toggleHearing(this)">🏥 整体系のヒアリング <span class="chevron-sm">▼</span></div>
+        <div class="hearing-card-body">
+          <div class="hearing-item"><div class="hearing-label">性別・年齢</div><div>女性ならではの悩み（産前産後、生理痛など）はあるか？高齢の方の利用傾向が多いか？</div></div>
+          <div class="hearing-item"><div class="hearing-label">職業</div><div>デスクワークか？立ち仕事か？</div></div>
+          <div class="hearing-item"><div class="hearing-label">何時利用</div><div>会社員なら「仕事終わり」や「土日」が多いか？（仕事終わりが多いなら「仕事終わり 〇〇」のKWもあり）</div></div>
+          <div class="hearing-item"><div class="hearing-label">利用傾向（悩み）</div><div>
+            <div class="tag-list"><span class="tag core">コア層</span><span class="tag">腰痛</span><span class="tag">頭痛</span><span class="tag">肩こり</span><span class="tag">首こり</span><span class="tag">猫背</span><span class="tag">骨盤矯正</span></div>
+            <div class="tag-list" style="margin-top:4px;"><span class="tag niche">ニッチ層</span><span class="tag">坐骨神経痛</span><span class="tag">頚椎板ヘルニア</span></div>
+            <div class="tag-list" style="margin-top:4px;"><span class="tag potential">潜在層</span><span class="tag">腰の違和感</span><span class="tag">病院に行っても治らない</span><span class="tag">背中の痺れ</span></div>
+          </div></div>
+        </div>
+      </div>
+
+      <div class="hearing-card">
+        <div class="hearing-card-header" onclick="toggleHearing(this)">🚗 車系のヒアリング <span class="chevron-sm">▼</span></div>
+        <div class="hearing-card-body">
+          <div class="hearing-item"><div class="hearing-label">決め手</div><div>品質？立地？車種の取り扱い（ホンダ・スバル等に強いか）？板金の修理が早い？安いから？</div></div>
+          <div class="hearing-item"><div class="hearing-label">利用傾向（悩み）</div><div>
+            <div class="tag-list"><span class="tag core">コア層</span><span class="tag">板金</span><span class="tag">ホイール</span><span class="tag">傷</span><span class="tag">エンジン修理</span></div>
+            <div class="tag-list" style="margin-top:4px;"><span class="tag potential">潜在層</span><span class="tag">車の不具合</span><span class="tag">エンジンがかからない</span><span class="tag">乗り換えを検討中</span></div>
+          </div></div>
+        </div>
+      </div>
+
+      <div class="hearing-card">
+        <div class="hearing-card-header" onclick="toggleHearing(this)">💄 美容系のヒアリング <span class="chevron-sm">▼</span></div>
+        <div class="hearing-card-body">
+          <div class="hearing-item"><div class="hearing-label">何時利用</div><div>平日夕方以降が多い？休日が多い？</div></div>
+          <div class="hearing-item"><div class="hearing-label">決め手</div><div>
+            <div class="tag-list"><span class="tag core">施術内容</span><span class="tag">カット</span><span class="tag">トリートメント</span><span class="tag">ブリーチ</span><span class="tag">メンズカット</span></div>
+            <div class="tag-list" style="margin-top:4px;"><span class="tag potential">潜在的欲求</span><span class="tag">垢抜けたい</span><span class="tag">可愛くなりたい</span><span class="tag">イメチェンしたい</span><span class="tag">似合わせ</span></div>
+          </div></div>
+        </div>
+      </div>
+
+      <div class="hearing-card">
+        <div class="hearing-card-header" onclick="toggleHearing(this)">🐾 ペット系のヒアリング <span class="chevron-sm">▼</span></div>
+        <div class="hearing-card-body">
+          <div class="hearing-item"><div class="hearing-label">決め手</div><div>犬種を幅広く扱えるスキル？スタッフの人柄が良い？</div></div>
+          <div class="hearing-item"><div class="hearing-label">利用傾向（悩み）</div><div>
+            <div class="tag-list"><span class="tag core">サービス内容</span><span class="tag">しつけ特化</span><span class="tag">ホテル特化</span><span class="tag">ブリーディング</span></div>
+            <div class="tag-list" style="margin-top:4px;"><span class="tag potential">潜在層の悩み</span><span class="tag">ペットを預けたいけど場所がない</span><span class="tag">しつけがうまくいかない</span><span class="tag">初めてで不安</span></div>
+          </div></div>
+        </div>
+      </div>
+
+      <div class="qa-section-title">5. コミュニケーションのコツ</div>
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggleQACard(this)"><span class="q-badge" style="background:#ede9fe;color:#5b21b6;">TIP</span><span class="qa-question-text">基本の流れ（共感 → 事実 → 提案）</span><span class="chevron-sm">▼</span></div>
+        <div class="qa-answer"><span class="a-label">ポイント</span><div class="answer-main">
+          <div class="flow-steps">
+            <div class="flow-step"><div class="flow-line"><div class="flow-circle" style="background:#7c3aed;">共</div><div class="flow-connector"></div></div><div class="flow-content"><div class="flow-title">① まず共感する</div><div class="flow-example">例：「ご不安になりますよね。お問い合わせにつながらないと心配になりますよね。」</div></div></div>
+            <div class="flow-step"><div class="flow-line"><div class="flow-circle" style="background:#0ea5e9;">事</div><div class="flow-connector"></div></div><div class="flow-content"><div class="flow-title">② 事実（数値・期間・実績）で現状を共有する</div><div class="flow-example">例：「直近1ヶ月で〇〇人以上に視聴され、視聴率は〇〇%です。」</div></div></div>
+            <div class="flow-step"><div class="flow-line"><div class="flow-circle" style="background:#059669;">提</div></div><div class="flow-content"><div class="flow-title">③ 次の一手を具体的に提案して会話を終える</div><div class="flow-example">例：「このまま配信しつつ、次回までにKWの見直しを1回かけましょう。」</div></div></div>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggleQACard(this)"><span class="q-badge" style="background:#ede9fe;color:#5b21b6;">TIP</span><span class="qa-question-text">松竹梅の選択肢提示（3段階で選んでもらう）</span><span class="chevron-sm">▼</span></div>
+        <div class="qa-answer"><span class="a-label">ポイント</span><div class="answer-main">
+          <div class="matsu-take-ume">
+            <div class="mtm-card matsu"><div class="mtm-label">松（積極案）</div>広域配信＋エリア別に訴求を調整</div>
+            <div class="mtm-card take"><div class="mtm-label">竹（標準案）⭐推奨</div>標準配信＋反応の良い地域を月次で最適化</div>
+            <div class="mtm-card ume"><div class="mtm-label">梅（最小案）</div>近距離配信＋まずは反応確認</div>
+          </div>
+          <div class="answer-script">「おすすめは竹です。理由は、リスクを抑えながら改善幅を作れるためです。」のように、推奨案と理由を一緒に伝える。</div>
+        </div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="page-footer" style="margin-top:24px;">
+    ⚠️ <strong>注意事項</strong>：このスクリプトはあくまで参考例です。お客様の温度感・状況に応じて順序や言い回しは柔軟に変えてください。答えに詰まった場合は「確認してご連絡します」と伝え、後日フォローしてください。
+  </div>
+
+</main>
+
+<script>
+  // Sidebar active
+  const steps = document.querySelectorAll('.step, #example, #qa-section');
+  const navItems = document.querySelectorAll('.nav-item');
+
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navItems.forEach(a => a.classList.remove('active'));
+        const id = e.target.id;
+        const active = document.querySelector(`.nav-item[href="#${id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('.step, #example, #qa-section').forEach(el => obs.observe(el));
+
+  function toggleExample() {
+    document.getElementById('example').classList.toggle('open');
+  }
+
+  function toggleQA() {
+    document.getElementById('qa-section').classList.toggle('open');
+  }
+
+  function toggleQACard(qEl) {
+    qEl.closest('.qa-card').classList.toggle('open');
+  }
+
+  function toggleHearing(headerEl) {
+    headerEl.closest('.hearing-card').classList.toggle('open');
+  }
+</script>
+</body>
+</html>
