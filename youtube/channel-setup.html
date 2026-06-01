@@ -394,6 +394,11 @@
   </style>
 </head>
 <body>
+<script>
+(function(){
+  if(!sessionStorage.getItem('rb_auth')) location.replace('/staff-training/login.html');
+})();
+</script>
 
 <div class="page-wrapper">
 
