@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>営業・運用支援トークスクリプト（新人研修用）</title>
+  <style>
+    :root {
+      --primary: #1a56db;
+      --primary-light: #e8f0fe;
+      --secondary: #0e7490;
+      --accent: #d97706;
+      --success: #059669;
+      --danger: #dc2626;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --sidebar-w: 280px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ===== SIDEBAR ===== */
+    #sidebar {
+      width: var(--sidebar-w);
+      background: #1e293b;
+      color: #cbd5e1;
+      position: fixed;
+      top: 0; left: 0; bottom: 0;
+      overflow-y: auto;
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #sidebar-header {
+      padding: 20px 16px 16px;
+      border-bottom: 1px solid #334155;
+    }
+
+    #sidebar-header h2 {
+      font-size: 13px;
+      font-weight: 700;
+      color: #f1f5f9;
+      line-height: 1.4;
+    }
+
+    #search-box {
+      margin: 12px 16px;
+      position: relative;
+    }
+
+    #search-input {
+      width: 100%;
+      padding: 8px 12px 8px 32px;
+      background: #334155;
+      border: 1px solid #475569;
+      border-radius: 6px;
+      color: #f1f5f9;
+      font-size: 13px;
+      outline: none;
+    }
+
+    #search-input::placeholder { color: #94a3b8; }
+    #search-input:focus { border-color: var(--primary); }
+
+    .search-icon {
+      position: absolute;
+      left: 10px; top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8;
+      font-size: 14px;
+    }
+
+    #nav { padding: 8px 0 24px; }
+
+    .nav-section-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #64748b;
+      padding: 12px 16px 4px;
+    }
+
+    .nav-item {
+      display: block;
+      padding: 7px 16px;
+      font-size: 13px;
+      color: #94a3b8;
+      text-decoration: none;
+      border-left: 3px solid transparent;
+      transition: all 0.15s;
+      line-height: 1.4;
+    }
+
+    .nav-item:hover { background: #334155; color: #f1f5f9; border-left-color: #475569; }
+    .nav-item.active { background: #1e3a5f; color: #93c5fd; border-left-color: var(--primary); }
+
+    /* ===== MAIN ===== */
+    #main {
+      margin-left: var(--sidebar-w);
+      flex: 1;
+      max-width: 900px;
+      padding: 32px 40px 80px;
+    }
+
+    /* ===== PAGE HEADER ===== */
+    .page-header {
+      background: linear-gradient(135deg, #1a56db 0%, #0e7490 100%);
+      color: white;
+      border-radius: 12px;
+      padding: 32px 36px;
+      margin-bottom: 32px;
+    }
+
+    .page-header h1 { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
+    .page-header p { font-size: 14px; opacity: 0.9; line-height: 1.6; }
+
+    .tip-box {
+      background: rgba(255,255,255,0.15);
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin-top: 16px;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    /* ===== SECTION ===== */
+    .section {
+      margin-bottom: 40px;
+      scroll-margin-top: 24px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .section-badge {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 800; color: white; flex-shrink: 0;
+    }
+
+    .badge-blue   { background: #1a56db; }
+    .badge-teal   { background: #0e7490; }
+    .badge-orange { background: #d97706; }
+    .badge-green  { background: #059669; }
+    .badge-purple { background: #7c3aed; }
+
+    .section-header h2 {
+      font-size: 17px; font-weight: 700; color: var(--text);
+    }
+
+    /* ===== Q&A CARD ===== */
+    .qa-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 12px;
+      overflow: hidden;
+      transition: box-shadow 0.2s;
+    }
+
+    .qa-card:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+
+    .qa-question {
+      padding: 14px 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      user-select: none;
+    }
+
+    .q-badge {
+      background: #fef3c7;
+      color: #92400e;
+      font-size: 11px; font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 4px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .qa-question-text {
+      font-size: 14px; font-weight: 600; flex: 1; line-height: 1.5;
+    }
+
+    .chevron {
+      color: var(--text-muted);
+      font-size: 12px;
+      flex-shrink: 0;
+      margin-top: 3px;
+      transition: transform 0.2s;
+    }
+
+    .qa-card.open .chevron { transform: rotate(180deg); }
+
+    .qa-answer {
+      display: none;
+      padding: 0 18px 16px 18px;
+      border-top: 1px solid var(--border);
+    }
+
+    .qa-card.open .qa-answer { display: block; }
+
+    .a-label {
+      display: inline-block;
+      background: #dcfce7;
+      color: #166534;
+      font-size: 11px; font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 4px;
+      margin: 12px 0 8px;
+    }
+
+    .answer-main {
+      font-size: 14px; line-height: 1.75; color: #334155;
+    }
+
+    /* ===== INNER ELEMENTS ===== */
+    .answer-main strong { color: #1e293b; }
+
+    .script-box {
+      background: #f0f9ff;
+      border-left: 3px solid #0ea5e9;
+      border-radius: 0 6px 6px 0;
+      padding: 10px 14px;
+      margin: 8px 0;
+      font-size: 13px; line-height: 1.7; color: #0c4a6e;
+    }
+
+    .script-box::before {
+      content: '💬 回答例';
+      display: block;
+      font-size: 11px; font-weight: 700; color: #0ea5e9;
+      margin-bottom: 4px;
+    }
+
+    .example-box {
+      background: #fff7ed;
+      border-left: 3px solid #f97316;
+      border-radius: 0 6px 6px 0;
+      padding: 10px 14px;
+      margin: 8px 0;
+      font-size: 13px; line-height: 1.7; color: #7c2d12;
+    }
+
+    .example-box::before {
+      content: '📌 例え話';
+      display: block;
+      font-size: 11px; font-weight: 700; color: #f97316;
+      margin-bottom: 4px;
+    }
+
+    .strong-box {
+      background: #fff1f2;
+      border-left: 3px solid #f43f5e;
+      border-radius: 0 6px 6px 0;
+      padding: 10px 14px;
+      margin: 8px 0;
+      font-size: 13px; line-height: 1.7; color: #881337;
+    }
+
+    .strong-box::before {
+      content: '⚡ 強めの回答';
+      display: block;
+      font-size: 11px; font-weight: 700; color: #f43f5e;
+      margin-bottom: 4px;
+    }
+
+    .hearing-box {
+      background: #f0fdf4;
+      border-left: 3px solid #22c55e;
+      border-radius: 0 6px 6px 0;
+      padding: 10px 14px;
+      margin: 8px 0;
+      font-size: 13px; line-height: 1.7; color: #14532d;
+    }
+
+    .hearing-box::before {
+      content: '🔍 ヒアリング展開';
+      display: block;
+      font-size: 11px; font-weight: 700; color: #22c55e;
+      margin-bottom: 4px;
+    }
+
+    .warning-box {
+      background: #fffbeb;
+      border: 1px solid #fcd34d;
+      border-radius: 6px;
+      padding: 10px 14px;
+      margin: 8px 0;
+      font-size: 13px; line-height: 1.7; color: #78350f;
+    }
+
+    .warning-box::before {
+      content: '⚠️ 注意';
+      display: block;
+      font-size: 11px; font-weight: 700; color: #d97706;
+      margin-bottom: 4px;
+    }
+
+    .phase-list {
+      list-style: none; padding: 0;
+    }
+
+    .phase-item {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 8px 0;
+      border-bottom: 1px dashed var(--border);
+      font-size: 13px; line-height: 1.6;
+    }
+
+    .phase-item:last-child { border-bottom: none; }
+
+    .phase-dot {
+      width: 22px; height: 22px; border-radius: 50%;
+      background: var(--primary); color: white;
+      font-size: 11px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px;
+    }
+
+    .list-plain { padding-left: 18px; }
+    .list-plain li { font-size: 13px; line-height: 1.8; color: #334155; }
+
+    /* ===== HEARING SECTION ===== */
+    .hearing-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+
+    .hearing-card-header {
+      padding: 12px 16px;
+      background: #f8fafc;
+      font-size: 14px; font-weight: 700;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      display: flex; align-items: center; gap: 8px;
+    }
+
+    .hearing-card-body {
+      padding: 14px 16px;
+    }
+
+    .hearing-item {
+      margin-bottom: 10px;
+      font-size: 13px; line-height: 1.7;
+    }
+
+    .hearing-label {
+      display: inline-block;
+      background: #e0f2fe;
+      color: #0369a1;
+      font-size: 11px; font-weight: 700;
+      padding: 1px 6px; border-radius: 4px;
+      margin-bottom: 4px;
+    }
+
+    .tag-list { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+
+    .tag {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      color: #475569;
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 20px;
+    }
+
+    .tag.core { background: #eff6ff; border-color: #bfdbfe; color: #1d4ed8; }
+    .tag.niche { background: #f5f3ff; border-color: #ddd6fe; color: #6d28d9; }
+    .tag.potential { background: #fff7ed; border-color: #fed7aa; color: #c2410c; }
+
+    /* ===== COMM SECTION ===== */
+    .flow-steps {
+      display: flex; flex-direction: column; gap: 0;
+      margin: 12px 0;
+    }
+
+    .flow-step {
+      display: flex; gap: 12px; align-items: flex-start;
+    }
+
+    .flow-line {
+      display: flex; flex-direction: column; align-items: center;
+      flex-shrink: 0;
+    }
+
+    .flow-circle {
+      width: 28px; height: 28px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 800; color: white;
+      flex-shrink: 0;
+    }
+
+    .flow-connector {
+      width: 2px; height: 20px; background: var(--border);
+      margin: 2px 0;
+    }
+
+    .flow-content {
+      padding-bottom: 16px; flex: 1;
+    }
+
+    .flow-title { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+    .flow-desc  { font-size: 12px; color: var(--text-muted); line-height: 1.6; }
+    .flow-example { font-size: 12px; color: #0369a1; font-style: italic; margin-top: 4px; }
+
+    .matsu-take-ume {
+      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;
+      margin: 12px 0;
+    }
+
+    .mtm-card {
+      border-radius: 8px; padding: 12px;
+      font-size: 12px; line-height: 1.6;
+    }
+
+    .mtm-card.matsu { background: #fef9ee; border: 1px solid #fcd34d; }
+    .mtm-card.take  { background: #f0fdf4; border: 1px solid #86efac; }
+    .mtm-card.ume   { background: #fdf4ff; border: 1px solid #e9d5ff; }
+
+    .mtm-label {
+      font-size: 13px; font-weight: 800; margin-bottom: 6px;
+    }
+
+    .matsu .mtm-label { color: #92400e; }
+    .take  .mtm-label { color: #166534; }
+    .ume   .mtm-label { color: #6b21a8; }
+
+    /* ===== SEARCH HIGHLIGHT ===== */
+    mark { background: #fef08a; padding: 0 2px; border-radius: 2px; }
+
+    .hidden { display: none !important; }
+
+    /* ===== FOOTER ===== */
+    .page-footer {
+      margin-top: 40px;
+      padding: 16px 20px;
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      border-radius: 10px;
+      font-size: 13px; line-height: 1.7; color: #7c2d12;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      #sidebar { width: 100%; height: auto; position: relative; }
+      #main { margin-left: 0; padding: 20px 16px 60px; }
+      .matsu-take-ume { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== SIDEBAR ===== -->
+<nav id="sidebar">
+  <div id="sidebar-header">
+    <h2>営業・運用支援<br>トークスクリプト</h2>
+  </div>
+
+  <div id="search-box">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="search-input" placeholder="キーワードで検索...">
+  </div>
+
+  <div id="nav">
+    <div class="nav-section-label">セクション</div>
+    <a href="#intro"    class="nav-item">📋 はじめに</a>
+    <a href="#sec1"     class="nav-item">1. 広告効果・反響</a>
+    <a href="#sec2"     class="nav-item">2. 予算・設定・システム</a>
+    <a href="#sec3"     class="nav-item">3. クレーム・契約・サポート</a>
+    <a href="#sec4"     class="nav-item">4. ターゲット再設定ヒアリング</a>
+    <a href="#sec5"     class="nav-item">5. コミュニケーションのコツ</a>
+  </div>
+</nav>
+
+<!-- ===== MAIN ===== -->
+<main id="main">
+
+  <!-- PAGE HEADER -->
+  <div class="page-header" id="intro">
+    <h1>営業・運用支援トークスクリプト</h1>
+    <p>新人研修用 ― お客様（店舗オーナー様など）からの質問・懸念への回答集</p>
+    <div class="tip-box">
+      <strong>前提として必ず覚えておくこと：</strong><br>
+      YouTube広告の強みは「<strong>認知拡大</strong>」です。即時の集客・直接的なコンバージョンではなく、ユーザーの「候補に上がる」状態を作ることが目的です。この前提を理解した上でお客様の状況に合わせてヒアリング・提案につなげてください。
+    </div>
+  </div>
+
+  <!-- ===== 概念：認知拡大とKPI ===== -->
+  <div style="background:#fff;border:2px solid #1a56db;border-radius:12px;padding:24px 28px;margin-bottom:32px;">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+      <div style="background:#1a56db;color:white;font-size:12px;font-weight:800;padding:4px 12px;border-radius:20px;">📌 新人が最初に理解すべき概念</div>
+    </div>
+    <h3 style="font-size:16px;font-weight:800;color:#1e293b;margin-bottom:12px;">今回の施策は「認知拡大」であること</h3>
+    <p style="font-size:14px;line-height:1.8;color:#334155;margin-bottom:16px;">
+      広告の目的と評価指標（KPI）がずれていると、効果を正しく判断できません。<br>
+      例えば、ブランドの認知度を上げることが目的なのに、<strong>問い合わせ数だけを見ていると「効果がない」という誤った結論</strong>に至ってしまいます。
+    </p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <div style="background:#eff6ff;border-left:4px solid #1a56db;border-radius:0 8px 8px 0;padding:14px 16px;">
+        <div style="font-size:12px;font-weight:800;color:#1a56db;margin-bottom:6px;">🎯 認知目的（今回）</div>
+        <div style="font-size:13px;color:#1e40af;line-height:1.7;">
+          <strong>見るべき指標：</strong><br>
+          視聴回数・リーチ数・視聴率
+        </div>
+      </div>
+      <div style="background:#f0fdf4;border-left:4px solid #059669;border-radius:0 8px 8px 0;padding:14px 16px;">
+        <div style="font-size:12px;font-weight:800;color:#059669;margin-bottom:6px;">💰 成約目的（別の施策）</div>
+        <div style="font-size:13px;color:#166534;line-height:1.7;">
+          <strong>見るべき指標：</strong><br>
+          問い合わせ数・購入数・CV数
+        </div>
+      </div>
+    </div>
+    <div style="background:#fffbeb;border:1px solid #fcd34d;border-radius:8px;padding:12px 16px;margin-top:14px;font-size:13px;color:#78350f;line-height:1.7;">
+      ⚠️ お客様から「効果がない」と言われたとき、まず<strong>「何をもって効果と定義しているか」</strong>を確認すること。目的とKPIがずれていれば、そこから整理する。
+    </div>
+  </div>
+
+  <!-- ===== 概念：広告とLPの一貫性 ===== -->
+  <div style="background:#fff;border:2px solid #0e7490;border-radius:12px;padding:24px 28px;margin-bottom:32px;">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+      <div style="background:#0e7490;color:white;font-size:12px;font-weight:800;padding:4px 12px;border-radius:20px;">📌 新人が最初に理解すべき概念</div>
+    </div>
+    <h3 style="font-size:16px;font-weight:800;color:#1e293b;margin-bottom:4px;">動画広告とLP・HP・SNSの内容に相違がある</h3>
+    <p style="font-size:13px;color:#0e7490;font-weight:700;margin-bottom:12px;">※ここを着手できていないクライアント様は非常に多いです</p>
+    <p style="font-size:14px;line-height:1.8;color:#334155;margin-bottom:16px;">
+      <strong>LP（ランディングページ）</strong>とは、広告をクリックした後にユーザーが最初に訪れるページのことです。<br>
+      動画広告で「今なら送料無料」と訴求しているのに、LPにその情報が載っていなければ、ユーザーは混乱して離脱してしまいます。<br>
+      このような<strong>広告と受け皿の不一致</strong>は、成果に結びつかない大きな要因となります。
+    </p>
+    <div style="background:#ecfeff;border-left:4px solid #0e7490;border-radius:0 8px 8px 0;padding:14px 16px;margin-bottom:12px;">
+      <div style="font-size:12px;font-weight:800;color:#0e7490;margin-bottom:8px;">✅ 一貫性が必要な媒体</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;font-size:13px;color:#155e75;">
+        <span style="background:#cffafe;border:1px solid #a5f3fc;border-radius:20px;padding:3px 12px;">動画広告</span>
+        <span style="color:#0e7490;font-size:16px;line-height:1.8;">→</span>
+        <span style="background:#cffafe;border:1px solid #a5f3fc;border-radius:20px;padding:3px 12px;">LP・HP</span>
+        <span style="color:#0e7490;font-size:16px;line-height:1.8;">→</span>
+        <span style="background:#cffafe;border:1px solid #a5f3fc;border-radius:20px;padding:3px 12px;">各種SNS</span>
+        <span style="color:#0e7490;font-size:16px;line-height:1.8;">→</span>
+        <span style="background:#cffafe;border:1px solid #a5f3fc;border-radius:20px;padding:3px 12px;">Googleマップ（MEO）</span>
+      </div>
+      <p style="font-size:13px;color:#155e75;margin-top:10px;line-height:1.7;">広告からどの媒体に飛んでも、<strong>同じメッセージ・同じキャンペーン情報</strong>が伝わる状態を目指す。</p>
+    </div>
+    <div style="background:#fffbeb;border:1px solid #fcd34d;border-radius:8px;padding:12px 16px;font-size:13px;color:#78350f;line-height:1.7;">
+      ⚠️ 「広告は頑張っているのに成果が出ない」という場合、受け皿（HP・SNS・MEO）の情報が古い・薄い・広告と違う可能性を疑うこと。広告だけ改善しても限界がある。
+    </div>
+  </div>
+
+  <!-- ===== SECTION 1 ===== -->
+  <section class="section" id="sec1">
+    <div class="section-header">
+      <div class="section-badge badge-blue">1</div>
+      <h2>広告効果・反響に関するよくある質問と回答</h2>
+    </div>
+
+    <!-- Q1 -->
+    <div class="qa-card" id="q1-1">
+      <div class="qa-question" onclick="toggleCard(this)">
+        <span class="q-badge">Q</span>
+        <span class="qa-question-text">「YouTube広告を見て来た人がいないんだけど…」</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="a-label">A</span>
+        <div class="answer-main">
+          <strong>大前提：広告を見てもすぐ来店するわけではありません。</strong>「候補に上がる」ことが目的です。
+          <div class="script-box">
+            「でも、お客さんがお店を探してる時の候補に上がるように、今回の施策を実施しています。1ヶ月で〇〇人以上の人が広告を見てくれていますし、視聴率も高いので、修正を繰り返しながら配信していきましょう。」
+          </div>
+          <div class="script-box">
+            「今はWeb情報も多いですし、競合が多いエリア・業種ほど、ユーザーが比較検討してから行動するまで時間がかかります。きっかけ作りのためにこのまま配信していきましょう。」
+          </div>
+          <div class="hearing-box">
+            「現状ではこのキーワード設定をしてますけど、こういう方（症状や目的）の利用って現状多いですか？」<br>
+            → 「これだけ広告が見られていて、実際のご利用がないのであれば、設定を変えるのも一つの手ではありますね。」
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="qa-card" id="q1-2">
+      <div class="qa-question" onclick="toggleCard(this)">
+        <span class="q-badge">Q</span>
+        <span class="qa-question-text">「新患（新規）さんで1人も（広告を見たという人が）いませんでしたか？」</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="a-label">A</span>
+        <div class="answer-main">
+          <strong>HPや予約サイトからの流入が全くゼロという認識でよろしいでしょうか？</strong><br><br>
+          今のユーザーは<strong>広告を見た後にHPやMEO（マップ）を検索する</strong>人が多いです。<br><br>
+          アンケート回答のズレに注意：店舗でアンケートに答える際、「動画広告がきっかけでも、最終判断はサイトだったため『サイトを見て来ました』と答える」ケースが多々あります。
+          <div class="warning-box">
+            「俺はYouTube広告を見たら広告を見た！って答える人が絶対にいると思うんだ！！！」と言われた場合：<br><br>
+            <strong>【推奨】</strong>「確かにそう感じるのは自然だと思います。ただ、実際のアンケートデータでは『サイトを見て来ました』と答えるケースが多く、きっかけまで遡ると広告だったというパターンが非常に多いんです。」<br><br>
+            <strong>【上長同席時のみ】</strong>「それはオーナー様の主観ですよね。」（新人は使用しないこと）
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="qa-card" id="q1-3">
+      <div class="qa-question" onclick="toggleCard(this)">
+        <span class="q-badge">Q</span>
+        <span class="qa-question-text">「効果がでてないんですけど…」</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="a-label">A</span>
+        <div class="answer-main">
+          <strong>データを元に、数値としてしっかり再生されている状態をお伝えします。</strong><br><br>
+          YouTube広告の「認知拡大」という役割としては、しっかり果たせている状態です。
+          <div class="script-box">
+            「お客様も流動的です。仕事で忙しいタイミングなら足が遠のいてしまいますので、広告を見てすぐに来店するわけでもないですよね。」
+          </div>
+          <div class="example-box">
+            「アサヒビールのCMを見たからと言って、次の日に必ずアサヒビールを買うわけではないですよね？ 行動には選択のタイミングがあるので、今すぐ選んでもらうのは難しいです。」
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="qa-card" id="q1-4">
+      <div class="qa-question" onclick="toggleCard(this)">
+        <span class="q-badge">Q</span>
+        <span class="qa-question-text">「認知されてるのに問い合わせに繋がらないのはなんでですか？人が来てる感じがしないんだけど…」</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="a-label">A</span>
+        <div class="answer-main">
+          <strong>大きく分けて2つの可能性があります。</strong>
+          <br><br>
+          <strong>① 広告配信先のニーズが噛み合っていない可能性</strong>
+          <ul class="list-plain" style="margin: 6px 0 12px 0;">
+            <li>ターゲティング（KWなど）の再設定を提案できます</li>
+            <li>既存のお客様の年齢・職業・性別・利用目的・潜在的な悩みを再度ヒアリングしてください</li>
+          </ul>
+          <strong>② 比較検討の際に競合店へ流れている可能性</strong>
+          <ul class="list-plain" style="margin: 6px 0 12px 0;">
+            <li>広告配信後、HP・マップのアクセス数は上がっていないか確認</li>
+            <li>比較検討の基準：<strong>「口コミの評価」</strong>と<strong>「HPサイト」</strong>が重要</li>
+          </ul>
+          <div class="hearing-box">
+            <strong>提案へのつなぎ：</strong><br>
+            MEOなら「口コミを投稿してもらう」「投稿を発信する」、そして「サイトを見てくれる人にとって分かりやすいサイトを構築する」ことが有効です。ただし、これは店舗さんのサービス品質・差別化に関するオーナーさんのご努力が必要になります。
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="qa-card" id="q1-5">
+      <div class="qa-question" onclick="toggleCard(this)">
+        <span class="q-badge">Q</span>
+        <span class="qa-question-text">「（開始して半年以内の場合）成果が出ない」</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="a-label">A</span>
+        <div class="answer-main">
+          <strong>YouTubeは認知拡大が強みの広告タイプ。認知拡大にはどうしても時間がかかります。</strong><br><br>
+          適切なユーザーに配信するために<strong>1年弱かけてデータを集計し、軌道修正を行う必要</strong>があります。
+          <ul class="phase-list" style="margin-top: 12px;">
+            <li class="phase-item">
+              <div class="phase-dot">1</div>
+              <div><strong>最初の1〜2ヶ月：</strong>ターゲットの行動・反応を理解し、効果的なキーワードを把握する期間</div>
+            </li>
+            <li class="phase-item">
+              <div class="phase-dot">2</div>
+              <div><strong>次の1〜2ヶ月：</strong>収集データに基づいてキーワード調整・ターゲット改善を行う期間</div>
+            </li>
+            <li class="phase-item">
+              <div class="phase-dot">3</div>
+              <div><strong>それ以降：</strong>これまでのデータを元に運用をどうしていくか判断する期間</div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q6 -->
+    <div class="qa-card" id="q1-6">
+      <div class="qa-question" onclick="toggleCard(this)">
+        <span class="q-badge">Q</span>
+        <span class="qa-question-text">「再生ほんとにされてるの？」</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="a-label">A</span>
+        <div class="answer-main">
+          <strong>YouTube Studioで確認できます。</strong><br><br>
+          納品した動画がどれくらい再生されているか確認可能です。ただ動画をアップロードしても再生回数が1,000回に届かないケースも多い中、現状はそれくらい見られています。
+          <div class="warning-box">
+            「これだけ見られているのに問い合わせに繋がらない」という場合、競合に選ばれていない可能性があります。HP・口コミ・サービス内容など「受け皿」の見直しをヒアリングの切り口にしてください。
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q7 -->
+    <div class="qa-card" id="q1-7">
+      <div class="qa-question" onclick="toggleCard(this)">
+        <span class="q-badge">Q</span>
+        <span class="qa-question-text">「視聴率（視聴維持率）低くないですか？」</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="a-label">A</span>
+        <div class="answer-main">
+          <div class="script-box">
+            「視聴率は、広告がターゲットに届いているかどうかを示す指標でもあります。業界平均は10〜15%前後と言われていますが、仮に40%あるとすれば、それは『この広告を最後まで見たい』と感じたユーザーが多い、つまりターゲットにしっかり届いている証拠なんです。」
+          </div>
+          <div class="script-box">
+            「逆に視聴率が低い場合は、広告の内容やターゲット設定を見直すサインとして捉えています。視聴率が高いのであれば、広告としての役割は十分に果たせていると思いますよ。」
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q8 -->
+    <div class="qa-card" id="q1-8">
+      <div class="qa-question" onclick="toggleCard(this)">
+        <span class="q-badge">Q</span>
+        <span class="qa-question-text">「アクセス数みたいなのはどうなの？クリック数はどれくらいなの？」</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="a-label">A</span>
+        <div class="answer-main">
+          <div class="script-box">
+            「クリック数はこちらの管理画面では正確に追いにくい部分がありまして。それよりも、何人に届いたか・何回見てもらえたかという数字の方が今回の施策には合った見方になりますね。今回はあくまで認知を広げる施策なので、視聴回数ベースで見ていただくのが一番正しい評価になりますよ。」
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 2 ===== -->
+  <section class="section" id="sec2">
+    <div class="section-header">
+      <div class="section-badge badge-teal">2</div>
+      <h2>予算・設定・システムに関する質問</h2>
+    </div>
+
+    <!-- Q2-1 -->
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleCard(this)">
+        <span class="q-badge">Q</span>
+        <span class="qa-question-text">「広告費をいくらかければいいの？」</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="a-label">A</span>
+        <div class="answer-main">
+          <strong>たくさんかけたからといって、費用分のお客様が来るとは確約できません。</strong><br><br>
+          お金だけの問題ではなく、ターゲット設定や受け皿となるサイト等の質も重要です。
+          <div class="hearing-box">
+            「まず現状の配信実績と目標を一緒に整理させてください。今の予算で何ができていて、何が足りていないのかを確認した上で、必要であれば調整を提案します。」
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q2-2 -->
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleCard(this)">
+        <span class="q-badge">Q</span>
+        <span class="qa-question-text">「俺（オーナー自身）に広告が配信されないんだけど！！検索してもでないんだけど？」</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="a-label">A</span>
+        <div class="answer-main">
+          <strong>オーナーさんご自身に配信されるようにするのは難しいです。</strong>
+          <ul class="list-plain" style="margin: 8px 0;">
+            <li>普段、ご自身以外のサイトやSNSも見ますよね？競合他社も広告を出しているので、都合よくオーナーさんの動画だけ流すのは無理です。<strong>競合の広告オークションに勝った時だけ配信されます。</strong></li>
+            <li>配信対象は数千〜数億人の想定の中で「オーナー様1人」にドンピシャで見せるのは確率的にかなり難しいです。</li>
+          </ul>
+          <div class="script-box">
+            「オーナーさんに流してくださいというのも、そもそも（自分が見るだけなので）広告の意味ないですよね？」
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q2-3 -->
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleCard(this)">
+        <span class="q-badge">Q</span>
+        <span class="qa-question-text">「FQ（フリークエンシー＝配信頻度）の適正は？」</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="a-label">A</span>
+        <div class="answer-main">
+          「1人にたくさん配信するか」「たくさんの人に知ってもらうか」によって設定が変わります。
+          <ul class="list-plain" style="margin: 8px 0;">
+            <li><strong>リテラシーがある人向け：</strong>「1人に100回も広告を見せると『しつこい』などネガティブな印象を持たれる可能性があります。それなら1人あたり5回見せて20人にアプローチした方が覚えてもらえそうですよね？」</li>
+            <li><strong>リテラシーがない人向け：</strong>「1人にたくさん広告を流すのではなく、よりたくさんの人にアプローチできるようにする設定です。」</li>
+            <li><strong>さらに説明を求める人向け：</strong>「広告が流れすぎないようにする（上限を設ける）設定なんですよ。」</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q2-4 -->
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleCard(this)">
+        <span class="q-badge">Q</span>
+        <span class="qa-question-text">「キーワード（KW）はなんでこんなに少ないんですか？」</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="a-label">A</span>
+        <div class="answer-main">
+          YouTube広告は例えば10個設定しても、<strong>実際に動く（配信される）のは5〜6個</strong>程度です。予算制限によってGoogle側が日予算を超えないよう配信・稼働KWを自動調整する仕組みです。
+          <div class="warning-box">
+            <strong>ターゲティング種別の違いも把握しておくこと：</strong><br>
+            ・<strong>コンテンツ：</strong>設定したKWが含まれる動画やサイトに広告が表示される<br>
+            ・<strong>オーディエンス（カスタムインタレスト）：</strong>設定したKWを検索・関心を持っている「人」に広告が配信される
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q2-5 -->
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleCard(this)">
+        <span class="q-badge">Q</span>
+        <span class="qa-question-text">「なんで動いてないキーワードがあるんですか？」</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="a-label">A</span>
+        <div class="answer-main">
+          <strong>Google側のシステム（アルゴリズム）の仕様です。</strong><br><br>
+          Googleが動画内容とKWのマッチ度を加味して配信可否を試行し、配信実績の良いKWが優先される仕組みです。検索ボリュームが少ない場合には、その旨が表示されるようになります。
+        </div>
+      </div>
+    </div>
+
+    <!-- Q2-6 -->
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleCard(this)">
+        <span class="q-badge">Q</span>
+        <span class="qa-question-text">「（動いてないKWがある状態で）キーワードを入れ替える理由ってなんですか？」</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="a-label">A</span>
+        <div class="answer-main">
+          他のキーワードに入れ替えることで、<strong>別の確度からどれくらい表示されるかをテスト</strong>できます。
+          <div class="script-box">
+            「店舗を探しているユーザーに刺さるKWが実際にどれかを比較検討できますよ。動くかどうかを検証することは有意義だと思いませんか？」
+          </div>
+          可能性があるKWのテストをしないのは可能性を潰すことになってしまいます。
+        </div>
+      </div>
+    </div>
+
+    <!-- Q2-7 -->
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleCard(this)">
+        <span class="q-badge">Q</span>
+        <span class="qa-question-text">「広告ってどんな仕組みで配信されるの？」</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="a-label">A</span>
+        <div class="answer-main">
+          今の設定では<strong>「オークション制度」</strong>で運用しております。<br><br>
+          KWを検索した人に対して広告枠のオークションが行われ、他社よりも高い金額を提示できた際に広告が配信されます。
+        </div>
+      </div>
+    </div>
+
+    <!-- Q2-8 -->
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleCard(this)">
+        <span class="q-badge">Q</span>
+        <span class="qa-question-text">「サイトの誘導ボタンの文言とか変えられる？」</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="a-label">A</span>
+        <div class="answer-main">
+          <strong>「サイト誘導ボタン」の文言は変更できます。</strong><br><br>
+          ただし文字数がかなり少なく（半角10文字＝全角5文字前後）、伝えられる情報に限りがあり、大きな影響は出しづらいです。リスティング広告の説明文等と比較すると効果は劣ります。
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 3 ===== -->
+  <section class="section" id="sec3">
+    <div class="section-header">
+      <div class="section-badge badge-orange">3</div>
+      <h2>クレーム・契約・サポート範囲に対する回答</h2>
+    </div>
+
+    <!-- Q3-1 -->
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleCard(this)">
+        <span class="q-badge">Q</span>
+        <span class="qa-question-text">「データ全て（生の数値など）くれないの？スプシで全て見られるようにしてほしい」</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="a-label">A</span>
+        <div class="answer-main">
+          <strong>生データのすべてのお渡し・共有はしておりません。（契約・サポート外です）</strong><br><br>
+          お客様に伝える必要がある箇所のデータのみをスプレッドシートにて共有しております。
+          <div class="script-box">
+            「会社からは、必要なデータは口頭および指定のスプレッドシートにて共有をしてくれと言われておりますので、今回このような形で共有をしております。ご理解のほど、よろしくお願いいたします。」
+          </div>
+          さらに求められた場合：「そこは営業の方にご相談ください。」
+        </div>
+      </div>
+    </div>
+
+    <!-- Q3-2 -->
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleCard(this)">
+        <span class="q-badge">Q</span>
+        <span class="qa-question-text">「広告の管理画面を見せてください」</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="a-label">A</span>
+        <div class="answer-main">
+          <strong>お見せすることはできかねます。</strong>
+          <ul class="list-plain" style="margin: 8px 0;">
+            <li><strong>一般のお客様へ：</strong>「他のクライアント様の情報も含まれて表示される可能性があるため、お見せすることができません。」</li>
+            <li><strong>プロ・専門知識がある方へ：</strong>「会社からの指示で開示しないようにと言われているため、ご対応できかねます。ご容赦くださいませ。」</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q3-3 -->
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleCard(this)">
+        <span class="q-badge">Q</span>
+        <span class="qa-question-text">「HPも重要だなんて聞いてねーぞ！！！」</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="a-label">A</span>
+        <div class="answer-main">
+          <strong>広告を実際に動かしてみることで、HPの重要性が数値として見えてきた、ということです。</strong>
+          <div class="script-box">
+            「広告配信によってHPへのアクセスが増えた結果、HPの内容がお客様の判断に影響していることが分かってきました。これは運用を進めることで初めて見えてくることで、事前に特定するのが難しい部分なんです。」
+          </div>
+          <div class="warning-box">
+            営業の説明不足を示唆する表現は避け、「運用を通じた発見」として前向きに伝えること。社内の別部署への不信感につながるため。
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q3-4 -->
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleCard(this)">
+        <span class="q-badge">Q</span>
+        <span class="qa-question-text">「もっと表示回数を増やしたいです。（月平均の3倍以上など）」</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="a-label">A</span>
+        <div class="answer-main">
+          <strong>いただいてるご予算の範囲内だと、これが限界です。</strong><br><br>
+          もっと表示回数・視聴数を増やしたいなら、別の設定（予算上限を引き上げる等）が必要になります。それでもよろしければ<strong>営業にご相談ください</strong>。
+        </div>
+      </div>
+    </div>
+
+    <!-- Q3-5 -->
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleCard(this)">
+        <span class="q-badge">Q</span>
+        <span class="qa-question-text">「今の契約内容の中で他にYouTube広告でできることないの？」</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="a-label">A</span>
+        <div class="answer-main">
+          <strong>YouTube広告の範囲内ならば、これ以外の特殊な魔法のようなものはないです。</strong><br><br>
+          YouTube広告の中で「ばら撒き戦略（広く浅く）」にするか「絞った配信（狭く深く）」にするかのチューニングになります。全く別の広告媒体をやりたい場合には、<strong>営業の方にご相談</strong>ください。
+        </div>
+      </div>
+    </div>
+
+    <!-- Q3-6 -->
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleCard(this)">
+        <span class="q-badge">Q</span>
+        <span class="qa-question-text">「HPってどうすればいいですか？何かアドバイスありますか？」</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="a-label">A</span>
+        <div class="answer-main">
+          <strong>申し訳ございません。現状のサポート範囲外となります。</strong>
+          <div class="script-box">
+            「サイトの知識が十分でない、または自信がない場合は、誤った案内を避けるため回答を控えさせていただきます。サイト改善については、専門の担当者または営業にお申し付けください。」
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q3-7 -->
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleCard(this)">
+        <span class="q-badge">Q</span>
+        <span class="qa-question-text">「広告解約しようか迷います。」</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="a-label">A</span>
+        <div class="answer-main">
+          <strong>まず「何がご不安なのか」を聞くことから始める。</strong>
+          <div class="hearing-box">
+            <strong>【Step1】まず理由を聞く：</strong>「もし差し支えなければ、どういった点がご不安なのか聞かせていただけますか？もしかすると改善できる点があるかもしれません。」<br><br>
+            理由を聞いた上で、解決できそうな課題であればその場で対応策を提案する。改善策を提案してもご意向が変わらない場合、または予算・事業判断など自分では対処できない場合は営業にエスカレーション。
+          </div>
+          <div class="script-box">
+            <strong>【Step2】それでも解約希望の場合：</strong>「承知しました。解約のお手続きは担当の営業が対応しますので、ご連絡していただけますか？」
+          </div>
+          <div class="warning-box">
+            最初から委ねるのではなく、まず理由を聞いて解決できるかを確認することが大切。
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q3-8 -->
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleCard(this)">
+        <span class="q-badge">Q</span>
+        <span class="qa-question-text">「定例会の連絡が来ないんだけれども」</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="a-label">A</span>
+        <div class="answer-main">
+          <div class="script-box">
+            「こちらからメールをお送りしております。迷惑メールフォルダに入っていないか等のご確認をお願いします。」
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q3-9 -->
+    <div class="qa-card" style="border-left: 4px solid #dc2626;">
+      <div class="qa-question" onclick="toggleCard(this)">
+        <span class="q-badge" style="background:#fee2e2;color:#991b1b;">Q</span>
+        <span class="qa-question-text">「YouTubeを見て来たお客さんが1人もいない。お前らどうなってるんだ？」（強い詰問）</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="a-label">A</span>
+        <div class="answer-main">
+          <strong>まず感情的に返さず、落ち着いて受け止めることが最優先。</strong><br><br>
+          <div class="script-box">
+            「ご不満をお聞かせいただきありがとうございます。そのようなご状況であれば、ご不安になられるのは当然だと思います。」
+          </div>
+          <div class="script-box">
+            「YouTube広告は『広告を見たから来た』とお客様が認識されにくい特性があります。実際には広告がきっかけでも、HPやマップを経由してご来店されるケースが非常に多く、アンケートでは『サイトを見て来た』とお答えになる方がほとんどなんです。」
+          </div>
+          <div class="script-box">
+            「データを確認しますと、〇〇人の方に広告が届き、〇〇回視聴されています。認知は確実に広がっている状態ですので、次のステップとしてHP・マップの情報更新や口コミ強化もあわせてご検討いただけると、より成果につながりやすくなります。」
+          </div>
+          <div class="warning-box">
+            感情的な詰問に対して言い訳や反論をすると火に油を注ぐ。「共感 → 事実 → 提案」の順で落ち着いて返すこと。それでも収まらない場合は<strong>無理に解決しようとせず、上長にエスカレーション</strong>する。
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 4 ===== -->
+  <section class="section" id="sec4">
+    <div class="section-header">
+      <div class="section-badge badge-green">4</div>
+      <h2>ターゲット再設定のための具体的なヒアリング集（業種別）</h2>
+    </div>
+
+    <div style="background:#f0fdf4;border:1px solid #86efac;border-radius:8px;padding:14px 16px;margin-bottom:16px;font-size:13px;line-height:1.7;color:#14532d;">
+      <strong>共通のゴール：</strong>「動画のメッセージとサービスの強み、利用傾向を加味したキーワード設定が必要になる。もしズレている可能性があるなら、再提案していいですか？」と繋げること。
+    </div>
+
+    <!-- 共通項目 -->
+    <div class="hearing-card">
+      <div class="hearing-card-header">
+        📋 全業種共通で深掘りする基本項目
+      </div>
+      <div class="hearing-card-body">
+        <div class="hearing-item">
+          <div class="hearing-label">性別・年齢・職業</div>
+          <div>学生？デスクワーク？夜職？パート？専業主婦？</div>
+        </div>
+        <div class="hearing-item">
+          <div class="hearing-label">いつ利用？</div>
+          <div>平日？土日？時間帯は？</div>
+        </div>
+        <div class="hearing-item">
+          <div class="hearing-label">決め手は？</div>
+          <div>近いから？安いから？人柄？リピートされる理由は？</div>
+        </div>
+        <div class="hearing-item">
+          <div class="hearing-label">どこから・移動手段は？</div>
+          <div>近隣？遠方？都内？ 車で10分＝6km圏内、車で30分＝20km圏内</div>
+        </div>
+        <div class="hearing-item">
+          <div class="hearing-label">サービスの利用傾向・悩みは？</div>
+          <div>潜在的な悩みは何か？</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 整体系 -->
+    <div class="hearing-card">
+      <div class="hearing-card-header">
+        🏥 整体系のヒアリング
+      </div>
+      <div class="hearing-card-body">
+        <div class="hearing-item">
+          <div class="hearing-label">性別・年齢</div>
+          <div>女性ならではの悩み（産前産後、生理痛など）はあるか？高齢の方の利用傾向が多いか？</div>
+        </div>
+        <div class="hearing-item">
+          <div class="hearing-label">職業</div>
+          <div>デスクワークか？立ち仕事か？</div>
+        </div>
+        <div class="hearing-item">
+          <div class="hearing-label">何時利用</div>
+          <div>会社員なら「仕事終わり」や「土日」が多いか？（仕事終わりが多いなら「仕事終わり 〇〇」のKWもあり）</div>
+        </div>
+        <div class="hearing-item">
+          <div class="hearing-label">決め手</div>
+          <div>近いから？特定の施術に特化してるから？口コミが良いから？</div>
+        </div>
+        <div class="hearing-item">
+          <div class="hearing-label">利用傾向（悩み）</div>
+          <div>
+            <div class="tag-list">
+              <span class="tag core">コア層</span>
+              <span class="tag">腰痛</span><span class="tag">頭痛</span><span class="tag">肩こり</span><span class="tag">首こり</span><span class="tag">猫背</span><span class="tag">整体院</span><span class="tag">接骨院</span><span class="tag">骨盤矯正</span>
+            </div>
+            <div class="tag-list" style="margin-top:4px;">
+              <span class="tag niche">ニッチ層</span>
+              <span class="tag">坐骨神経痛</span><span class="tag">頚椎板ヘルニア</span>
+            </div>
+            <div class="tag-list" style="margin-top:4px;">
+              <span class="tag potential">潜在層</span>
+              <span class="tag">腰の違和感</span><span class="tag">病院に行っても治らない</span><span class="tag">セカンドオピニオン</span><span class="tag">背中の痺れ</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 車系 -->
+    <div class="hearing-card">
+      <div class="hearing-card-header">
+        🚗 車系のヒアリング
+      </div>
+      <div class="hearing-card-body">
+        <div class="hearing-item">
+          <div class="hearing-label">性別・年齢</div>
+          <div>車文化の地域なら老若男女（20代〜）満遍なくか？男性が多いか？</div>
+        </div>
+        <div class="hearing-item">
+          <div class="hearing-label">職業</div>
+          <div>会社員が多い？</div>
+        </div>
+        <div class="hearing-item">
+          <div class="hearing-label">何時利用</div>
+          <div>休日の朝などに予約・来店が集中するか？</div>
+        </div>
+        <div class="hearing-item">
+          <div class="hearing-label">決め手</div>
+          <div>品質？立地？車種の取り扱い（ホンダ・スバル等に強いか）？板金の修理が早い？安いから？</div>
+        </div>
+        <div class="hearing-item">
+          <div class="hearing-label">利用傾向（悩み）</div>
+          <div>
+            <div class="tag-list">
+              <span class="tag core">コア層</span>
+              <span class="tag">板金</span><span class="tag">ホイール</span><span class="tag">傷</span><span class="tag">エンジン修理</span><span class="tag">メンテナンス</span>
+            </div>
+            <div class="tag-list" style="margin-top:4px;">
+              <span class="tag potential">潜在層</span>
+              <span class="tag">車の不具合</span><span class="tag">エンジンがかからない</span><span class="tag">変な音がする</span><span class="tag">乗り換えを検討中</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 美容系 -->
+    <div class="hearing-card">
+      <div class="hearing-card-header">
+        💄 美容系のヒアリング
+      </div>
+      <div class="hearing-card-body">
+        <div class="hearing-item">
+          <div class="hearing-label">性別・年齢</div>
+          <div>女性が多いか？女性特有のライフスタイル（生理、産前産後、専業主婦）等にアプローチできるか？ 20代〜？</div>
+        </div>
+        <div class="hearing-item">
+          <div class="hearing-label">何時利用</div>
+          <div>平日夕方以降が多い？休日が多い？</div>
+        </div>
+        <div class="hearing-item">
+          <div class="hearing-label">決め手</div>
+          <div>
+            <div class="tag-list">
+              <span class="tag core">施術内容</span>
+              <span class="tag">カット</span><span class="tag">トリートメント</span><span class="tag">ブリーチ</span><span class="tag">メンズカット</span>
+            </div>
+            <div class="tag-list" style="margin-top:4px;">
+              <span class="tag potential">潜在的欲求</span>
+              <span class="tag">垢抜けたい</span><span class="tag">可愛くなりたい</span><span class="tag">イメチェンしたい</span><span class="tag">似合わせ</span>
+            </div>
+            <div class="tag-list" style="margin-top:4px;">
+              <span class="tag niche">その他</span>
+              <span class="tag">深夜帯OK</span><span class="tag">クーポン・割引</span><span class="tag">完全プライベート空間</span><span class="tag">スタッフが優しい</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ペット系 -->
+    <div class="hearing-card">
+      <div class="hearing-card-header">
+        🐾 ペット系のヒアリング
+      </div>
+      <div class="hearing-card-body">
+        <div class="hearing-item">
+          <div class="hearing-label">職業</div>
+          <div>会社員？専業主婦？</div>
+        </div>
+        <div class="hearing-item">
+          <div class="hearing-label">決め手</div>
+          <div>犬種を幅広く扱えるスキル？スタッフの人柄が良い？</div>
+        </div>
+        <div class="hearing-item">
+          <div class="hearing-label">利用傾向（目的・悩み）</div>
+          <div>
+            <div class="tag-list">
+              <span class="tag core">サービス内容</span>
+              <span class="tag">しつけ特化</span><span class="tag">ホテル特化</span><span class="tag">ブリーディング</span>
+            </div>
+            <div class="tag-list" style="margin-top:4px;">
+              <span class="tag potential">潜在層の悩み</span>
+              <span class="tag">ペットを預けたいけど場所がない</span><span class="tag">しつけがうまくいかない</span><span class="tag">初めてで不安</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="warning-box" style="margin-top:12px;">
+      ヒアリングの際、「潜在的な悩み」は誰もが持っているものです。そこをいきなり指摘すると警戒されるため、聞き出し方に注意を払ってください。
+    </div>
+  </section>
+
+  <!-- ===== SECTION 5 ===== -->
+  <section class="section" id="sec5">
+    <div class="section-header">
+      <div class="section-badge badge-purple">5</div>
+      <h2>コミュニケーションのコツ（新人向け）</h2>
+    </div>
+
+    <!-- 基本の流れ -->
+    <div class="qa-card" style="border-top: 3px solid #7c3aed;">
+      <div class="qa-question" onclick="toggleCard(this)">
+        <span class="q-badge" style="background:#ede9fe;color:#5b21b6;">TIP</span>
+        <span class="qa-question-text">基本の流れ（共感 → 事実 → 提案）</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="a-label">ポイント</span>
+        <div class="answer-main">
+          <div class="flow-steps">
+            <div class="flow-step">
+              <div class="flow-line">
+                <div class="flow-circle" style="background:#7c3aed;">共</div>
+                <div class="flow-connector"></div>
+              </div>
+              <div class="flow-content">
+                <div class="flow-title">① まず共感する</div>
+                <div class="flow-desc">いきなり反論せず、相手の不安や不満に共感する</div>
+                <div class="flow-example">例：「ご不安になりますよね。お問い合わせにつながらないと心配になりますよね。」</div>
+              </div>
+            </div>
+            <div class="flow-step">
+              <div class="flow-line">
+                <div class="flow-circle" style="background:#0ea5e9;">事</div>
+                <div class="flow-connector"></div>
+              </div>
+              <div class="flow-content">
+                <div class="flow-title">② 事実（数値・期間・実績）で現状を共有する</div>
+                <div class="flow-desc">感覚ではなく数値で話す</div>
+                <div class="flow-example">例：「直近1ヶ月で〇〇人以上に視聴され、視聴率は〇〇%です。」</div>
+              </div>
+            </div>
+            <div class="flow-step">
+              <div class="flow-line">
+                <div class="flow-circle" style="background:#059669;">提</div>
+              </div>
+              <div class="flow-content">
+                <div class="flow-title">③ 次の一手を具体的に提案して会話を終える</div>
+                <div class="flow-desc">漠然と終わらせず、具体的なアクションで締める</div>
+                <div class="flow-example">例：「このまま配信しつつ、次回までにKWの見直しを1回かけましょう。」</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- オープン -->
+    <div class="qa-card" style="border-top: 3px solid #0ea5e9;">
+      <div class="qa-question" onclick="toggleCard(this)">
+        <span class="q-badge" style="background:#e0f2fe;color:#075985;">TIP</span>
+        <span class="qa-question-text">オープンクエスチョン（相手に話してもらう質問）</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="a-label">目的</span>
+        <div class="answer-main">
+          背景・本音・判断基準を引き出す。使いどころ：初回ヒアリング、状況整理、課題の深掘り。
+          <ul class="list-plain" style="margin: 8px 0;">
+            <li>「最近のお客様は、どんな悩みで来店されることが多いですか？」</li>
+            <li>「問い合わせにつながった方は、最終的に何を見て決めていましたか？」</li>
+            <li>「オーナー様としては、まず何が改善されると一番うれしいですか？」</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- クローズド -->
+    <div class="qa-card" style="border-top: 3px solid #22c55e;">
+      <div class="qa-question" onclick="toggleCard(this)">
+        <span class="q-badge" style="background:#dcfce7;color:#166534;">TIP</span>
+        <span class="qa-question-text">クローズドクエスチョン（Yes/Noや短く答えられる質問）</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="a-label">目的</span>
+        <div class="answer-main">
+          認識をそろえる、条件確認を素早く行う。使いどころ：合意形成、実施判断、会話の締め。
+          <ul class="list-plain" style="margin: 8px 0;">
+            <li>「HPアクセスは先月より増えていますか？」</li>
+            <li>「次回までにKW再設定のテストを実施してもよろしいですか？」</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2択 -->
+    <div class="qa-card" style="border-top: 3px solid #f97316;">
+      <div class="qa-question" onclick="toggleCard(this)">
+        <span class="q-badge" style="background:#fff7ed;color:#9a3412;">TIP</span>
+        <span class="qa-question-text">2択の選択肢提示（迷っている相手に決めてもらう）</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="a-label">目的</span>
+        <div class="answer-main">
+          相手の意思決定を助ける。考える負担を減らす。
+          <div class="script-box">
+            「このまま広く配信を続ける方法」と「配信対象を絞って検証する方法」なら、どちらで進めますか？
+          </div>
+          ポイント：どちらを選んでも前進する選択肢を提示する。選択後に「では今回はこちらで進めます」と明確に合意する。
+        </div>
+      </div>
+    </div>
+
+    <!-- 松竹梅 -->
+    <div class="qa-card" style="border-top: 3px solid #a855f7;">
+      <div class="qa-question" onclick="toggleCard(this)">
+        <span class="q-badge" style="background:#faf5ff;color:#6b21a8;">TIP</span>
+        <span class="qa-question-text">松竹梅の選択肢提示（3段階で選んでもらう）</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="a-label">目的</span>
+        <div class="answer-main">
+          予算感や温度感が異なる相手でも選びやすくする。
+          <div class="matsu-take-ume">
+            <div class="mtm-card matsu">
+              <div class="mtm-label">松（積極案）</div>
+              効果最大を狙うが負荷・コストが高い<br><br>
+              広域配信（商圏の外側まで含める）＋ エリア別に訴求を調整
+            </div>
+            <div class="mtm-card take">
+              <div class="mtm-label">竹（標準案）⭐推奨</div>
+              バランス重視。基本はここを推奨<br><br>
+              標準配信（現在の商圏を中心）＋ 反応の良い地域を月次で最適化
+            </div>
+            <div class="mtm-card ume">
+              <div class="mtm-label">梅（最小案）</div>
+              低負荷で様子を見る<br><br>
+              近距離配信（来店確度が高い範囲に限定）＋ まずは反応確認
+            </div>
+          </div>
+          <div class="script-box">
+            「おすすめは竹です。理由は、リスクを抑えながら改善幅を作れるためです。」のように、推奨案と理由を一緒に伝える。
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="page-footer">
+    ⚠️ <strong>注意事項</strong>：このスクリプトはあくまで参考例です。実際の会話ではお客様の状況に合わせ、臨機応変に対応してください。分からないことは無理に答えず、「確認してご連絡します」または「営業にご相談ください」と伝えることが大切です。
+  </div>
+
+</main>
+
+<script>
+  // Q&A toggle
+  function toggleCard(questionEl) {
+    const card = questionEl.closest('.qa-card');
+    card.classList.toggle('open');
+  }
+
+  // Sidebar active link
+  const sections = document.querySelectorAll('.section, #intro');
+  const navItems = document.querySelectorAll('.nav-item');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navItems.forEach(a => a.classList.remove('active'));
+        const id = entry.target.id;
+        const active = document.querySelector(`.nav-item[href="#${id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { threshold: 0.2 });
+
+  document.querySelectorAll('.section, .page-header').forEach(el => observer.observe(el));
+
+  // Search
+  const searchInput = document.getElementById('search-input');
+
+  searchInput.addEventListener('input', () => {
+    const q = searchInput.value.trim().toLowerCase();
+
+    // Clear all highlights
+    document.querySelectorAll('mark').forEach(m => {
+      const parent = m.parentNode;
+      parent.replaceChild(document.createTextNode(m.textContent), m);
+      parent.normalize();
+    });
+
+    if (!q) {
+      document.querySelectorAll('.qa-card').forEach(c => c.classList.remove('hidden'));
+      return;
+    }
+
+    document.querySelectorAll('.qa-card').forEach(card => {
+      const text = card.textContent.toLowerCase();
+      if (text.includes(q)) {
+        card.classList.remove('hidden');
+        card.classList.add('open');
+        highlightText(card, q);
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+  });
+
+  function highlightText(el, q) {
+    if (el.nodeType === 3) {
+      const idx = el.textContent.toLowerCase().indexOf(q);
+      if (idx >= 0) {
+        const span = document.createElement('mark');
+        const after = el.splitText(idx);
+        after.splitText(q.length);
+        const mid = after.cloneNode(true);
+        span.appendChild(mid);
+        after.parentNode.replaceChild(span, after);
+      }
+    } else if (el.nodeType === 1 && el.tagName !== 'SCRIPT' && el.tagName !== 'STYLE') {
+      [...el.childNodes].forEach(child => highlightText(child, q));
+    }
+  }
+</script>
+</body>
+</html>
