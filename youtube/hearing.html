@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YouTube広告 ヒアリングスクリプト（新人研修用）</title>
+  <style>
+    :root {
+      --primary: #1a56db;
+      --teal: #0e7490;
+      --green: #059669;
+      --orange: #d97706;
+      --purple: #7c3aed;
+      --red: #dc2626;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --sidebar-w: 260px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ===== SIDEBAR ===== */
+    #sidebar {
+      width: var(--sidebar-w);
+      background: #1e293b;
+      color: #cbd5e1;
+      position: fixed;
+      top: 0; left: 0; bottom: 0;
+      overflow-y: auto;
+      z-index: 100;
+    }
+
+    #sidebar-header {
+      padding: 20px 16px 14px;
+      border-bottom: 1px solid #334155;
+    }
+
+    #sidebar-header .label {
+      font-size: 10px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      color: #64748b; margin-bottom: 4px;
+    }
+
+    #sidebar-header h2 { font-size: 13px; font-weight: 700; color: #f1f5f9; line-height: 1.4; }
+
+    .sidebar-links {
+      display: flex; flex-direction: column; gap: 6px;
+      margin: 10px 16px 0;
+    }
+
+    .sidebar-link-to {
+      display: block;
+      padding: 7px 10px;
+      background: #334155;
+      border-radius: 6px;
+      font-size: 12px; color: #94a3b8;
+      text-decoration: none; text-align: center;
+    }
+
+    .sidebar-link-to:hover { background: #475569; color: #f1f5f9; }
+
+    #nav { padding: 12px 0 24px; }
+
+    .nav-section-label {
+      font-size: 10px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      color: #64748b; padding: 10px 16px 4px;
+    }
+
+    .nav-item {
+      display: flex; align-items: center; gap: 8px;
+      padding: 7px 16px; font-size: 13px; color: #94a3b8;
+      text-decoration: none; border-left: 3px solid transparent;
+      transition: all 0.15s;
+    }
+
+    .nav-item:hover { background: #334155; color: #f1f5f9; border-left-color: #475569; }
+    .nav-item.active { background: #1e3a5f; color: #93c5fd; border-left-color: var(--primary); }
+
+    .nav-step-num {
+      width: 20px; height: 20px; border-radius: 50%;
+      background: #334155; color: #94a3b8;
+      font-size: 10px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .nav-item.active .nav-step-num { background: var(--primary); color: white; }
+
+    .nav-badge {
+      font-size: 9px; padding: 1px 5px;
+      border-radius: 3px; font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .badge-must { background: #fee2e2; color: #991b1b; }
+    .badge-opt  { background: #f1f5f9; color: #64748b; }
+
+    /* ===== MAIN ===== */
+    #main {
+      margin-left: var(--sidebar-w);
+      flex: 1; max-width: 860px;
+      padding: 32px 40px 100px;
+    }
+
+    /* PAGE HEADER */
+    .page-header {
+      background: linear-gradient(135deg, #1a56db 0%, #7c3aed 100%);
+      color: white; border-radius: 12px;
+      padding: 28px 32px; margin-bottom: 36px;
+    }
+
+    .page-header .tag {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      font-size: 11px; font-weight: 700;
+      padding: 2px 10px; border-radius: 20px; margin-bottom: 8px;
+    }
+
+    .page-header h1 { font-size: 21px; font-weight: 800; margin-bottom: 8px; }
+    .page-header p  { font-size: 13px; opacity: 0.9; line-height: 1.6; }
+
+    /* ===== CHECKLIST PROGRESS ===== */
+    .progress-bar-wrap {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 18px;
+      margin-bottom: 28px;
+      display: flex; align-items: center; gap: 14px;
+    }
+
+    .progress-label { font-size: 12px; font-weight: 700; color: var(--text-muted); white-space: nowrap; }
+
+    .progress-bar-bg {
+      flex: 1; height: 8px; background: var(--border); border-radius: 4px; overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%; background: linear-gradient(90deg, #059669, #0ea5e9);
+      border-radius: 4px; transition: width 0.4s ease;
+      width: 0%;
+    }
+
+    .progress-count { font-size: 12px; font-weight: 700; color: var(--primary); white-space: nowrap; }
+
+    /* ===== TIMELINE ===== */
+    .timeline { position: relative; }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 19px; top: 0; bottom: 0;
+      width: 2px; background: var(--border);
+    }
+
+    /* ===== STEP ===== */
+    .step {
+      display: flex; gap: 20px;
+      margin-bottom: 28px;
+      scroll-margin-top: 24px;
+      position: relative;
+    }
+
+    .step-left { flex-shrink: 0; display: flex; flex-direction: column; align-items: center; }
+
+    .step-circle {
+      width: 40px; height: 40px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px; font-weight: 800; color: white;
+      position: relative; z-index: 1; flex-shrink: 0;
+    }
+
+    .step-body { flex: 1; }
+
+    .step-label {
+      display: flex; align-items: center; gap: 8px; margin-bottom: 10px; flex-wrap: wrap;
+    }
+
+    .step-tag {
+      font-size: 10px; font-weight: 700;
+      padding: 2px 8px; border-radius: 4px;
+    }
+
+    .must-badge {
+      font-size: 10px; font-weight: 700;
+      background: #fee2e2; color: #991b1b;
+      padding: 2px 8px; border-radius: 4px;
+    }
+
+    .opt-badge {
+      font-size: 10px; font-weight: 700;
+      background: #f1f5f9; color: #64748b;
+      padding: 2px 8px; border-radius: 4px;
+    }
+
+    .step-title { font-size: 16px; font-weight: 800; color: var(--text); }
+
+    .step-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 18px;
+    }
+
+    /* Optional step styling */
+    .step.optional .step-card {
+      border-style: dashed;
+      background: #fcfcfd;
+    }
+
+    /* Colors */
+    .s-green  .step-circle { background: #059669; }
+    .s-blue   .step-circle { background: #1a56db; }
+    .s-teal   .step-circle { background: #0e7490; }
+    .s-orange .step-circle { background: #d97706; }
+    .s-purple .step-circle { background: #7c3aed; }
+    .s-red    .step-circle { background: #dc2626; }
+    .s-slate  .step-circle { background: #475569; }
+
+    .s-green  .step-tag { background: #dcfce7; color: #166534; }
+    .s-blue   .step-tag { background: #dbeafe; color: #1e40af; }
+    .s-teal   .step-tag { background: #cffafe; color: #155e75; }
+    .s-orange .step-tag { background: #fef3c7; color: #92400e; }
+    .s-purple .step-tag { background: #ede9fe; color: #5b21b6; }
+    .s-red    .step-tag { background: #fee2e2; color: #991b1b; }
+    .s-slate  .step-tag { background: #f1f5f9; color: #475569; }
+
+    .s-green  .step-card { border-top: 3px solid #059669; }
+    .s-blue   .step-card { border-top: 3px solid #1a56db; }
+    .s-teal   .step-card { border-top: 3px solid #0e7490; }
+    .s-orange .step-card { border-top: 3px solid #d97706; }
+    .s-purple .step-card { border-top: 3px solid #7c3aed; }
+    .s-red    .step-card { border-top: 3px solid #dc2626; }
+    .s-slate  .step-card { border-top: 3px solid #475569; }
+
+    .optional.s-green  .step-card { border-top: 3px dashed #059669; }
+    .optional.s-teal   .step-card { border-top: 3px dashed #0e7490; }
+    .optional.s-orange .step-card { border-top: 3px dashed #d97706; }
+
+    /* ===== INNER ELEMENTS ===== */
+    .script-main {
+      background: #f0f9ff;
+      border-left: 3px solid #0ea5e9;
+      border-radius: 0 6px 6px 0;
+      padding: 12px 16px;
+      margin: 8px 0;
+      font-size: 14px; line-height: 1.85; color: #0c4a6e;
+    }
+
+    .script-main::before {
+      content: '📞 セリフ';
+      display: block;
+      font-size: 11px; font-weight: 700; color: #0ea5e9;
+      margin-bottom: 6px;
+    }
+
+    /* Checklist item */
+    .checklist { list-style: none; margin: 8px 0; }
+
+    .checklist li {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 7px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px; line-height: 1.6; color: #334155;
+      cursor: pointer;
+    }
+
+    .checklist li:last-child { border-bottom: none; }
+
+    .check-box {
+      width: 18px; height: 18px; border-radius: 4px;
+      border: 2px solid #cbd5e1;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px;
+      transition: all 0.15s; background: white;
+    }
+
+    .checklist li.checked .check-box {
+      background: #059669; border-color: #059669; color: white;
+    }
+
+    .checklist li.checked .check-box::after { content: '✓'; font-size: 11px; font-weight: 800; }
+    .checklist li.checked span { text-decoration: line-through; color: #94a3b8; }
+
+    .hearing-list {
+      background: #f0fdf4;
+      border-left: 3px solid #22c55e;
+      border-radius: 0 6px 6px 0;
+      padding: 10px 14px;
+      margin: 8px 0;
+      font-size: 13px; line-height: 1.7; color: #14532d;
+    }
+
+    .hearing-list::before {
+      content: '🔍 ヒアリング項目';
+      display: block;
+      font-size: 11px; font-weight: 700; color: #22c55e;
+      margin-bottom: 6px;
+    }
+
+    .hearing-list ul { padding-left: 16px; }
+    .hearing-list li { margin-bottom: 4px; }
+
+    .result-box {
+      background: #eff6ff;
+      border-left: 3px solid #3b82f6;
+      border-radius: 0 6px 6px 0;
+      padding: 10px 14px;
+      margin: 8px 0;
+      font-size: 13px; line-height: 1.7; color: #1e40af;
+    }
+
+    .result-box::before {
+      content: '→ 結果を踏まえて';
+      display: block;
+      font-size: 11px; font-weight: 700; color: #3b82f6;
+      margin-bottom: 4px;
+    }
+
+    .note-box {
+      background: #fffbeb;
+      border: 1px solid #fcd34d;
+      border-radius: 6px;
+      padding: 10px 14px;
+      margin: 8px 0;
+      font-size: 13px; line-height: 1.7; color: #78350f;
+    }
+
+    .note-box::before {
+      content: '⚠️ 注意';
+      display: block;
+      font-size: 11px; font-weight: 700; color: #d97706;
+      margin-bottom: 4px;
+    }
+
+    .tip-box {
+      background: #f5f3ff;
+      border-left: 3px solid #7c3aed;
+      border-radius: 0 6px 6px 0;
+      padding: 10px 14px;
+      margin: 8px 0;
+      font-size: 13px; line-height: 1.7; color: #4c1d95;
+    }
+
+    .tip-box::before {
+      content: '💡 ポイント';
+      display: block;
+      font-size: 11px; font-weight: 700; color: #7c3aed;
+      margin-bottom: 4px;
+    }
+
+    .sub-section {
+      margin-top: 16px; padding-top: 14px;
+      border-top: 1px dashed var(--border);
+    }
+
+    .sub-section:first-child { margin-top: 0; padding-top: 0; border-top: none; }
+
+    .sub-title {
+      font-size: 13px; font-weight: 700;
+      color: var(--text-muted); margin-bottom: 8px;
+      display: flex; align-items: center; gap: 6px;
+    }
+
+    .sub-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--text-muted); flex-shrink: 0;
+    }
+
+    p.body-text { font-size: 13px; line-height: 1.75; color: #334155; margin: 6px 0; }
+
+    /* ===== MUST/OPT divider ===== */
+    .section-divider {
+      display: flex; align-items: center; gap: 12px;
+      margin: 32px 0 20px;
+    }
+
+    .divider-line { flex: 1; height: 1px; background: var(--border); }
+
+    .divider-label {
+      font-size: 11px; font-weight: 700; padding: 4px 12px;
+      border-radius: 20px; white-space: nowrap;
+    }
+
+    .divider-must { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
+    .divider-opt  { background: #f1f5f9; color: #64748b; border: 1px solid #cbd5e1; }
+
+    /* ===== QA SECTION ===== */
+    #qa-section {
+      margin-top: 40px;
+      background: var(--card);
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    #qa-header {
+      background: #1e293b;
+      color: #f1f5f9;
+      padding: 14px 20px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+
+    #qa-header h2 { font-size: 15px; font-weight: 700; }
+    #qa-header .chevron { transition: transform 0.2s; }
+    #qa-section.open #qa-header .chevron { transform: rotate(180deg); }
+    #qa-body { display: none; padding: 16px 20px; }
+    #qa-section.open #qa-body { display: block; }
+
+    .qa-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 10px;
+      overflow: hidden;
+    }
+
+    .qa-question {
+      padding: 12px 16px; cursor: pointer;
+      display: flex; align-items: flex-start; gap: 10px;
+    }
+
+    .q-badge {
+      background: #fef3c7; color: #92400e;
+      font-size: 11px; font-weight: 800;
+      padding: 2px 7px; border-radius: 4px; flex-shrink: 0;
+    }
+
+    .qa-question-text { font-size: 14px; font-weight: 600; flex: 1; line-height: 1.5; }
+    .chevron-sm { color: var(--text-muted); font-size: 12px; flex-shrink: 0; transition: transform 0.2s; }
+    .qa-card.open .chevron-sm { transform: rotate(180deg); }
+
+    .qa-answer {
+      display: none; padding: 0 16px 14px;
+      border-top: 1px solid var(--border);
+    }
+
+    .qa-card.open .qa-answer { display: block; }
+
+    .a-label {
+      display: inline-block;
+      background: #dcfce7; color: #166534;
+      font-size: 11px; font-weight: 800;
+      padding: 2px 7px; border-radius: 4px;
+      margin: 10px 0 6px;
+    }
+
+    .answer-main { font-size: 13px; line-height: 1.75; color: #334155; }
+
+    /* ===== FOOTER ===== */
+    .page-footer {
+      margin-top: 24px;
+      padding: 14px 18px;
+      background: #fff7ed; border: 1px solid #fed7aa;
+      border-radius: 10px;
+      font-size: 13px; line-height: 1.7; color: #7c2d12;
+    }
+
+    @media (max-width: 768px) {
+      #sidebar { display: none; }
+      #main { margin-left: 0; padding: 20px 16px 60px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== SIDEBAR ===== -->
+<nav id="sidebar">
+  <div id="sidebar-header">
+    <div class="label">新人研修用</div>
+    <h2>ヒアリング<br>スクリプト</h2>
+  </div>
+  <div class="sidebar-links">
+    <a class="sidebar-link-to" href="YouTube広告 定例会スクリプト.html">定例会スクリプト →</a>
+    <a class="sidebar-link-to" href="YouTube広告 定例会アウト集.html">アウト集 →</a>
+  </div>
+
+  <div id="nav">
+    <div class="nav-section-label">進行フロー</div>
+    <a href="#step1" class="nav-item">
+      <span class="nav-step-num">1</span>ご挨拶
+    </a>
+    <a href="#step2" class="nav-item">
+      <span class="nav-step-num">2</span>導入・メール確認
+    </a>
+    <a href="#step3" class="nav-item">
+      <span class="nav-step-num">3</span>必須項目
+      <span class="nav-badge badge-must">必須</span>
+    </a>
+    <a href="#step4" class="nav-item">
+      <span class="nav-step-num">4</span>任意項目
+      <span class="nav-badge badge-opt">任意</span>
+    </a>
+    <a href="#step5" class="nav-item">
+      <span class="nav-step-num">5</span>協力依頼
+    </a>
+    <a href="#step6" class="nav-item">
+      <span class="nav-step-num">6</span>日切り
+    </a>
+    <a href="#step7" class="nav-item">
+      <span class="nav-step-num">7</span>締め
+    </a>
+  </div>
+</nav>
+
+<!-- ===== MAIN ===== -->
+<main id="main">
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="tag">🎧 ヒアリング</div>
+    <h1>ヒアリングスクリプト</h1>
+    <p>広告開始前の初回ヒアリング用です。<strong>必須項目</strong>を必ず埋めた上で、余裕があれば任意項目も確認してください。</p>
+  </div>
+
+  <div class="timeline">
+
+    <!-- ===== STEP 1 ===== -->
+    <div class="step s-green" id="step1">
+      <div class="step-left"><div class="step-circle">1</div></div>
+      <div class="step-body">
+        <div class="step-label">
+          <span class="step-tag">ご挨拶</span>
+          <span class="step-title">電話をかける</span>
+        </div>
+        <div class="step-card">
+          <div class="script-main">
+            「お世話になります。株式会社ランバードの◯◯と申します〜<br>
+            本日はYouTube広告に向けたヒアリングの件でお電話したんですが、お時間変わらず大丈夫でしょうか？」
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== STEP 2 ===== -->
+    <div class="step s-blue" id="step2">
+      <div class="step-left"><div class="step-circle">2</div></div>
+      <div class="step-body">
+        <div class="step-label">
+          <span class="step-tag">導入</span>
+          <span class="step-title">メール確認</span>
+        </div>
+        <div class="step-card">
+          <div class="script-main">
+            「◯日にお送りしたメール内容をご確認していただけましたでしょうか？<br>
+            本日はそのメール内容を基に進行致しますので、ご確認いただけますと幸いです。」
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== STEP 3 必須 ===== -->
+    <div class="section-divider">
+      <div class="divider-line"></div>
+      <span class="divider-label divider-must">✅ 必須項目 — 以下5項目を必ず確認する</span>
+      <div class="divider-line"></div>
+    </div>
+
+    <div class="step s-teal" id="step3">
+      <div class="step-left"><div class="step-circle">3</div></div>
+      <div class="step-body">
+        <div class="step-label">
+          <span class="step-tag">必須</span>
+          <span class="step-title">必須項目のヒアリング</span>
+          <span class="must-badge">全5項目</span>
+        </div>
+        <div class="step-card">
+
+          <!-- 広告リンク先 -->
+          <div class="sub-section">
+            <div class="sub-title"><span class="sub-dot"></span>① 広告のリンク先</div>
+            <div class="script-main">
+              「広告にサイトURLを1つ紐づける必要があるのですが、ご希望のリンク先などございますか？<br>
+              Google側に広告を配信する店舗の承認を通過する必要がございます。」
+            </div>
+          </div>
+
+          <!-- ご連絡シート -->
+          <div class="sub-section">
+            <div class="sub-title"><span class="sub-dot"></span>② ご連絡シート</div>
+            <div class="script-main">
+              「メールでお送りした【ご連絡シート】を開いて頂くと、各月のデータと広告設定内容を確認できますのでブックマークのほどお願いいたします。」
+            </div>
+          </div>
+
+          <!-- オーディエンス -->
+          <div class="sub-section">
+            <div class="sub-title"><span class="sub-dot"></span>③ オーディエンス（性別・年齢）</div>
+            <div class="script-main">
+              「広告の配信ターゲット（性別・年齢）なんですが、狙いたい性別などはございますか？」
+            </div>
+            <div class="hearing-list">
+              <ul>
+                <li>「いらっしゃる客層はご家族の方、お一人で来られたりしますか？」</li>
+                <li>「来客の世代や年齢は固まってますか？」</li>
+              </ul>
+            </div>
+            <div class="result-box">
+              「ターゲットは〜◯代へ配信致します。」
+            </div>
+          </div>
+
+          <!-- KW -->
+          <div class="sub-section">
+            <div class="sub-title"><span class="sub-dot"></span>④ キーワード（KW）</div>
+            <div class="script-main">
+              「お次にキーワードについて決めていきます。<br>
+              このKWの使い方なのですが、Google上で設定したKWを検索した人に対して配信する設定です。<br>
+              ご提案したKWの中で、オーナー様で『このキーワード追加したい、除去したい〜』などございますでしょうか。<br>
+              10個ほどいただけると幸いです。」
+            </div>
+          </div>
+
+          <!-- 配信地域 -->
+          <div class="sub-section">
+            <div class="sub-title"><span class="sub-dot"></span>⑤ 配信地域</div>
+            <div class="script-main">
+              「お次が配信地域についてですが、提案した地域で考えておりますが、提案した地域だと狭い・広いなどございますか？」
+            </div>
+            <div class="hearing-list">
+              <ul>
+                <li>「近隣の方の認知度って結構ありますか？」</li>
+                <li>「広告はどこらへんで配信したいなどのお考えはございますか？」</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== STEP 4 任意 ===== -->
+    <div class="section-divider">
+      <div class="divider-line"></div>
+      <span class="divider-label divider-opt">任意項目 — 余裕があれば確認する</span>
+      <div class="divider-line"></div>
+    </div>
+
+    <div class="step s-orange optional" id="step4">
+      <div class="step-left"><div class="step-circle">4</div></div>
+      <div class="step-body">
+        <div class="step-label">
+          <span class="step-tag">任意</span>
+          <span class="step-title">任意項目のヒアリング</span>
+          <span class="opt-badge">スキップ可</span>
+        </div>
+        <div class="step-card">
+
+          <!-- 配信時間 -->
+          <div class="sub-section">
+            <div class="sub-title"><span class="sub-dot"></span>配信時間</div>
+            <div class="script-main">
+              「お次は配信時間についてですが、深夜帯をカットし人が活動する7時〜24時の配信時間にするのはいかがでしょうか？<br>
+              実はこのご提案の背景として、今YouTubeを見ながら寝てしまう人が増えております。<br>
+              その影響で広告も寝てる人に配信されることが増える傾向があります。<br>
+              有効的な配信のために、深夜帯カットのご提案ですがいかがいたしましょうか？」
+            </div>
+            <div class="tip-box">
+              もし夜職の方の利用が多い店舗なら、あえて深夜帯に配信するのもOK。
+            </div>
+          </div>
+
+          <!-- デバイス -->
+          <div class="sub-section">
+            <div class="sub-title"><span class="sub-dot"></span>デバイス（TV除外）</div>
+            <div class="script-main">
+              「実はテレビは基本的に配信しないように考えております。<br>
+              というのも、意図した視聴者に届かない事例が増えているようで、、、<br>
+              例えば30代男性向けの整体広告を配信していたら、実際に見ていたのが男性のお子さんだったという事例もあるようなのです。<br>
+              このような背景から、テレビへの配信をカットするご提案をいたしました。<br>
+              オーナー様的にTV配信をしない設定はいかがでしょうか？」
+            </div>
+          </div>
+
+          <!-- FQ -->
+          <div class="sub-section">
+            <div class="sub-title"><span class="sub-dot"></span>フリークエンシーキャップ</div>
+            <div class="script-main">
+              「フリークエンシーキャップというのがあるんですが、これまで聞かれたことはありますか？<br>
+              ざっくり言うと『指定期間内に1人あたりにどれだけの回数を見れるように上限を設けるか？』という設定です。<br>
+              例えばですが、1人に100回も広告見せるよりも100人に1回ずつ見せる方が、より広く認知拡大に貢献しやすくなる可能性があります。<br>
+              その為に、広告に上限を設けることができるものなんです。<br>
+              有効的に広告配信をするため、設定させて頂ければと思うのですが、こちらの設定いかがいたしますか？」
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== STEP 5 協力依頼 ===== -->
+    <div class="section-divider">
+      <div class="divider-line"></div>
+      <span class="divider-label divider-must" style="background:#ede9fe;color:#5b21b6;border-color:#c4b5fd;">📢 オーナーへの協力依頼</span>
+      <div class="divider-line"></div>
+    </div>
+
+    <div class="step s-purple" id="step5">
+      <div class="step-left"><div class="step-circle">5</div></div>
+      <div class="step-body">
+        <div class="step-label">
+          <span class="step-tag">協力依頼</span>
+          <span class="step-title">オーナーへお願いする2点</span>
+        </div>
+        <div class="step-card">
+          <p class="body-text" style="margin-bottom:10px;">「必須事項のヒアリングは以上となります。いくつかオーナー様に共有したい事項があります。」</p>
+
+          <div class="sub-section">
+            <div class="sub-title"><span class="sub-dot"></span>① マップ・SNS・HPの更新・口コミ投稿</div>
+            <div class="script-main">
+              「オーナー様へご協力をお願いしたい点がございます。
+              というのが、マップやサイトの情報更新・口コミ投稿でございます。<br>
+              実は今のユーザーは広告を見た後に、HPやサイトを検索して最終的に行くか・行かないか判断する傾向が非常に強くなっております。<br>
+              そこで広告を見た方が、店舗さんへ来ていただけるようにサイトなどの更新をお願いしておりました。<br><br>
+              今回始まるYouTube広告は認知拡大が強い広告タイプでして、店舗さんのサービスなどを知るきっかけ作りにはすごく強いんです。」
+            </div>
+          </div>
+
+          <div class="sub-section">
+            <div class="sub-title"><span class="sub-dot"></span>② 長期施策であることの説明</div>
+            <div class="script-main">
+              「広告はすぐに効果が出るわけではなく、適切な配信先と背中を押すようなHP・SNSなどが揃って初めて効果が見えてくるようになります。<br>
+              なので、この2点のご協力をお願い致しました。」
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== STEP 6 日切り ===== -->
+    <div class="step s-red" id="step6">
+      <div class="step-left"><div class="step-circle">6</div></div>
+      <div class="step-body">
+        <div class="step-label">
+          <span class="step-tag">日切り</span>
+          <span class="step-title">運用開始日・初回定例会のアポ取り</span>
+        </div>
+        <div class="step-card">
+          <div class="script-main">
+            「今回の設定内容で◯年◯月◯日から運用を開始致します。<br>
+            それにあたり、初回のお打ち合わせは2ヶ月後の◯月を予定しております。<br>
+            もしよろしければ、初回定例会のお約束をさせていただいてもよろしいでしょうか？」<br><br>
+            （カレンダーを見ながら）「◯月◯日の◯時ならご案内ができますが、いかがでしょうか？」<br><br>
+            「◯月◯日の◯時にお電話いたしますので、ご対応のほどよろしくお願いいたします。」
+          </div>
+          <div class="note-box">
+            初回定例会の日程は必ず取る。ここで日切りをしないと次回の連絡タイミングが曖昧になる。
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== STEP 7 締め ===== -->
+    <div class="step s-slate" id="step7">
+      <div class="step-left"><div class="step-circle">7</div></div>
+      <div class="step-body">
+        <div class="step-label">
+          <span class="step-tag">締め</span>
+          <span class="step-title">クロージング</span>
+        </div>
+        <div class="step-card">
+          <div class="script-main">
+            「以上でヒアリングは終了となりますが、本日のご案内でご質問等はございますでしょうか？」<br><br>
+            「本日はありがとうございました！失礼致します！」
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /timeline -->
+
+  <div class="page-footer">
+    ⚠️ <strong>注意事項</strong>：必須項目が埋まり次第、任意項目・協力依頼・日切りへ進んでください。答えに詰まった場合は「確認してご連絡します」と伝え、後日フォローしてください。
+  </div>
+
+</main>
+
+<script>
+  // Sidebar active
+  const allSteps = document.querySelectorAll('.step, #qa-section');
+  const navItems = document.querySelectorAll('.nav-item');
+
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navItems.forEach(a => a.classList.remove('active'));
+        const id = e.target.id;
+        const active = document.querySelector(`.nav-item[href="#${id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('.step, #qa-section').forEach(el => obs.observe(el));
+
+</script>
+</body>
+</html>
