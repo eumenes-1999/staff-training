@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MEO業務マニュアル（新人向け）</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
+      font-size: 15px;
+      line-height: 1.8;
+      color: #2c2c2c;
+      background: #f5f6f8;
+    }
+
+    /* ===== レイアウト ===== */
+    .layout {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ===== サイドバー ===== */
+    .sidebar {
+      width: 260px;
+      flex-shrink: 0;
+      background: #1a2744;
+      color: #c8d3ea;
+      padding: 32px 0;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .sidebar-title {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: #7b9cdf;
+      text-transform: uppercase;
+      padding: 0 24px 16px;
+      border-bottom: 1px solid #2a3a5c;
+    }
+
+    .sidebar nav {
+      padding: 16px 0;
+    }
+
+    .sidebar nav a {
+      display: block;
+      padding: 9px 24px;
+      color: #a8bce0;
+      text-decoration: none;
+      font-size: 13.5px;
+      transition: background 0.15s, color 0.15s;
+      border-left: 3px solid transparent;
+    }
+
+    .sidebar nav a:hover {
+      background: #243259;
+      color: #ffffff;
+      border-left-color: #4d82d6;
+    }
+
+    .sidebar nav a .nav-num {
+      display: inline-block;
+      width: 22px;
+      font-size: 12px;
+      color: #5a7ab8;
+      font-weight: 700;
+    }
+
+    .sidebar .resource-link {
+      display: block;
+      margin: 0 20px 12px;
+      padding: 9px 12px;
+      border-radius: 8px;
+      background: rgba(77, 130, 214, 0.16);
+      color: #dbeafe;
+      text-decoration: none;
+      font-size: 12.5px;
+      font-weight: 700;
+    }
+
+    .sidebar .resource-link:hover {
+      background: rgba(77, 130, 214, 0.28);
+      color: #ffffff;
+    }
+
+    /* ===== メインコンテンツ ===== */
+    .main {
+      flex: 1;
+      min-width: 0;
+      padding-top: 48px;
+      padding-bottom: 80px;
+      padding-left: max(40px, calc(50% - 520px));
+      padding-right: max(40px, calc(50% - 520px));
+    }
+
+    /* ===== ヘッダー ===== */
+    .page-header {
+      background: linear-gradient(135deg, #1a2744 0%, #2c4a8a 100%);
+      border-radius: 16px;
+      padding: 44px 48px;
+      margin-bottom: 36px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-header::before {
+      content: '';
+      position: absolute;
+      top: -40%;
+      right: -5%;
+      width: 40%;
+      height: 200%;
+      background: rgba(255,255,255,0.04);
+      border-radius: 50%;
+    }
+
+    .page-header .badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.3);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 100px;
+      letter-spacing: 0.08em;
+      margin-bottom: 14px;
+    }
+
+    .page-header h1 {
+      font-size: 30px;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.3;
+      position: relative;
+    }
+
+    .page-header .header-sub {
+      margin-top: 10px;
+      font-size: 14px;
+      color: rgba(255,255,255,0.7);
+      position: relative;
+    }
+
+    .page-header .header-link {
+      display: inline-block;
+      margin-top: 18px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.16);
+      border: 1px solid rgba(255,255,255,0.28);
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 700;
+      position: relative;
+    }
+
+    .page-header .header-link:hover {
+      background: rgba(255,255,255,0.24);
+    }
+
+    /* ===== セクション ===== */
+    .section {
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 44px 52px;
+      margin-bottom: 32px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid #eef0f5;
+    }
+
+    .section-num {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #1a2744, #4d82d6);
+      color: #ffffff;
+      border-radius: 50%;
+      font-size: 15px;
+      font-weight: 800;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(77,130,214,0.4);
+    }
+
+    .section h2 {
+      font-size: 21px;
+      font-weight: 800;
+      color: #1a2744;
+    }
+
+    .section h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #2c4a8a;
+      margin: 28px 0 14px;
+      padding-left: 12px;
+      border-left: 4px solid #4d82d6;
+    }
+
+    p {
+      margin-bottom: 14px;
+      color: #3c3c3c;
+    }
+
+    /* ===== テーブル ===== */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 15px;
+    }
+
+    thead tr {
+      background: #f0f3fa;
+    }
+
+    th {
+      text-align: left;
+      padding: 12px 16px;
+      font-weight: 700;
+      color: #1a2744;
+      font-size: 14px;
+      border-bottom: 2px solid #dce3f0;
+    }
+
+    td {
+      padding: 12px 16px;
+      border-bottom: 1px solid #eef0f5;
+      vertical-align: top;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    tbody tr:hover {
+      background: #f8f9fc;
+    }
+
+    /* ===== リスト ===== */
+    ul, ol {
+      padding-left: 22px;
+      margin: 12px 0;
+    }
+
+    li {
+      margin-bottom: 6px;
+      line-height: 1.7;
+    }
+
+    /* ===== コードブロック ===== */
+    pre {
+      background: #1e2a40;
+      color: #c8d3ea;
+      border-radius: 8px;
+      padding: 20px 24px;
+      font-family: 'Courier New', 'Menlo', monospace;
+      font-size: 13px;
+      line-height: 1.7;
+      overflow-x: auto;
+      margin: 16px 0;
+    }
+
+    code {
+      font-family: 'Courier New', 'Menlo', monospace;
+      background: #f0f3fa;
+      color: #2c4a8a;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 13px;
+    }
+
+    pre code {
+      background: none;
+      color: inherit;
+      padding: 0;
+    }
+
+    /* ===== バッジ系 ===== */
+    .tag {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-right: 4px;
+    }
+
+    .tag-blue   { background: #e8f0fe; color: #3367d6; }
+    .tag-green  { background: #e6f4ea; color: #1a7340; }
+    .tag-red    { background: #fce8e6; color: #c5221f; }
+    .tag-yellow { background: #fff8e1; color: #b06c00; }
+    .tag-orange { background: #fff0e6; color: #c45000; }
+    .tag-purple { background: #f3e8fe; color: #6b21a8; }
+    .tag-teal   { background: #e0f5f5; color: #0d6e6e; }
+    .tag-gray  { background: #f1f3f4; color: #5f6368; }
+
+    /* ===== フローカード ===== */
+    .flow {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin: 16px 0;
+    }
+
+    .flow-item {
+      display: flex;
+      gap: 16px;
+    }
+
+    .flow-line {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 32px;
+      flex-shrink: 0;
+    }
+
+    .flow-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #4d82d6;
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+
+    .flow-connector {
+      width: 2px;
+      flex: 1;
+      background: #dce3f0;
+      min-height: 20px;
+    }
+
+    .flow-content {
+      padding-bottom: 20px;
+      flex: 1;
+    }
+
+    .flow-content .flow-card {
+      background: #ffffff;
+      border: 1px solid #dce3f0;
+      border-left: 4px solid #4d82d6;
+      border-radius: 10px;
+      padding: 14px 18px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    }
+
+    .flow-content .flow-period {
+      font-size: 11px;
+      font-weight: 700;
+      color: #4d82d6;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .flow-content .flow-title {
+      font-weight: 700;
+      color: #1a2744;
+      font-size: 15px;
+    }
+
+    .flow-content .flow-desc {
+      font-size: 13.5px;
+      color: #666;
+      margin-top: 4px;
+    }
+
+    /* ===== NGボックス ===== */
+    .ng-box {
+      background: #fef7f7;
+      border: 1px solid #f5c6c6;
+      border-left: 4px solid #e53935;
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin: 16px 0;
+    }
+
+    .ng-box .ng-title {
+      font-weight: 700;
+      color: #c5221f;
+      font-size: 13px;
+      margin-bottom: 10px;
+      letter-spacing: 0.05em;
+    }
+
+    .ng-box ul {
+      margin: 0;
+    }
+
+    .ng-box li {
+      color: #3c3c3c;
+      font-size: 14px;
+    }
+
+    /* ===== OKボックス ===== */
+    .ok-box {
+      background: #f6fef9;
+      border: 1px solid #b7dfcb;
+      border-left: 4px solid #34a853;
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin: 16px 0;
+    }
+
+    .ok-box .ok-title {
+      font-weight: 700;
+      color: #1a7340;
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+
+    /* ===== 書き出しパターン ===== */
+    .pattern-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 16px 0;
+    }
+
+    .pattern-card {
+      background: #ffffff;
+      border: 1px solid #e0e5f0;
+      border-radius: 10px;
+      padding: 16px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      transition: box-shadow 0.15s;
+    }
+
+    .pattern-card:hover {
+      box-shadow: 0 4px 12px rgba(77,130,214,0.15);
+    }
+
+    .pattern-badge {
+      width: 34px;
+      height: 34px;
+      background: linear-gradient(135deg, #1a2744, #4d82d6);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 800;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .pattern-text .pattern-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: #4d82d6;
+      margin-bottom: 4px;
+    }
+
+    .pattern-text .pattern-example {
+      font-size: 13px;
+      color: #444;
+      line-height: 1.6;
+    }
+
+    /* ===== まとめセクション ===== */
+    .summary-section {
+      background: linear-gradient(135deg, #1a2744 0%, #2c4a8a 100%);
+      border-radius: 12px;
+      padding: 36px 40px;
+      margin-bottom: 28px;
+      color: #ffffff;
+    }
+
+    .summary-section h2 {
+      font-size: 19px;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 20px;
+    }
+
+    .summary-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .summary-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+      font-size: 14.5px;
+      color: #d0daf0;
+    }
+
+    .summary-list li:last-child {
+      border-bottom: none;
+    }
+
+    .summary-list li .check {
+      width: 22px;
+      height: 22px;
+      background: #4d82d6;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 12px;
+      color: #fff;
+      margin-top: 1px;
+    }
+
+    .summary-note {
+      margin-top: 16px;
+      font-size: 13.5px;
+      color: #a8bce0;
+      font-style: italic;
+    }
+
+    /* ===== フッター ===== */
+    .footer {
+      font-size: 12px;
+      color: #aaa;
+      text-align: right;
+      padding-bottom: 48px;
+    }
+
+    /* ===== アコーディオン ===== */
+    .accordion {
+      border: 1px solid #dce3f0;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 14px;
+    }
+
+    .accordion > summary {
+      padding: 16px 20px;
+      background: linear-gradient(135deg, #f0f3fa, #e8eef8);
+      font-weight: 700;
+      font-size: 15px;
+      color: #1a2744;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-left: 4px solid #4d82d6;
+      user-select: none;
+    }
+
+    .accordion > summary::-webkit-details-marker { display: none; }
+
+    .accordion > summary::after {
+      content: '▼';
+      margin-left: auto;
+      font-size: 11px;
+      color: #4d82d6;
+      transition: transform 0.2s;
+    }
+
+    .accordion[open] > summary::after {
+      transform: rotate(180deg);
+    }
+
+    .accordion > summary:hover {
+      background: linear-gradient(135deg, #e4eaf8, #d8e3f5);
+    }
+
+    .accordion-body {
+      padding: 24px 28px;
+      background: #fff;
+      border-top: 1px solid #eef0f5;
+    }
+
+    /* ===== レスポンシブ ===== */
+    @media (max-width: 768px) {
+      .sidebar { display: none; }
+      .main { padding: 24px 20px; }
+      .pattern-grid { grid-template-columns: 1fr; }
+      .section { padding: 24px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="layout">
+
+  <!-- ===== サイドバー ===== -->
+  <aside class="sidebar">
+    <div class="sidebar-title" style="font-size:14px; color:#fff; letter-spacing:0.05em; margin-bottom:4px; padding-bottom:4px; border-bottom:none;">MEO業務マニュアル</div>
+    <div class="sidebar-title" style="font-size:11px; margin-top:0; padding-top:0;">目次</div>
+    <a class="resource-link" href="./MEOヒアリングスクリプト.html">MEOヒアリングスクリプト</a>
+    <a class="resource-link" href="./MEOポリシー抵触ガイド.html">MEOポリシー抵触ガイド</a>
+    <nav>
+      <a href="#sec1"><span class="nav-num">1</span>MEO運用とは？</a>
+      <a href="#sec2"><span class="nav-num">2</span>meoクラウドとは？</a>
+      <a href="#sec3"><span class="nav-num">3</span>案件の種類とステータス</a>
+      <a href="#sec4"><span class="nav-num">4</span>案件別 作業フロー</a>
+      <a href="#sec5"><span class="nav-num">5</span>毎月の業務フロー</a>
+      <a href="#sec6"><span class="nav-num">6</span>投稿文の作成ルール</a>
+      <a href="#sec7"><span class="nav-num">7</span>口コミ返信対応</a>
+      <a href="#sec8"><span class="nav-num">8</span>投稿ステータスの管理</a>
+      <a href="#sec9"><span class="nav-num">9</span>meoリセットとは</a>
+      <a href="#sec10"><span class="nav-num">10</span>よくある用語集</a>
+      <a href="#summary"><span class="nav-num">✓</span>まとめ</a>
+    </nav>
+  </aside>
+
+  <!-- ===== メイン ===== -->
+  <main class="main">
+
+    <div class="page-header">
+      <div class="badge">新人研修用</div>
+      <h1>MEO業務マニュアル</h1>
+      <p class="header-sub">案件別の作業フロー・投稿ルール・ステータス管理・meoリセットまで、MEO業務に必要な知識をまとめた研修資料です。</p>
+      <a class="header-link" href="./MEOヒアリングスクリプト.html">MEOヒアリングスクリプトを開く</a>
+      <a class="header-link" href="./MEOポリシー抵触ガイド.html">MEOポリシー抵触ガイドを開く</a>
+    </div>
+
+    <!-- 1 -->
+    <div class="section" id="sec1">
+      <div class="section-header">
+        <div class="section-num">1</div>
+        <h2>MEO運用とは？</h2>
+      </div>
+
+      <p><strong>MEO（Map Engine Optimization）</strong> とは、Googleマップ上での店舗の表示順位を上げるための施策です。</p>
+      <p>Googleマップで「渋谷 美容院」などと検索したとき、上位に表示される店舗はより多くのお客様に見てもらえます。MEO運用では、<strong>Googleビジネスプロフィール（GBP）</strong> に定期的に投稿を行ったり、口コミに返信したりすることで、店舗の露出を高めます。</p>
+
+      <h3>私たちがやること</h3>
+      <ul>
+        <li>店舗アカウントの保守・運用サポート</li>
+        <li>投稿文の作成と予約</li>
+        <li>口コミ返信</li>
+      </ul>
+    </div>
+
+    <!-- 2 -->
+    <div class="section" id="sec2">
+      <div class="section-header">
+        <div class="section-num">2</div>
+        <h2>meoクラウドとは？</h2>
+      </div>
+
+      <p><strong>meoクラウド</strong>は、Googleビジネスプロフィールへの投稿を管理・自動化するためのツールです。</p>
+      <p>投稿日時を事前に予約しておけば、自動で投稿してくれます。これにより、多くの店舗を効率よく運用できます。</p>
+
+      <h3>meoクラウドの主な機能</h3>
+      <ul>
+        <li>投稿文のアップロード・配信予約</li>
+        <li>複数店舗のまとめ管理</li>
+        <li>投稿スケジュールの管理</li>
+        <li>口コミの返信</li>
+        <li>各店舗情報の管理・運用</li>
+        <li>アンケート作成と結果の確認</li>
+        <li>レポート配信設定</li>
+        <li>写真投稿</li>
+      </ul>
+    </div>
+
+    <!-- 3 -->
+    <div class="section" id="sec3">
+      <div class="section-header">
+        <div class="section-num">3</div>
+        <h2>案件の種類とステータス</h2>
+      </div>
+
+      <h3>獲得区分</h3>
+      <table>
+        <thead>
+          <tr><th>区分</th><th>意味</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><span class="tag tag-blue">自社</span></td><td>自分たちで直接契約したお客様</td></tr>
+          <tr><td><span class="tag tag-purple">代理店</span></td><td>別の会社を経由して契約したお客様</td></tr>
+          <tr><td><span class="tag tag-teal">システム貸し</span></td><td>ツールだけ貸し出す形式の契約</td></tr>
+        </tbody>
+      </table>
+
+      <h3>ステータス一覧</h3>
+      <table>
+        <thead>
+          <tr><th>ステータス</th><th>説明</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><span class="tag tag-yellow">準備中</span></td><td>契約済みだが、まだ運用を開始していない</td></tr>
+          <tr><td><span class="tag tag-green">運用中</span></td><td>通常どおり毎月投稿を行っている</td></tr>
+          <tr><td><span class="tag tag-red">解約予定</span></td><td>お客様から解約の申し出があり、期日が近い</td></tr>
+          <tr><td><span class="tag tag-orange">作業停止</span></td><td>何らかの理由で一時的に作業を止めている</td></tr>
+          <tr><td><span class="tag tag-gray">終了</span></td><td>契約が終了した案件（専用フォルダに移動）</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 4 -->
+    <div class="section" id="sec4">
+      <div class="section-header">
+        <div class="section-num">4</div>
+        <h2>案件別 作業フロー</h2>
+      </div>
+
+      <details class="accordion" open>
+        <summary>MEO自社 作業フロー</summary>
+        <div class="accordion-body">
+          <ol>
+            <li>
+              <strong>テンプレートの確認</strong>
+            </li>
+            <li>
+              <strong>情報の追加</strong>
+              <ul>
+                <li>スプレッドシート・mdに情報を追加</li>
+                <li>レポートの予約</li>
+              </ul>
+            </li>
+            <li>
+              <strong>文章の作成</strong>
+              <ul>
+                <li>文字数は1,200〜1,400文字を目安（1,000文字未満・1,450文字以上はアップロード禁止）</li>
+              </ul>
+            </li>
+            <li><strong>先方へメールを送信</strong></li>
+            <li><strong>返信確認・期日を過ぎれば予約</strong></li>
+            <li>
+              <strong>口コミの返信</strong>
+              <ul>
+                <li>月2回（第2・第4金曜日）のタイミングでまとめて返信する</li>
+                <li>口コミ返信対象は、運用開始月のものとする</li>
+              </ul>
+            </li>
+            <li><strong>画像共有があれば投稿</strong></li>
+          </ol>
+        </div>
+      </details>
+
+      <details class="accordion">
+        <summary>MEOシステム貸し について</summary>
+        <div class="accordion-body">
+          <p>別契約のお客様にmeoクラウドのシステムを貸し出す形式の契約です。通常の自社・代理店案件とは異なるイレギュラーな契約形態のため、担当する場合は個別に対応方針を上長に確認してください。</p>
+        </div>
+      </details>
+
+      <details class="accordion" open>
+        <summary>MEO代理店 作業フロー</summary>
+        <div class="accordion-body">
+          <ol>
+            <li>
+              <strong>テンプレートの確認</strong>
+            </li>
+            <li>
+              <strong>情報の追加</strong>
+              <ul>
+                <li>スプレッドシート・mdに情報を追加</li>
+              </ul>
+            </li>
+            <li>
+              <strong>投稿文の作成（4本）</strong>
+              <ul>
+                <li>口コミ返信：月2回（第2・第4金曜日）</li>
+              </ul>
+            </li>
+            <li><strong>先方に日程調整メールの送信</strong></li>
+            <li><strong>打ち合わせで初回設定</strong></li>
+            <li>
+              <strong>初回定例会（運用開始から1ヶ月後）</strong>
+              <ul>
+                <li>初回ではレポートの確認方法などを言及</li>
+                <li>以降は3ヶ月に1度のペースで定例会を実施</li>
+                <li>定例会では投稿内容・KWなどについて言及</li>
+              </ul>
+            </li>
+            <li>
+              <strong>投稿文はヒアリング内容をもとに作成</strong>
+              <div class="ng-box" style="margin-top:10px;">
+                <div class="ng-title">⚠️ 注意</div>
+                <ul><li>作成完了しても先方へは送らない</li></ul>
+              </div>
+            </li>
+          </ol>
+          <div class="ok-box" style="margin-top:20px;">
+            <div class="ok-title">サービス内容</div>
+            <p style="margin:0;">投稿・口コミ返信・保守・（アンケート作成）</p>
+          </div>
+        </div>
+      </details>
+    </div>
+
+    <!-- 5 -->
+    <div class="section" id="sec5">
+      <div class="section-header">
+        <div class="section-num">5</div>
+        <h2>毎月の業務フロー</h2>
+      </div>
+
+      <p>MEO運用は毎月のサイクルで動いています。</p>
+      <div class="ok-box" style="margin-bottom:16px;">
+        <div class="ok-title">具体例：今が◯月の場合</div>
+        <ul>
+          <li>月初：<strong>◯月＋1月分</strong>の投稿文をお客様にメール送付</li>
+          <li>月中：<strong>◯月＋2月分</strong>の投稿文を作成</li>
+          <li>月末：<strong>◯月＋1月分</strong>の配信予約を完了させる</li>
+        </ul>
+      </div>
+
+      <div class="flow">
+        <div class="flow-item">
+          <div class="flow-line">
+            <div class="flow-dot"></div>
+            <div class="flow-connector"></div>
+          </div>
+          <div class="flow-content">
+            <div class="flow-card">
+              <div class="flow-period">月初（1〜5日）</div>
+              <div class="flow-title">投稿文メールの送付</div>
+              <div class="flow-desc">翌月分の投稿文をお客様にメールで送り、確認をもらう</div>
+            </div>
+          </div>
+        </div>
+        <div class="flow-item">
+          <div class="flow-line">
+            <div class="flow-dot"></div>
+            <div class="flow-connector"></div>
+          </div>
+          <div class="flow-content">
+            <div class="flow-card">
+              <div class="flow-period">月中（5〜20日）</div>
+              <div class="flow-title">翌々月分の投稿文を作成</div>
+              <div class="flow-desc">先を見越して投稿文をどんどん作っておく</div>
+            </div>
+          </div>
+        </div>
+        <div class="flow-item">
+          <div class="flow-line">
+            <div class="flow-dot"></div>
+            <div class="flow-connector"></div>
+          </div>
+          <div class="flow-content">
+            <div class="flow-card">
+              <div class="flow-period">月末（〜月末）</div>
+              <div class="flow-title">翌月の配信予約を完了させる</div>
+              <div class="flow-desc">meoクラウドで翌月分の投稿をすべて予約する</div>
+            </div>
+          </div>
+        </div>
+        <div class="flow-item">
+          <div class="flow-line">
+            <div class="flow-dot"></div>
+            <div class="flow-connector"></div>
+          </div>
+          <div class="flow-content">
+            <div class="flow-card">
+              <div class="flow-period">毎週金曜日</div>
+              <div class="flow-title">投稿の反映確認</div>
+              <div class="flow-desc">投稿が正しく反映されているかGBPで確認する</div>
+            </div>
+          </div>
+        </div>
+        <div class="flow-item">
+          <div class="flow-line">
+            <div class="flow-dot"></div>
+            <div class="flow-connector" style="background:transparent;"></div>
+          </div>
+          <div class="flow-content">
+            <div class="flow-card">
+              <div class="flow-period">第2・第4金曜日（月2回）</div>
+              <div class="flow-title">口コミチェックと返信対応</div>
+              <div class="flow-desc">全案件の口コミを確認し、返信が必要なものに対応する</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3>投稿スケジュール（本数別）</h3>
+      <table>
+        <thead>
+          <tr><th>月の投稿本数</th><th>投稿タイミング</th></tr>
+        </thead>
+        <tbody>
+          <tr style="background:#f0f7ff;"><td><span class="tag tag-blue">1本</span></td><td>毎月15日</td></tr>
+          <tr style="background:#f0faf4;"><td><span class="tag tag-green">2本</span></td><td>隔週木曜日（月2回）</td></tr>
+          <tr style="background:#fff8e1;"><td><span class="tag tag-yellow">4本</span></td><td>毎週木曜日（月4回）</td></tr>
+          <tr style="background:#fff0e6;"><td><span class="tag tag-orange">8本</span></td><td>毎週火曜日＋木曜日（月8回）</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 5 -->
+    <div class="section" id="sec6">
+      <div class="section-header">
+        <div class="section-num">6</div>
+        <h2>投稿文の作成ルール</h2>
+      </div>
+
+      <p>投稿文は、各店舗の「プロンプト（指示書）」をもとに作成します。</p>
+
+      <h3>基本ルール（文字数）</h3>
+      <div class="ok-box">
+        <div class="ok-title">文字数の範囲：1,000文字以上・1,450文字未満</div>
+        <ul>
+          <li>1,200〜1,400文字を目安に作成する</li>
+          <li>GBPの上限が1,500文字のため、1,450文字以上はアップロード禁止</li>
+          <li>1,000文字未満も品質基準を満たさないためアップロード禁止</li>
+        </ul>
+      </div>
+
+      <h3>文章の構成</h3>
+      <table>
+        <thead>
+          <tr><th>ブロック</th><th>目安文字数</th><th>内容</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>あいさつ（書き出し）</td><td>80文字</td><td>書き出しパターンA〜Hから選んで書く</td></tr>
+          <tr><td>リード（導入）</td><td>150文字</td><td>季節・時事ネタや読者の悩みへの共感</td></tr>
+          <tr><td>本論A</td><td>300文字</td><td>サービス・施術の特徴や強みを紹介</td></tr>
+          <tr><td>本論B</td><td>300文字</td><td>お客様の悩み・ニーズへの共感と解決策</td></tr>
+          <tr><td>本論C</td><td>300文字</td><td>店舗の豆知識・こだわり・よくある質問など</td></tr>
+          <tr><td>まとめ・CTA</td><td>170文字</td><td>「〇〇をお探しならお気軽にご連絡を」など行動を促す締め</td></tr>
+        </tbody>
+      </table>
+
+      <h3>書き出しパターン（8種類）</h3>
+      <p>毎回同じ書き出しにならないよう、以下の8パターンを使い分けます。前月と同じパターンは使わないこと。</p>
+
+      <div class="pattern-grid">
+        <div class="pattern-card">
+          <div class="pattern-badge">A</div>
+          <div class="pattern-text">
+            <div class="pattern-label">困りごと → 店名へ！</div>
+            <div class="pattern-example">「肩こり・頭痛がなかなか取れない…そんなときは〇〇へ！」</div>
+          </div>
+        </div>
+        <div class="pattern-card">
+          <div class="pattern-badge">B</div>
+          <div class="pattern-text">
+            <div class="pattern-label">あいさつ → 店名です</div>
+            <div class="pattern-example">「みなさんこんにちは！〇〇です。」</div>
+          </div>
+        </div>
+        <div class="pattern-card">
+          <div class="pattern-badge">C</div>
+          <div class="pattern-text">
+            <div class="pattern-label">サービス打ち出し → 店名へ！</div>
+            <div class="pattern-example">「エアコンの臭いが気になったら〇〇へ！」</div>
+          </div>
+        </div>
+        <div class="pattern-card">
+          <div class="pattern-badge">D</div>
+          <div class="pattern-text">
+            <div class="pattern-label">疑問形で悩みに共感 → 店名</div>
+            <div class="pattern-example">「肩こりがなかなか取れなくて困っていませんか？〇〇です！」</div>
+          </div>
+        </div>
+        <div class="pattern-card">
+          <div class="pattern-badge">E</div>
+          <div class="pattern-text">
+            <div class="pattern-label">共感 → 逆転発想 → 店名</div>
+            <div class="pattern-example">「プロのクリーニング、自分でやるより節約になるって知ってましたか？〇〇です！」</div>
+          </div>
+        </div>
+        <div class="pattern-card">
+          <div class="pattern-badge">F</div>
+          <div class="pattern-text">
+            <div class="pattern-label">ビフォーアフターを想起 → 店名</div>
+            <div class="pattern-example">「施術後にスッと体が軽くなる、あの感覚…〇〇で体験してみませんか？」</div>
+          </div>
+        </div>
+        <div class="pattern-card">
+          <div class="pattern-badge">G</div>
+          <div class="pattern-text">
+            <div class="pattern-label">地域密着・実績 → 店名</div>
+            <div class="pattern-example">「〇〇駅からすぐ！地域密着の〇〇です。」</div>
+          </div>
+        </div>
+        <div class="pattern-card">
+          <div class="pattern-badge">H</div>
+          <div class="pattern-text">
+            <div class="pattern-label">豆知識・トリビア → 店名</div>
+            <div class="pattern-example">「猫背が続くと内臓の位置まで下がってしまうって知ってました？〇〇です。」</div>
+          </div>
+        </div>
+      </div>
+
+      <h3>絶対にやってはいけないこと（NG）</h3>
+      <div class="ng-box">
+        <div class="ng-title">⚠️ 以下は全案件で例外なく禁止</div>
+        <ul>
+          <li><strong>「スタッフ」「私たちスタッフ」などの表現を使う</strong>　→　一人経営の店舗も多く、実態と異なるため</li>
+          <li><strong>HPに書いていない数値・金額を書く</strong>　→　誤情報になるため（「詳しくはお問い合わせください」に置き換える）</li>
+          <li><strong>KWをスペースのまま文中に使う</strong>　→　NG：「川崎 カウンセリング をご希望の方」　OK：「川崎市でカウンセリングをお探しの方」</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- 6 -->
+    <div class="section" id="sec7">
+      <div class="section-header">
+        <div class="section-num">7</div>
+        <h2>口コミ返信対応</h2>
+      </div>
+
+      <p>お客様からの口コミには、月に2回返信します。</p>
+
+      <h3>タイミング</h3>
+      <p>第2金曜日・第4金曜日（月2回）</p>
+
+      <h3>手順</h3>
+      <ol>
+        <li>各店舗のGoogleビジネスプロフィールに新しい口コミが届いていないか確認する</li>
+        <li>meoクラウドを使用して返信内容を作成する</li>
+        <li>対応完了を記録する（管理シートの口コミ返信ステータスを「実施済み」に更新する）</li>
+      </ol>
+    </div>
+
+    <!-- 7 -->
+    <div class="section" id="sec8">
+      <div class="section-header">
+        <div class="section-num">8</div>
+        <h2>投稿ステータスの管理</h2>
+      </div>
+
+      <p>各案件の投稿状況は「投稿ステータス（投稿ST）」で管理します。</p>
+
+      <h3>ステータスの種類</h3>
+      <table>
+        <thead>
+          <tr><th>ステータス</th><th>意味</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><span class="tag tag-yellow">作成中</span></td><td>投稿文を作成している途中</td></tr>
+          <tr><td><span class="tag tag-blue">作成済み</span></td><td>投稿文が完成している（お客様確認前）</td></tr>
+          <tr><td><span class="tag tag-purple">メール返信待ち</span></td><td>お客様に投稿文を送り、確認の返信を待っている</td></tr>
+          <tr><td><span class="tag tag-orange">修正中</span></td><td>お客様からフィードバックをもらい、修正している</td></tr>
+          <tr><td><span class="tag tag-teal">配信予約前</span></td><td>確認OKが出たが、meoクラウドへの予約がまだ</td></tr>
+          <tr><td><span class="tag tag-green">配信予約完了</span></td><td>meoクラウドに投稿予約が完了している ✅</td></tr>
+          <tr><td><span class="tag tag-gray">無し</span></td><td>その月は投稿なし（隔月案件など）</td></tr>
+        </tbody>
+      </table>
+
+      <h3>各月の期限</h3>
+      <table>
+        <thead>
+          <tr><th>項目</th><th>期限</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>当月の配信予約</td><td>常に「配信予約完了」であること</td></tr>
+          <tr><td>翌月の配信予約</td><td>月末まで</td></tr>
+          <tr><td>翌々月の文章作成</td><td>月末まで</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 8 -->
+    <div class="section" id="sec9">
+      <div class="section-header">
+        <div class="section-num">9</div>
+        <h2>月次リセット（meoリセット）とは</h2>
+      </div>
+
+      <p>毎月月初に行う定例作業です。「<strong>meoリセット</strong>」と呼んでいます。</p>
+
+      <h3>やること（順番どおりに実施）</h3>
+      <ol>
+        <li>
+          <strong>投稿STの月名更新</strong><br>
+          「当月」「翌月」「翌々月」のキー名を実際の月名に変える<br>
+          <span style="font-size:13px;color:#888;">例：◯月実施の場合 → 「◯月投稿ST」「◯月＋1投稿ST」「◯月＋2投稿ST」</span>
+        </li>
+        <li style="margin-top:10px;">
+          <strong>投稿日のスライド</strong><br>
+          当月の投稿日を翌月の日付に更新する
+        </li>
+        <li style="margin-top:10px;">
+          <strong>ステータスの自動更新</strong><br>
+          「準備中」で運用開始日を過ぎた案件を「運用中」に変える
+        </li>
+        <li style="margin-top:10px;">
+          <strong>口コミ返信のリセット</strong><br>
+          全案件の口コミ返信状態を「未実行」に戻す
+        </li>
+        <li style="margin-top:10px;">
+          <strong>一覧ファイルの再生成</strong><br>
+          Google スプレッドシートのマクロ（「MEO一覧を更新」）を実行してMEO案件一覧を更新する<br>
+          <span style="font-size:13px;color:#888;">場所：スプレッドシート上部メニュー「拡張機能」→「マクロ」→「MEO一覧を更新」</span>
+        </li>
+      </ol>
+    </div>
+
+    <!-- 9 -->
+    <div class="section" id="sec10">
+      <div class="section-header">
+        <div class="section-num">10</div>
+        <h2>よくある用語集</h2>
+      </div>
+
+      <table>
+        <thead>
+          <tr><th>用語</th><th>意味</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>GBP</strong></td><td>Googleビジネスプロフィール。Googleマップに表示される店舗情報ページ</td></tr>
+          <tr><td><strong>meoクラウド</strong></td><td>投稿の配信予約・管理を行うツール</td></tr>
+          <tr><td><strong>KW（キーワード）</strong></td><td>各投稿で上位表示を狙う検索キーワード</td></tr>
+          <tr><td><strong>投稿文</strong></td><td>Googleビジネスプロフィールに掲載する記事・テキスト</td></tr>
+          <tr><td><strong>プロンプト</strong></td><td>各店舗ごとの投稿文作成指示書（Google Driveに保存）</td></tr>
+          <tr><td><strong>配信予約完了</strong></td><td>meoクラウドに投稿日時をセットし終わった状態</td></tr>
+          <tr><td><strong>口コミ返信</strong></td><td>お客様のGoogleマップ口コミに対して返信する業務</td></tr>
+          <tr><td><strong>アンケート</strong></td><td>お客様に満足度などを聞くアンケート。運用開始時に案内する</td></tr>
+          <tr><td><strong>インスタ連携</strong></td><td>InstagramとGoogleビジネスプロフィールを連携させること</td></tr>
+          <tr><td><strong>ドライブURL</strong></td><td>各案件のGoogle Driveフォルダへのリンク</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- まとめ -->
+    <div class="summary-section" id="summary">
+      <h2>まとめ：新人がまず覚えること</h2>
+      <ul class="summary-list">
+        <li>
+          <span class="check">①</span>
+          <span>まずはツールやMEOの仕組みを理解していきましょう</span>
+        </li>
+        <li>
+          <span class="check">②</span>
+          <span><strong>担当案件の区分を把握する</strong>　自社・代理店・システム貸しで作業フローが異なります</span>
+        </li>
+        <li>
+          <span class="check">③</span>
+          <span><strong>月末までに翌月の配信予約を完了させる</strong>　投稿ST「配信予約完了」になっているか毎月確認しましょう</span>
+        </li>
+        <li>
+          <span class="check">④</span>
+          <span><strong>口コミ返信は第2・第4金曜日に実施</strong>　meoクラウドで返信後、管理シートのステータスを更新しましょう</span>
+        </li>
+        <li>
+          <span class="check">⑤</span>
+          <span><strong>わからないことはすぐ確認する</strong>　迷ったまま進めず、上長に相談する習慣をつけましょう</span>
+        </li>
+      </ul>
+    </div>
+
+
+  </main>
+</div>
+
+</body>
+</html>
