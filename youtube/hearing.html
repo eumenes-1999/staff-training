@@ -361,6 +361,81 @@
       margin-bottom: 4px;
     }
 
+    .email-preview {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin: 8px 0;
+      font-size: 12.5px; line-height: 1.85;
+      color: #334155;
+      white-space: pre-wrap;
+      font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
+    }
+
+    .email-preview::before {
+      content: '✉️ 送信メールサンプル（店舗名・提案内容は書き換えてください）';
+      display: block;
+      font-size: 11px; font-weight: 700; color: #64748b;
+      margin-bottom: 10px;
+      white-space: normal;
+    }
+
+    .email-placeholder {
+      background: #fef9c3;
+      border-radius: 3px;
+      padding: 0 3px;
+      color: #854d0e;
+      font-weight: 700;
+    }
+
+    .email-toggle {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 12px; font-weight: 700; color: var(--primary);
+      cursor: pointer; margin: 8px 0 4px;
+      background: none; border: none; padding: 0;
+    }
+
+    .email-toggle:hover { text-decoration: underline; }
+
+    .email-body { display: none; }
+    .email-body.open { display: block; }
+
+    .icebreak-box {
+      background: #fff7ed;
+      border-left: 3px solid #f97316;
+      border-radius: 0 6px 6px 0;
+      padding: 10px 14px;
+      margin: 8px 0;
+      font-size: 13px; line-height: 1.7; color: #7c2d12;
+    }
+
+    .icebreak-box::before {
+      content: '🧊 アイスブレイクの目的';
+      display: block;
+      font-size: 11px; font-weight: 700; color: #f97316;
+      margin-bottom: 4px;
+    }
+
+    .icebreak-topics {
+      background: #fef9f0;
+      border: 1px dashed #fb923c;
+      border-radius: 6px;
+      padding: 10px 14px;
+      margin: 8px 0;
+      font-size: 13px; line-height: 1.7; color: #7c2d12;
+    }
+
+    .icebreak-topics::before {
+      content: '💬 よくする話題';
+      display: block;
+      font-size: 11px; font-weight: 700; color: #f97316;
+      margin-bottom: 6px;
+    }
+
+    .icebreak-topics ul { padding-left: 16px; }
+    .icebreak-topics li { margin-bottom: 6px; }
+
     .sub-section {
       margin-top: 16px; padding-top: 14px;
       border-top: 1px dashed var(--border);
@@ -476,11 +551,6 @@
   </style>
 </head>
 <body>
-<script>
-(function(){
-  if(!sessionStorage.getItem('rb_auth')) location.replace('/staff-training/login.html');
-})();
-</script>
 
 <!-- ===== SIDEBAR ===== -->
 <nav id="sidebar">
@@ -496,10 +566,10 @@
   <div id="nav">
     <div class="nav-section-label">進行フロー</div>
     <a href="#step1" class="nav-item">
-      <span class="nav-step-num">1</span>ご挨拶
+      <span class="nav-step-num">1</span>事前準備
     </a>
     <a href="#step2" class="nav-item">
-      <span class="nav-step-num">2</span>導入・メール確認
+      <span class="nav-step-num">2</span>電話をかける
     </a>
     <a href="#step3" class="nav-item">
       <span class="nav-step-num">3</span>必須項目
@@ -538,14 +608,70 @@
       <div class="step-left"><div class="step-circle">1</div></div>
       <div class="step-body">
         <div class="step-label">
-          <span class="step-tag">ご挨拶</span>
-          <span class="step-title">電話をかける</span>
+          <span class="step-tag">事前準備</span>
+          <span class="step-title">電話前の準備</span>
         </div>
         <div class="step-card">
-          <div class="script-main">
-            「お世話になります。株式会社ランバードの◯◯と申します〜<br>
-            本日はYouTube広告に向けたヒアリングの件でお電話したんですが、お時間変わらず大丈夫でしょうか？」
+          <div class="sub-section" style="padding-top:0; border-top:none;">
+            <div class="sub-title"><span class="sub-dot"></span>電話前の準備チェック</div>
+            <ul class="checklist">
+              <li onclick="this.classList.toggle('checked')"><span class="check-box"></span><span>提案KWリストを用意する（10個程度）</span></li>
+              <li onclick="this.classList.toggle('checked')"><span class="check-box"></span><span>配信地域案を確認する</span></li>
+              <li onclick="this.classList.toggle('checked')"><span class="check-box"></span><span>納品動画を視聴しておく（アイスブレイクで感想を言えるように）</span></li>
+              <li onclick="this.classList.toggle('checked')"><span class="check-box"></span><span>オーナーのインスタ・Googleマップを事前に確認しておく</span></li>
+              <li onclick="this.classList.toggle('checked')"><span class="check-box"></span><span>ヒアリングメールを送る（前日までに）</span></li>
+            </ul>
+            <button class="email-toggle" onclick="const b=this.nextElementSibling;b.classList.toggle('open');this.textContent=b.classList.contains('open')?'▲ メールサンプルを閉じる':'▼ メールサンプルを見る'">▼ メールサンプルを見る</button>
+            <div class="email-body">
+              <div class="email-preview"><span class="email-placeholder">【店舗名】</span>
+<span class="email-placeholder">【オーナー名】</span>様
+
+お世話になっております。
+株式会社ランバード　広告運用サポート窓口です。
+
+明日<span class="email-placeholder">【日付・時間】</span>よりお時間をいただいております、
+ヒアリングの件でご連絡をいたしました。
+
+下記に運用にあたってのご提案内容を記載しております。
+ご確認のほど、よろしくお願い致します。
+
+【ご連絡シート】
+<span class="email-placeholder">【ご連絡シートURL】</span>
+※こちらのシートは月次の報告書となり、毎月更新いたします。
+　必ずブックマークに登録ください。
+
+【広告運用開始予定日】
+媒体審査通過次第
+
+【広告のリンク先】
+<span class="email-placeholder">【HP・インスタ・ホットペッパーなど候補URL（いずれか1つのみ選択可能）】</span>
+
+【広告を流すユーザー属性】
+性別（<span class="email-placeholder">【例：女性】</span>）
+年齢（<span class="email-placeholder">【例：25-34・35-44】</span>）
+※ご相談させてください
+
+【広告を流す地域】
+店舗様から<span class="email-placeholder">【◯キロ】</span>
+※ご相談させてください
+
+【広告を流す時間】
+7時〜24時
+※ご相談させてください
+
+【広告の関連キーワード】
+<span class="email-placeholder">【提案KWを箇条書きで記載】</span>
+※ご相談させてください
+
+＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+株式会社ランバード
+広告運用サポート窓口
+TEL　0120-949-851
+Mail   creative.yt@runbird.net
+＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝</div>
+            </div>
           </div>
+
         </div>
       </div>
     </div>
@@ -555,14 +681,44 @@
       <div class="step-left"><div class="step-circle">2</div></div>
       <div class="step-body">
         <div class="step-label">
-          <span class="step-tag">導入</span>
-          <span class="step-title">メール確認</span>
+          <span class="step-tag">ご挨拶</span>
+          <span class="step-title">電話をかける</span>
         </div>
         <div class="step-card">
-          <div class="script-main">
-            「◯日にお送りしたメール内容をご確認していただけましたでしょうか？<br>
-            本日はそのメール内容を基に進行致しますので、ご確認いただけますと幸いです。」
+          <div class="sub-section" style="padding-top:0; border-top:none;">
+            <div class="sub-title"><span class="sub-dot"></span>電話をかける</div>
+            <div class="script-main">
+              「お世話になります。株式会社ランバードの◯◯と申します〜<br>
+              本日はYouTube広告に向けたヒアリングの件でお電話したんですが、お時間変わらず大丈夫でしょうか？」
+            </div>
           </div>
+
+          <div class="sub-section">
+            <div class="sub-title"><span class="sub-dot"></span>メール確認</div>
+            <div class="script-main">
+              「◯日にお送りしたメール内容をご確認していただけましたでしょうか？<br>
+              本日はそのメール内容を基に進行致しますので、ご確認いただけますと幸いです。」
+            </div>
+          </div>
+
+          <!-- アイスブレイク -->
+          <div class="sub-section">
+            <div class="sub-title"><span class="sub-dot"></span>アイスブレイク</div>
+            <div class="icebreak-box">
+              オーナー様との緊張をほぐし、話しやすい雰囲気をつくる。ここで得た情報が設定のヒントになることも多い。
+            </div>
+            <div class="icebreak-topics">
+              <ul>
+                <li><strong>納品動画について</strong>——「納品した動画は〇〇ですね〜」など、こちらから感想を伝えて話のきっかけをつくる</li>
+                <li><strong>Web情報について</strong>——「事前にインスタ拝見してたんですが、〇〇の投稿すごく多いですね〜！何か意識されていることはありますか？」など、事前に確認した情報をもとに話しかける</li>
+                <li><strong>お店について</strong>——「開業されてからどのくらいになりますか？」「どんなお客様が多いですか？ご家族連れですか？それともお一人が多いですか？」など、来客層を引き出す</li>
+              </ul>
+            </div>
+            <div class="tip-box">
+              雑談の中で出てくる来客層・地域性・サービスの強みなどはそのままターゲット設定やKWのヒントになる。メモしながら進めよう。
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -782,11 +938,92 @@
             「以上でヒアリングは終了となりますが、本日のご案内でご質問等はございますでしょうか？」<br><br>
             「本日はありがとうございました！失礼致します！」
           </div>
+
+          <div class="sub-section">
+            <div class="sub-title"><span class="sub-dot"></span>電話後のアクション（必ず実施）</div>
+            <ul class="checklist">
+              <li onclick="this.classList.toggle('checked')"><span class="check-box"></span><span>ヒアリング内容をご連絡シートに記入する</span></li>
+              <li onclick="this.classList.toggle('checked')"><span class="check-box"></span><span>チャットで上長に「ヒアリング完了・設定着手します」と報告する</span></li>
+              <li onclick="this.classList.toggle('checked')"><span class="check-box"></span><span>広告設定作業を開始する（オーディエンス・KW・配信地域・配信時間・デバイス・FQ）</span></li>
+              <li onclick="this.classList.toggle('checked')"><span class="check-box"></span><span>設定完了後、オーナーへ運用開始の報告メールを送る</span></li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
 
   </div><!-- /timeline -->
+
+  <!-- ===== Q&A ===== -->
+  <section id="qa-section">
+    <div id="qa-header" onclick="document.getElementById('qa-section').classList.toggle('open')">
+      <h2>❓ よくある質問 / 想定される反応</h2>
+      <span class="chevron">▼</span>
+    </div>
+    <div id="qa-body">
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="this.closest('.qa-card').classList.toggle('open')">
+          <span class="q-badge">Q</span>
+          <span class="qa-question-text">「効果はいつ頃から出ますか？」</span>
+          <span class="chevron-sm">▼</span>
+        </div>
+        <div class="qa-answer">
+          <span class="a-label">A</span>
+          <p class="answer-main">YouTube広告は認知拡大が得意な広告です。すぐに問い合わせが増えるというより、まず「知ってもらう」ところから始まります。HP・マップなどの情報が整っていると効果が出やすくなりますので、2ヶ月単位で数値を見ながら一緒に改善していきましょう。</p>
+        </div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="this.closest('.qa-card').classList.toggle('open')">
+          <span class="q-badge">Q</span>
+          <span class="qa-question-text">「今ちょっと忙しいんですけど…」</span>
+          <span class="chevron-sm">▼</span>
+        </div>
+        <div class="qa-answer">
+          <span class="a-label">A</span>
+          <p class="answer-main">「かしこまりました！必須項目のみであれば15〜20分ほどで完了できますが、いかがでしょうか？もし難しければ改めてお時間いただけますか？」と伝えて調整する。無理に進めず、別日に再設定しても問題ない。</p>
+        </div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="this.closest('.qa-card').classList.toggle('open')">
+          <span class="q-badge">Q</span>
+          <span class="qa-question-text">「キーワードってどうやって決めるんですか？」</span>
+          <span class="chevron-sm">▼</span>
+        </div>
+        <div class="qa-answer">
+          <span class="a-label">A</span>
+          <p class="answer-main">「こちらで業種・サービス・地域名などをもとに候補を事前に用意しています。本日はその中からオーナー様のご意向も聞きながら、最終的に10個ほどに絞る形で進めさせてください。」と説明する。</p>
+        </div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="this.closest('.qa-card').classList.toggle('open')">
+          <span class="q-badge">Q</span>
+          <span class="qa-question-text">「広告って本当に効果あるんですか？」</span>
+          <span class="chevron-sm">▼</span>
+        </div>
+        <div class="qa-answer">
+          <span class="a-label">A</span>
+          <p class="answer-main">「広告単体ですぐに集客、というよりも、まず認知を広げるための施策です。広告を見た方がその後HPやマップを検索して来店を判断する流れが一般的です。広告・HP・マップが揃うことで成果が出やすくなります。」と長期施策であることを丁寧に説明する。</p>
+        </div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="this.closest('.qa-card').classList.toggle('open')">
+          <span class="q-badge">Q</span>
+          <span class="qa-question-text">「Google広告やSNS広告と何が違うんですか？」</span>
+          <span class="chevron-sm">▼</span>
+        </div>
+        <div class="qa-answer">
+          <span class="a-label">A</span>
+          <p class="answer-main">「Google検索広告は『今すぐ探している人』に届ける広告です。YouTube広告は『まだ知らない人』に動画で認知してもらう広告で、それぞれ役割が違います。SNS広告はフォロワーへのリーチが中心で、拡散力が強みです。YouTube広告は動画で強い印象を残せる点が特徴です。」</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
 
   <div class="page-footer">
     ⚠️ <strong>注意事項</strong>：必須項目が埋まり次第、任意項目・協力依頼・日切りへ進んでください。答えに詰まった場合は「確認してご連絡します」と伝え、後日フォローしてください。
@@ -811,6 +1048,9 @@
   }, { threshold: 0.3 });
 
   document.querySelectorAll('.step, #qa-section').forEach(el => obs.observe(el));
+
+  // Q&A section — open by default
+  document.getElementById('qa-section').classList.add('open');
 
 </script>
 </body>
