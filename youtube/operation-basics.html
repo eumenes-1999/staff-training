@@ -1,0 +1,1382 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>【新人研修】YouTube広告 運用基礎概念</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --yt-red: #c4302b;
+      --yt-red-dark: #8b1a17;
+      --yt-red-light: #fef3f3;
+      --primary: #c4302b;
+      --primary-dark: #8b1a17;
+      --primary-light: #fef3f3;
+      --surface: #ffffff;
+      --surface-2: #f8f9fa;
+      --surface-3: #f1f3f4;
+      --text-primary: #202124;
+      --text-secondary: #5f6368;
+      --text-tertiary: #80868b;
+      --border: #e0e0e0;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.08);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.06);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background: #f9f0f0;
+      color: var(--text-primary);
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      background: linear-gradient(135deg, #1a0000 0%, #7b0000 40%, #c4302b 75%, #ff6b6b 100%);
+      padding: 80px 24px 100px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%; left: -20%;
+      width: 60%; height: 200%;
+      background: rgba(255,255,255,0.04);
+      border-radius: 50%;
+      animation: float1 8s ease-in-out infinite;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -30%; right: -10%;
+      width: 50%; height: 150%;
+      background: rgba(255,255,255,0.05);
+      border-radius: 50%;
+      animation: float2 10s ease-in-out infinite;
+    }
+    @keyframes float1 { 0%,100%{transform:translateY(0) rotate(0deg);} 50%{transform:translateY(-30px) rotate(5deg);} }
+    @keyframes float2 { 0%,100%{transform:translateY(0) rotate(0deg);} 50%{transform:translateY(20px) rotate(-5deg);} }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #fff;
+      font-size: 13px; font-weight: 500;
+      padding: 6px 16px;
+      border-radius: 100px;
+      margin-bottom: 24px;
+      backdrop-filter: blur(10px);
+      position: relative; z-index: 1;
+    }
+    .hero h1 {
+      font-size: clamp(28px, 5vw, 52px);
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -0.5px;
+      margin-bottom: 16px;
+      position: relative; z-index: 1;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+    }
+    .hero h1 span {
+      background: linear-gradient(90deg, #FBBC05, #FF6D00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: clamp(14px, 2vw, 18px);
+      color: rgba(255,255,255,0.85);
+      max-width: 600px;
+      margin: 0 auto 32px;
+      position: relative; z-index: 1;
+    }
+    .hero-meta {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      position: relative; z-index: 1;
+    }
+    .hero-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255,255,255,0.8);
+      font-size: 14px; font-weight: 500;
+    }
+    .hero-meta-item .icon {
+      width: 32px; height: 32px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+    }
+
+    /* ─── NAV ─── */
+    .nav-wrapper {
+      position: sticky;
+      top: 0; z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+    }
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .nav-inner::-webkit-scrollbar { display: none; }
+    .nav-item {
+      display: flex; align-items: center; gap: 6px;
+      padding: 14px 16px;
+      font-size: 13px; font-weight: 600;
+      color: var(--text-secondary);
+      text-decoration: none;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s ease;
+    }
+    .nav-item:hover { color: var(--primary); border-bottom-color: var(--primary); }
+    .nav-item.active { color: var(--primary); border-bottom-color: var(--primary); }
+
+    /* ─── MAIN ─── */
+    .main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    /* ─── SECTION ─── */
+    .section {
+      margin-bottom: 64px;
+      animation: fadeUp 0.5s ease both;
+    }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(24px);} to{opacity:1;transform:translateY(0);} }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 28px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid var(--border);
+    }
+    .section-number {
+      width: 44px; height: 44px;
+      background: linear-gradient(135deg, var(--yt-red), #ff6b6b);
+      color: white;
+      font-size: 18px; font-weight: 700;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(196,48,43,0.4);
+    }
+    .section-title-wrap h2 { font-size: 22px; font-weight: 700; color: var(--text-primary); }
+    .section-title-wrap p { font-size: 13px; color: var(--text-secondary); margin-top: 2px; }
+
+    /* ─── CARD ─── */
+    .card {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .card-header {
+      background: linear-gradient(135deg, #fff5f5, #ffe8e8);
+      padding: 16px 24px;
+      border-bottom: 1px solid #f8c8c5;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .card-header .icon { font-size: 20px; }
+    .card-header h3 { font-size: 16px; font-weight: 700; color: var(--yt-red-dark); }
+    .card-body { padding: 24px; }
+
+    /* ─── GRID ─── */
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+
+    /* ─── HIERARCHY ─── */
+    .hierarchy { display: flex; flex-direction: column; gap: 0; margin: 8px 0; }
+    .hierarchy-box {
+      flex: 1;
+      border-radius: var(--radius-sm);
+      padding: 14px 20px;
+      margin: 4px 0;
+    }
+    .h-lv1 { background: linear-gradient(135deg, #fef3f3, #fde0df); border-left: 4px solid #c4302b; }
+    .h-lv2 { background: linear-gradient(135deg, #fff8e1, #fde68a); border-left: 4px solid #FBBC05; margin-left: 24px; }
+    .h-lv3 { background: linear-gradient(135deg, #e6f4ea, #ceead6); border-left: 4px solid #34A853; margin-left: 48px; }
+    .h-lv4 { background: linear-gradient(135deg, #e8f0fe, #d2e3fc); border-left: 4px solid #4285F4; margin-left: 72px; }
+    .hierarchy-box .level-label {
+      font-size: 11px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.8px;
+      opacity: 0.6; margin-bottom: 4px;
+    }
+    .hierarchy-box h4 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+    .hierarchy-box p { font-size: 13px; color: var(--text-secondary); }
+
+    /* ─── STEP LIST ─── */
+    .step-list { display: flex; flex-direction: column; gap: 16px; }
+    .step-item {
+      display: flex; gap: 16px; align-items: flex-start;
+      padding: 16px 20px;
+      background: var(--surface-2);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      transition: all 0.2s ease;
+    }
+    .step-item:hover {
+      border-color: #f8c8c5;
+      box-shadow: var(--shadow-sm);
+      background: #fff8f8;
+      transform: translateX(4px);
+    }
+    .step-num {
+      width: 32px; height: 32px;
+      background: linear-gradient(135deg, var(--yt-red), #ff6b6b);
+      color: white;
+      font-size: 14px; font-weight: 700;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(196,48,43,0.35);
+    }
+    .step-content h4 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+    .step-content p, .step-content ul { font-size: 14px; color: var(--text-secondary); }
+    .step-content ul { padding-left: 18px; margin-top: 6px; }
+    .step-content ul li { margin-bottom: 3px; }
+
+    /* ─── INFO BOX ─── */
+    .info-box {
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      display: flex; gap: 12px; align-items: flex-start;
+      margin: 16px 0; font-size: 14px;
+    }
+    .info-box.red    { background: #fce8e6; border-left: 4px solid #c4302b; color: #7f0000; }
+    .info-box.yellow { background: #fff8e1; border-left: 4px solid #FBBC05; color: #6d4c00; }
+    .info-box.green  { background: #e6f4ea; border-left: 4px solid #34A853; color: #1b5e20; }
+    .info-box.blue   { background: #e8f0fe; border-left: 4px solid #4285F4; color: #1a237e; }
+    .info-box .info-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+
+    /* ─── SETTING TABLE ─── */
+    .setting-table {
+      width: 100%; border-collapse: collapse;
+      font-size: 14px; border-radius: var(--radius-md); overflow: hidden;
+    }
+    .setting-table th {
+      background: linear-gradient(135deg, var(--yt-red), #ff6b6b);
+      color: white; padding: 12px 16px;
+      text-align: left; font-weight: 600; font-size: 13px;
+    }
+    .setting-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    .setting-table tr:nth-child(even) td { background: var(--surface-2); }
+    .setting-table tr:hover td { background: #fff5f5; }
+    .setting-table .label { font-weight: 600; color: var(--text-primary); }
+    .setting-table .value { color: var(--text-secondary); }
+    .setting-table .example { font-size: 13px; color: var(--yt-red); font-style: italic; }
+
+    /* ─── TARGET CARD ─── */
+    .target-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; }
+    .target-card {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 20px; text-align: center;
+      transition: all 0.2s ease;
+    }
+    .target-card:hover {
+      border-color: #f8c8c5;
+      box-shadow: var(--shadow-md);
+      transform: translateY(-4px);
+      background: var(--surface);
+    }
+    .target-card .t-icon { font-size: 36px; margin-bottom: 12px; }
+    .target-card h4 { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+    .target-card p { font-size: 12px; color: var(--text-secondary); }
+
+    /* ─── COMPARISON TABLE ─── */
+    .compare-table {
+      width: 100%; border-collapse: collapse; font-size: 14px;
+      border-radius: var(--radius-md); overflow: hidden;
+    }
+    .compare-table th {
+      padding: 12px 16px; text-align: center;
+      font-weight: 700; font-size: 13px;
+    }
+    .compare-table th:first-child { background: #f1f3f4; color: var(--text-secondary); }
+    .compare-table th.yt { background: linear-gradient(135deg, var(--yt-red), #ff6b6b); color: white; }
+    .compare-table th.gs { background: linear-gradient(135deg, #4285F4, #42a5f5); color: white; }
+    .compare-table th.sns { background: linear-gradient(135deg, #7c3aed, #a78bfa); color: white; }
+    .compare-table td { padding: 12px 16px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+    .compare-table td:first-child { font-weight: 600; background: var(--surface-2); color: var(--text-primary); }
+    .compare-table td.center { text-align: center; }
+    .compare-table tr:hover td { background: #fafafa; }
+
+    /* ─── TAG ─── */
+    .tag {
+      display: inline-flex; align-items: center;
+      padding: 3px 10px; border-radius: 100px;
+      font-size: 12px; font-weight: 600;
+    }
+    .tag-red    { background: #fce8e6; color: #c4302b; }
+    .tag-green  { background: #e6f4ea; color: #137333; }
+    .tag-yellow { background: #fff8e1; color: #f57f17; }
+    .tag-blue   { background: #e8f0fe; color: #1a73e8; }
+    .tag-gray   { background: #f1f3f4; color: var(--text-secondary); }
+
+    /* ─── KW EXAMPLE BLOCK ─── */
+    .kw-block {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      margin-top: 12px;
+    }
+    .kw-tag {
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 13px; font-weight: 500;
+    }
+    .kw-good  { background: #e6f4ea; color: #137333; border: 1px solid #a8d5b5; }
+    .kw-bad   { background: #fce8e6; color: #c4302b; border: 1px solid #f5b4b1; }
+    .kw-caution { background: #fff8e1; color: #b07d00; border: 1px solid #fde68a; }
+
+    /* ─── MERIT/DEMERIT ─── */
+    .merit-demerit {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+      margin-top: 16px;
+    }
+    .merit-box, .demerit-box {
+      border-radius: var(--radius-md);
+      padding: 16px;
+    }
+    .merit-box { background: #e6f4ea; border: 1px solid #a8d5b5; }
+    .demerit-box { background: #fce8e6; border: 1px solid #f5b4b1; }
+    .merit-box h4 { color: #137333; font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+    .demerit-box h4 { color: #c4302b; font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+    .merit-box ul, .demerit-box ul {
+      padding-left: 16px; font-size: 13px;
+    }
+    .merit-box ul li { color: #1b5e20; margin-bottom: 4px; }
+    .demerit-box ul li { color: #7f0000; margin-bottom: 4px; }
+
+    /* ─── SUMMARY BOX ─── */
+    .summary-box {
+      background: linear-gradient(135deg, #7b0000, #c4302b);
+      color: white;
+      border-radius: var(--radius-xl);
+      padding: 40px; text-align: center;
+      margin-top: 64px;
+      position: relative; overflow: hidden;
+    }
+    .summary-box::before {
+      content: '';
+      position: absolute;
+      top: -40%; right: -10%;
+      width: 40%; height: 200%;
+      background: rgba(255,255,255,0.05);
+      border-radius: 50%;
+    }
+    .summary-box h2 { font-size: 24px; font-weight: 700; margin-bottom: 12px; }
+    .summary-box p { font-size: 15px; color: rgba(255,255,255,0.8); max-width: 600px; margin: 0 auto 24px; }
+
+    /* ─── UTIL ─── */
+    .mt-16 { margin-top: 16px; }
+    .mt-24 { margin-top: 24px; }
+    .mb-16 { margin-bottom: 16px; }
+    .mb-24 { margin-bottom: 24px; }
+    .flex-col { display: flex; flex-direction: column; gap: 12px; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      text-align: center;
+      padding: 32px 24px;
+      color: var(--text-tertiary);
+      font-size: 13px;
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 640px) {
+      .hero { padding: 56px 16px 72px; }
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      .merit-demerit { grid-template-columns: 1fr; }
+      .summary-box { padding: 28px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── HERO ─── -->
+<header class="hero">
+  <div class="hero-badge">▶ 新人研修資料</div>
+  <h1>YouTube広告<br /><span>運用 基礎概念</span></h1>
+  <p class="hero-sub">広告配信のメカニズムからKW選定・ターゲット設定まで、運用を理解するための基礎知識をまとめた研修テキストです。</p>
+  <div class="hero-meta">
+    <div class="hero-meta-item"><div class="icon">📌</div>対象：入社1〜3ヶ月の新人</div>
+    <div class="hero-meta-item"><div class="icon">⏱️</div>所要時間：約30〜45分</div>
+    <div class="hero-meta-item"><div class="icon">🎯</div>目標：広告設定の「なぜ」を説明できる</div>
+  </div>
+</header>
+
+<!-- ─── NAVIGATION ─── -->
+<nav class="nav-wrapper">
+  <div class="nav-inner">
+    <a href="#section-yt-feature" class="nav-item">▶️ YouTube広告の特性</a>
+    <a href="#section-instream" class="nav-item">⏩ インストリーム広告</a>
+    <a href="#section-mechanism" class="nav-item">⚙️ 配信メカニズム</a>
+    <a href="#section-kw" class="nav-item">🔍 KW選定のコツ</a>
+    <a href="#section-kw-type" class="nav-item">🔑 KWの種類と使い分け</a>
+    <a href="#section-region" class="nav-item">📍 配信地域の調整</a>
+    <a href="#section-target" class="nav-item">🎯 ターゲット選定</a>
+  </div>
+</nav>
+
+<main class="main">
+
+  <!-- ─── 1. YouTube広告の特性 ─── -->
+  <section id="section-yt-feature" class="section">
+    <div class="section-header">
+      <div class="section-number">1</div>
+      <div class="section-title-wrap">
+        <h2>YouTube広告の特性と強み</h2>
+        <p>どんな目的に向いていて、どんな限界があるかを理解する</p>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header"><span class="icon">🏆</span><h3>YouTube広告の最大の強み</h3></div>
+        <div class="card-body">
+          <div class="step-list">
+            <div class="step-item">
+              <div style="font-size:24px;flex-shrink:0;">👁️</div>
+              <div class="step-content">
+                <h4>「知らない人」への認知拡大</h4>
+                <p>今まで店舗を知らなかったユーザーに動画で強い印象を与えられる。Google検索広告と違い、<strong>まだ探していない潜在層</strong>にもリーチできる。</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div style="font-size:24px;flex-shrink:0;">🎬</div>
+              <div class="step-content">
+                <h4>映像・音声での訴求力</h4>
+                <p>テキストや画像より動画の方が記憶に残りやすい。店舗の雰囲気・スタッフ・サービスを体感してもらえる。</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div style="font-size:24px;flex-shrink:0;">💴</div>
+              <div class="step-content">
+                <h4>低コストで大量リーチ</h4>
+                <p>CPV（1視聴あたり）10円前後という低単価で、多くのユーザーへ広告を届けられる。テレビCMと比較してコストが圧倒的に低い。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="icon">📊</span><h3>他の広告との役割の違い</h3></div>
+        <div class="card-body">
+          <table class="compare-table">
+            <thead>
+              <tr>
+                <th></th>
+                <th class="yt">YouTube広告</th>
+                <th class="gs">Google検索広告</th>
+                <th class="sns">SNS広告</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>主な役割</td>
+                <td class="center">認知拡大</td>
+                <td class="center">今すぐ探している人へ</td>
+                <td class="center">フォロワー・拡散</td>
+              </tr>
+              <tr>
+                <td>ターゲット</td>
+                <td class="center">潜在層</td>
+                <td class="center">顕在層</td>
+                <td class="center">興味関心層</td>
+              </tr>
+              <tr>
+                <td>課金方式</td>
+                <td class="center">CPV（視聴ごと）</td>
+                <td class="center">CPC（クリックごと）</td>
+                <td class="center">CPM・CPC</td>
+              </tr>
+              <tr>
+                <td>即効性</td>
+                <td class="center">低め</td>
+                <td class="center">高め</td>
+                <td class="center">中程度</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="info-box yellow mt-16">
+            <span class="info-icon">⚠️</span>
+            <p><strong>重要：</strong>YouTube広告は「すぐ問い合わせが来る」広告ではない。認知を積み上げることで、後から検索・来店につながる<strong>長期施策</strong>として運用する。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mt-24">
+      <div class="card-header"><span class="icon">🔺</span><h3>マーケティングファネルとYouTube広告の位置づけ</h3></div>
+      <div class="card-body">
+        <p style="font-size:14px;color:var(--text-secondary);margin-bottom:20px;">顧客が来店するまでには「知る→興味を持つ→検討する→行動する」という段階があります。YouTube広告は最初の「認知」フェーズで最も力を発揮します。</p>
+        <div class="hierarchy">
+          <div class="hierarchy-box h-lv1">
+            <div class="level-label">Top of Funnel — YouTube広告が最も強い</div>
+            <h4>👁️ 認知（Awareness）</h4>
+            <p>「こんなお店がある」と知ってもらう段階。YouTube広告で動画を見せて存在を知ってもらう。</p>
+          </div>
+          <div class="hierarchy-box h-lv2">
+            <div class="level-label">Middle of Funnel</div>
+            <h4>🤔 興味・検討（Consideration）</h4>
+            <p>「どんなお店だろう」とGoogleマップ・HPを検索する段階。口コミ・写真・情報の充実が鍵になる。</p>
+          </div>
+          <div class="hierarchy-box h-lv3">
+            <div class="level-label">Bottom of Funnel</div>
+            <h4>✅ 行動（Action）</h4>
+            <p>「予約する」「来店する」という最終アクション。HPやマップの使いやすさが受け止める。</p>
+          </div>
+        </div>
+        <div class="info-box blue mt-16">
+          <span class="info-icon">💡</span>
+          <p>オーナーへの説明例：「広告はまず認知を広げます。見た方がマップやHPを検索して来店につながる流れです。成果は2ヶ月単位で評価します。」</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 2. スキップ可能なインストリーム広告 ─── -->
+  <section id="section-instream" class="section">
+    <div class="section-header">
+      <div class="section-number">2</div>
+      <div class="section-title-wrap">
+        <h2>スキップ可能なインストリーム広告</h2>
+        <p>最も使用頻度が高いフォーマットの仕組みを理解する</p>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header"><span class="icon">▶️</span><h3>インストリーム広告とは</h3></div>
+        <div class="card-body">
+          <div class="step-list">
+            <div class="step-item">
+              <div class="step-num">1</div>
+              <div class="step-content">
+                <h4>表示タイミング</h4>
+                <p>YouTubeの動画の<strong>再生前・再生中・再生後</strong>に表示される広告。ユーザーが見ようとしている動画の前後に割り込む形で配信される。</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">2</div>
+              <div class="step-content">
+                <h4>5秒後にスキップ可能</h4>
+                <p>広告が始まってから<strong>5秒後</strong>にスキップボタンが表示される。ユーザーはボタンを押すことで残りをスキップして元の動画に戻れる。</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">3</div>
+              <div class="step-content">
+                <h4>課金タイミング（CPV）</h4>
+                <p><strong>30秒以上視聴</strong>した場合、または<strong>動画の最後まで</strong>視聴した場合のみ課金。5秒でスキップされた場合は費用が発生しない。</p>
+              </div>
+            </div>
+          </div>
+          <div class="info-box green mt-16">
+            <span class="info-icon">✅</span>
+            <p><strong>社内の主力フォーマット：</strong>コスト効率が高く、ほぼすべての案件でこのフォーマットを使用する。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="icon">⏱️</span><h3>最初の5秒が最重要な理由</h3></div>
+        <div class="card-body">
+          <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px;">
+            スキップされるかどうかは最初の5秒で決まります。最初の5秒で視聴者の興味を引けないと、費用は発生しないものの認知の機会も失われます。
+          </p>
+          <div class="step-list">
+            <div class="step-item">
+              <div style="font-size:20px;flex-shrink:0;">🎯</div>
+              <div class="step-content">
+                <h4>「誰向けか」を明確にする</h4>
+                <p>「焼肉好きな方へ」「東京でコスパ最強の食べ放題を探している方へ」のように最初のカットでターゲットを明示すると関係あるユーザーが見続ける。</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div style="font-size:20px;flex-shrink:0;">❓</div>
+              <div class="step-content">
+                <h4>問いかけや意外性を入れる</h4>
+                <p>「腰痛に悩んでいませんか？」「実は○○が原因でした」のように好奇心を刺激する始まり方が効果的。</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div style="font-size:20px;flex-shrink:0;">👁️</div>
+              <div class="step-content">
+                <h4>スキップされても認知効果はある</h4>
+                <p>5秒でも表示された事実（インプレッション）は残る。ブランド名や店舗の顔は脳に残りやすく、後から「あのお店」と思い出してもらえる効果がある。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mt-24">
+      <div class="card-header"><span class="icon">📋</span><h3>広告フォーマットの比較</h3></div>
+      <div class="card-body">
+        <table class="setting-table">
+          <thead>
+            <tr><th>フォーマット</th><th>スキップ</th><th>動画の長さ</th><th>課金方式</th><th>用途</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="label">スキップ可能なインストリーム ★</td>
+              <td class="value">5秒後に可能</td>
+              <td class="value">制限なし（15秒〜3分程度が一般的）</td>
+              <td class="value">CPV（30秒以上視聴）</td>
+              <td class="value">認知拡大・ブランディング</td>
+            </tr>
+            <tr>
+              <td class="label">スキップ不可のインストリーム</td>
+              <td class="value">不可</td>
+              <td class="value">15秒以内</td>
+              <td class="value">CPM（1,000回表示）</td>
+              <td class="value">確実に見せたいメッセージ</td>
+            </tr>
+            <tr>
+              <td class="label">バンパー広告</td>
+              <td class="value">不可</td>
+              <td class="value">6秒以内</td>
+              <td class="value">CPM</td>
+              <td class="value">短いインパクト・リマインド</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="info-box red mt-16">
+          <span class="info-icon">📌</span>
+          <p>社内では原則<strong>スキップ可能なインストリーム広告</strong>を使用する。その他は上長確認のうえ使用すること。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 3. 広告配信のメカニズム ─── -->
+  <section id="section-mechanism" class="section">
+    <div class="section-header">
+      <div class="section-number">3</div>
+      <div class="section-title-wrap">
+        <h2>広告配信のメカニズム</h2>
+        <p>オークションの仕組みと品質スコアを理解することで、設定の意味が見えてくる</p>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header"><span class="icon">🏆</span><h3>広告オークションの仕組み</h3></div>
+        <div class="card-body">
+          <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px;">
+            ユーザーがYouTubeを開くたびに、広告枠をめぐる<strong>オークション</strong>が自動で行われます。入札額が高ければ必ず勝てるわけではなく、<strong>品質スコアとの掛け算</strong>で順位が決まります。
+          </p>
+          <div class="hierarchy">
+            <div class="hierarchy-box h-lv1">
+              <div class="level-label">Factor 1</div>
+              <h4>💴 入札額（Bid）</h4>
+              <p>「1視聴あたりいくらまで払うか」の上限（CPV）。社内目安は10円/視聴。</p>
+            </div>
+            <div class="hierarchy-box h-lv2">
+              <div class="level-label">Factor 2</div>
+              <h4>⭐ 品質スコア</h4>
+              <p>Googleが広告の「関連性・品質」を評価した数値。高品質な広告は低い入札額でも上位に表示される。</p>
+            </div>
+            <div class="hierarchy-box h-lv3">
+              <div class="level-label">Result</div>
+              <h4>🏆 広告ランク ＝ 入札額 × 品質スコア</h4>
+              <p>この掛け合わせが高い広告が優先表示される。設定の精度＝コスト効率に直結する。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="icon">⭐</span><h3>品質スコアの3つの要素</h3></div>
+        <div class="card-body">
+          <div class="step-list">
+            <div class="step-item">
+              <div style="font-size:24px;flex-shrink:0;">🖱️</div>
+              <div class="step-content">
+                <h4>① 期待クリック率（CTR）</h4>
+                <p>広告が表示されたとき、どれだけ視聴・クリックされやすいか。動画の最初5秒の魅力度が重要になる。</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div style="font-size:24px;flex-shrink:0;">🎯</div>
+              <div class="step-content">
+                <h4>② 広告の関連性</h4>
+                <p>ユーザーの興味・検索意図と広告内容が一致しているか。ターゲット設定とKWの整合性が鍵。</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div style="font-size:24px;flex-shrink:0;">🌐</div>
+              <div class="step-content">
+                <h4>③ ランディングページ（LP）の品質</h4>
+                <p>広告クリック後のHP・マップの情報充実度・読み込み速度。HPやマップの更新を依頼する理由の一つ。</p>
+              </div>
+            </div>
+          </div>
+          <div class="info-box yellow mt-16">
+            <span class="info-icon">⚠️</span>
+            <p>オーナーへのHP・マップ更新依頼は、LP品質を高めて<strong>広告費の効率を上げるため</strong>でもある。単なるお願いではなく運用上の必要事項として伝えよう。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 4. KW選定のコツ ─── -->
+  <section id="section-kw" class="section">
+    <div class="section-header">
+      <div class="section-number">4</div>
+      <div class="section-title-wrap">
+        <h2>キーワード選定のコツ</h2>
+        <p>良いKWと避けるべきKWを判断できるようになることが目標</p>
+      </div>
+    </div>
+
+    <div class="card mb-24">
+      <div class="card-header"><span class="icon">🔎</span><h3>KWを見つける手法</h3></div>
+      <div class="card-body">
+        <div class="grid-2">
+          <div class="step-item" style="align-items:flex-start;">
+            <div style="font-size:24px;flex-shrink:0;">🌐</div>
+            <div class="step-content">
+              <h4>ウェブで検索する</h4>
+              <p>軸KWをGoogleで実際に検索し、<strong>関連ワード・サジェスト・「他の人はこちらも検索」</strong>を確認する。上位表示されているサービスや競合の言葉遣いもヒントにする。</p>
+            </div>
+          </div>
+          <div class="step-item" style="align-items:flex-start;">
+            <div style="font-size:24px;flex-shrink:0;">📊</div>
+            <div class="step-content">
+              <h4>キーワードプランナーで検索する</h4>
+              <p>Google広告のキーワードプランナーで月間検索ボリュームや<strong>関連KWの候補</strong>を確認できる。ボリュームが0に近いKWは除外し、実際に検索されているワードを採用する。</p>
+            </div>
+          </div>
+        </div>
+        <div class="info-box blue mt-16">
+          <span class="info-icon">💡</span>
+          <div>
+            <strong>軸KW → サブKWの順で考える</strong>
+            <p style="margin-top:4px;">まず業種・サービスの<strong>軸となるKW（例：焼肉 食べ放題）</strong>を1つ決める。そこから地域名・シーンワード・購買意思ワードを掛け合わせた<strong>サブKW</strong>を展開していくと効率よく選定できる。</p>
+            <div class="kw-block" style="margin-top:12px;">
+              <span class="kw-tag kw-good">軸KW：焼肉 食べ放題</span>
+              <span style="display:flex;align-items:center;color:var(--text-secondary);font-size:13px;">→ サブKW：</span>
+              <span class="kw-tag kw-good">焼肉 食べ放題 東京</span>
+              <span class="kw-tag kw-good">焼肉 食べ放題 ランチ</span>
+              <span class="kw-tag kw-good">焼肉 食べ放題 予約</span>
+              <span class="kw-tag kw-caution">焼肉 安い 東京</span>
+              <span class="kw-tag kw-caution">ランチ 食べ放題</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mb-24">
+      <div class="card-header"><span class="icon">💡</span><h3>KW選定の基本的な考え方</h3></div>
+      <div class="card-body">
+        <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px;">
+          KW選定の目的は「<strong>購買・来店意欲の高いユーザーが検索するキーワード</strong>を見つけること」です。関連性があるだけでは不十分で、実際に来店につながるニーズと一致しているかが重要です。
+        </p>
+        <div class="step-list">
+          <div class="step-item">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>業種・サービス名から広げる</h4>
+              <p>まず店舗の中心となるサービスをKWにする。例：「焼肉 食べ放題」「個室 居酒屋」「ランチ ビュッフェ」など。</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>地域名を掛け合わせる</h4>
+              <p>サービス名＋地域名でより具体的にする。「焼肉 食べ放題 東京」「個室 居酒屋 新宿」など。エリアを絞ることで購買意欲の高いユーザーに届く。</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>シーン・ニーズワードを追加</h4>
+              <p>「記念日 ディナー」「接待 個室」「子連れ ランチ」など、利用シーンに紐づくKWは来店意欲と結びつきやすい。ただし情報収集目的のものは除外する。</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>実際にGoogleで検索して確認する</h4>
+              <p>候補KWをGoogleで検索し、表示される結果がターゲットユーザーのニーズと合っているか確認する。ハウツー記事ばかり出てくるKWは購買意欲が低い可能性が高い。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header"><span class="icon">✅</span><h3>推奨するキーワードの例</h3></div>
+        <div class="card-body">
+          <div class="step-list">
+            <div class="step-item">
+              <div style="font-size:20px;flex-shrink:0;">🎯</div>
+              <div class="step-content">
+                <h4>具体的なサービス名＋地域</h4>
+                <p>購買意欲が高く、今まさに探しているユーザーにリーチできる最も有効なKW。</p>
+                <div class="kw-block">
+                  <span class="kw-tag kw-good">焼肉 食べ放題 東京</span>
+                  <span class="kw-tag kw-good">個室 居酒屋 新宿</span>
+                  <span class="kw-tag kw-good">ランチ ビュッフェ 渋谷</span>
+                </div>
+              </div>
+            </div>
+            <div class="step-item">
+              <div style="font-size:20px;flex-shrink:0;">🔑</div>
+              <div class="step-content">
+                <h4>購買意思が感じられるワード</h4>
+                <p>「予約」「おすすめ」「近く」「料金」などを含むKWは、今すぐ探しているユーザーのシグナル。</p>
+                <div class="kw-block">
+                  <span class="kw-tag kw-good">焼肉 食べ放題 予約</span>
+                  <span class="kw-tag kw-good">個室 居酒屋 おすすめ 東京</span>
+                </div>
+              </div>
+            </div>
+            <div class="step-item">
+              <div style="font-size:20px;flex-shrink:0;">💡</div>
+              <div class="step-content">
+                <h4>シーン・ニーズワード（要確認）</h4>
+                <p>来店意欲と結びつくか確認しながら追加する。</p>
+                <div class="kw-block">
+                  <span class="kw-tag kw-caution">記念日 ディナー 東京</span>
+                  <span class="kw-tag kw-caution">接待 個室 新宿</span>
+                  <span class="kw-tag kw-caution">子連れ ランチ 渋谷</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="icon">🚫</span><h3>避けるべきキーワードの例</h3></div>
+        <div class="card-body">
+          <div class="step-list">
+            <div class="step-item">
+              <div style="font-size:20px;flex-shrink:0;">🔨</div>
+              <div class="step-content">
+                <h4>情報収集・DIY系のKW</h4>
+                <p>「自分でやる」意図が強く、来店につながらない。</p>
+                <div class="kw-block">
+                  <span class="kw-tag kw-bad">焼肉 レシピ</span>
+                  <span class="kw-tag kw-bad">食べ放題 自宅</span>
+                  <span class="kw-tag kw-bad">居酒屋 メニュー 作り方</span>
+                </div>
+              </div>
+            </div>
+            <div class="step-item">
+              <div style="font-size:20px;flex-shrink:0;">🆓</div>
+              <div class="step-content">
+                <h4>無料・節約系のKW</h4>
+                <p>支払い意欲が低いユーザーが多く、来店率が下がりやすい。</p>
+                <div class="kw-block">
+                  <span class="kw-tag kw-bad">ランチ 無料</span>
+                  <span class="kw-tag kw-bad">居酒屋 激安</span>
+                </div>
+              </div>
+            </div>
+            <div class="step-item">
+              <div style="font-size:20px;flex-shrink:0;">📚</div>
+              <div class="step-content">
+                <h4>幅広すぎる一般ワード</h4>
+                <p>ターゲット外ユーザーが大量に含まれ、費用対効果が悪くなる。</p>
+                <div class="kw-block">
+                  <span class="kw-tag kw-bad">居酒屋</span>
+                  <span class="kw-tag kw-bad">レストラン</span>
+                  <span class="kw-tag kw-bad">東京 グルメ</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box blue mt-24">
+      <span class="info-icon">💡</span>
+      <div>
+        <strong>KW選定の目安：10個程度に絞る</strong>
+        <p style="margin-top:4px;">KWは多ければ良いわけではない。具体性が高く購買意欲の高いものを優先的に10個程度選ぶ。ヒアリングでオーナーの意見を聞きながら調整する。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 5. KWの種類と使い分け ─── -->
+  <section id="section-kw-type" class="section">
+    <div class="section-header">
+      <div class="section-number">5</div>
+      <div class="section-title-wrap">
+        <h2>コンテンツKW・カスタムセグメントKWの使い分け</h2>
+        <p>YouTube広告における2種類のKWターゲティングを理解する</p>
+      </div>
+    </div>
+
+    <div class="info-box yellow mb-24">
+      <span class="info-icon">⚠️</span>
+      <p>YouTube広告でのKWは検索広告とは意味が違います。<strong>「誰に表示するか」のターゲティング手段</strong>として使います。目的に応じて2種類を使い分けることが重要です。</p>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header"><span class="icon">📰</span><h3>コンテンツKW（コンテンツターゲティング）</h3></div>
+        <div class="card-body">
+          <div class="info-box red" style="margin-bottom:16px;">
+            <span class="info-icon">📺</span>
+            <p><strong>「どんな動画を見ているユーザーか」に基づく配信</strong></p>
+          </div>
+          <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px;">
+            指定したキーワードに関連するYouTube動画・チャンネルに広告を表示する。関連コンテンツを見ているユーザーに届けるため、<strong>テーマ・話題で絞り込む</strong>イメージ。
+          </p>
+          <div class="step-list">
+            <div class="step-item">
+              <div style="font-size:20px;flex-shrink:0;">▶️</div>
+              <div class="step-content">
+                <h4>使用イメージ</h4>
+                <p>「焼肉」「食べ放題」「グルメ 東京」などのKWを設定 → それらに関連する動画を見ているユーザーへ広告が表示される</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div style="font-size:20px;flex-shrink:0;">👍</div>
+              <div class="step-content">
+                <h4>向いているケース</h4>
+                <p>関連テーマを視聴中の興味関心層（潜在層）に広くリーチしたい場合。認知拡大フェーズで有効。</p>
+              </div>
+            </div>
+          </div>
+          <div class="info-box blue mt-16">
+            <span class="info-icon">💡</span>
+            <p>例：焼肉・グルメ関連の動画を見ているユーザー全般に「焼肉食べ放題」の広告を表示。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="icon">🔍</span><h3>カスタムセグメントKW（カスタム検索KW）</h3></div>
+        <div class="card-body">
+          <div class="info-box red" style="margin-bottom:16px;">
+            <span class="info-icon">🔎</span>
+            <p><strong>「Googleで何を検索したことがあるユーザーか」に基づく配信</strong></p>
+          </div>
+          <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px;">
+            指定したキーワードをGoogleで検索したことがあるユーザーに広告を表示する。過去の検索履歴に基づくため、<strong>より購買意欲の高いユーザー</strong>に届けやすい。
+          </p>
+          <div class="step-list">
+            <div class="step-item">
+              <div style="font-size:20px;flex-shrink:0;">🔎</div>
+              <div class="step-content">
+                <h4>使用イメージ</h4>
+                <p>「焼肉 食べ放題 東京」「個室 居酒屋 予約」などのKWを設定 → それらを過去に検索したことがあるユーザーへ表示される</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div style="font-size:20px;flex-shrink:0;">👍</div>
+              <div class="step-content">
+                <h4>向いているケース</h4>
+                <p>すでに探し始めているユーザー（顕在層）に届けたい場合。コンテンツKWより購買意欲が高いユーザーに絞れる。</p>
+              </div>
+            </div>
+          </div>
+          <div class="info-box green mt-16">
+            <span class="info-icon">✅</span>
+            <p>例：「焼肉 食べ放題 東京」を過去に検索したことがあるユーザーにYouTube上で広告を表示。検索広告と相性が良い。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mt-24">
+      <div class="card-header"><span class="icon">⚖️</span><h3>使い分けの判断基準</h3></div>
+      <div class="card-body">
+        <table class="setting-table">
+          <thead>
+            <tr><th>比較項目</th><th>コンテンツKW</th><th>カスタムセグメントKW</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="label">ターゲットのフェーズ</td>
+              <td class="value">潜在層（まだ探していない）</td>
+              <td class="value">顕在層（すでに探している）</td>
+            </tr>
+            <tr>
+              <td class="label">リーチの広さ</td>
+              <td class="value">広い</td>
+              <td class="value">絞られる</td>
+            </tr>
+            <tr>
+              <td class="label">購買意欲</td>
+              <td class="value">低〜中</td>
+              <td class="value">中〜高</td>
+            </tr>
+            <tr>
+              <td class="label">使う場面</td>
+              <td class="value">認知拡大・新規獲得</td>
+              <td class="value">検討層へのリーチ強化</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="info-box blue mt-16">
+          <span class="info-icon">💡</span>
+          <p><strong>実務では：</strong>両方を組み合わせて使うことが多い。認知拡大にはコンテンツKW、購買意欲の高いユーザーへの追い打ちにカスタムセグメントKWを使うイメージ。設定はヒアリングで聞いた情報をもとに判断する。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 6. 配信地域の調整 ─── -->
+  <section id="section-region" class="section">
+    <div class="section-header">
+      <div class="section-number">6</div>
+      <div class="section-title-wrap">
+        <h2>配信地域の調整：メリット・デメリット</h2>
+        <p>地域設定は「広すぎ」も「狭すぎ」も問題。バランスを理解する</p>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header"><span class="icon">📍</span><h3>配信地域設定の仕組み</h3></div>
+        <div class="card-body">
+          <div class="step-list">
+            <div class="step-item">
+              <div style="font-size:20px;flex-shrink:0;">🎯</div>
+              <div class="step-content">
+                <h4>半径指定（実店舗向け）</h4>
+                <p>店舗の住所を中心に<strong>半径○km以内</strong>のユーザーに配信。最小1km、最大800km。実店舗には半径指定が最も効果的。</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div style="font-size:20px;flex-shrink:0;">🗺️</div>
+              <div class="step-content">
+                <h4>住所・エリア指定</h4>
+                <p>都市・都道府県・郵便番号などで指定する方法。複数エリアを跨ぐ場合や、特定の商圏に合わせたい場合に使用。</p>
+              </div>
+            </div>
+          </div>
+          <div class="info-box blue mt-16">
+            <span class="info-icon">💡</span>
+            <p><strong>初期設定の目安：</strong>店舗から<strong>5〜10km</strong>の半径指定が一般的。ヒアリングでオーナーの商圏感覚を聞いてから調整する。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="icon">⚖️</span><h3>絞る vs 広げる：判断の基準</h3></div>
+        <div class="card-body">
+          <div class="merit-demerit">
+            <div class="merit-box">
+              <h4>✅ 絞るメリット</h4>
+              <ul>
+                <li>商圏外への無駄な配信が減る</li>
+                <li>CPVが下がりやすい</li>
+                <li>来店可能性の高いユーザーに届く</li>
+                <li>予算を効率的に使える</li>
+              </ul>
+            </div>
+            <div class="demerit-box">
+              <h4>⚠️ 絞りすぎのデメリット</h4>
+              <ul>
+                <li>インプレッション数が激減する</li>
+                <li>認知拡大の効果が出にくくなる</li>
+                <li>データが溜まりにくくなる</li>
+                <li>予算が消化されにくくなる</li>
+              </ul>
+            </div>
+          </div>
+          <div class="merit-demerit mt-16">
+            <div class="merit-box">
+              <h4>✅ 広げるメリット</h4>
+              <ul>
+                <li>インプレッション数が増える</li>
+                <li>認知拡大の範囲が広がる</li>
+                <li>データが早く溜まる</li>
+              </ul>
+            </div>
+            <div class="demerit-box">
+              <h4>⚠️ 広げすぎのデメリット</h4>
+              <ul>
+                <li>来店できないユーザーにも配信</li>
+                <li>費用対効果が下がる</li>
+                <li>CPVが上がりやすい</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mt-24">
+      <div class="card-header"><span class="icon">📋</span><h3>地域設定の判断フロー</h3></div>
+      <div class="card-body">
+        <div class="step-list">
+          <div class="step-item">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>ヒアリングで商圏を確認する</h4>
+              <p>「近隣の方の認知度って結構ありますか？」「どのエリアから来客が多いですか？」とオーナーに確認。車で何分かかるかも参考にする。</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>初期設定は5〜10kmで始める</h4>
+              <p>一般的な実店舗ビジネスは店舗から5〜10kmが商圏の目安。交通手段・業種によって適切な範囲は変わるので、オーナーの意見を優先する。</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>2ヶ月後の定例会でデータを見て調整</h4>
+              <p>インプレッション数が極端に少ない場合は広げる。CPVが高すぎる・予算消化が悪い場合も範囲を見直す判断材料にする。</p>
+            </div>
+          </div>
+        </div>
+        <div class="info-box red mt-16">
+          <span class="info-icon">🚨</span>
+          <p>地域を広げすぎると「認知はされるが来店できない」ユーザーへの配信が増え、費用対効果が下がります。オーナーの来客エリアの感覚を大切にしましょう。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 7. ターゲット選定の重要度 ─── -->
+  <section id="section-target" class="section">
+    <div class="section-header">
+      <div class="section-number">7</div>
+      <div class="section-title-wrap">
+        <h2>ターゲット選定の重要度</h2>
+        <p>誰に届けるかを間違えると、良い動画でも成果が出ない</p>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header"><span class="icon">👥</span><h3>オーディエンス設定の基本</h3></div>
+        <div class="card-body">
+          <table class="setting-table mb-16">
+            <thead><tr><th>属性</th><th>選択肢</th><th>設定のポイント</th></tr></thead>
+            <tbody>
+              <tr>
+                <td class="label">年齢</td>
+                <td class="value">18〜24 / 25〜34 / 35〜44<br>45〜54 / 55〜64 / 65歳以上</td>
+                <td class="value">ヒアリングで来客の年代を確認してから選ぶ</td>
+              </tr>
+              <tr>
+                <td class="label">性別</td>
+                <td class="value">男性 / 女性 / 不明</td>
+                <td class="value">業種によって絞る。「不明」の扱いは下記参照</td>
+              </tr>
+              <tr>
+                <td class="label">子供の有無</td>
+                <td class="value">有 / 無</td>
+                <td class="value">子育て関連のサービスで有効に使える</td>
+              </tr>
+              <tr>
+                <td class="label">世帯収入</td>
+                <td class="value">上位10%〜</td>
+                <td class="value">高価格帯サービスで絞り込む際に参考程度に使用</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="info-box yellow">
+            <span class="info-icon">⚠️</span>
+            <p><strong>「不明」を含めるかどうか：</strong>性別「不明」はGoogleがデータを持てていないユーザー。除外すると取りこぼしが増えるため、基本的には<strong>含める</strong>ことを推奨。精度より量を優先する初期段階は特に。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="icon">⚠️</span><h3>ターゲット選定で失敗するパターン</h3></div>
+        <div class="card-body">
+          <div class="step-list">
+            <div class="step-item">
+              <div style="font-size:20px;flex-shrink:0;">🎯</div>
+              <div class="step-content">
+                <h4>絞りすぎによるリーチ不足</h4>
+                <p>年齢・性別・地域・KWをすべて細かく絞ると、配信対象ユーザーが極端に少なくなる。予算が消化されず、インプレッションが取れない状態になる。</p>
+                <span class="tag tag-red" style="margin-top:4px;">よくある失敗</span>
+              </div>
+            </div>
+            <div class="step-item">
+              <div style="font-size:20px;flex-shrink:0;">❌</div>
+              <div class="step-content">
+                <h4>動画内容とターゲットのズレ</h4>
+                <p>「女性向けサービスの動画なのに全性別に配信」「高齢者向けなのに18〜24歳に配信」のようなズレは品質スコアを下げ、費用対効果を悪化させる。</p>
+                <span class="tag tag-red" style="margin-top:4px;">費用の無駄</span>
+              </div>
+            </div>
+            <div class="step-item">
+              <div style="font-size:20px;flex-shrink:0;">📊</div>
+              <div class="step-content">
+                <h4>データなしで絞り込む</h4>
+                <p>初期段階でデータがない状態で細かく絞るのは危険。まず広め設定でデータを集め、2ヶ月後の定例会でデータをもとに絞り込む判断をする。</p>
+                <span class="tag tag-yellow" style="margin-top:4px;">注意</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mt-24">
+      <div class="card-header"><span class="icon">🔑</span><h3>ヒアリング情報をターゲット設定に活かす</h3></div>
+      <div class="card-body">
+        <p style="font-size:14px;color:var(--text-secondary);margin-bottom:20px;">ヒアリングで得たオーナーの言葉は、ターゲット設定の重要なヒントになります。会話の中から以下の情報を拾うことを意識しましょう。</p>
+        <div class="target-grid">
+          <div class="target-card">
+            <div class="t-icon">👨‍👩‍👧</div>
+            <h4>来客の属性</h4>
+            <p>「ご家族連れが多いですか？」の回答 → 年齢帯・性別・子供の有無の設定に反映</p>
+          </div>
+          <div class="target-card">
+            <div class="t-icon">🚗</div>
+            <h4>来店エリア</h4>
+            <p>「どこから来る方が多いですか？」の回答 → 配信地域の半径設定に反映</p>
+          </div>
+          <div class="target-card">
+            <div class="t-icon">🕐</div>
+            <h4>来客の時間帯</h4>
+            <p>「繁忙時間はいつ頃ですか？」の回答 → 配信スケジュールの設定に反映</p>
+          </div>
+          <div class="target-card">
+            <div class="t-icon">💰</div>
+            <h4>客単価・サービス内容</h4>
+            <p>高価格帯サービス → 世帯収入でのターゲティングを検討</p>
+          </div>
+        </div>
+        <div class="info-box green mt-16">
+          <span class="info-icon">✅</span>
+          <p><strong>まとめ：</strong>ターゲット設定は「なんとなく」ではなく、<strong>ヒアリングで得た情報を根拠に設定する</strong>。設定の理由をオーナーに説明できる状態にしておくことが大切。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SUMMARY ─── -->
+  <div class="summary-box">
+    <h2>運用基礎のまとめ</h2>
+    <p>YouTube広告は「認知」に強い長期施策。設定の精度が費用対効果に直結します。</p>
+    <div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:24px;">
+      <div style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:12px;padding:16px 20px;text-align:center;">
+        <div style="font-size:28px;margin-bottom:6px;">⚙️</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.7);">課金方式</div>
+        <div style="font-size:15px;font-weight:700;">CPV（30秒以上視聴）</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:12px;padding:16px 20px;text-align:center;">
+        <div style="font-size:28px;margin-bottom:6px;">⏱️</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.7);">最重要ポイント</div>
+        <div style="font-size:15px;font-weight:700;">最初の5秒で勝負</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:12px;padding:16px 20px;text-align:center;">
+        <div style="font-size:28px;margin-bottom:6px;">🔍</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.7);">KW目安</div>
+        <div style="font-size:15px;font-weight:700;">10個程度・具体的に</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:12px;padding:16px 20px;text-align:center;">
+        <div style="font-size:28px;margin-bottom:6px;">📍</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.7);">配信地域初期値</div>
+        <div style="font-size:15px;font-weight:700;">半径5〜10km</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:12px;padding:16px 20px;text-align:center;">
+        <div style="font-size:28px;margin-bottom:6px;">📈</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.7);">成果評価</div>
+        <div style="font-size:15px;font-weight:700;">2ヶ月単位で見る</div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <p>YouTube広告 運用基礎概念 新人研修資料 &copy; 2025 | 社内研修用・社外秘</p>
+</footer>
+
+<script>
+  const sections = document.querySelectorAll('section[id]');
+  const navItems = document.querySelectorAll('.nav-item');
+
+  function updateActiveNav() {
+    let current = '';
+    sections.forEach(section => {
+      if (window.scrollY >= section.offsetTop - 100) {
+        current = section.getAttribute('id');
+      }
+    });
+    navItems.forEach(item => {
+      item.classList.remove('active');
+      if (item.getAttribute('href') === '#' + current) {
+        item.classList.add('active');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', updateActiveNav, { passive: true });
+  updateActiveNav();
+
+  navItems.forEach(item => {
+    item.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(item.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.animationPlayState = 'running';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.section').forEach(section => {
+    section.style.animationPlayState = 'paused';
+    observer.observe(section);
+  });
+</script>
+</body>
+</html>
