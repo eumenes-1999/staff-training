@@ -333,6 +333,11 @@
     .card-body {
       padding: 24px;
     }
+    .screenshot-box { border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--border); margin: 16px 0; }
+    .screenshot-box img { width: 100%; height: auto; display: block; }
+    .screenshot-caption { background: var(--surface-3); padding: 10px 16px; font-size: 13px; color: var(--text-secondary); border-top: 1px solid var(--border); }
+    .screenshot-caption strong { color: var(--primary-dark); }
+    .annotation-badge { display: inline-block; background: #0288d1; color: #fff; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px; margin-right: 6px; }
 
     /* ─── GRID ─── */
     .grid-2 {
@@ -867,6 +872,35 @@
       <div class="section-title-wrap">
         <h2>運用の基本フロー</h2>
         <p>日次・週次・月次の作業サイクルを把握して、見落としなく運用しましょう</p>
+      </div>
+    </div>
+
+    <div class="card mb-24">
+      <div class="card-header"><span class="icon">🖥️</span><h3>ディスプレイ広告の掲載面（実例）</h3></div>
+      <div class="card-body">
+        <p style="font-size:14px;color:var(--text-secondary);margin-bottom:12px;">ディスプレイ広告は、GoogleのパートナーサイトやYouTube・Gmailなど様々な面に表示されます。右サイドバー・記事の合間・ページ下部など、コンテンツと一緒に表示されるのが特徴です。</p>
+        <div class="grid-2" style="gap:16px;">
+          <div>
+            <div class="screenshot-box">
+              <img src="images/screenshot-display-ads-news.png" alt="ニュースサイトの右サイドバーにディスプレイ広告が掲載されている実例" loading="lazy" />
+              <div class="screenshot-caption">
+                <span class="annotation-badge">ディスプレイ広告</span>ニュースサイト右サイドバー。「広告」ラベルが付いたテキスト＋画像の広告が表示されている。
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="screenshot-box">
+              <img src="images/screenshot-display-ads-banner.png" alt="ニュースサイトのページ内にバナー広告が表示されている実例" loading="lazy" />
+              <div class="screenshot-caption">
+                <span class="annotation-badge">バナー広告</span>ページ内に埋め込まれたバナー型ディスプレイ広告。右上に「広告」ラベルが表示されている。
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="info-box note" style="margin-top:12px;">
+          <span class="info-icon">📌</span>
+          <p><strong>配信面（プレースメント）とは：</strong>広告が実際に表示されたウェブサイトやアプリのことです。不適切な配信先は除外設定が必要です（ターゲティング調整セクション参照）。</p>
+        </div>
       </div>
     </div>
 

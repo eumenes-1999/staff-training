@@ -218,6 +218,11 @@
     .card-header .icon { font-size: 20px; }
     .card-header h3 { font-size: 16px; font-weight: 700; color: var(--primary-dark); }
     .card-body { padding: 24px; }
+    .screenshot-box { border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--border); margin: 16px 0; }
+    .screenshot-box img { width: 100%; height: auto; display: block; }
+    .screenshot-caption { background: var(--surface-3); padding: 10px 16px; font-size: 13px; color: var(--text-secondary); border-top: 1px solid var(--border); }
+    .screenshot-caption strong { color: var(--primary-dark); }
+    .annotation-badge { display: inline-block; background: #e53935; color: #fff; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px; margin-right: 6px; }
 
     /* ─── GRID ─── */
     .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
@@ -562,6 +567,23 @@
       <div class="section-title-wrap">
         <h2>運用の基本フロー</h2>
         <p>日次・週次・月次で行う作業を把握して、抜け漏れなく運用しましょう</p>
+      </div>
+    </div>
+
+    <div class="card mb-24">
+      <div class="card-header"><span class="icon">🖥️</span><h3>リスティング広告の掲載面（実例）</h3></div>
+      <div class="card-body">
+        <p style="font-size:14px;color:var(--text-secondary);margin-bottom:12px;">Google検索で商業系キーワードを入力すると、検索結果の上部に<strong>「スポンサー広告」</strong>として掲載されます。オーガニック（自然検索）より上に表示されるため、高いクリック率が期待できます。</p>
+        <div class="screenshot-box">
+          <img src="images/screenshot-listing-ads.png" alt="Google検索結果でスポンサー広告が上部に表示されている実例。「引越し 見積もり」で検索した場合の画面。" loading="lazy" />
+          <div class="screenshot-caption">
+            <span class="annotation-badge">スポンサー広告</span>検索結果最上部に表示される有料広告枠。ユーザーが商業キーワードを検索した際に表示される。サイトリンクや電話番号も一緒に表示できる。
+          </div>
+        </div>
+        <div class="info-box note" style="margin-top:12px;">
+          <span class="info-icon">📌</span>
+          <p><strong>「スポンサー」表示について：</strong>2023年以降、Google検索では「広告」の代わりに「スポンサー」と表記されています。ユーザーには有料広告であることが明示されています。</p>
+        </div>
       </div>
     </div>
 
