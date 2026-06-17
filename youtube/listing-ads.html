@@ -209,6 +209,11 @@
         .flow-arrow { transform: rotate(90deg); }
         .summary-box { padding: 28px 20px; }
       }
+      /* ─── PAGE TABS ─── */
+      .page-tabs { display:flex; gap:4px; background:#fff; border-bottom:2px solid #e0e0e0; padding:0 24px; overflow-x:auto; scrollbar-width:none; }
+      .page-tab { padding:12px 18px; font-size:13px; font-weight:600; color:#5f6368; text-decoration:none; white-space:nowrap; border-bottom:3px solid transparent; margin-bottom:-2px; transition:all 0.2s; }
+      .page-tab:hover { color:#c62828; border-bottom-color:#c62828; }
+      .page-tab.active { color:#c62828; border-bottom-color:#c62828; }
     </style>
 </head>
 <body>
@@ -229,6 +234,13 @@
     <div class="hero-meta-item"><div class="icon">🎯</div>目標：一人で検索広告を入稿できる</div>
   </div>
 </header>
+
+<!-- ─── PAGE TABS ─── -->
+<div class="page-tabs">
+  <a href="operation-basics.html" class="page-tab">📚 Google広告 基礎概念</a>
+  <a href="listing-ads.html" class="page-tab active">🔍 リスティング広告</a>
+  <a href="display-ads.html" class="page-tab">🖼️ ディスプレイ広告</a>
+</div>
 
 <!-- ─── NAVIGATION ─── -->
 <nav class="nav-wrapper" aria-label="セクションナビゲーション">
