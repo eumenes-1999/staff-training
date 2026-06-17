@@ -1,0 +1,1500 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>【新人研修】リスティング広告 運用マニュアル</title>
+  <meta name="description" content="新人向けリスティング広告（検索広告）の運用マニュアル。日次・週次・月次の作業フローからキーワード管理・入札調整・レポート作成まで解説。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #2e7d32;
+      --primary-dark: #1b5e20;
+      --primary-light: #e8f5e9;
+      --primary-mid: #388e3c;
+      --accent: #66bb6a;
+      --surface: #ffffff;
+      --surface-2: #f9fbe7;
+      --surface-3: #f1f8e9;
+      --text-primary: #1a2e1b;
+      --text-secondary: #4a6b4b;
+      --text-tertiary: #78909c;
+      --border: #c8e6c9;
+      --shadow-sm: 0 1px 3px rgba(46,125,50,0.10), 0 1px 2px rgba(0,0,0,0.06);
+      --shadow-md: 0 4px 12px rgba(46,125,50,0.12), 0 2px 4px rgba(0,0,0,0.06);
+      --shadow-lg: 0 8px 24px rgba(46,125,50,0.14), 0 4px 8px rgba(0,0,0,0.08);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --red: #e53935;
+      --red-light: #ffebee;
+      --yellow: #f9a825;
+      --yellow-light: #fffde7;
+      --blue: #1565c0;
+      --blue-light: #e3f2fd;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background: #f1f8e9;
+      color: var(--text-primary);
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 40%, #388e3c 70%, #66bb6a 100%);
+      padding: 80px 24px 100px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%; left: -20%;
+      width: 60%; height: 200%;
+      background: rgba(255,255,255,0.04);
+      border-radius: 50%;
+      animation: float1 8s ease-in-out infinite;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -30%; right: -10%;
+      width: 50%; height: 150%;
+      background: rgba(255,255,255,0.05);
+      border-radius: 50%;
+      animation: float2 10s ease-in-out infinite;
+    }
+    @keyframes float1 {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-30px) rotate(5deg); }
+    }
+    @keyframes float2 {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(20px) rotate(-5deg); }
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #fff; font-size: 13px; font-weight: 500;
+      padding: 6px 16px; border-radius: 100px;
+      margin-bottom: 24px; backdrop-filter: blur(10px);
+      position: relative; z-index: 1;
+    }
+    .hero h1 {
+      font-size: clamp(28px, 5vw, 52px);
+      font-weight: 900; color: #fff;
+      letter-spacing: -0.5px; margin-bottom: 16px;
+      position: relative; z-index: 1;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.2);
+    }
+    .hero h1 span {
+      background: linear-gradient(90deg, #c8e6c9, #a5d6a7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: clamp(14px, 2vw, 18px);
+      color: rgba(255,255,255,0.85);
+      max-width: 620px; margin: 0 auto 32px;
+      position: relative; z-index: 1;
+    }
+    .hero-meta {
+      display: flex; justify-content: center;
+      gap: 24px; flex-wrap: wrap;
+      position: relative; z-index: 1;
+    }
+    .hero-meta-item {
+      display: flex; align-items: center; gap: 8px;
+      color: rgba(255,255,255,0.85); font-size: 14px; font-weight: 500;
+    }
+    .hero-meta-item .icon {
+      width: 32px; height: 32px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 50%; display: flex;
+      align-items: center; justify-content: center; font-size: 16px;
+    }
+
+    /* ─── PAGE TABS ─── */
+    .page-tabs {
+      display: flex; gap: 4px;
+      background: #fff;
+      border-bottom: 2px solid #e0e0e0;
+      padding: 0 24px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .page-tabs::-webkit-scrollbar { display: none; }
+    .page-tab {
+      padding: 12px 18px; font-size: 13px; font-weight: 600;
+      color: #5f6368; text-decoration: none;
+      white-space: nowrap;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      transition: all 0.2s;
+    }
+    .page-tab:hover, .page-tab.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+
+    /* ─── NAV ─── */
+    .nav-wrapper {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+    }
+    .nav-inner {
+      max-width: 1100px; margin: 0 auto; padding: 0 24px;
+      display: flex; align-items: center; gap: 6px;
+      overflow-x: auto; scrollbar-width: none;
+    }
+    .nav-inner::-webkit-scrollbar { display: none; }
+    .nav-item {
+      display: flex; align-items: center; gap: 6px;
+      padding: 14px 16px; font-size: 13px; font-weight: 600;
+      color: var(--text-secondary); text-decoration: none;
+      white-space: nowrap; border-bottom: 2px solid transparent;
+      transition: all 0.2s ease;
+    }
+    .nav-item:hover { color: var(--primary); border-bottom-color: var(--primary); }
+    .nav-item.active { color: var(--primary); border-bottom-color: var(--primary); }
+
+    /* ─── MAIN LAYOUT ─── */
+    .main { max-width: 1100px; margin: 0 auto; padding: 48px 24px 80px; }
+
+    /* ─── SECTION ─── */
+    .section {
+      margin-bottom: 64px;
+      animation: fadeUp 0.5s ease both;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .section-header {
+      display: flex; align-items: center; gap: 16px;
+      margin-bottom: 28px; padding-bottom: 20px;
+      border-bottom: 2px solid var(--border);
+    }
+    .section-number {
+      width: 44px; height: 44px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white; font-size: 18px; font-weight: 700;
+      border-radius: 50%; display: flex;
+      align-items: center; justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(46,125,50,0.4);
+    }
+    .section-title-wrap h2 { font-size: 22px; font-weight: 700; color: var(--text-primary); }
+    .section-title-wrap p { font-size: 13px; color: var(--text-secondary); margin-top: 2px; }
+
+    /* ─── CARD ─── */
+    .card {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .card-header {
+      background: linear-gradient(135deg, var(--primary-light), #dcedc8);
+      padding: 16px 24px;
+      border-bottom: 1px solid #c5e1a5;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .card-header .icon { font-size: 20px; }
+    .card-header h3 { font-size: 16px; font-weight: 700; color: var(--primary-dark); }
+    .card-body { padding: 24px; }
+
+    /* ─── GRID ─── */
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+
+    /* ─── STEP LIST ─── */
+    .step-list { display: flex; flex-direction: column; gap: 16px; }
+    .step-item {
+      display: flex; gap: 16px; align-items: flex-start;
+      padding: 16px 20px;
+      background: var(--surface-2);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      transition: all 0.2s ease;
+    }
+    .step-item:hover {
+      border-color: #a5d6a7;
+      box-shadow: var(--shadow-sm);
+      background: #f1f8e9;
+      transform: translateX(4px);
+    }
+    .step-num {
+      width: 32px; height: 32px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white; font-size: 14px; font-weight: 700;
+      border-radius: 50%; display: flex;
+      align-items: center; justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(46,125,50,0.35);
+    }
+    .step-content h4 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+    .step-content p, .step-content ul { font-size: 14px; color: var(--text-secondary); }
+    .step-content ul { padding-left: 18px; margin-top: 6px; }
+    .step-content ul li { margin-bottom: 3px; }
+
+    /* ─── INFO BOX ─── */
+    .info-box {
+      border-radius: var(--radius-md);
+      padding: 16px 20px; display: flex; gap: 12px;
+      align-items: flex-start; margin: 16px 0; font-size: 14px;
+    }
+    .info-box.green { background: var(--primary-light); border-left: 4px solid var(--primary); color: var(--primary-dark); }
+    .info-box.blue { background: var(--blue-light); border-left: 4px solid var(--blue); color: #0d2a6e; }
+    .info-box.yellow { background: var(--yellow-light); border-left: 4px solid var(--yellow); color: #5d4100; }
+    .info-box.red { background: var(--red-light); border-left: 4px solid var(--red); color: #7f0000; }
+    .info-box .info-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+
+    /* ─── TABLE ─── */
+    .setting-table {
+      width: 100%; border-collapse: collapse; font-size: 14px;
+      border-radius: var(--radius-md); overflow: hidden;
+    }
+    .setting-table th {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white; padding: 12px 16px;
+      text-align: left; font-weight: 600; font-size: 13px;
+    }
+    .setting-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    .setting-table tr:nth-child(even) td { background: var(--surface-2); }
+    .setting-table tr:hover td { background: var(--primary-light); }
+    .setting-table .label { font-weight: 600; color: var(--text-primary); white-space: nowrap; }
+    .setting-table .value { color: var(--text-secondary); }
+    .setting-table .example { font-size: 13px; color: var(--primary); font-style: italic; }
+
+    /* ─── TAG ─── */
+    .tag {
+      display: inline-flex; align-items: center;
+      padding: 3px 10px; border-radius: 100px;
+      font-size: 12px; font-weight: 600;
+    }
+    .tag-green { background: var(--primary-light); color: var(--primary-dark); }
+    .tag-blue { background: var(--blue-light); color: var(--blue); }
+    .tag-yellow { background: var(--yellow-light); color: #f57f17; }
+    .tag-red { background: var(--red-light); color: #c62828; }
+    .tag-gray { background: #f1f3f4; color: #5f6368; }
+
+    /* ─── METRIC CARDS ─── */
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px; margin-bottom: 24px;
+    }
+    .metric-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 20px; text-align: center;
+      transition: all 0.2s ease;
+      position: relative; overflow: hidden;
+    }
+    .metric-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+    }
+    .metric-card:hover {
+      border-color: #a5d6a7;
+      box-shadow: var(--shadow-md);
+      transform: translateY(-4px);
+    }
+    .metric-card .m-icon { font-size: 32px; margin-bottom: 10px; }
+    .metric-card .m-name { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+    .metric-card .m-formula {
+      font-size: 12px; color: var(--primary);
+      background: var(--primary-light);
+      border-radius: 4px; padding: 3px 8px;
+      margin-bottom: 8px; font-weight: 600;
+    }
+    .metric-card .m-desc { font-size: 12px; color: var(--text-secondary); }
+    .metric-card .m-target {
+      font-size: 13px; font-weight: 700; color: var(--primary-dark);
+      margin-top: 8px; padding-top: 8px;
+      border-top: 1px dashed var(--border);
+    }
+
+    /* ─── TROUBLE ITEM ─── */
+    .trouble-item {
+      display: flex; gap: 20px; padding: 20px 24px;
+      border-radius: var(--radius-md);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      margin-bottom: 16px;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s ease;
+    }
+    .trouble-item:hover { box-shadow: var(--shadow-md); border-color: #a5d6a7; }
+    .trouble-icon { font-size: 32px; flex-shrink: 0; }
+    .trouble-content h4 { font-size: 15px; font-weight: 700; color: var(--red); margin-bottom: 8px; }
+    .trouble-content p { font-size: 14px; color: var(--text-secondary); margin-bottom: 8px; }
+    .solution-list { display: flex; flex-direction: column; gap: 4px; }
+    .solution-list li {
+      list-style: none; font-size: 14px;
+      display: flex; align-items: flex-start; gap: 8px;
+    }
+    .solution-list li::before {
+      content: '✓'; color: var(--primary); font-weight: 700;
+      flex-shrink: 0; margin-top: 1px;
+    }
+
+    /* ─── CHECKLIST ─── */
+    .checklist { display: flex; flex-direction: column; gap: 8px; }
+    .check-item {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 12px 16px;
+      background: var(--surface-2);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      font-size: 14px;
+    }
+    .check-item .check-box {
+      width: 20px; height: 20px;
+      border: 2px solid var(--primary);
+      border-radius: 4px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .check-item strong { color: var(--text-primary); }
+    .check-item span { color: var(--text-secondary); font-size: 13px; display: block; margin-top: 2px; }
+
+    /* ─── FLOW TIMELINE ─── */
+    .timeline { display: flex; flex-direction: column; gap: 0; }
+    .timeline-item {
+      display: flex; gap: 0;
+      position: relative;
+    }
+    .timeline-left {
+      display: flex; flex-direction: column; align-items: center;
+      width: 60px; flex-shrink: 0;
+    }
+    .timeline-dot {
+      width: 40px; height: 40px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; flex-shrink: 0;
+      z-index: 1; border: 3px solid white;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .dot-daily { background: linear-gradient(135deg, #2e7d32, #66bb6a); }
+    .dot-weekly { background: linear-gradient(135deg, #1565c0, #42a5f5); }
+    .dot-monthly { background: linear-gradient(135deg, #6a1b9a, #ab47bc); }
+    .timeline-line {
+      width: 2px; flex: 1; background: var(--border);
+      margin: 4px 0;
+    }
+    .timeline-content {
+      flex: 1; padding: 0 0 28px 16px;
+    }
+    .timeline-label {
+      font-size: 12px; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase; margin-bottom: 8px;
+    }
+    .label-daily { color: var(--primary); }
+    .label-weekly { color: var(--blue); }
+    .label-monthly { color: #7b1fa2; }
+    .timeline-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+    }
+    .timeline-card h4 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+    .timeline-card ul { padding-left: 18px; font-size: 14px; color: var(--text-secondary); }
+    .timeline-card ul li { margin-bottom: 4px; }
+    .time-badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 12px; padding: 2px 8px;
+      border-radius: 100px; margin-left: 8px; font-weight: 600;
+    }
+    .time-daily { background: #e8f5e9; color: var(--primary); }
+    .time-weekly { background: #e3f2fd; color: var(--blue); }
+    .time-monthly { background: #f3e5f5; color: #7b1fa2; }
+
+    /* ─── EXAMPLE BOX ─── */
+    .example-box {
+      border-radius: var(--radius-md);
+      padding: 16px 20px; font-size: 14px;
+      margin: 12px 0;
+    }
+    .example-ng { background: #fff5f5; border: 1px solid #ffcdd2; }
+    .example-ok { background: #f1f8e9; border: 1px solid #c8e6c9; }
+    .example-label {
+      font-size: 12px; font-weight: 700; letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+    .label-ng { color: var(--red); }
+    .label-ok { color: var(--primary); }
+
+    /* ─── SCORE BOX ─── */
+    .score-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px; margin: 16px 0;
+    }
+    .score-card {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 16px; text-align: center;
+    }
+    .score-num {
+      font-size: 36px; font-weight: 900;
+      line-height: 1; margin-bottom: 4px;
+    }
+    .score-good { color: var(--primary); }
+    .score-avg { color: var(--yellow); }
+    .score-bad { color: var(--red); }
+    .score-label { font-size: 13px; font-weight: 600; }
+    .score-desc { font-size: 12px; color: var(--text-secondary); margin-top: 4px; }
+
+    /* ─── SUMMARY BOX ─── */
+    .summary-box {
+      background: linear-gradient(135deg, #1b5e20, #2e7d32);
+      color: white; border-radius: var(--radius-xl);
+      padding: 40px; text-align: center;
+      margin-top: 64px; position: relative; overflow: hidden;
+    }
+    .summary-box::before {
+      content: '';
+      position: absolute; top: -40%; right: -10%;
+      width: 40%; height: 200%;
+      background: rgba(255,255,255,0.05); border-radius: 50%;
+    }
+    .summary-box h2 { font-size: 24px; font-weight: 700; margin-bottom: 12px; }
+    .summary-box p { font-size: 15px; color: rgba(255,255,255,0.8); max-width: 600px; margin: 0 auto 24px; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      text-align: center; padding: 32px 24px;
+      color: var(--text-tertiary); font-size: 13px;
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    /* ─── UTIL ─── */
+    .mt-16 { margin-top: 16px; }
+    .mt-24 { margin-top: 24px; }
+    .mb-16 { margin-bottom: 16px; }
+    .mb-24 { margin-bottom: 24px; }
+    .flex-col { display: flex; flex-direction: column; gap: 12px; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 640px) {
+      .hero { padding: 56px 16px 72px; }
+      .section-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      .metric-grid { grid-template-columns: repeat(2, 1fr); }
+      .summary-box { padding: 28px 20px; }
+      .trouble-item { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+<script>
+(function(){
+  if(!sessionStorage.getItem('rb_auth')) location.replace('/staff-training/login.html');
+})();
+</script>
+
+<!-- ─── HERO ─── -->
+<header class="hero">
+  <div class="hero-badge">新人研修資料 2025年度版</div>
+  <h1>リスティング広告<br /><span>運用マニュアル</span></h1>
+  <p class="hero-sub">検索広告の日次確認からキーワード最適化・品質スコア改善まで、配信開始後の運用を体系的に学ぶ研修テキストです。</p>
+  <div class="hero-meta">
+    <div class="hero-meta-item"><div class="icon">📌</div>対象：入社1〜3ヶ月の新人</div>
+    <div class="hero-meta-item"><div class="icon">⏱️</div>所要時間：約60〜90分</div>
+    <div class="hero-meta-item"><div class="icon">🎯</div>目標：一人で日次チェック・最適化ができる</div>
+  </div>
+</header>
+
+<!-- ─── PAGE TABS ─── -->
+<div class="page-tabs">
+  <a href="google-ads.html" class="page-tab">📋 Google広告 入稿</a>
+  <a href="display-ads.html" class="page-tab">🖼️ ディスプレイ 入稿</a>
+  <a href="display-ads-operation.html" class="page-tab">📊 ディスプレイ 運用</a>
+  <a href="listing-ads.html" class="page-tab">🔍 リスティング 入稿</a>
+  <a href="listing-ads-operation.html" class="page-tab active">📈 リスティング 運用</a>
+</div>
+
+<!-- ─── STICKY NAV ─── -->
+<nav class="nav-wrapper" aria-label="セクションナビゲーション">
+  <div class="nav-inner">
+    <a href="#section-flow" class="nav-item">🔄 運用フロー</a>
+    <a href="#section-metrics" class="nav-item">📊 指標の読み方</a>
+    <a href="#section-keyword" class="nav-item">🔍 KW管理</a>
+    <a href="#section-adtext" class="nav-item">✏️ 広告文最適化</a>
+    <a href="#section-bid" class="nav-item">💰 入札調整</a>
+    <a href="#section-report" class="nav-item">📋 レポート作成</a>
+    <a href="#section-trouble" class="nav-item">🛠️ トラブル対応</a>
+  </div>
+</nav>
+
+<main class="main">
+
+  <!-- ─── 1. 運用の基本フロー ─── -->
+  <section id="section-flow" class="section">
+    <div class="section-header">
+      <div class="section-number">1</div>
+      <div class="section-title-wrap">
+        <h2>運用の基本フロー</h2>
+        <p>日次・週次・月次で行う作業を把握して、抜け漏れなく運用しましょう</p>
+      </div>
+    </div>
+
+    <div class="info-box green mb-24">
+      <span class="info-icon">💡</span>
+      <p><strong>運用の基本姿勢：</strong>リスティング広告は「入稿したら終わり」ではありません。データを見て、仮説を立て、改善するPDCAサイクルを回すことが重要です。キャンペーン開始後の継続的なチェックと最適化が成果に直結します。</p>
+    </div>
+
+    <div class="card mb-24">
+      <div class="card-header"><span class="icon">📅</span><h3>運用作業サイクル一覧</h3></div>
+      <div class="card-body">
+        <table class="setting-table">
+          <thead>
+            <tr>
+              <th>頻度</th>
+              <th>作業内容</th>
+              <th>所要時間</th>
+              <th>優先度</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="label">毎日（日次）</td>
+              <td class="value">配信状況の確認・予算消化チェック・入札単価の微調整・審査ステータス確認</td>
+              <td class="value">10〜15分</td>
+              <td><span class="tag tag-red">最高</span></td>
+            </tr>
+            <tr>
+              <td class="label">週1回（週次）</td>
+              <td class="value">検索語句レポートの確認・除外KW追加・品質スコアのチェック・広告文パフォーマンス比較</td>
+              <td class="value">30〜45分</td>
+              <td><span class="tag tag-yellow">高</span></td>
+            </tr>
+            <tr>
+              <td class="label">月1回（月次）</td>
+              <td class="value">月次レポート作成・入札戦略の見直し・キーワード追加・削除・広告文ABテスト評価・オーナー報告</td>
+              <td class="value">60〜90分</td>
+              <td><span class="tag tag-green">通常</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="timeline">
+      <!-- 日次 -->
+      <div class="timeline-item">
+        <div class="timeline-left">
+          <div class="timeline-dot dot-daily">☀️</div>
+          <div class="timeline-line"></div>
+        </div>
+        <div class="timeline-content">
+          <div class="timeline-label label-daily">DAILY ─ 毎日の確認作業</div>
+          <div class="timeline-card">
+            <h4>日次チェック項目 <span class="time-badge time-daily">⏱️ 10〜15分</span></h4>
+            <ul>
+              <li><strong>配信ステータス確認：</strong>「有効」になっているか、広告が正常に表示されているか</li>
+              <li><strong>予算消化チェック：</strong>日予算をオーバーしていないか、逆に全く消化されていないか</li>
+              <li><strong>クリック数・費用の異常値確認：</strong>前日比で突出した変動がないか</li>
+              <li><strong>審査ステータス：</strong>新規追加した広告・KWが「審査中」のままになっていないか</li>
+              <li><strong>掲載対象外KW：</strong>品質スコア問題で停止したKWが出ていないか</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- 週次 -->
+      <div class="timeline-item">
+        <div class="timeline-left">
+          <div class="timeline-dot dot-weekly">📆</div>
+          <div class="timeline-line"></div>
+        </div>
+        <div class="timeline-content">
+          <div class="timeline-label label-weekly">WEEKLY ─ 週1回の最適化作業</div>
+          <div class="timeline-card">
+            <h4>週次チェック項目 <span class="time-badge time-weekly">⏱️ 30〜45分</span></h4>
+            <ul>
+              <li><strong>検索語句レポート確認：</strong>実際にどんな検索ワードで広告が表示されたかを確認し、不要なKWを除外</li>
+              <li><strong>新規KW候補の発掘：</strong>CTRが高い検索語句を正式KWとして追加</li>
+              <li><strong>品質スコアのチェック：</strong>スコアが低下しているKWの特定と原因分析</li>
+              <li><strong>広告文パフォーマンス比較：</strong>複数広告のCTR・CVRを比較し、成果が低い広告を改善候補としてメモ</li>
+              <li><strong>デバイス別・時間帯別パフォーマンス確認：</strong>入札調整の要否を判断</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- 月次 -->
+      <div class="timeline-item">
+        <div class="timeline-left">
+          <div class="timeline-dot dot-monthly">📊</div>
+        </div>
+        <div class="timeline-content">
+          <div class="timeline-label label-monthly">MONTHLY ─ 月1回の総合評価</div>
+          <div class="timeline-card">
+            <h4>月次作業項目 <span class="time-badge time-monthly">⏱️ 60〜90分</span></h4>
+            <ul>
+              <li><strong>月次レポート作成：</strong>クリック数・費用・CTR・CPC・CVR・CPA等の集計とグラフ化</li>
+              <li><strong>入札戦略の評価：</strong>目標CPA・目標ROASが適切か、手動入札への変更を検討すべきか</li>
+              <li><strong>KWポートフォリオの整理：</strong>パフォーマンス不振KWの一時停止・削除、新規KWの追加</li>
+              <li><strong>広告文ABテストの結果判定：</strong>統計的に十分なデータが揃ったテストについて勝者を確定</li>
+              <li><strong>オーナー報告：</strong>結果をわかりやすく整理し、翌月の改善施策を提案</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box yellow mt-24">
+      <span class="info-icon">⚠️</span>
+      <p><strong>注意：</strong>設定を変更したら必ずメモしておきましょう。「いつ・何を変えたか」が記録されていると、パフォーマンス変動の原因を特定しやすくなります。Googleスプレッドシートやスプレッドシートに変更履歴を残す習慣をつけてください。</p>
+    </div>
+  </section>
+
+  <!-- ─── 2. 主要指標の読み方 ─── -->
+  <section id="section-metrics" class="section">
+    <div class="section-header">
+      <div class="section-number">2</div>
+      <div class="section-title-wrap">
+        <h2>主要指標の読み方</h2>
+        <p>数字の意味を理解することで、正しい改善アクションが取れるようになります</p>
+      </div>
+    </div>
+
+    <div class="metric-grid">
+      <div class="metric-card">
+        <div class="m-icon">👁️</div>
+        <div class="m-name">CTR（クリック率）</div>
+        <div class="m-formula">クリック ÷ 表示回数</div>
+        <div class="m-desc">広告が表示された回数のうち、クリックされた割合。広告文の魅力度を示す。</div>
+        <div class="m-target">社内目安: 5〜10%以上</div>
+      </div>
+      <div class="metric-card">
+        <div class="m-icon">💰</div>
+        <div class="m-name">CPC（クリック単価）</div>
+        <div class="m-formula">費用 ÷ クリック数</div>
+        <div class="m-desc">1クリックあたりにかかった費用。低いほど費用対効果が高い。</div>
+        <div class="m-target">業種・KWによって異なる</div>
+      </div>
+      <div class="metric-card">
+        <div class="m-icon">🎯</div>
+        <div class="m-name">CVR（コンバージョン率）</div>
+        <div class="m-formula">CV数 ÷ クリック数</div>
+        <div class="m-desc">クリックしたユーザーのうち、問い合わせ等の成果につながった割合。</div>
+        <div class="m-target">社内目安: 3〜5%以上</div>
+      </div>
+      <div class="metric-card">
+        <div class="m-icon">📞</div>
+        <div class="m-name">CPA（獲得単価）</div>
+        <div class="m-formula">費用 ÷ CV数</div>
+        <div class="m-desc">コンバージョン1件を獲得するのにかかった費用。目標値以下に抑えることが目標。</div>
+        <div class="m-target">クライアントの目標値に準ずる</div>
+      </div>
+      <div class="metric-card">
+        <div class="m-icon">⭐</div>
+        <div class="m-name">品質スコア</div>
+        <div class="m-formula">1〜10点（Googleが評価）</div>
+        <div class="m-desc">KWごとにGoogleが広告の品質を評価した点数。高いほど低コストで上位表示できる。</div>
+        <div class="m-target">目標: 7点以上</div>
+      </div>
+    </div>
+
+    <div class="card mb-24">
+      <div class="card-header"><span class="icon">⭐</span><h3>品質スコア3要素の詳細と改善ポイント</h3></div>
+      <div class="card-body">
+        <table class="setting-table mb-16">
+          <thead>
+            <tr>
+              <th>要素</th>
+              <th>意味</th>
+              <th>評価の目安</th>
+              <th>改善ポイント</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="label">① 期待CTR</td>
+              <td class="value">そのKWで広告が表示されたとき、どれだけクリックされやすいか</td>
+              <td><span class="tag tag-green">平均以上</span><br /><span class="tag tag-yellow mt-16" style="margin-top:4px;">平均的</span><br /><span class="tag tag-red" style="margin-top:4px;">平均以下</span></td>
+              <td class="value">広告見出しにKWを含める。ユーザーの検索意図に合ったコピーを書く。数字・実績・限定性を追加する。</td>
+            </tr>
+            <tr>
+              <td class="label">② 広告の関連性</td>
+              <td class="value">KWと広告文の内容が合致しているか</td>
+              <td><span class="tag tag-green">平均以上</span></td>
+              <td class="value">広告グループをテーマごとに細分化する。見出し・説明文にKWを自然に含める（キーワード挿入機能も活用）。</td>
+            </tr>
+            <tr>
+              <td class="label">③ LP品質</td>
+              <td class="value">クリック後のLPの利便性・関連性・読み込み速度</td>
+              <td><span class="tag tag-yellow">平均的</span></td>
+              <td class="value">LPの表示速度を改善（PageSpeed Insights確認）。広告で訴求した内容がLPに反映されているか確認。モバイル最適化を徹底する。</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="score-grid">
+          <div class="score-card">
+            <div class="score-num score-bad">1〜3</div>
+            <div class="score-label">要改善</div>
+            <div class="score-desc">緊急対応が必要。広告文とLPの一致性を確認。</div>
+          </div>
+          <div class="score-card">
+            <div class="score-num score-avg">4〜6</div>
+            <div class="score-label">普通</div>
+            <div class="score-desc">改善の余地あり。CTRアップを目指した広告文改善を。</div>
+          </div>
+          <div class="score-card">
+            <div class="score-num score-good">7〜10</div>
+            <div class="score-label">良好</div>
+            <div class="score-desc">維持・さらなる改善でコスト削減を目指す。</div>
+          </div>
+        </div>
+
+        <div class="info-box blue mt-16">
+          <span class="info-icon">💡</span>
+          <p><strong>品質スコアとコストの関係：</strong>品質スコアが1点上がるだけで、同じ広告順位を維持するための入札単価を下げられます。スコアが高いほど「安く・上位に」表示できる優遇を受けられます。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 3. キーワード管理 ─── -->
+  <section id="section-keyword" class="section">
+    <div class="section-header">
+      <div class="section-number">3</div>
+      <div class="section-title-wrap">
+        <h2>キーワード管理</h2>
+        <p>検索語句レポートを活用して、無駄な費用をなくし成果につながるKWを育てましょう</p>
+      </div>
+    </div>
+
+    <div class="card mb-24">
+      <div class="card-header"><span class="icon">🔎</span><h3>検索語句レポートの活用方法</h3></div>
+      <div class="card-body">
+        <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px;">
+          「検索語句レポート」とは、広告が実際にどんな検索ワードで表示・クリックされたかがわかるレポートです。設定したKWと実際の検索語句は<strong>異なる場合があります</strong>。毎週確認することで無駄な広告費を削減できます。
+        </p>
+        <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px;">
+          <strong>確認場所：</strong>Google広告管理画面 → キャンペーン → 広告グループ → キーワード → 「検索語句」タブ
+        </p>
+
+        <div class="grid-2">
+          <div class="card" style="border-color:#c8e6c9;">
+            <div class="card-header" style="background: linear-gradient(135deg, #e8f5e9, #dcedc8);"><span class="icon">✅</span><h3 style="color:#1b5e20;">新規KW追加の判断基準</h3></div>
+            <div class="card-body">
+              <div class="checklist">
+                <div class="check-item">
+                  <div class="check-box">✓</div>
+                  <div><strong>CVにつながっている検索語句</strong><span>コンバージョンが発生しているなら積極的にKWとして追加する</span></div>
+                </div>
+                <div class="check-item">
+                  <div class="check-box">✓</div>
+                  <div><strong>CTRが高い（10%以上）検索語句</strong><span>ユーザーが興味を持っている証拠。正式KWに昇格させる</span></div>
+                </div>
+                <div class="check-item">
+                  <div class="check-box">✓</div>
+                  <div><strong>サービス内容と合致している検索語句</strong><span>クライアントの提供サービスに明確に関係している語句</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card" style="border-color:#ffcdd2;">
+            <div class="card-header" style="background: linear-gradient(135deg, #fff5f5, #ffebee);"><span class="icon">🚫</span><h3 style="color:#b71c1c;">除外KW設定の判断基準</h3></div>
+            <div class="card-body">
+              <div class="checklist">
+                <div class="check-item">
+                  <div class="check-box" style="border-color:var(--red);">✗</div>
+                  <div><strong>無関係な検索語句（例：「無料」「DIY」）</strong><span>サービスに関係ない語句は即座に除外KWへ追加</span></div>
+                </div>
+                <div class="check-item">
+                  <div class="check-box" style="border-color:var(--red);">✗</div>
+                  <div><strong>クリック多いがCVゼロの語句（2週間以上）</strong><span>費用だけかかってCVにつながらない場合は除外を検討</span></div>
+                </div>
+                <div class="check-item">
+                  <div class="check-box" style="border-color:var(--red);">✗</div>
+                  <div><strong>競合社名・ブランド名</strong><span>意図せず競合KWで表示されている場合は除外する</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mb-24">
+      <div class="card-header"><span class="icon">🔧</span><h3>マッチタイプの使い分けと変更タイミング</h3></div>
+      <div class="card-body">
+        <table class="setting-table mb-16">
+          <thead>
+            <tr>
+              <th>マッチタイプ</th>
+              <th>記号</th>
+              <th>リーチ範囲</th>
+              <th>使いどき・変更タイミング</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="label">完全一致</td>
+              <td><span class="tag tag-blue">[KW]</span></td>
+              <td class="value">入力した語句とほぼ完全に一致する検索のみ表示。リーチは狭いが精度が高い。</td>
+              <td class="value">CVが安定して出ている優良KWに適用。無駄な表示を徹底排除したい場合。</td>
+            </tr>
+            <tr>
+              <td class="label">フレーズ一致</td>
+              <td><span class="tag tag-yellow">"KW"</span></td>
+              <td class="value">入力した語句の前後に別の単語が付いた検索にも表示。バランス型。</td>
+              <td class="value">リーチを確保しながら関連性を保ちたい場合。完全一致と部分一致の中間として活用。</td>
+            </tr>
+            <tr>
+              <td class="label">部分一致</td>
+              <td><span class="tag tag-red">KW</span></td>
+              <td class="value">関連性があるとGoogleが判断した広範な検索に表示。リーチ最大だが精度が低い。</td>
+              <td class="value">新規KW発掘フェーズ（初期）に使用。検索語句レポートを毎週監視して除外KWを追加し続けること。</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="info-box yellow">
+          <span class="info-icon">⚠️</span>
+          <p><strong>部分一致の運用ルール：</strong>部分一致は費用が膨らみやすいため、必ず週次で検索語句レポートを確認し、関係ない語句を除外KWに追加してください。放置すると予算を無駄に消費します。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><span class="icon">⛔</span><h3>キーワードステータス「掲載対象外」の原因と対処</h3></div>
+      <div class="card-body">
+        <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px;">
+          KWのステータスが「掲載対象外」になると、そのKWでは広告が表示されません。主な原因は以下の通りです。
+        </p>
+        <div class="step-list">
+          <div class="step-item">
+            <div style="font-size:24px;flex-shrink:0;">📉</div>
+            <div class="step-content">
+              <h4>品質スコアが低すぎる（スコア1〜3）</h4>
+              <p>広告文とKWの関連性が低い、またはLPの品質が不十分な場合に発生。</p>
+              <p><strong>対処：</strong>広告グループを細分化し、KWと広告文の一致度を高める。LPの内容を広告の訴求内容と揃える。</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div style="font-size:24px;flex-shrink:0;">💸</div>
+            <div class="step-content">
+              <h4>入札単価が低すぎる</h4>
+              <p>競合が多いKWで入札額が市場価格を大きく下回っている場合。</p>
+              <p><strong>対処：</strong>推奨入札単価（ツールチップで確認可）を参考に入札額を引き上げる。または当該KWを一時停止して他のKWに予算を集中させる。</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div style="font-size:24px;flex-shrink:0;">📊</div>
+            <div class="step-content">
+              <h4>検索ボリュームが少ない</h4>
+              <p>月間検索回数が非常に少ないKWは「検索ボリュームが少ない」と表示され、配信されない場合がある。</p>
+              <p><strong>対処：</strong>フレーズ一致や部分一致に変更してリーチを広げる。または類義語・関連語を新規KWとして追加する。</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div style="font-size:24px;flex-shrink:0;">🚫</div>
+            <div class="step-content">
+              <h4>ポリシー違反</h4>
+              <p>Googleの広告ポリシーに違反するキーワード（薬機法・誇大表現など）が含まれている。</p>
+              <p><strong>対処：</strong>KWを修正または削除する。ポリシーの詳細はGoogle広告ヘルプで確認。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 4. 広告文の最適化 ─── -->
+  <section id="section-adtext" class="section">
+    <div class="section-header">
+      <div class="section-number">4</div>
+      <div class="section-title-wrap">
+        <h2>広告文の最適化</h2>
+        <p>レスポンシブ検索広告（RSA）のアセット評価を確認し、クリックされる広告文に育てましょう</p>
+      </div>
+    </div>
+
+    <div class="card mb-24">
+      <div class="card-header"><span class="icon">🤖</span><h3>レスポンシブ検索広告（RSA）のアセット評価確認方法</h3></div>
+      <div class="card-body">
+        <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px;">
+          RSAはGoogleが複数の見出し・説明文を自動で組み合わせて表示します。各アセット（見出し・説明文）には「評価」が付くため、それを見て改善の優先度を判断します。
+        </p>
+        <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px;">
+          <strong>確認場所：</strong>広告の詳細画面 →「アセットの詳細」→ 各アセットの「評価」列を確認
+        </p>
+        <table class="setting-table">
+          <thead>
+            <tr>
+              <th>評価</th>
+              <th>意味</th>
+              <th>対応方針</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="tag tag-green">最良</span></td>
+              <td class="value">Googleが最も高くパフォーマンスを評価しているアセット</td>
+              <td class="value">そのまま維持。類似した表現で他のアセットも作成してみる。</td>
+            </tr>
+            <tr>
+              <td><span class="tag tag-yellow">良好</span></td>
+              <td class="value">そこそこ機能しているが「最良」に至らないアセット</td>
+              <td class="value">まずは「最良」アセットを参考に改善を検討。</td>
+            </tr>
+            <tr>
+              <td><span class="tag tag-gray">学習中</span></td>
+              <td class="value">まだデータが少なく評価未確定の状態</td>
+              <td class="value">2〜4週間そのまま様子を見る。</td>
+            </tr>
+            <tr>
+              <td><span class="tag tag-red">低パフォーマンス</span></td>
+              <td class="value">CTRが低く、あまり選ばれていないアセット</td>
+              <td class="value">削除して新しいアセットに差し替える。</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="info-box green mt-16">
+          <span class="info-icon">✅</span>
+          <p><strong>RSA最適化の目安：</strong>「低パフォーマンス」が付いたアセットは2週間様子を見てから削除。常に15本の見出し・4本の説明文を用意し、広告の強度を「優良」以上に保つことを目指しましょう。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mb-24">
+      <div class="card-header"><span class="icon">✏️</span><h3>見出し・説明文の改善ポイント（NG例・OK例）</h3></div>
+      <div class="card-body">
+        <div class="grid-2 mb-16">
+          <div>
+            <p style="font-weight:700;margin-bottom:12px;font-size:14px;">見出しの改善例</p>
+            <div class="example-box example-ng">
+              <div class="example-label label-ng">NG 例</div>
+              <p style="font-size:14px;">「サービスのご案内」「詳細はこちら」「当社について」</p>
+              <p style="font-size:13px;color:#b71c1c;margin-top:6px;">→ 抽象的でユーザーのメリットが伝わらない</p>
+            </div>
+            <div class="example-box example-ok">
+              <div class="example-label label-ok">OK 例</div>
+              <p style="font-size:14px;">「地元密着20年・見積り無料」「今なら初月50%OFF」「口コミ★4.8 ○○地区No.1」</p>
+              <p style="font-size:13px;color:#1b5e20;margin-top:6px;">→ 数字・地域名・特典で具体性を出す</p>
+            </div>
+          </div>
+          <div>
+            <p style="font-weight:700;margin-bottom:12px;font-size:14px;">説明文の改善例</p>
+            <div class="example-box example-ng">
+              <div class="example-label label-ng">NG 例</div>
+              <p style="font-size:14px;">「お客様のご要望にお応えします。お気軽にご相談ください。」</p>
+              <p style="font-size:13px;color:#b71c1c;margin-top:6px;">→ どこの会社でも使えるコピーで差別化ゼロ</p>
+            </div>
+            <div class="example-box example-ok">
+              <div class="example-label label-ok">OK 例</div>
+              <p style="font-size:14px;">「○○市・△△市対応。最短翌日訪問。電話一本で即日見積り。まずはお気軽にどうぞ。」</p>
+              <p style="font-size:13px;color:#1b5e20;margin-top:6px;">→ 地域・スピード・行動喚起を盛り込む</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-box blue">
+          <span class="info-icon">📝</span>
+          <div>
+            <p><strong>効果的な広告文の6原則：</strong></p>
+            <ul style="padding-left:18px;font-size:13px;margin-top:6px;">
+              <li>① KWを見出しに自然に含める（キーワード挿入機能も活用）</li>
+              <li>② 数字を使う（年数・価格・件数・評価点数など）</li>
+              <li>③ 地域名を入れる（ローカルビジネスは特に重要）</li>
+              <li>④ ユーザーのメリット（何が得られるか）を明示する</li>
+              <li>⑤ 行動を促すCTA（「今すぐ電話」「無料相談はこちら」）を入れる</li>
+              <li>⑥ 競合との差別化ポイント（実績・受賞歴・保証など）を強調する</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><span class="icon">🧪</span><h3>ABテストの進め方と判断基準</h3></div>
+      <div class="card-body">
+        <div class="step-list">
+          <div class="step-item">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>テストする仮説を1つ決める</h4>
+              <p>「数字入り見出しのほうがCTRが高いはず」「地域名を追加するとCVRが上がるはず」など、1回のテストで変更する箇所は1点のみにする。</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>コントロール広告とテスト広告を並走させる</h4>
+              <p>既存の広告（コントロール）と変更を加えた広告（テスト）を同じ広告グループで同時に配信する。</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>十分なデータが溜まるまで待つ（最低2週間・50クリック以上）</h4>
+              <p>データ量が少ない段階での判断は「誤差」の可能性が高い。最低でも各広告50クリック・2週間の運用期間を確保する。</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>CTR・CVRで勝者を判定し、負けた広告を差し替える</h4>
+              <p>CVがある場合はCVRとCPAを最優先で比較する。CVがない場合はCTRを基準に判定する。勝者の要素を参考に次のテスト仮説を立てる。</p>
+            </div>
+          </div>
+        </div>
+        <div class="info-box yellow mt-16">
+          <span class="info-icon">⚠️</span>
+          <p><strong>注意：</strong>「統計的有意差」が出ていない段階での勝負は避けましょう。Google広告の「実験」機能を使うと自動でA/Bテストを管理できるので積極的に活用してください。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 5. 入札調整 ─── -->
+  <section id="section-bid" class="section">
+    <div class="section-header">
+      <div class="section-number">5</div>
+      <div class="section-title-wrap">
+        <h2>入札調整</h2>
+        <p>効果が出やすい条件に予算を集中させることで、広告のROIを最大化します</p>
+      </div>
+    </div>
+
+    <div class="card mb-24">
+      <div class="card-header"><span class="icon">📱</span><h3>デバイス別・時間帯別・地域別の入札調整</h3></div>
+      <div class="card-body">
+        <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px;">
+          <strong>確認場所：</strong>キャンペーン → 設定 → 「入札単価の調整」セクション
+        </p>
+        <table class="setting-table mb-16">
+          <thead>
+            <tr>
+              <th>調整軸</th>
+              <th>設定場所</th>
+              <th>判断のポイント</th>
+              <th>調整例</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="label">デバイス別</td>
+              <td class="value">キャンペーン設定 → デバイス</td>
+              <td class="value">モバイルでCVRが高い場合は上げる。PCが低い場合は入札を下げるか停止。</td>
+              <td class="example">モバイル：+20%<br />PC：-30%</td>
+            </tr>
+            <tr>
+              <td class="label">時間帯別</td>
+              <td class="value">キャンペーン設定 → 広告スケジュール</td>
+              <td class="value">問い合わせが多い時間帯は入札UP。深夜・早朝など低い時間帯は下げる。</td>
+              <td class="example">18〜22時：+30%<br />0〜6時：-70%</td>
+            </tr>
+            <tr>
+              <td class="label">地域別</td>
+              <td class="value">キャンペーン設定 → 地域</td>
+              <td class="value">CVが多い市区町村の入札を上げる。効果が薄い地域は入札を下げる。</td>
+              <td class="example">特定市内：+15%<br />遠方エリア：-50%</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="info-box green">
+          <span class="info-icon">✅</span>
+          <p><strong>調整の前提：</strong>入札調整は最低2週間・各セグメント30クリック以上のデータが揃ってから行いましょう。データが少ない段階での調整は逆効果になる可能性があります。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mb-24">
+      <div class="card-header"><span class="icon">⚖️</span><h3>入札戦略の選び方と切り替えタイミング</h3></div>
+      <div class="card-body">
+        <table class="setting-table mb-16">
+          <thead>
+            <tr>
+              <th>入札戦略</th>
+              <th>概要</th>
+              <th>使いどき</th>
+              <th>注意点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="label">手動CPC</td>
+              <td class="value">KWごとに入札単価を自分で設定する最もシンプルな戦略</td>
+              <td class="value">キャンペーン初期・CV数が少ない（月30件未満）場合</td>
+              <td class="value">手間がかかるが細かいコントロールが可能。慣れるまではここから始める。</td>
+            </tr>
+            <tr>
+              <td class="label">拡張CPC（eCPC）</td>
+              <td class="value">手動入札をベースにGoogleが自動で微調整するハイブリッド型</td>
+              <td class="value">手動CPC移行後、CV実績が出てきた段階（月10件以上）</td>
+              <td class="value">完全手動よりCPAが下がりやすい。まずはここで様子を見る。</td>
+            </tr>
+            <tr>
+              <td class="label">目標CPA</td>
+              <td class="value">設定したCPA目標をGoogleが自動で最適化する全自動戦略</td>
+              <td class="value">月30件以上のCV実績があり、目標CPAが明確な場合</td>
+              <td class="value">学習期間（2〜4週間）は大きな変更を加えないこと。データが少ないと機能しない。</td>
+            </tr>
+            <tr>
+              <td class="label">目標ROAS</td>
+              <td class="value">設定したROAS目標をGoogleが最適化。ECサイト向け。</td>
+              <td class="value">収益データが計測できるECなど。月50件以上のCV推奨。</td>
+              <td class="value">目標値の設定が現実から乖離しすぎると配信量が極端に減る。</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="info-box blue">
+          <span class="info-icon">💡</span>
+          <p><strong>切り替えタイミングの目安：</strong>手動CPC → eCPC → 目標CPAの順にステップアップするのが基本。スマート自動入札はCV実績データが多いほど精度が上がります。焦って自動入札に切り替えず、データを蓄積してから移行しましょう。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><span class="icon">🔬</span><h3>オークション分析ツールの活用</h3></div>
+      <div class="card-body">
+        <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px;">
+          <strong>確認場所：</strong>キャンペーン・広告グループ・KW → 上部メニュー「オークションの分析情報」
+        </p>
+        <div class="grid-2">
+          <div>
+            <p style="font-size:14px;font-weight:700;margin-bottom:12px;">主要な確認指標</p>
+            <div class="step-list">
+              <div class="step-item">
+                <div style="font-size:20px;flex-shrink:0;">📊</div>
+                <div class="step-content">
+                  <h4>インプレッションシェア</h4>
+                  <p>表示される可能性のある総インプレッション数のうち、実際に表示された割合。低い場合は予算増または入札単価引き上げを検討。</p>
+                </div>
+              </div>
+              <div class="step-item">
+                <div style="font-size:20px;flex-shrink:0;">🏆</div>
+                <div class="step-content">
+                  <h4>ページ上部率・最上部率</h4>
+                  <p>検索結果の上部・最上部に表示された割合。競合との掲載順位比較に使う。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <p style="font-size:14px;font-weight:700;margin-bottom:12px;">競合分析での活用法</p>
+            <div class="info-box green">
+              <span class="info-icon">✅</span>
+              <div>
+                <p style="margin-bottom:8px;">オークション分析では競合ドメインのインプレッションシェアと比較できます。</p>
+                <ul style="padding-left:18px;font-size:13px;">
+                  <li>自社より上位の競合が多い → 入札単価の見直しを検討</li>
+                  <li>重複率が高い競合 → 同じKWで入札している競合。広告文の差別化が重要。</li>
+                  <li>競合のシェアが急増 → 競合が予算を増やした可能性。対抗策を上長に相談。</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 6. レポート作成 ─── -->
+  <section id="section-report" class="section">
+    <div class="section-header">
+      <div class="section-number">6</div>
+      <div class="section-title-wrap">
+        <h2>レポート作成</h2>
+        <p>オーナーへの報告は「数字＋解説＋改善提案」の3点セットで伝えましょう</p>
+      </div>
+    </div>
+
+    <div class="card mb-24">
+      <div class="card-header"><span class="icon">📋</span><h3>月次レポートに含める指標一覧</h3></div>
+      <div class="card-body">
+        <table class="setting-table">
+          <thead>
+            <tr>
+              <th>カテゴリ</th>
+              <th>指標名</th>
+              <th>確認ポイント</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="label" rowspan="4">基本指標</td>
+              <td class="value">インプレッション数（表示回数）</td>
+              <td class="value">認知の広がりを確認。急減なら予算・品質スコア・入札を確認。</td>
+            </tr>
+            <tr>
+              <td class="value">クリック数</td>
+              <td class="value">前月比・目標値との比較。CTRも一緒に確認。</td>
+            </tr>
+            <tr>
+              <td class="value">費用（消化金額）</td>
+              <td class="value">予算通りに消化されているか。大幅にオーバー・アンダーしていないか。</td>
+            </tr>
+            <tr>
+              <td class="value">平均CPC</td>
+              <td class="value">上昇傾向なら競合が増えているサイン。KW整理を検討。</td>
+            </tr>
+            <tr>
+              <td class="label" rowspan="3">成果指標</td>
+              <td class="value">コンバージョン数（CV数）</td>
+              <td class="value">問い合わせ・電話・フォーム送信の件数。最重要指標。</td>
+            </tr>
+            <tr>
+              <td class="value">CVR（コンバージョン率）</td>
+              <td class="value">下落ならLP改善またはターゲティング見直しを検討。</td>
+            </tr>
+            <tr>
+              <td class="value">CPA（獲得単価）</td>
+              <td class="value">目標CPAと比較して高ければ改善施策が必要。</td>
+            </tr>
+            <tr>
+              <td class="label">品質指標</td>
+              <td class="value">品質スコア平均・KW別スコア</td>
+              <td class="value">スコア低下KWをピックアップして改善候補を伝える。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card mb-24">
+      <div class="card-header"><span class="icon">📧</span><h3>オーナー報告の例文テンプレート</h3></div>
+      <div class="card-body">
+        <div class="grid-2">
+          <div>
+            <p style="font-weight:700;font-size:14px;margin-bottom:12px;color:var(--primary);">良好時の報告例</p>
+            <div class="card" style="border-color:#c8e6c9;">
+              <div class="card-body" style="font-size:14px;color:var(--text-secondary);">
+                <p>○○様</p>
+                <p style="margin-top:8px;">今月の広告実績をご報告いたします。</p>
+                <p style="margin-top:8px;"><strong>【今月のハイライト】</strong><br />
+                ・クリック数：前月比 +15%（120件 → 138件）<br />
+                ・問い合わせ数：前月比 +20%（10件 → 12件）<br />
+                ・CPA：8,500円（目標10,000円以下をクリア）</p>
+                <p style="margin-top:8px;">先月から導入した地域限定のKWが好調で、特に「○○市 ハウスクリーニング」というKWで5件の問い合わせを獲得できました。</p>
+                <p style="margin-top:8px;"><strong>【来月の施策】</strong><br />
+                引き続き地域KWを強化しつつ、週末の入札単価を上げてCVをさらに増やす予定です。</p>
+              </div>
+            </div>
+          </div>
+          <div>
+            <p style="font-weight:700;font-size:14px;margin-bottom:12px;color:var(--red);">不調時の報告例</p>
+            <div class="card" style="border-color:#ffcdd2;">
+              <div class="card-body" style="font-size:14px;color:var(--text-secondary);">
+                <p>○○様</p>
+                <p style="margin-top:8px;">今月の広告実績と改善策をご報告いたします。</p>
+                <p style="margin-top:8px;"><strong>【今月の実績】</strong><br />
+                ・クリック数：前月比 -10%（120件 → 108件）<br />
+                ・問い合わせ数：前月比 -20%（10件 → 8件）<br />
+                ・CPA：12,500円（目標10,000円を超過）</p>
+                <p style="margin-top:8px;"><strong>【原因の分析】</strong><br />
+                競合他社が同エリアに新たに参入し、主要KWの入札単価が上昇。クリック単価が前月比で約20%高くなっています。</p>
+                <p style="margin-top:8px;"><strong>【来月の改善施策】</strong><br />
+                ① 競合が手薄な長尾KWへの出稿強化<br />
+                ② 広告文のABテストを実施してCTRを改善<br />
+                ③ LPの読み込み速度改善をウェブ担当者に依頼</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-box yellow mt-24">
+          <span class="info-icon">⚠️</span>
+          <div>
+            <p><strong>「数字が悪い時」の説明の仕方：</strong></p>
+            <ul style="padding-left:18px;font-size:13px;margin-top:6px;">
+              <li>まず「原因」を明確に説明する（季節要因・競合・外部要因・自社施策の問題）</li>
+              <li>「改善策」をセットで提示する（何をいつまでに変えるか）</li>
+              <li>数字の「言い訳」ではなく「改善への行動」を伝えることでオーナーの信頼を維持する</li>
+              <li>わからない場合は「調査します」と伝えて翌週回答する（推測で伝えない）</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 7. よくあるトラブル ─── -->
+  <section id="section-trouble" class="section">
+    <div class="section-header">
+      <div class="section-number">7</div>
+      <div class="section-title-wrap">
+        <h2>よくあるトラブルと対処法</h2>
+        <p>困ったときのチェックリストとして活用してください</p>
+      </div>
+    </div>
+
+    <h3 style="font-size:17px;font-weight:700;margin-bottom:16px;color:var(--text-primary);">広告が表示されない原因チェックリスト</h3>
+
+    <div class="trouble-item">
+      <div class="trouble-icon">🔴</div>
+      <div class="trouble-content">
+        <h4>キャンペーン・広告グループ・広告のステータスが「一時停止」になっている</h4>
+        <p>最もよくある原因。階層の上から順番にステータスを確認する。</p>
+        <ul class="solution-list">
+          <li>キャンペーン → 広告グループ → 広告の順にステータスが「有効」になっているか確認</li>
+          <li>誤って一時停止していた場合は「有効」に切り替える</li>
+          <li>変更した日時をメモに残しておく</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="trouble-item">
+      <div class="trouble-icon">💰</div>
+      <div class="trouble-content">
+        <h4>日予算が上限に達して配信が止まっている</h4>
+        <p>1日の予算上限に達すると自動で配信停止。翌日0時にリセットされる。</p>
+        <ul class="solution-list">
+          <li>管理画面で予算消化状況を確認（キャンペーン一覧の「予算」列）</li>
+          <li>即日対応が必要な場合はクライアントと相談の上、上長承認を得て日予算を増額する</li>
+          <li>翌日以降のために広告スケジュールを見直し、予算消化を分散させる</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="trouble-item">
+      <div class="trouble-icon">📋</div>
+      <div class="trouble-content">
+        <h4>広告がポリシー審査で不承認になっている</h4>
+        <p>広告文・LPのコンテンツがGoogleポリシーに違反していると「不承認」となり配信されない。</p>
+        <ul class="solution-list">
+          <li>管理画面「広告」一覧の「ステータス」列で「不承認」を確認</li>
+          <li>不承認の理由（ポリシー違反の種類）を確認し、広告文を修正する</li>
+          <li>「最大限の効果」「絶対に」などの誇大表現はNG。事実に基づいた表現に変更する</li>
+          <li>修正後に再審査リクエストを送る（通常数時間〜1営業日で結果が出る）</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="font-size:17px;font-weight:700;margin:28px 0 16px;color:var(--text-primary);">品質スコアが低い場合の改善手順</h3>
+
+    <div class="trouble-item">
+      <div class="trouble-icon">⭐</div>
+      <div class="trouble-content">
+        <h4>品質スコアが3以下のKWが存在する</h4>
+        <p>スコアが低いと広告が表示されにくくなり、表示されても高い入札単価が必要になる。</p>
+        <ul class="solution-list">
+          <li><strong>Step 1：</strong>品質スコアの3要素（期待CTR・広告の関連性・LP品質）を個別に確認する</li>
+          <li><strong>Step 2：</strong>「広告の関連性」が低い場合 → KWと広告文のテーマが一致しているか確認。広告グループを細分化してKWと広告文を1対1に近づける</li>
+          <li><strong>Step 3：</strong>「期待CTR」が低い場合 → 広告見出しにKWを含める。数字や特典などクリックされやすい要素を追加する</li>
+          <li><strong>Step 4：</strong>「LP品質」が低い場合 → PageSpeed InsightsでLP速度を確認。広告の訴求内容とLPの内容が一致しているか確認する</li>
+          <li><strong>Step 5：</strong>改善後2〜4週間で品質スコアが変化しない場合は、該当KWの一時停止を検討する</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="font-size:17px;font-weight:700;margin:28px 0 16px;color:var(--text-primary);">予算の消化が多い・少ない場合の対処</h3>
+
+    <div class="grid-2">
+      <div class="trouble-item" style="flex-direction:column;">
+        <div style="display:flex;gap:12px;align-items:center;margin-bottom:12px;">
+          <div class="trouble-icon" style="font-size:24px;">💸</div>
+          <h4 style="color:var(--red);font-size:15px;font-weight:700;">予算が消化されすぎる場合</h4>
+        </div>
+        <ul class="solution-list">
+          <li>除外KWを追加して無関係な検索への表示を減らす</li>
+          <li>マッチタイプを部分一致からフレーズ一致・完全一致に変更する</li>
+          <li>配信時間帯を絞り（深夜・早朝をOFFに）、費用効率の良い時間に予算を集中させる</li>
+          <li>入札単価を下げる（ただしCPAが悪化しないか様子を見ながら段階的に）</li>
+          <li>やむを得ない場合は上長承認を得て日予算の増額を検討する</li>
+        </ul>
+      </div>
+      <div class="trouble-item" style="flex-direction:column;">
+        <div style="display:flex;gap:12px;align-items:center;margin-bottom:12px;">
+          <div class="trouble-icon" style="font-size:24px;">📉</div>
+          <h4 style="color:var(--blue);font-size:15px;font-weight:700;">予算が全く消化されない場合</h4>
+        </div>
+        <ul class="solution-list">
+          <li>入札単価が低すぎないか確認。推奨入札単価を参考に引き上げを検討する</li>
+          <li>マッチタイプをフレーズ一致・部分一致に変更してリーチを広げる</li>
+          <li>KWの検索ボリュームが少なくないか確認。ボリュームのある類義語を追加する</li>
+          <li>配信地域や時間帯の設定が狭すぎないか確認する</li>
+          <li>品質スコアが低くて掲載対象外になっているKWがないか確認する</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="info-box red mt-16">
+      <span class="info-icon">🚨</span>
+      <p><strong>緊急対応が必要な場合は必ず上長に報告すること。</strong>自己判断で予算を大幅に変更したり、キャンペーンを停止したりしないでください。クライアントへの影響が大きい場合は、変更前に必ずチームで確認を取る習慣をつけましょう。</p>
+    </div>
+  </section>
+
+  <!-- ─── SUMMARY ─── -->
+  <div class="summary-box">
+    <h2>運用のPDCAサイクルを回し続けよう</h2>
+    <p>リスティング広告の成果は「入稿して終わり」ではなく、継続的なデータ確認と改善の積み重ねによって生まれます。日次・週次・月次の作業を習慣化し、小さな改善を積み重ねましょう。</p>
+    <div style="display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:8px;position:relative;">
+      <div style="background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);backdrop-filter:blur(10px);border-radius:12px;padding:12px 20px;font-size:14px;font-weight:600;color:white;">📊 日次チェック</div>
+      <div style="color:rgba(255,255,255,0.5);font-size:18px;">→</div>
+      <div style="background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);backdrop-filter:blur(10px);border-radius:12px;padding:12px 20px;font-size:14px;font-weight:600;color:white;">🔍 週次最適化</div>
+      <div style="color:rgba(255,255,255,0.5);font-size:18px;">→</div>
+      <div style="background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);backdrop-filter:blur(10px);border-radius:12px;padding:12px 20px;font-size:14px;font-weight:600;color:white;">📋 月次レポート</div>
+      <div style="color:rgba(255,255,255,0.5);font-size:18px;">→</div>
+      <div style="background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);backdrop-filter:blur(10px);border-radius:12px;padding:12px 20px;font-size:14px;font-weight:600;color:white;">🔄 改善を実施</div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  リスティング広告 運用マニュアル &copy; 2025 | 社内研修用・社外秘
+</footer>
+
+<script>
+  // スクロール連動でNAVのアクティブハイライトを切り替え
+  (function () {
+    var navItems = document.querySelectorAll('.nav-item');
+    var sections = [];
+
+    navItems.forEach(function (item) {
+      var href = item.getAttribute('href');
+      if (href && href.startsWith('#')) {
+        var target = document.querySelector(href);
+        if (target) sections.push({ el: target, nav: item });
+      }
+    });
+
+    function updateActive() {
+      var scrollY = window.scrollY + 120;
+      var current = null;
+      sections.forEach(function (s) {
+        if (s.el.offsetTop <= scrollY) current = s;
+      });
+      navItems.forEach(function (item) { item.classList.remove('active'); });
+      if (current) current.nav.classList.add('active');
+    }
+
+    window.addEventListener('scroll', updateActive, { passive: true });
+    updateActive();
+  })();
+</script>
+</body>
+</html>

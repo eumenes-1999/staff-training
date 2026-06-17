@@ -1,0 +1,1789 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>【新人研修】ディスプレイ広告 運用マニュアル</title>
+  <meta name="description" content="新人向けディスプレイ広告（GDN）運用マニュアル。キャンペーン開始後の日次・週次・月次チェックから最適化まで解説。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #0288d1;
+      --primary-dark: #01579b;
+      --primary-light: #e1f5fe;
+      --surface: #ffffff;
+      --surface-2: #f5fbff;
+      --surface-3: #e8f4fd;
+      --text-primary: #202124;
+      --text-secondary: #5f6368;
+      --text-tertiary: #80868b;
+      --border: #e0e0e0;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.08);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.06);
+      --shadow-lg: 0 8px 24px rgba(0,0,0,0.12), 0 4px 8px rgba(0,0,0,0.08);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --accent-green: #34A853;
+      --accent-yellow: #f9a825;
+      --accent-red: #e53935;
+      --accent-orange: #f57c00;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background: #e1f5fe;
+      color: var(--text-primary);
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      background: linear-gradient(135deg, #01579b 0%, #0277bd 40%, #0288d1 70%, #4fc3f7 100%);
+      padding: 80px 24px 100px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -20%;
+      width: 60%;
+      height: 200%;
+      background: rgba(255,255,255,0.04);
+      border-radius: 50%;
+      animation: float1 8s ease-in-out infinite;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -30%;
+      right: -10%;
+      width: 50%;
+      height: 150%;
+      background: rgba(255,255,255,0.05);
+      border-radius: 50%;
+      animation: float2 10s ease-in-out infinite;
+    }
+
+    @keyframes float1 {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-30px) rotate(5deg); }
+    }
+
+    @keyframes float2 {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(20px) rotate(-5deg); }
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 6px 16px;
+      border-radius: 100px;
+      margin-bottom: 24px;
+      backdrop-filter: blur(10px);
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero h1 {
+      font-size: clamp(28px, 5vw, 52px);
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -0.5px;
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 1;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.2);
+    }
+
+    .hero h1 span {
+      background: linear-gradient(90deg, #ffe082, #ff8a65);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: clamp(14px, 2vw, 18px);
+      color: rgba(255,255,255,0.85);
+      max-width: 640px;
+      margin: 0 auto 32px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-meta {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255,255,255,0.8);
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .hero-meta-item .icon {
+      width: 32px;
+      height: 32px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    /* ─── PAGE TABS ─── */
+    .page-tabs {
+      display: flex;
+      gap: 4px;
+      background: #fff;
+      border-bottom: 2px solid #e0e0e0;
+      padding: 0 24px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .page-tabs::-webkit-scrollbar { display: none; }
+
+    .page-tab {
+      padding: 12px 18px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #5f6368;
+      text-decoration: none;
+      white-space: nowrap;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      transition: all 0.2s;
+    }
+
+    .page-tab:hover,
+    .page-tab.active {
+      color: #0288d1;
+      border-bottom-color: #0288d1;
+    }
+
+    .page-tab.active-other {
+      color: #0277bd;
+      border-bottom-color: #4fc3f7;
+    }
+
+    /* ─── NAV ─── */
+    .nav-wrapper {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .nav-inner::-webkit-scrollbar { display: none; }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 14px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-decoration: none;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s ease;
+    }
+
+    .nav-item:hover,
+    .nav-item.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+
+    /* ─── MAIN LAYOUT ─── */
+    .main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    /* ─── SECTION ─── */
+    .section {
+      margin-bottom: 64px;
+      animation: fadeUp 0.5s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 28px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .section-number {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, var(--primary), #4fc3f7);
+      color: white;
+      font-size: 18px;
+      font-weight: 700;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(2,136,209,0.4);
+    }
+
+    .section-title-wrap h2 {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .section-title-wrap p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+
+    /* ─── CARD ─── */
+    .card {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .card-header {
+      background: linear-gradient(135deg, var(--primary-light), #b3e5fc);
+      padding: 16px 24px;
+      border-bottom: 1px solid #b3d9f0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .card-header .icon {
+      font-size: 20px;
+    }
+
+    .card-header h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--primary-dark);
+    }
+
+    .card-body {
+      padding: 24px;
+    }
+
+    /* ─── GRID ─── */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+
+    /* ─── STEP LIST ─── */
+    .step-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .step-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      padding: 16px 20px;
+      background: var(--surface-2);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      transition: all 0.2s ease;
+    }
+
+    .step-item:hover {
+      border-color: #81d4fa;
+      box-shadow: var(--shadow-sm);
+      background: #f0f9ff;
+      transform: translateX(4px);
+    }
+
+    .step-num {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, var(--primary), #4fc3f7);
+      color: white;
+      font-size: 14px;
+      font-weight: 700;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(2,136,209,0.35);
+    }
+
+    .step-content h4 {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .step-content p, .step-content ul {
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    .step-content ul {
+      padding-left: 18px;
+      margin-top: 6px;
+    }
+
+    .step-content ul li {
+      margin-bottom: 3px;
+    }
+
+    /* ─── INFO BOX ─── */
+    .info-box {
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      margin: 16px 0;
+      font-size: 14px;
+    }
+
+    .info-box.blue {
+      background: #e1f5fe;
+      border-left: 4px solid var(--primary);
+      color: #01579b;
+    }
+
+    .info-box.green {
+      background: #e8f5e9;
+      border-left: 4px solid var(--accent-green);
+      color: #1b5e20;
+    }
+
+    .info-box.yellow {
+      background: #fff8e1;
+      border-left: 4px solid var(--accent-yellow);
+      color: #6d4c00;
+    }
+
+    .info-box.red {
+      background: #ffebee;
+      border-left: 4px solid var(--accent-red);
+      color: #7f0000;
+    }
+
+    .info-box .info-icon {
+      font-size: 18px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ─── SETTING TABLE ─── */
+    .setting-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+
+    .setting-table th {
+      background: linear-gradient(135deg, var(--primary), #4fc3f7);
+      color: white;
+      padding: 12px 16px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 13px;
+    }
+
+    .setting-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    .setting-table tr:nth-child(even) td {
+      background: var(--surface-2);
+    }
+
+    .setting-table tr:hover td {
+      background: var(--primary-light);
+    }
+
+    .setting-table .label {
+      font-weight: 600;
+      color: var(--text-primary);
+      white-space: nowrap;
+    }
+
+    .setting-table .value {
+      color: var(--text-secondary);
+    }
+
+    .setting-table .example {
+      font-size: 13px;
+      color: var(--primary);
+      font-style: italic;
+    }
+
+    /* ─── TAG ─── */
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .tag-blue { background: #e1f5fe; color: var(--primary); }
+    .tag-green { background: #e8f5e9; color: #2e7d32; }
+    .tag-yellow { background: #fff8e1; color: #f57f17; }
+    .tag-red { background: #ffebee; color: #c62828; }
+    .tag-gray { background: #f1f3f4; color: var(--text-secondary); }
+    .tag-orange { background: #fff3e0; color: #e65100; }
+
+    /* ─── TARGET GRID ─── */
+    .target-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+    }
+
+    .target-card {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      text-align: center;
+      transition: all 0.2s ease;
+    }
+
+    .target-card:hover {
+      border-color: #81d4fa;
+      box-shadow: var(--shadow-md);
+      transform: translateY(-4px);
+      background: var(--surface);
+    }
+
+    .target-card .t-icon {
+      font-size: 36px;
+      margin-bottom: 12px;
+    }
+
+    .target-card h4 {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .target-card p {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    /* ─── TROUBLE CARDS ─── */
+    .trouble-item {
+      display: flex;
+      gap: 20px;
+      padding: 20px 24px;
+      border-radius: var(--radius-md);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      margin-bottom: 16px;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s ease;
+    }
+
+    .trouble-item:hover {
+      box-shadow: var(--shadow-md);
+      border-color: #81d4fa;
+    }
+
+    .trouble-icon {
+      font-size: 32px;
+      flex-shrink: 0;
+    }
+
+    .trouble-content h4 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--accent-red);
+      margin-bottom: 8px;
+    }
+
+    .trouble-content p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
+
+    .solution-list {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .solution-list li {
+      list-style: none;
+      font-size: 14px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .solution-list li::before {
+      content: '✓';
+      color: var(--accent-green);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ─── CHECKLIST ─── */
+    .checklist {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .checklist li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      padding: 8px 12px;
+      background: var(--surface-2);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+    }
+
+    .checklist li::before {
+      content: '☐';
+      font-size: 16px;
+      color: var(--primary);
+      flex-shrink: 0;
+      margin-top: 0px;
+    }
+
+    /* ─── METRIC CARD ─── */
+    .metric-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      transition: all 0.2s ease;
+    }
+
+    .metric-card:hover {
+      border-color: #81d4fa;
+      box-shadow: var(--shadow-md);
+      transform: translateY(-3px);
+    }
+
+    .metric-card .metric-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 6px;
+    }
+
+    .metric-card .metric-name {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .metric-card .metric-formula {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      font-family: monospace;
+      background: var(--surface-3);
+      padding: 4px 8px;
+      border-radius: 4px;
+      margin-bottom: 8px;
+      display: inline-block;
+    }
+
+    .metric-card .metric-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .metric-card .metric-target {
+      margin-top: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--primary-dark);
+    }
+
+    /* ─── ASSET BADGE ─── */
+    .asset-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .asset-badge.good { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
+    .asset-badge.low { background: #fff8e1; color: #f57f17; border: 1px solid #ffe082; }
+    .asset-badge.poor { background: #ffebee; color: #c62828; border: 1px solid #ef9a9a; }
+
+    /* ─── TEMPLATE BOX ─── */
+    .template-box {
+      background: var(--surface-3);
+      border: 1px dashed #90caf9;
+      border-radius: var(--radius-md);
+      padding: 20px 24px;
+      font-size: 14px;
+      line-height: 1.9;
+      color: var(--text-primary);
+    }
+
+    .template-box .tmpl-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+
+    /* ─── SUMMARY BOX ─── */
+    .summary-box {
+      background: linear-gradient(135deg, #01579b, #0277bd);
+      color: white;
+      border-radius: var(--radius-xl);
+      padding: 40px;
+      text-align: center;
+      margin-top: 64px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .summary-box::before {
+      content: '';
+      position: absolute;
+      top: -40%;
+      right: -10%;
+      width: 40%;
+      height: 200%;
+      background: rgba(255,255,255,0.05);
+      border-radius: 50%;
+    }
+
+    .summary-box h2 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .summary-box p {
+      font-size: 15px;
+      color: rgba(255,255,255,0.8);
+      max-width: 600px;
+      margin: 0 auto 24px;
+    }
+
+    .flow-steps {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      position: relative;
+    }
+
+    .flow-step {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      backdrop-filter: blur(10px);
+      border-radius: var(--radius-md);
+      padding: 12px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      color: white;
+    }
+
+    .flow-arrow {
+      color: rgba(255,255,255,0.5);
+      font-size: 18px;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      text-align: center;
+      padding: 32px 24px;
+      color: var(--text-tertiary);
+      font-size: 13px;
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    /* ─── UTIL ─── */
+    .mt-16 { margin-top: 16px; }
+    .mt-24 { margin-top: 24px; }
+    .mb-16 { margin-bottom: 16px; }
+    .mb-24 { margin-bottom: 24px; }
+    .flex-col { display: flex; flex-direction: column; gap: 12px; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 640px) {
+      .hero { padding: 56px 16px 72px; }
+      .section-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      .flow-steps { flex-direction: column; }
+      .flow-arrow { transform: rotate(90deg); }
+      .summary-box { padding: 28px 20px; }
+      .trouble-item { flex-direction: column; gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+<script>
+(function(){
+  if(!sessionStorage.getItem('rb_auth')) location.replace('/staff-training/login.html');
+})();
+</script>
+
+<!-- ─── HERO ─── -->
+<header class="hero">
+  <div class="hero-badge">新人研修資料 2025年度版</div>
+  <h1>ディスプレイ広告<br /><span>運用マニュアル</span></h1>
+  <p class="hero-sub">キャンペーン開始後の日次・週次・月次チェックから最適化まで。GDN運用の基本サイクルをステップで学ぶ研修テキストです。</p>
+  <div class="hero-meta">
+    <div class="hero-meta-item"><div class="icon">📌</div>対象：入社1〜3ヶ月の新人</div>
+    <div class="hero-meta-item"><div class="icon">⏱️</div>所要時間：約45〜60分</div>
+    <div class="hero-meta-item"><div class="icon">🎯</div>目標：一人で日次チェックと最適化ができる</div>
+  </div>
+</header>
+
+<!-- ─── PAGE TABS ─── -->
+<div class="page-tabs">
+  <a href="google-ads.html" class="page-tab">📋 Google広告 入稿</a>
+  <a href="display-ads.html" class="page-tab">🖼️ ディスプレイ 入稿</a>
+  <a href="display-ads-operation.html" class="page-tab active">📊 ディスプレイ 運用</a>
+  <a href="listing-ads.html" class="page-tab">🔍 リスティング 入稿</a>
+  <a href="listing-ads-operation.html" class="page-tab active-other">📈 リスティング 運用</a>
+</div>
+
+<!-- ─── NAVIGATION ─── -->
+<nav class="nav-wrapper" aria-label="セクションナビゲーション">
+  <div class="nav-inner">
+    <a href="#section-flow" class="nav-item">🗓️ 運用フロー</a>
+    <a href="#section-metrics" class="nav-item">📊 指標の読み方</a>
+    <a href="#section-creative" class="nav-item">🖼️ クリエイティブ最適化</a>
+    <a href="#section-targeting" class="nav-item">🎯 ターゲティング調整</a>
+    <a href="#section-budget" class="nav-item">💰 予算・入札管理</a>
+    <a href="#section-report" class="nav-item">📝 レポート作成</a>
+    <a href="#section-trouble" class="nav-item">🛠️ トラブル対応</a>
+  </div>
+</nav>
+
+<main class="main">
+
+  <!-- ─── 1. 運用の基本フロー ─── -->
+  <section id="section-flow" class="section">
+    <div class="section-header">
+      <div class="section-number">1</div>
+      <div class="section-title-wrap">
+        <h2>運用の基本フロー</h2>
+        <p>日次・週次・月次の作業サイクルを把握して、見落としなく運用しましょう</p>
+      </div>
+    </div>
+
+    <div class="info-box blue">
+      <span class="info-icon">💡</span>
+      <p>ディスプレイ広告（GDN）は配信開始後も継続的なチェックと最適化が必要です。放置すると無駄な配信先にコストが流れたり、クリエイティブが古くなりパフォーマンスが低下します。決まった周期で確認する習慣をつけましょう。</p>
+    </div>
+
+    <div class="card mt-24">
+      <div class="card-header"><span class="icon">🗓️</span><h3>日次・週次・月次 作業一覧</h3></div>
+      <div class="card-body">
+        <table class="setting-table">
+          <thead>
+            <tr>
+              <th>サイクル</th>
+              <th>主な作業内容</th>
+              <th>優先度</th>
+              <th>所要時間の目安</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="label">日次<br />（毎営業日）</td>
+              <td class="value">
+                ・配信状況の確認（広告が止まっていないか）<br />
+                ・前日の消化金額・インプレッション数の確認<br />
+                ・異常値（急激なCTR低下・CPC高騰）のチェック<br />
+                ・広告の審査状況確認
+              </td>
+              <td><span class="tag tag-red">最高</span></td>
+              <td>5〜10分</td>
+            </tr>
+            <tr>
+              <td class="label">週次<br />（毎週月曜）</td>
+              <td class="value">
+                ・週次パフォーマンスレポートの確認（CTR/CPC/CPM/CV）<br />
+                ・プレースメントレポートの確認・除外作業<br />
+                ・アセット（画像・テキスト）の評価確認<br />
+                ・オーディエンスのパフォーマンス確認<br />
+                ・入札調整の検討
+              </td>
+              <td><span class="tag tag-orange">高</span></td>
+              <td>20〜30分</td>
+            </tr>
+            <tr>
+              <td class="label">月次<br />（月末〜翌月初）</td>
+              <td class="value">
+                ・月次レポートの作成（クライアントへの報告用）<br />
+                ・月間パフォーマンス総評・改善提案のまとめ<br />
+                ・翌月の入札戦略・予算方針の見直し<br />
+                ・クリエイティブのリフレッシュ検討<br />
+                ・ターゲティング設定の全体見直し
+              </td>
+              <td><span class="tag tag-blue">中</span></td>
+              <td>60〜90分</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card mt-24">
+      <div class="card-header"><span class="icon">✅</span><h3>日次チェックリスト（毎営業日の確認手順）</h3></div>
+      <div class="card-body">
+        <p style="font-size:14px; color:var(--text-secondary); margin-bottom:16px;">毎朝、以下の順番で確認してください。問題があれば即座に上長へ報告しましょう。</p>
+        <ul class="checklist">
+          <li>Google広告管理画面にログインし、対象キャンペーンを開く</li>
+          <li>キャンペーンのステータスが「有効」になっているか確認する</li>
+          <li>前日の費用消化額を確認する（極端に低い・高い場合は要注意）</li>
+          <li>インプレッション数・クリック数が前日比で極端に変化していないか確認する</li>
+          <li>広告ステータスが「審査中」「不承認」になっているものがないか確認する</li>
+          <li>異常があった場合はLINE Worksで上長に報告する</li>
+        </ul>
+        <div class="info-box yellow mt-16">
+          <span class="info-icon">⚠️</span>
+          <p><strong>注意：</strong>前日比でインプレッションが50%以上変動している場合は、何らかの問題が起きている可能性があります。必ず原因を調べましょう。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mt-24">
+      <div class="card-header"><span class="icon">📅</span><h3>週次作業の進め方</h3></div>
+      <div class="card-body">
+        <div class="step-list">
+          <div class="step-item">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>先週1週間のデータを確認する</h4>
+              <p>期間を「先週」に設定し、CTR・CPM・CPC・CVRの数値を確認します。前週比・先月比で傾向を把握しましょう。</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>プレースメントレポートを確認する</h4>
+              <p>「コンテンツ」→「配信先」でプレースメントレポートを開き、不適切なサイト・アプリへの配信がないか確認します。問題のあるサイトは即座に除外します。</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>アセット評価を確認する</h4>
+              <p>レスポンシブディスプレイ広告の各アセット（画像・見出し・説明文）の評価（良好・低品質）を確認します。「低品質」アセットは差し替えを検討します。</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>入札調整の検討</h4>
+              <p>デバイス・時間帯・地域別のデータを確認し、パフォーマンスが低い条件には入札調整（引き下げ）を検討します。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 2. 主要指標の読み方 ─── -->
+  <section id="section-metrics" class="section">
+    <div class="section-header">
+      <div class="section-number">2</div>
+      <div class="section-title-wrap">
+        <h2>主要指標の読み方</h2>
+        <p>CTR・CPM・CPC・CVR・CPA を正確に理解し、数値から課題を見つける力をつけましょう</p>
+      </div>
+    </div>
+
+    <div class="grid-3 mb-24">
+      <div class="metric-card">
+        <div class="metric-label">CTR</div>
+        <div class="metric-name">クリック率</div>
+        <div class="metric-formula">クリック数 ÷ 表示回数 × 100</div>
+        <div class="metric-desc">広告が表示された回数のうち、クリックされた割合。GDNでは0.1〜0.3%が一般的な目安。低いほどクリエイティブの訴求力が弱い可能性あり。</div>
+        <div class="metric-target">社内目安：0.15%以上</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">CPM</div>
+        <div class="metric-name">1,000回表示あたりコスト</div>
+        <div class="metric-formula">費用 ÷ 表示回数 × 1,000</div>
+        <div class="metric-desc">広告を1,000回表示させるのにかかるコスト。認知目的のキャンペーンでは重要な指標。高すぎる場合はターゲティングの絞り込み過ぎを疑う。</div>
+        <div class="metric-target">社内目安：業種・地域によって変動</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">CPC</div>
+        <div class="metric-name">クリック単価</div>
+        <div class="metric-formula">費用 ÷ クリック数</div>
+        <div class="metric-desc">1クリックあたりにかかったコスト。競合の多い業種・地域では高くなりやすい。CTRが高いと品質スコアが上がりCPCが下がる。</div>
+        <div class="metric-target">社内目安：業種・地域によって変動</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">CVR</div>
+        <div class="metric-name">コンバージョン率</div>
+        <div class="metric-formula">CV数 ÷ クリック数 × 100</div>
+        <div class="metric-desc">広告クリックのうちコンバージョン（問い合わせ・予約等）に至った割合。低い場合はランディングページの品質やユーザーとの訴求ミスマッチを疑う。</div>
+        <div class="metric-target">社内目安：1%以上を目標</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">CPA</div>
+        <div class="metric-name">獲得単価</div>
+        <div class="metric-formula">費用 ÷ CV数</div>
+        <div class="metric-desc">コンバージョン1件あたりにかかったコスト。ビジネスの収益に対して許容できるCPAを事前に設定し、それを目標に最適化を行う。</div>
+        <div class="metric-target">社内目安：クライアントと事前合意した値</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">IMP</div>
+        <div class="metric-name">インプレッション数</div>
+        <div class="metric-formula">広告が表示された延べ回数</div>
+        <div class="metric-desc">広告がユーザーの画面に表示された延べ回数。リーチの規模を示す。急激な減少はキャンペーンの問題（審査落ち・予算切れ・ターゲット過絞り）のサインになることが多い。</div>
+        <div class="metric-target">前週比で±30%以内が正常範囲の目安</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><span class="icon">🔍</span><h3>指標が悪化した時のチェックポイント</h3></div>
+      <div class="card-body">
+        <div class="grid-2">
+          <div>
+            <p style="font-size:14px; font-weight:700; color:var(--accent-red); margin-bottom:12px;">CTRが著しく低い（0.05%未満）</p>
+            <ul class="checklist">
+              <li>画像・見出しの訴求力が低い可能性→アセットを刷新する</li>
+              <li>ターゲットとクリエイティブの内容がミスマッチ</li>
+              <li>同一ユーザーへの配信過多→フリークエンシーキャップを確認</li>
+              <li>不適切なプレースメントへの配信が多い→除外設定を確認</li>
+            </ul>
+          </div>
+          <div>
+            <p style="font-size:14px; font-weight:700; color:var(--accent-red); margin-bottom:12px;">CPCが高騰している</p>
+            <ul class="checklist">
+              <li>競合が増加している→入札戦略を目標CPAに切り替える</li>
+              <li>ターゲティングが絞り込まれすぎている→広げてみる</li>
+              <li>入札上限が高すぎる→手動CPCなら上限を下げる</li>
+              <li>品質スコアが低下している→アセット・LPの品質確認</li>
+            </ul>
+          </div>
+          <div>
+            <p style="font-size:14px; font-weight:700; color:var(--accent-red); margin-bottom:12px;">CVRが低い（0.5%未満）</p>
+            <ul class="checklist">
+              <li>LP（ランディングページ）の内容と広告の訴求がずれている</li>
+              <li>LPの読み込みが遅い→PageSpeed Insightsで確認</li>
+              <li>ターゲットとLPの内容が合っていない</li>
+              <li>コンバージョンタグが正しく設置されているか確認</li>
+            </ul>
+          </div>
+          <div>
+            <p style="font-size:14px; font-weight:700; color:var(--accent-red); margin-bottom:12px;">インプレッションが急減した</p>
+            <ul class="checklist">
+              <li>広告が「不承認」になっていないか管理画面で確認</li>
+              <li>日予算が消化し切れていないか確認（予算不足）</li>
+              <li>ターゲティングが自動的に変更されていないか確認</li>
+              <li>季節性・曜日の影響がないか過去データと比較</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 3. クリエイティブ最適化 ─── -->
+  <section id="section-creative" class="section">
+    <div class="section-header">
+      <div class="section-number">3</div>
+      <div class="section-title-wrap">
+        <h2>クリエイティブ最適化</h2>
+        <p>レスポンシブディスプレイ広告のアセットを定期的に評価・改善してパフォーマンスを維持しましょう</p>
+      </div>
+    </div>
+
+    <div class="card mb-24">
+      <div class="card-header"><span class="icon">📊</span><h3>アセット評価の見方（良好・要改善・低品質）</h3></div>
+      <div class="card-body">
+        <p style="font-size:14px; color:var(--text-secondary); margin-bottom:20px;">
+          レスポンシブディスプレイ広告では、各アセット（画像・ロゴ・見出し・説明文）ごとに「アセット評価」が表示されます。<br />
+          確認場所：広告の「編集」→「アセットのパフォーマンス評価」
+        </p>
+        <div class="grid-3">
+          <div class="target-card" style="border-color:#a5d6a7; background:#f1f8f2;">
+            <div class="t-icon">🟢</div>
+            <h4>
+              <span class="asset-badge good">良好</span>
+            </h4>
+            <p style="margin-top:8px;">このアセットは他に比べてパフォーマンスが高い。引き続き維持し、類似する訴求を追加すると効果的。</p>
+          </div>
+          <div class="target-card" style="border-color:#ffe082; background:#fffde7;">
+            <div class="t-icon">🟡</div>
+            <h4>
+              <span class="asset-badge low">低品質</span>
+            </h4>
+            <p style="margin-top:8px;">他のアセットよりパフォーマンスが低い。早急に差し替えを検討すること。放置すると全体のパフォーマンスを引き下げる。</p>
+          </div>
+          <div class="target-card" style="border-color:#ef9a9a; background:#fff5f5;">
+            <div class="t-icon">⚪</div>
+            <h4>
+              <span class="asset-badge poor">評価なし</span>
+            </h4>
+            <p style="margin-top:8px;">まだ十分なデータが溜まっていない状態。通常は2〜4週間ほどで評価が付く。</p>
+          </div>
+        </div>
+        <div class="info-box yellow mt-24">
+          <span class="info-icon">⚠️</span>
+          <p><strong>注意：</strong>アセット評価はあくまで「他のアセットとの相対評価」です。「低品質」であっても絶対的に悪いわけではありませんが、改善の優先順位が高いと判断してください。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mb-24">
+      <div class="card-header"><span class="icon">➕</span><h3>アセット追加・削除のルール</h3></div>
+      <div class="card-body">
+        <div class="grid-2">
+          <div>
+            <p style="font-size:15px; font-weight:700; color:var(--primary-dark); margin-bottom:12px;">追加のタイミングと基準</p>
+            <div class="step-list">
+              <div class="step-item">
+                <div style="font-size:20px; flex-shrink:0;">📅</div>
+                <div class="step-content">
+                  <h4>定期追加（月次）</h4>
+                  <p>月1回、新しい画像や訴求バリエーションを追加してテストします。シーズナルな訴求（季節感・キャンペーン）も積極的に追加しましょう。</p>
+                </div>
+              </div>
+              <div class="step-item">
+                <div style="font-size:20px; flex-shrink:0;">📉</div>
+                <div class="step-content">
+                  <h4>緊急追加（要改善発生時）</h4>
+                  <p>CTRが急落した場合や「低品質」アセットが多くなった場合は、即時に新しいアセットを追加してテストします。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <p style="font-size:15px; font-weight:700; color:var(--accent-red); margin-bottom:12px;">削除の基準</p>
+            <div class="info-box red">
+              <span class="info-icon">🚫</span>
+              <div>
+                <p><strong>以下の条件を満たすアセットは削除を検討します：</strong></p>
+                <ul style="padding-left:18px; margin-top:8px; font-size:13px; color:inherit;">
+                  <li>「低品質」評価が2週間以上続いている</li>
+                  <li>差し替え後の新アセットの方が明らかにパフォーマンスが高い</li>
+                  <li>シーズンが過ぎたキャンペーン訴求や古い情報が入っている</li>
+                </ul>
+              </div>
+            </div>
+            <div class="info-box blue mt-16">
+              <span class="info-icon">💡</span>
+              <p>アセットは最低でも「画像3枚・見出し3つ・説明文2つ」を維持してください。少なすぎるとGoogleが最適な組み合わせをテストできなくなります。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><span class="icon">📐</span><h3>推奨画像サイズの種類と使い分け</h3></div>
+      <div class="card-body">
+        <table class="setting-table">
+          <thead>
+            <tr>
+              <th>用途</th>
+              <th>サイズ（px）</th>
+              <th>アスペクト比</th>
+              <th>使い分けのポイント</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="label">メイン画像（横長）</td>
+              <td class="value">1200 × 628</td>
+              <td>1.91:1</td>
+              <td class="value">最重要。PCブラウザのバナー枠に多く使われる。必ず用意する。</td>
+            </tr>
+            <tr>
+              <td class="label">メイン画像（正方形）</td>
+              <td class="value">1200 × 1200</td>
+              <td>1:1</td>
+              <td class="value">スマートフォンの正方形枠に表示される。横長と並んで必須。</td>
+            </tr>
+            <tr>
+              <td class="label">ロゴ（正方形）</td>
+              <td class="value">1200 × 1200</td>
+              <td>1:1</td>
+              <td class="value">広告の一部にブランドロゴとして表示される。背景は白か透過推奨。</td>
+            </tr>
+            <tr>
+              <td class="label">ロゴ（横長）</td>
+              <td class="value">1200 × 300</td>
+              <td>4:1</td>
+              <td class="value">横長バナーへロゴを表示する際に使用。横型ロゴがある場合に追加。</td>
+            </tr>
+            <tr>
+              <td class="label">縦長画像</td>
+              <td class="value">480 × 600</td>
+              <td>4:5</td>
+              <td class="value">一部のモバイル枠に使用。縦長コンテンツが多い配信先に効果的。</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="info-box green mt-16">
+          <span class="info-icon">✅</span>
+          <p><strong>最低限用意するサイズ：</strong>1200×628（横長）と1200×1200（正方形）の2種類。これだけで主要な配信面の大半をカバーできます。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 4. ターゲティング調整 ─── -->
+  <section id="section-targeting" class="section">
+    <div class="section-header">
+      <div class="section-number">4</div>
+      <div class="section-title-wrap">
+        <h2>ターゲティング調整</h2>
+        <p>オーディエンスの確認・追加、不適切な配信先の除外、入札調整を組み合わせて効率を高めます</p>
+      </div>
+    </div>
+
+    <div class="card mb-24">
+      <div class="card-header"><span class="icon">👥</span><h3>オーディエンスの確認と追加手順</h3></div>
+      <div class="card-body">
+        <p style="font-size:14px; color:var(--text-secondary); margin-bottom:16px;">
+          オーディエンスには「リマーケティング」と「類似オーディエンス（カスタムオーディエンス）」の2種類があります。定期的に確認して追加・除外を行いましょう。
+        </p>
+        <div class="grid-2">
+          <div>
+            <p style="font-size:15px; font-weight:700; color:var(--primary-dark); margin-bottom:12px;">リマーケティングオーディエンスの確認</p>
+            <div class="step-list">
+              <div class="step-item">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                  <h4>オーディエンスのパフォーマンスを確認</h4>
+                  <p>広告グループ → オーディエンス で各オーディエンスのCTR・CPC・CV数を確認します。</p>
+                </div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                  <h4>コンバージョンが多いオーディエンスを優先</h4>
+                  <p>CV数が多いオーディエンスには入札を引き上げ（+20〜50%）、CVがほぼゼロのオーディエンスは一時停止を検討します。</p>
+                </div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                  <h4>新規リマーケティングリストの追加</h4>
+                  <p>HPへの訪問者数が増えてきたら、特定ページ訪問者リスト（例：料金ページ閲覧者）を追加してピンポイントな配信に役立てます。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <p style="font-size:15px; font-weight:700; color:var(--primary-dark); margin-bottom:12px;">類似オーディエンス（カスタムオーディエンス）の追加</p>
+            <div class="step-list">
+              <div class="step-item">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                  <h4>Google広告管理画面でオーディエンスマネージャーを開く</h4>
+                  <p>ツールと設定 → オーディエンスマネージャー → カスタムオーディエンスを作成</p>
+                </div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                  <h4>興味・関心や検索キーワードを入力</h4>
+                  <p>業種に関連するキーワード（例：「ハウスクリーニング 依頼」「エアコン洗浄」）を入力し、そのキーワードをGoogleで検索したユーザーをターゲットにします。</p>
+                </div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                  <h4>広告グループに追加する</h4>
+                  <p>作成したカスタムオーディエンスを対象の広告グループに追加します。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mb-24">
+      <div class="card-header"><span class="icon">🚫</span><h3>プレースメント除外の方法（不適切な配信先の除外）</h3></div>
+      <div class="card-body">
+        <p style="font-size:14px; color:var(--text-secondary); margin-bottom:16px;">GDNは自動でさまざまなウェブサイト・アプリに広告を配信します。定期的に配信先をチェックし、不適切なサイトへの無駄な費用を削減しましょう。</p>
+        <div class="step-list mb-16">
+          <div class="step-item">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>プレースメントレポートを確認する</h4>
+              <p>管理画面 → コンテンツ → 配信先 でプレースメントレポートを開きます。費用が多い順に並べて確認しましょう。</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>除外すべきサイト・アプリを特定する</h4>
+              <p>以下に該当するものは除外対象です：</p>
+              <ul>
+                <li>子ども向けゲームアプリ（クリック品質が著しく低い）</li>
+                <li>業種と全く関係のないサイト（費用対効果が低い）</li>
+                <li>コンバージョンが0で費用だけかかっているサイト</li>
+                <li>クリック率は高いがCVがゼロのサイト（誤クリックの疑い）</li>
+              </ul>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>プレースメント除外を設定する</h4>
+              <p>コンテンツ → プレースメントの除外 で除外したいサイトURLやアプリIDを追加します。キャンペーン全体か広告グループ単位かを選べます。</p>
+            </div>
+          </div>
+        </div>
+        <div class="info-box blue">
+          <span class="info-icon">💡</span>
+          <p><strong>頻出の除外対象：</strong>「mobileapps.google.com」（モバイルゲームアプリ全般）をキャンペーン除外に追加しておくだけで、誤クリックが大幅に減ることがあります。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><span class="icon">⚖️</span><h3>デバイス・地域・時間帯の入札調整</h3></div>
+      <div class="card-body">
+        <table class="setting-table mb-16">
+          <thead>
+            <tr>
+              <th>調整対象</th>
+              <th>確認場所</th>
+              <th>調整の考え方</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="label">デバイス</td>
+              <td class="value">キャンペーン → デバイス</td>
+              <td class="value">スマートフォンのCVRが著しく低い場合は入札を引き下げ（−20%など）。PCの方がCVが多い業種では+調整も有効。</td>
+            </tr>
+            <tr>
+              <td class="label">地域</td>
+              <td class="value">キャンペーン → 地域</td>
+              <td class="value">店舗に近いエリアほどCVが多い傾向あり。半径設定を使っている場合でも、区市町村単位のデータを確認してみる。</td>
+            </tr>
+            <tr>
+              <td class="label">時間帯</td>
+              <td class="value">キャンペーン → 広告スケジュール</td>
+              <td class="value">深夜（0〜6時）はCVが極端に少ない場合が多い。−100%（配信停止）にして予算を効率的に使う。昼休み・夜間（19〜22時）はCVが多い傾向あり。</td>
+            </tr>
+            <tr>
+              <td class="label">曜日</td>
+              <td class="value">キャンペーン → 広告スケジュール</td>
+              <td class="value">業種によって平日/休日のCVパターンが異なる。過去1ヶ月のデータで曜日別CVを確認して調整。</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="info-box yellow">
+          <span class="info-icon">⚠️</span>
+          <p>入札調整は一度に大きく変えすぎないようにしましょう。1回の調整幅は±20%を目安に、1週間様子を見てから次の調整を行うのが基本です。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 5. 予算・入札管理 ─── -->
+  <section id="section-budget" class="section">
+    <div class="section-header">
+      <div class="section-number">5</div>
+      <div class="section-title-wrap">
+        <h2>予算・入札管理</h2>
+        <p>日予算の適切な管理と入札戦略の選択が、広告コストの効率化につながります</p>
+      </div>
+    </div>
+
+    <div class="card mb-24">
+      <div class="card-header"><span class="icon">💰</span><h3>日予算の確認と変更タイミング</h3></div>
+      <div class="card-body">
+        <p style="font-size:14px; color:var(--text-secondary); margin-bottom:20px;">日予算は「1日に使う上限金額」です。Googleは月間で見ると日予算の最大2倍まで使う日がありますが、月間合計は日予算×30.4日を超えません。</p>
+        <div class="grid-2">
+          <div>
+            <p style="font-size:15px; font-weight:700; color:var(--primary-dark); margin-bottom:12px;">日予算を確認するタイミング</p>
+            <ul class="checklist">
+              <li>毎日の日次チェックで前日の消化額を確認する</li>
+              <li>月半ば（15日前後）に月間ペースを確認する</li>
+              <li>月末に翌月の予算方針を考える</li>
+            </ul>
+          </div>
+          <div>
+            <p style="font-size:15px; font-weight:700; color:var(--accent-red); margin-bottom:12px;">予算変更時の社内ルール</p>
+            <div class="info-box red">
+              <span class="info-icon">🚨</span>
+              <div>
+                <p><strong>予算変更は必ず上長承認を取ること。</strong></p>
+                <ul style="padding-left:18px; margin-top:8px; font-size:13px; color:inherit;">
+                  <li>増額は「3〜4ヶ月に1度」「1ヶ月限定」が原則</li>
+                  <li>独断での予算変更は厳禁</li>
+                  <li>変更した場合はLINE Worksで担当者に報告する</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mb-24">
+      <div class="card-header"><span class="icon">🎯</span><h3>入札戦略の選び方（目標CPA・拡張CPC）</h3></div>
+      <div class="card-body">
+        <table class="setting-table mb-16">
+          <thead>
+            <tr>
+              <th>入札戦略</th>
+              <th>特徴</th>
+              <th>使い所</th>
+              <th>注意点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="label">手動CPC</td>
+              <td class="value">自分でクリック単価の上限を設定する</td>
+              <td class="value">配信開始直後・データが少ない時期</td>
+              <td class="value">都度調整が必要で手間がかかる</td>
+            </tr>
+            <tr>
+              <td class="label">拡張CPC（eCPC）</td>
+              <td class="value">手動CPCをベースにGoogleがCV確率の高い場合のみ自動引き上げ</td>
+              <td class="value">手動CPCの次のステップ。CV数が週5件以上たまり始めたら</td>
+              <td class="value">入札が想定より高くなる場合があるので上限を設ける</td>
+            </tr>
+            <tr>
+              <td class="label">目標CPA</td>
+              <td class="value">設定した目標CPAに向けてGoogleが自動入札する</td>
+              <td class="value">CV数が月30件以上安定して取れている状態から有効</td>
+              <td class="value">CV数が少ないと学習期間が長くなり不安定になりやすい</td>
+            </tr>
+            <tr>
+              <td class="label">目標インプレッションシェア</td>
+              <td class="value">指定した掲載率（%）を維持するよう入札する</td>
+              <td class="value">ブランド認知優先のキャンペーン</td>
+              <td class="value">CV最適化には向かない。使うシーンを選ぶ</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="info-box blue">
+          <span class="info-icon">💡</span>
+          <p><strong>入札戦略の移行目安：</strong>手動CPC → 拡張CPC（週5CV以上） → 目標CPA（月30CV以上）の順に段階的に移行するのがセオリーです。データが少ない状態で目標CPAにするとGoogleの学習が安定せず、かえって費用効率が悪くなることがあります。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><span class="icon">⚡</span><h3>予算消化率100%超えた場合の対処</h3></div>
+      <div class="card-body">
+        <p style="font-size:14px; color:var(--text-secondary); margin-bottom:16px;">
+          「予算消化率100%」とは、設定した日予算を毎日使い切っている状態です。これはパフォーマンスが好調な兆候でもありますが、適切に対処しないと機会損失が続きます。
+        </p>
+        <div class="step-list">
+          <div class="step-item">
+            <div style="font-size:20px; flex-shrink:0;">📊</div>
+            <div class="step-content">
+              <h4>まずパフォーマンスを確認する</h4>
+              <p>CPAが目標値以内であれば、予算を増やすことを検討できます。CPAが悪化しているなら、まず入札調整・除外設定を優先します。</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div style="font-size:20px; flex-shrink:0;">🔍</div>
+            <div class="step-content">
+              <h4>無駄な配信先を除外する</h4>
+              <p>予算消化が速い場合は、不適切なプレースメントに費用が流れている可能性があります。プレースメントレポートを確認し、CVゼロで費用だけかかっているサイトを除外します。</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div style="font-size:20px; flex-shrink:0;">🗣️</div>
+            <div class="step-content">
+              <h4>上長に報告してから増額を判断する</h4>
+              <p>独断で予算を増やさず、パフォーマンスデータを添えて上長に報告してから増額の判断を仰ぎましょう。社内ルール（3〜4ヶ月に1度・1ヶ月限定）を必ず守ること。</p>
+            </div>
+          </div>
+        </div>
+        <div class="info-box green mt-16">
+          <span class="info-icon">✅</span>
+          <p><strong>配信タイミングの分散も有効：</strong>「広告スケジュール」で深夜帯の配信をオフにするだけで、日中・夜間の効果的な時間帯に予算を集中させることができます。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 6. レポート作成 ─── -->
+  <section id="section-report" class="section">
+    <div class="section-header">
+      <div class="section-number">6</div>
+      <div class="section-title-wrap">
+        <h2>レポート作成</h2>
+        <p>月次レポートはオーナー（クライアント）との信頼関係を築く重要なコミュニケーションです</p>
+      </div>
+    </div>
+
+    <div class="card mb-24">
+      <div class="card-header"><span class="icon">📋</span><h3>月次レポートに含める指標一覧</h3></div>
+      <div class="card-body">
+        <table class="setting-table mb-16">
+          <thead>
+            <tr>
+              <th>カテゴリ</th>
+              <th>指標名</th>
+              <th>報告のポイント</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="label" rowspan="4">配信パフォーマンス</td>
+              <td class="value">インプレッション数</td>
+              <td class="value">広告がどれだけ見られたかの規模感を伝える</td>
+            </tr>
+            <tr>
+              <td class="value">クリック数</td>
+              <td class="value">HP・LPへの流入数として報告</td>
+            </tr>
+            <tr>
+              <td class="value">CTR（クリック率）</td>
+              <td class="value">業界平均と比較してコメントを添える</td>
+            </tr>
+            <tr>
+              <td class="value">平均CPC</td>
+              <td class="value">前月比・前々月比で傾向を示す</td>
+            </tr>
+            <tr>
+              <td class="label" rowspan="3">費用・効果</td>
+              <td class="value">合計費用（消化額）</td>
+              <td class="value">月予算に対する消化率を%で示す</td>
+            </tr>
+            <tr>
+              <td class="value">コンバージョン数（CV数）</td>
+              <td class="value">問い合わせ・予約等の件数として報告</td>
+            </tr>
+            <tr>
+              <td class="value">CPA（獲得単価）</td>
+              <td class="value">目標CPAに対する達成状況をコメント</td>
+            </tr>
+            <tr>
+              <td class="label" rowspan="2">クリエイティブ</td>
+              <td class="value">上位クリエイティブ（画像・テキスト）</td>
+              <td class="value">パフォーマンスが高かったアセットを紹介</td>
+            </tr>
+            <tr>
+              <td class="value">アセット評価の変化</td>
+              <td class="value">追加・削除したアセットとその理由を説明</td>
+            </tr>
+            <tr>
+              <td class="label" rowspan="2">改善施策</td>
+              <td class="value">今月実施した最適化内容</td>
+              <td class="value">プレースメント除外・入札調整・アセット変更など</td>
+            </tr>
+            <tr>
+              <td class="value">来月の方針・提案</td>
+              <td class="value">次月に実施する施策を具体的に記載</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="info-box blue">
+          <span class="info-icon">💡</span>
+          <p>数値だけでなく「なぜその結果になったのか」「次にどうするのか」のコメントを必ず添えましょう。数値の羅列だけではオーナーに意図が伝わりません。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><span class="icon">✉️</span><h3>オーナー報告の例文テンプレート</h3></div>
+      <div class="card-body">
+        <p style="font-size:14px; color:var(--text-secondary); margin-bottom:20px;">
+          月次報告メールの本文例です。良好時・不調時のどちらにも対応できるよう、2パターン用意しています。数値部分は実績値に差し替えて使用してください。
+        </p>
+
+        <p style="font-size:15px; font-weight:700; color:var(--accent-green); margin-bottom:12px;">パターン①：好調時</p>
+        <div class="template-box mb-24">
+          <div class="tmpl-label">メール例文（好調時）</div>
+          ○○様<br /><br />
+          いつもお世話になっております。ランバードの○○でございます。<br />
+          先月（○月）のディスプレイ広告の運用レポートをお送りいたします。<br /><br />
+          【○月 運用サマリー】<br />
+          ・インプレッション数：○○○,○○○回（前月比 +△△%）<br />
+          ・クリック数：○○○件（前月比 +△△%）<br />
+          ・コンバージョン数：○○件<br />
+          ・獲得単価（CPA）：○,○○○円<br /><br />
+          先月は新しい画像クリエイティブへの切り替えが奏功し、CTRが前月比○%改善しました。
+          また、スマートフォン向けの入札調整（+○%）によりモバイルからのCV数が増加しています。<br /><br />
+          来月は引き続き好調なアセットを活かしながら、季節訴求のバナーを追加してさらなるリーチ拡大を狙います。<br /><br />
+          ご不明な点がございましたら、お気軽にお声がけください。<br />
+          今後ともよろしくお願いいたします。
+        </div>
+
+        <p style="font-size:15px; font-weight:700; color:var(--accent-red); margin-bottom:12px;">パターン②：不調時・改善提案あり</p>
+        <div class="template-box">
+          <div class="tmpl-label">メール例文（不調時・改善提案あり）</div>
+          ○○様<br /><br />
+          いつもお世話になっております。ランバードの○○でございます。<br />
+          先月（○月）のディスプレイ広告の運用レポートをお送りいたします。<br /><br />
+          【○月 運用サマリー】<br />
+          ・インプレッション数：○○○,○○○回（前月比 −△△%）<br />
+          ・クリック数：○○○件（前月比 −△△%）<br />
+          ・コンバージョン数：○○件<br />
+          ・獲得単価（CPA）：○○,○○○円<br /><br />
+          先月はCTRが前月比○%低下し、獲得単価が目標値を上回る結果となりました。
+          主な原因として、同業他社の広告出稿増加による競合上昇と、現行クリエイティブのマンネリ化（同一ユーザーへの過剰配信）が考えられます。<br /><br />
+          【対策として今月実施する施策】<br />
+          ① 新しい訴求アングルの画像バナーを3パターン追加<br />
+          ② フリークエンシーキャップを週3回表示上限に調整<br />
+          ③ CVゼロのプレースメント○○サイトを除外設定<br /><br />
+          ご確認・ご了承いただけますと幸いです。引き続きよろしくお願いいたします。
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 7. よくあるトラブル ─── -->
+  <section id="section-trouble" class="section">
+    <div class="section-header">
+      <div class="section-number">7</div>
+      <div class="section-title-wrap">
+        <h2>よくあるトラブルと対処法</h2>
+        <p>配信停止・CTR低下・CV計測不具合など、運用中によく起きる問題を素早く解決しましょう</p>
+      </div>
+    </div>
+
+    <!-- トラブル1 -->
+    <div class="trouble-item">
+      <div class="trouble-icon">📵</div>
+      <div class="trouble-content">
+        <h4>広告が配信されない（インプレッション数がゼロまたは極端に少ない）</h4>
+        <p>複数の原因が考えられます。以下のチェックリストを上から順番に確認してください。</p>
+        <ul class="solution-list">
+          <li>キャンペーン・広告グループ・広告のステータスが「有効」になっているか確認する</li>
+          <li>広告の審査状況を確認する（「審査中」「不承認」になっていないか）</li>
+          <li>配信開始日が正しく設定されているか（未来日になっていないか）確認する</li>
+          <li>日予算が設定されているか確認する（0円になっていないか）</li>
+          <li>ターゲティングが絞り込みすぎていないかリーチ予測で確認する</li>
+          <li>支払い情報にエラーがないか確認する（クレジットカードの期限切れなど）</li>
+          <li>上記すべて問題なければ、入札額が低すぎてオークションで勝てていない可能性→CPCを引き上げる</li>
+        </ul>
+        <div class="info-box yellow" style="margin-top:12px;">
+          <span class="info-icon">⚠️</span>
+          <p>配信開始直後（1〜2日）はGoogleの学習期間で配信量が少ないことがあります。新規キャンペーンは3〜5日様子を見てから判断しましょう。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- トラブル2 -->
+    <div class="trouble-item">
+      <div class="trouble-icon">📉</div>
+      <div class="trouble-content">
+        <h4>CTRが著しく低い（0.05%未満が続いている）</h4>
+        <p>CTRの低下は「クリエイティブの訴求力不足」「ターゲットとクリエイティブのミスマッチ」「配信先の品質」が主な原因です。</p>
+        <ul class="solution-list">
+          <li>アセット評価を確認し「低品質」のアセットを差し替える</li>
+          <li>画像のビジュアルに問題がないか確認する（文字が多すぎる・画質が悪いなど）</li>
+          <li>見出し・説明文の訴求が弱い場合は「具体的な数字・ベネフィット」を入れた文言に変更する</li>
+          <li>プレースメントレポートを確認し、子ども向けゲームアプリなど不適切な配信先を除外する</li>
+          <li>フリークエンシーキャップを確認し、同一ユーザーへの過剰配信を制限する</li>
+          <li>ターゲットオーディエンスを見直し、広告内容との整合性を確認する</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- トラブル3 -->
+    <div class="trouble-item">
+      <div class="trouble-icon">📊</div>
+      <div class="trouble-content">
+        <h4>コンバージョンが計測されない（CV数が突然ゼロになった）</h4>
+        <p>CVが急にゼロになった場合は、コンバージョンタグの問題が疑われます。焦らず以下の手順で確認しましょう。</p>
+        <ul class="solution-list">
+          <li>Google広告管理画面 → ツールと設定 → コンバージョン でコンバージョンアクションの「ステータス」を確認する（「有効」になっているか）</li>
+          <li>Google Tag Assistantを使って計測ページでタグが発火しているか確認する</li>
+          <li>計測対象のページ（サンクスページ・問い合わせ完了ページなど）のURLが変更されていないか確認する</li>
+          <li>HPのリニューアルやシステム変更でタグが消えていないかサイト管理者に確認する</li>
+          <li>Googleアナリティクスとのリンクが切れていないか確認する</li>
+          <li>上記で解決しない場合は上長またはエンジニアに相談する</li>
+        </ul>
+        <div class="info-box red" style="margin-top:12px;">
+          <span class="info-icon">🚨</span>
+          <p><strong>重要：</strong>CV計測ができていない状態では正しいパフォーマンス評価ができません。発見次第、最優先で対処してください。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- トラブル4 -->
+    <div class="trouble-item">
+      <div class="trouble-icon">💸</div>
+      <div class="trouble-content">
+        <h4>予算の消化が早すぎる（午前中に予算を使い切ってしまう）</h4>
+        <p>予算を消化しきれるのは好調なサインですが、時間帯によっては効果の低い時間に費用が集中してしまっている可能性があります。</p>
+        <ul class="solution-list">
+          <li>時間帯別レポートを確認し、CVが少ない時間帯（深夜・早朝）への配信を停止・絞り込む</li>
+          <li>プレースメントレポートを確認し、CVゼロのサイトへの無駄な費用を削減する</li>
+          <li>デバイス別レポートを確認し、CVが少ないデバイスへの入札を引き下げる（−30%〜−50%）</li>
+          <li>上記を実施してもなお消化が早い場合は、上長に相談して予算増額を検討する</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="info-box green mt-24">
+      <span class="info-icon">✅</span>
+      <p><strong>トラブル対応の基本姿勢：</strong>問題が起きたら①確認 → ②原因特定 → ③対処 → ④報告の4ステップを踏みましょう。一人で解決しようとせず、不明な点は早めに上長に相談することが大切です。</p>
+    </div>
+  </section>
+
+  <!-- ─── SUMMARY ─── -->
+  <div class="summary-box">
+    <h2>運用サイクルをしっかり回そう</h2>
+    <p>ディスプレイ広告は「入稿して終わり」ではありません。日次・週次・月次のサイクルを守ることが、安定したパフォーマンスと顧客満足に直結します。</p>
+    <div class="flow-steps">
+      <div class="flow-step">🗓️ 日次チェック</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">📊 週次最適化</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">📝 月次レポート</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">🔄 翌月の戦略立案</div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  ディスプレイ広告 運用マニュアル &copy; 2025 | 社内研修用・社外秘
+</footer>
+
+<script>
+  // スクロール連動でNAVのアクティブハイライトを切り替え
+  (function () {
+    var navItems = document.querySelectorAll('.nav-item');
+    var sections = [];
+
+    navItems.forEach(function (item) {
+      var href = item.getAttribute('href');
+      if (href && href.startsWith('#')) {
+        var el = document.getElementById(href.slice(1));
+        if (el) sections.push({ nav: item, el: el });
+      }
+    });
+
+    function onScroll() {
+      var scrollY = window.scrollY || window.pageYOffset;
+      var offset = 120; // sticky nav + page tabs の高さ分のオフセット
+      var current = null;
+
+      sections.forEach(function (s) {
+        if (s.el.offsetTop - offset <= scrollY) {
+          current = s;
+        }
+      });
+
+      navItems.forEach(function (item) {
+        item.classList.remove('active');
+      });
+
+      if (current) {
+        current.nav.classList.add('active');
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll(); // 初期表示時にも実行
+  })();
+</script>
+</body>
+</html>

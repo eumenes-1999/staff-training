@@ -1018,6 +1018,11 @@
       .flow-arrow { transform: rotate(90deg); }
       .summary-box { padding: 28px 20px; }
     }
+    .page-tabs { display:flex; gap:4px; background:#fff; border-bottom:2px solid #e0e0e0; padding:0 24px; overflow-x:auto; scrollbar-width:none; }
+    .page-tabs::-webkit-scrollbar { display:none; }
+    .page-tab { padding:12px 18px; font-size:13px; font-weight:600; color:#5f6368; text-decoration:none; white-space:nowrap; border-bottom:3px solid transparent; margin-bottom:-2px; transition:all 0.2s; }
+    .page-tab:hover { color:#c62828; border-bottom-color:#c62828; }
+    .page-tab.active { color:#c62828; border-bottom-color:#c62828; }
   </style>
 </head>
 <body>
@@ -1038,6 +1043,15 @@
     <div class="hero-meta-item"><div class="icon">🎯</div>目標：一人でキャンペーン作成ができる</div>
   </div>
 </header>
+
+<!-- ─── PAGE TABS ─── -->
+<div class="page-tabs">
+  <a href="google-ads.html" class="page-tab active">📋 Google広告 入稿</a>
+  <a href="display-ads.html" class="page-tab">🖼️ ディスプレイ 入稿</a>
+  <a href="display-ads-operation.html" class="page-tab">📊 ディスプレイ 運用</a>
+  <a href="listing-ads.html" class="page-tab">🔍 リスティング 入稿</a>
+  <a href="listing-ads-operation.html" class="page-tab">📈 リスティング 運用</a>
+</div>
 
 <!-- ─── NAVIGATION ─── -->
 <nav class="nav-wrapper" aria-label="セクションナビゲーション">
