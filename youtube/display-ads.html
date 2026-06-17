@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>【新人研修】Google広告 ディスプレイ広告 入稿マニュアル</title>
+    <meta name="description" content="新人向けGoogleディスプレイ広告（GDN）入稿マニュアル。キャンペーン設定からターゲティング・レスポンシブディスプレイ広告の作成まで網羅。" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --google-blue: #4285F4;
+        --google-red: #EA4335;
+        --google-yellow: #FBBC05;
+        --google-green: #34A853;
+        --primary: #e65100;
+        --primary-dark: #bf360c;
+        --primary-light: #fbe9e7;
+        --surface: #ffffff;
+        --surface-2: #f8f9fa;
+        --surface-3: #f1f3f4;
+        --text-primary: #202124;
+        --text-secondary: #5f6368;
+        --text-tertiary: #80868b;
+        --border: #e0e0e0;
+        --shadow-sm: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.08);
+        --shadow-md: 0 4px 12px rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.06);
+        --shadow-lg: 0 8px 24px rgba(0,0,0,0.12), 0 4px 8px rgba(0,0,0,0.08);
+        --radius-sm: 8px;
+        --radius-md: 12px;
+        --radius-lg: 16px;
+        --radius-xl: 24px;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body { font-family: 'Noto Sans JP', sans-serif; background: #fff3e0; color: var(--text-primary); line-height: 1.7; font-size: 15px; }
+
+      /* ─── HERO ─── */
+      .hero {
+        background: linear-gradient(135deg, #bf360c 0%, #e64a19 40%, #ff5722 70%, #ff8a65 100%);
+        padding: 80px 24px 100px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero::before { content: ''; position: absolute; top: -50%; left: -20%; width: 60%; height: 200%; background: rgba(255,255,255,0.04); border-radius: 50%; animation: float1 8s ease-in-out infinite; }
+      .hero::after { content: ''; position: absolute; bottom: -30%; right: -10%; width: 50%; height: 150%; background: rgba(255,255,255,0.05); border-radius: 50%; animation: float2 10s ease-in-out infinite; }
+      @keyframes float1 { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-30px) rotate(5deg); } }
+      @keyframes float2 { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(20px) rotate(-5deg); } }
+
+      .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); color: #fff; font-size: 13px; font-weight: 500; padding: 6px 16px; border-radius: 100px; margin-bottom: 24px; backdrop-filter: blur(10px); position: relative; z-index: 1; }
+      .hero-badge::before { content: '🖼️'; font-size: 14px; }
+      .hero h1 { font-size: clamp(28px, 5vw, 52px); font-weight: 900; color: #fff; letter-spacing: -0.5px; margin-bottom: 16px; position: relative; z-index: 1; text-shadow: 0 2px 20px rgba(0,0,0,0.2); }
+      .hero h1 span { background: linear-gradient(90deg, #FBBC05, #ffcc02); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+      .hero-sub { font-size: clamp(14px, 2vw, 18px); color: rgba(255,255,255,0.85); max-width: 600px; margin: 0 auto 32px; position: relative; z-index: 1; }
+      .hero-meta { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; position: relative; z-index: 1; }
+      .hero-meta-item { display: flex; align-items: center; gap: 8px; color: rgba(255,255,255,0.8); font-size: 14px; font-weight: 500; }
+      .hero-meta-item .icon { width: 32px; height: 32px; background: rgba(255,255,255,0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+
+      /* ─── NAV ─── */
+      .nav-wrapper { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.95); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); box-shadow: var(--shadow-sm); }
+      .nav-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; gap: 6px; overflow-x: auto; scrollbar-width: none; }
+      .nav-inner::-webkit-scrollbar { display: none; }
+      .nav-item { display: flex; align-items: center; gap: 6px; padding: 14px 16px; font-size: 13px; font-weight: 600; color: var(--text-secondary); text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 0.2s ease; }
+      .nav-item:hover, .nav-item.active { color: var(--primary); border-bottom-color: var(--primary); }
+
+      /* ─── MAIN ─── */
+      .main { max-width: 1100px; margin: 0 auto; padding: 48px 24px 80px; }
+
+      /* ─── SECTION ─── */
+      .section { margin-bottom: 64px; animation: fadeUp 0.5s ease both; }
+      @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+      .section-header { display: flex; align-items: center; gap: 16px; margin-bottom: 28px; padding-bottom: 20px; border-bottom: 2px solid var(--border); }
+      .section-number { width: 44px; height: 44px; background: linear-gradient(135deg, #bf360c, #ff5722); color: white; font-size: 18px; font-weight: 700; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 4px 12px rgba(230,74,25,0.4); }
+      .section-title-wrap h2 { font-size: 22px; font-weight: 700; color: var(--text-primary); }
+      .section-title-wrap p { font-size: 13px; color: var(--text-secondary); margin-top: 2px; }
+
+      /* ─── CARD ─── */
+      .card { background: var(--surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--border); overflow: hidden; }
+      .card-header { background: linear-gradient(135deg, #fbe9e7, #ffccbc); padding: 16px 24px; border-bottom: 1px solid #ffab91; display: flex; align-items: center; gap: 12px; }
+      .card-header .icon { font-size: 20px; }
+      .card-header h3 { font-size: 16px; font-weight: 700; color: #bf360c; }
+      .card-body { padding: 24px; }
+
+      /* ─── GRID ─── */
+      .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+      .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+
+      /* ─── HIERARCHY ─── */
+      .hierarchy { display: flex; flex-direction: column; gap: 0; margin: 8px 0; }
+      .hierarchy-box { flex: 1; border-radius: var(--radius-sm); padding: 14px 20px; margin: 4px 0; }
+      .h-lv1 { background: linear-gradient(135deg, #e8f0fe, #d2e3fc); border-left: 4px solid var(--google-blue); }
+      .h-lv2 { background: linear-gradient(135deg, #e6f4ea, #ceead6); border-left: 4px solid var(--google-green); margin-left: 24px; }
+      .h-lv3 { background: linear-gradient(135deg, #fef7e0, #fde68a); border-left: 4px solid var(--google-yellow); margin-left: 48px; }
+      .h-lv4 { background: linear-gradient(135deg, #fce8e6, #f8c8c5); border-left: 4px solid var(--google-red); margin-left: 72px; }
+      .hierarchy-box .level-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; opacity: 0.6; margin-bottom: 4px; }
+      .hierarchy-box h4 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+      .hierarchy-box p { font-size: 13px; color: var(--text-secondary); }
+
+      /* ─── STEP LIST ─── */
+      .step-list { display: flex; flex-direction: column; gap: 16px; }
+      .step-item { display: flex; gap: 16px; align-items: flex-start; padding: 16px 20px; background: var(--surface-2); border-radius: var(--radius-md); border: 1px solid var(--border); transition: all 0.2s ease; }
+      .step-item:hover { border-color: #ffab91; box-shadow: var(--shadow-sm); background: #fbe9e7; transform: translateX(4px); }
+      .step-num { width: 32px; height: 32px; background: linear-gradient(135deg, #bf360c, #ff5722); color: white; font-size: 14px; font-weight: 700; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 2px 8px rgba(230,74,25,0.35); }
+      .step-content h4 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+      .step-content p, .step-content ul { font-size: 14px; color: var(--text-secondary); }
+      .step-content ul { padding-left: 18px; margin-top: 6px; }
+      .step-content ul li { margin-bottom: 3px; }
+
+      /* ─── INFO BOX ─── */
+      .info-box { border-radius: var(--radius-md); padding: 16px 20px; display: flex; gap: 12px; align-items: flex-start; margin: 16px 0; font-size: 14px; }
+      .info-box.blue { background: #e8f0fe; border-left: 4px solid var(--google-blue); color: #1a237e; }
+      .info-box.green { background: #e6f4ea; border-left: 4px solid var(--google-green); color: #1b5e20; }
+      .info-box.yellow { background: #fff8e1; border-left: 4px solid var(--google-yellow); color: #6d4c00; }
+      .info-box.red { background: #fce8e6; border-left: 4px solid var(--google-red); color: #7f0000; }
+      .info-box.orange { background: #fbe9e7; border-left: 4px solid #ff5722; color: #bf360c; }
+      .info-box .info-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+
+      /* ─── TABLE ─── */
+      .setting-table { width: 100%; border-collapse: collapse; font-size: 14px; border-radius: var(--radius-md); overflow: hidden; }
+      .setting-table th { background: linear-gradient(135deg, #bf360c, #ff5722); color: white; padding: 12px 16px; text-align: left; font-weight: 600; font-size: 13px; }
+      .setting-table td { padding: 12px 16px; border-bottom: 1px solid var(--border); vertical-align: top; }
+      .setting-table tr:nth-child(even) td { background: var(--surface-2); }
+      .setting-table tr:hover td { background: #fbe9e7; }
+      .setting-table .label { font-weight: 600; color: var(--text-primary); white-space: nowrap; }
+      .setting-table .value { color: var(--text-secondary); }
+      .setting-table .example { font-size: 13px; color: #bf360c; font-style: italic; }
+
+      /* ─── TAG ─── */
+      .tag { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 100px; font-size: 12px; font-weight: 600; }
+      .tag-blue { background: #e8f0fe; color: var(--google-blue); }
+      .tag-green { background: #e6f4ea; color: #137333; }
+      .tag-yellow { background: #fff8e1; color: #f57f17; }
+      .tag-red { background: #fce8e6; color: #c62828; }
+      .tag-orange { background: #fbe9e7; color: #bf360c; }
+      .tag-gray { background: #f1f3f4; color: var(--text-secondary); }
+
+      /* ─── TARGETING CARDS ─── */
+      .target-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+      .target-card { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 20px; transition: all 0.2s ease; }
+      .target-card:hover { border-color: #ffab91; box-shadow: var(--shadow-md); background: var(--surface); }
+      .target-card .t-icon { font-size: 32px; margin-bottom: 12px; }
+      .target-card h4 { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+      .target-card p { font-size: 12px; color: var(--text-secondary); line-height: 1.6; }
+      .target-card .t-label { font-size: 11px; font-weight: 700; letter-spacing: 0.8px; color: #bf360c; margin-bottom: 8px; text-transform: uppercase; }
+
+      /* ─── IMAGE SIZE TABLE ─── */
+      .size-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; }
+      .size-item { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px 16px; text-align: center; }
+      .size-item .size-dims { font-size: 16px; font-weight: 700; color: #bf360c; margin-bottom: 4px; }
+      .size-item .size-name { font-size: 12px; color: var(--text-secondary); }
+      .size-item.recommended { border-color: #ff5722; background: #fbe9e7; }
+      .size-item.recommended .size-dims { color: #bf360c; }
+
+      /* ─── SUMMARY BOX ─── */
+      .summary-box { background: linear-gradient(135deg, #bf360c, #e64a19); color: white; border-radius: var(--radius-xl); padding: 40px; text-align: center; margin-top: 64px; position: relative; overflow: hidden; }
+      .summary-box::before { content: ''; position: absolute; top: -40%; right: -10%; width: 40%; height: 200%; background: rgba(255,255,255,0.05); border-radius: 50%; }
+      .summary-box h2 { font-size: 24px; font-weight: 700; margin-bottom: 12px; }
+      .summary-box p { font-size: 15px; color: rgba(255,255,255,0.8); max-width: 600px; margin: 0 auto 24px; }
+      .flow-steps { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 8px; position: relative; }
+      .flow-step { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); backdrop-filter: blur(10px); border-radius: var(--radius-md); padding: 12px 20px; font-size: 14px; font-weight: 600; color: white; }
+      .flow-arrow { color: rgba(255,255,255,0.5); font-size: 18px; }
+
+      /* ─── FOOTER ─── */
+      footer { text-align: center; padding: 32px 24px; color: var(--text-tertiary); font-size: 13px; border-top: 1px solid var(--border); background: var(--surface); }
+
+      /* ─── UTIL ─── */
+      .mt-16 { margin-top: 16px; }
+      .mt-24 { margin-top: 24px; }
+      .mb-16 { margin-bottom: 16px; }
+      .flex-col { display: flex; flex-direction: column; gap: 12px; }
+
+      /* ─── RESPONSIVE ─── */
+      @media (max-width: 640px) {
+        .hero { padding: 56px 16px 72px; }
+        .section-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+        .grid-2, .grid-3, .target-grid, .size-grid { grid-template-columns: 1fr; }
+        .flow-steps { flex-direction: column; }
+        .flow-arrow { transform: rotate(90deg); }
+        .summary-box { padding: 28px 20px; }
+      }
+    </style>
+</head>
+<body>
+<script>
+(function(){
+  if(!sessionStorage.getItem('rb_auth')) location.replace('/staff-training/login.html');
+})();
+</script>
+
+<!-- ─── HERO ─── -->
+<header class="hero">
+  <div class="hero-badge">新人研修資料 2025年度版</div>
+  <h1>ディスプレイ広告<br /><span>入稿マニュアル</span></h1>
+  <p class="hero-sub">GDN（Googleディスプレイネットワーク）のキャンペーン設定・ターゲティング・レスポンシブディスプレイ広告の作成まで、バナー広告運用の基礎を学ぶ研修テキストです。</p>
+  <div class="hero-meta">
+    <div class="hero-meta-item"><div class="icon">📌</div>対象：入社1〜3ヶ月の新人</div>
+    <div class="hero-meta-item"><div class="icon">⏱️</div>所要時間：約60分</div>
+    <div class="hero-meta-item"><div class="icon">🎯</div>目標：一人でGDN広告を入稿できる</div>
+  </div>
+</header>
+
+<!-- ─── NAVIGATION ─── -->
+<nav class="nav-wrapper" aria-label="セクションナビゲーション">
+  <div class="nav-inner">
+    <a href="#section-intro" class="nav-item">🖼️ ディスプレイとは</a>
+    <a href="#section-network" class="nav-item">🌐 配信面</a>
+    <a href="#section-structure" class="nav-item">🏗️ 階層構造</a>
+    <a href="#section-campaign" class="nav-item">📢 キャンペーン設定</a>
+    <a href="#section-targeting" class="nav-item">🎯 ターゲティング</a>
+    <a href="#section-ad" class="nav-item">🖼️ 広告作成</a>
+    <a href="#section-creative" class="nav-item">📐 クリエイティブ</a>
+    <a href="#section-trouble" class="nav-item">🛠️ トラブル対応</a>
+    <a href="#section-flow" class="nav-item">📋 作業フロー</a>
+  </div>
+</nav>
+
+<main class="main">
+
+  <!-- ─── 1. ディスプレイ広告とは ─── -->
+  <section id="section-intro" class="section">
+    <div class="section-header">
+      <div class="section-number">1</div>
+      <div class="section-title-wrap">
+        <h2>ディスプレイ広告とは？</h2>
+        <p>バナー広告の基本概念と特徴を理解しましょう</p>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header"><span class="icon">🖼️</span><h3>ディスプレイ広告の定義</h3></div>
+        <div class="card-body">
+          <p style="font-size:15px; margin-bottom:16px;">
+            <strong>Webサイトやアプリの広告枠に表示される画像・テキスト広告</strong>のことです。Googleディスプレイネットワーク（GDN）を通じて配信します。
+          </p>
+          <p style="font-size:14px; color:var(--text-secondary); margin-bottom:12px;">ニュースサイト・ブログ・アプリなど、広告枠を持つあらゆるサイトに表示されます。検索広告と違い、<strong>ユーザーが能動的に探していなくても広告を表示</strong>できます。</p>
+          <div class="info-box orange">
+            <span class="info-icon">💡</span>
+            <p><strong>最大の特徴：</strong>認知拡大・リマーケティング（再訪問）に強く、YouTube広告・検索広告を補完する役割を持ちます。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="icon">⚖️</span><h3>他の広告との違い</h3></div>
+        <div class="card-body">
+          <table class="setting-table">
+            <thead><tr><th>広告種別</th><th>表示タイミング</th><th>主な目的</th></tr></thead>
+            <tbody>
+              <tr>
+                <td class="label">リスティング広告</td>
+                <td class="value">検索したとき</td>
+                <td class="value">コンバージョン獲得</td>
+              </tr>
+              <tr>
+                <td class="label">ディスプレイ広告</td>
+                <td class="value">Webサイト閲覧中</td>
+                <td class="value"><strong>認知拡大・リマーケティング</strong></td>
+              </tr>
+              <tr>
+                <td class="label">YouTube広告</td>
+                <td class="value">動画視聴中</td>
+                <td class="value">認知拡大・ブランドリフト</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="info-box blue mt-16">
+            <span class="info-icon">📌</span>
+            <p>ディスプレイ広告は<strong>一度サイトに来たユーザーへの追いかけ広告（リマーケティング）</strong>で特に効果を発揮します。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 2. 配信面（GDN）─── -->
+  <section id="section-network" class="section">
+    <div class="section-header">
+      <div class="section-number">2</div>
+      <div class="section-title-wrap">
+        <h2>Googleディスプレイネットワーク（GDN）</h2>
+        <p>どこに広告が表示されるのかを理解しましょう</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><span class="icon">🌐</span><h3>GDNの規模と配信面</h3></div>
+      <div class="card-body">
+        <div class="grid-2">
+          <div>
+            <p style="font-size:14px; color:var(--text-secondary); margin-bottom:16px;">
+              GDNはGoogleの広告ネットワークで、<strong>世界200万以上のWebサイト・アプリ</strong>に広告を配信できます。インターネットユーザーの90%以上にリーチできるとされています。
+            </p>
+            <div class="step-list">
+              <div class="step-item">
+                <div style="font-size:24px; flex-shrink:0;">📰</div>
+                <div class="step-content">
+                  <h4>ニュース・メディアサイト</h4>
+                  <p>読売新聞オンライン・livedoorニュースなど、閲覧中の記事横に表示。</p>
+                </div>
+              </div>
+              <div class="step-item">
+                <div style="font-size:24px; flex-shrink:0;">📱</div>
+                <div class="step-content">
+                  <h4>スマートフォンアプリ</h4>
+                  <p>ゲームアプリ・天気アプリなどの広告枠に表示。</p>
+                </div>
+              </div>
+              <div class="step-item">
+                <div style="font-size:24px; flex-shrink:0;">▶️</div>
+                <div class="step-content">
+                  <h4>YouTube（動画以外の枠）</h4>
+                  <p>YouTube上のバナー枠（動画広告とは別）。</p>
+                </div>
+              </div>
+              <div class="step-item">
+                <div style="font-size:24px; flex-shrink:0;">✉️</div>
+                <div class="step-content">
+                  <h4>Gmail</h4>
+                  <p>受信トレイのプロモーション枠に表示されるGmail広告。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="info-box yellow">
+              <span class="info-icon">⚠️</span>
+              <div class="flex-col">
+                <strong>配信面の品質管理</strong>
+                <p style="font-size:13px;">GDNは広範囲に配信できる反面、<strong>クオリティの低いサイト</strong>に広告が表示されることもあります。不適切な配信面はプレースメントレポートで確認し、除外設定しましょう。</p>
+              </div>
+            </div>
+            <div class="info-box red mt-16">
+              <span class="info-icon">🚨</span>
+              <div class="flex-col">
+                <strong>アダルト・ギャンブル系サイトへの配信</strong>
+                <p style="font-size:13px;">コンテンツ除外設定で「デリケートなコンテンツ」を除外しておくことを推奨します。クライアントのブランドイメージに関わります。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 3. 階層構造 ─── -->
+  <section id="section-structure" class="section">
+    <div class="section-header">
+      <div class="section-number">3</div>
+      <div class="section-title-wrap">
+        <h2>Google広告の階層構造</h2>
+        <p>ディスプレイ広告も同じ4層構造で管理されます</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><span class="icon">🏗️</span><h3>4層構造の全体像（ディスプレイ広告の場合）</h3></div>
+      <div class="card-body">
+        <p style="font-size:14px; color:var(--text-secondary); margin-bottom:20px;">
+          「アカウント → キャンペーン → 広告グループ → 広告」の4段階構造。ディスプレイ広告では<strong>広告グループでターゲティング方法を設定</strong>します。
+        </p>
+        <div class="hierarchy">
+          <div class="hierarchy-box h-lv1">
+            <div class="level-label">Level 1</div>
+            <h4>🏢 アカウント</h4>
+            <p>クライアント企業単位。支払い情報・通貨・タイムゾーンを管理。</p>
+          </div>
+          <div class="hierarchy-box h-lv2">
+            <div class="level-label">Level 2</div>
+            <h4>📢 キャンペーン</h4>
+            <p>予算・入札戦略・配信地域・ターゲティングの拡張有無を設定。</p>
+          </div>
+          <div class="hierarchy-box h-lv3">
+            <div class="level-label">Level 3</div>
+            <h4>📁 広告グループ</h4>
+            <p>ターゲティング方法（オーディエンス/コンテンツ等）を設定。テーマごとに分ける。</p>
+          </div>
+          <div class="hierarchy-box h-lv4">
+            <div class="level-label">Level 4</div>
+            <h4>🖼️ 広告</h4>
+            <p>実際に表示されるレスポンシブディスプレイ広告（画像＋テキスト）を登録。</p>
+          </div>
+        </div>
+        <div class="info-box orange mt-16">
+          <span class="info-icon">💡</span>
+          <p><strong>グループ分けの考え方：</strong>ターゲティング方法ごとにグループを分けましょう。例：「リマーケティング（再訪問）グループ」「類似オーディエンスグループ」「興味関心グループ」のように分けると効果測定がしやすくなります。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 4. キャンペーン設定 ─── -->
+  <section id="section-campaign" class="section">
+    <div class="section-header">
+      <div class="section-number">4</div>
+      <div class="section-title-wrap">
+        <h2>キャンペーン設定</h2>
+        <p>ディスプレイキャンペーンの基本設定項目</p>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header"><span class="icon">📋</span><h3>基本設定項目</h3></div>
+        <div class="card-body">
+          <table class="setting-table">
+            <thead><tr><th>設定項目</th><th>内容・推奨設定</th></tr></thead>
+            <tbody>
+              <tr>
+                <td class="label">キャンペーン名</td>
+                <td><span class="value">クライアント名＋ターゲティング内容で管理</span><br /><span class="example">例：〇〇美容室_GDN_リマーケティング</span></td>
+              </tr>
+              <tr>
+                <td class="label">キャンペーンの目標</td>
+                <td><span class="value">「目標を指定せずにキャンペーンを作成する」または「ウェブサイトのトラフィック」</span></td>
+              </tr>
+              <tr>
+                <td class="label">キャンペーンタイプ</td>
+                <td><span class="value">「ディスプレイ」を選択</span></td>
+              </tr>
+              <tr>
+                <td class="label">配信地域</td>
+                <td><span class="value">クライアントの商圏エリアに合わせて設定</span></td>
+              </tr>
+              <tr>
+                <td class="label">言語</td>
+                <td><span class="value">日本語</span></td>
+              </tr>
+              <tr>
+                <td class="label">日予算</td>
+                <td><span class="value">月間予算 ÷ 30.4で計算</span><br /><span class="example">例：月2万円 → 日予算 約660円</span></td>
+              </tr>
+              <tr>
+                <td class="label">入札戦略</td>
+                <td><span class="value">初期は「クリック数の最大化（上限CPC設定あり）」を推奨</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="icon">⚠️</span><h3>ターゲティングの拡張設定に注意</h3></div>
+        <div class="card-body">
+          <p style="font-size:14px; color:var(--text-secondary); margin-bottom:16px;">ディスプレイキャンペーンには「ターゲティングの拡張」オプションがあります。理解してから設定しましょう。</p>
+          <div class="step-list">
+            <div class="step-item">
+              <div style="font-size:24px; flex-shrink:0;">🔧</div>
+              <div class="step-content">
+                <h4>ターゲティングの最適化（拡張なし）</h4>
+                <p>設定したターゲットにのみ配信。<strong>コントロールを優先したい場合に推奨</strong>。初期設定ではこちらを選択。</p>
+                <span class="tag tag-green" style="margin-top:6px;">★ 初期推奨</span>
+              </div>
+            </div>
+            <div class="step-item">
+              <div style="font-size:24px; flex-shrink:0;">🤖</div>
+              <div class="step-content">
+                <h4>ターゲティングの自動拡張</h4>
+                <p>Googleが設定外のユーザーにも自動で配信範囲を広げます。リーチは増えますが、<strong>想定外のユーザーにも配信</strong>される場合あり。</p>
+                <span class="tag tag-yellow" style="margin-top:6px;">データ蓄積後に検討</span>
+              </div>
+            </div>
+          </div>
+          <div class="info-box red mt-16">
+            <span class="info-icon">🚨</span>
+            <p>リマーケティングキャンペーンで拡張設定をオンにすると、<strong>一度も来訪していないユーザーにも配信</strong>されてしまいます。リマーケティング専用グループでは必ずオフにしてください。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 5. ターゲティング設定 ─── -->
+  <section id="section-targeting" class="section">
+    <div class="section-header">
+      <div class="section-number">5</div>
+      <div class="section-title-wrap">
+        <h2>ターゲティング設定</h2>
+        <p>ディスプレイ広告最大の強み「多様なターゲティング」を使いこなしましょう</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><span class="icon">🎯</span><h3>オーディエンスターゲティング（「誰に」を決める）</h3></div>
+      <div class="card-body">
+        <p style="font-size:14px; color:var(--text-secondary); margin-bottom:20px;">ユーザーの属性・行動・関心に基づいてターゲットを絞ります。</p>
+        <div class="target-grid">
+          <div class="target-card">
+            <div class="t-icon">🔄</div>
+            <div class="t-label">リマーケティング</div>
+            <h4>サイト訪問済みユーザー</h4>
+            <p>一度サイトを訪れたユーザーへ再アプローチ。最も購買意欲が高い層。</p>
+            <span class="tag tag-orange" style="margin-top:8px; display:inline-block;">★ 最優先</span>
+          </div>
+          <div class="target-card">
+            <div class="t-icon">👥</div>
+            <div class="t-label">類似オーディエンス</div>
+            <h4>既存顧客に似たユーザー</h4>
+            <p>既存の顧客リスト・訪問者に属性が似たユーザーへ配信。新規獲得に有効。</p>
+          </div>
+          <div class="target-card">
+            <div class="t-icon">💛</div>
+            <div class="t-label">興味・関心</div>
+            <h4>特定ジャンルに興味あるユーザー</h4>
+            <p>「美容好き」「グルメ好き」など、興味カテゴリでターゲット。</p>
+          </div>
+          <div class="target-card">
+            <div class="t-icon">🛒</div>
+            <div class="t-label">購買意向</div>
+            <h4>特定の購入を検討中のユーザー</h4>
+            <p>「美容サービスを検討中」など、購入行動に近いユーザーへ配信。</p>
+          </div>
+          <div class="target-card">
+            <div class="t-icon">🎭</div>
+            <div class="t-label">カスタムオーディエンス</div>
+            <h4>特定キーワード・URLで設定</h4>
+            <p>特定のキーワードで検索したユーザーや競合サイト訪問者などを設定できる。</p>
+          </div>
+          <div class="target-card">
+            <div class="t-icon">👤</div>
+            <div class="t-label">デモグラフィック</div>
+            <h4>年齢・性別・世帯収入</h4>
+            <p>ターゲットの基本属性で絞り込む。他のターゲティングと組み合わせて使う。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mt-24">
+      <div class="card-header"><span class="icon">📍</span><h3>コンテンツターゲティング（「どこに」を決める）</h3></div>
+      <div class="card-body">
+        <p style="font-size:14px; color:var(--text-secondary); margin-bottom:16px;">表示させたいWebサイト・ページのカテゴリを指定します。オーディエンスターゲティングと組み合わせることも可能です。</p>
+        <table class="setting-table">
+          <thead><tr><th>種別</th><th>概要</th><th>使い方の例</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="label">キーワード</td>
+              <td class="value">指定したキーワードに関連するサイトに配信</td>
+              <td class="value">「ヘッドスパ」「頭皮ケア」→ 美容関連記事に配信</td>
+            </tr>
+            <tr>
+              <td class="label">トピック</td>
+              <td class="value">指定したカテゴリに属するサイトに配信</td>
+              <td class="value">「美容・フィットネス」カテゴリ全体に配信</td>
+            </tr>
+            <tr>
+              <td class="label">プレースメント</td>
+              <td class="value">特定のWebサイト・チャンネル・アプリを直接指定</td>
+              <td class="value">特定の美容メディアサイトに配信。精度は高いがリーチは限定的。</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="info-box orange mt-16">
+          <span class="info-icon">💡</span>
+          <p><strong>推奨：</strong>最初は「オーディエンスターゲティング（リマーケティング）」から始め、データが溜まったら「興味・関心」「購買意向」を追加するのが安全な進め方です。コンテンツターゲティングのみだと配信先の品質が安定しにくいです。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mt-24">
+      <div class="card-header"><span class="icon">🔄</span><h3>リマーケティングの設定手順</h3></div>
+      <div class="card-body">
+        <div class="step-list">
+          <div class="step-item">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>Googleタグの設置（サイト側の作業）</h4>
+              <p>クライアントのWebサイトにGoogleタグ（gtag.js）を設置します。タグマネージャー（GTM）経由での設置が一般的です。<strong>タグ設置はウェブ担当者または制作会社に依頼</strong>してください。</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>オーディエンスリストの作成</h4>
+              <p>Google広告の「オーディエンスマネージャー」でリストを作成。「すべての訪問者」「特定ページ訪問者」「カート追加者」など目的別に作成。</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>リストのリーチ可能数を確認</h4>
+              <p>リストのユーザー数が<strong>100人以上</strong>ないと配信できません。サイト流入が少ないクライアントはリマーケティングが使えない場合があります。</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>広告グループにリストを追加</h4>
+              <p>ディスプレイキャンペーンの広告グループで「オーディエンス」からリマーケティングリストを追加します。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 6. 広告作成 ─── -->
+  <section id="section-ad" class="section">
+    <div class="section-header">
+      <div class="section-number">6</div>
+      <div class="section-title-wrap">
+        <h2>広告の作成（レスポンシブディスプレイ広告）</h2>
+        <p>現在のGDNはレスポンシブディスプレイ広告（RDA）が標準形式です</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><span class="icon">🖼️</span><h3>レスポンシブディスプレイ広告の構成要素</h3></div>
+      <div class="card-body">
+        <table class="setting-table">
+          <thead><tr><th>要素</th><th>文字数/サイズ</th><th>登録数</th><th>ポイント</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="label">見出し（短）</td>
+              <td class="value">最大30文字</td>
+              <td class="value">最大5個（必須）</td>
+              <td class="value">様々な枠に対応する短い見出し。サービス名・キャッチコピーを設定。</td>
+            </tr>
+            <tr>
+              <td class="label">見出し（長）</td>
+              <td class="value">最大90文字</td>
+              <td class="value">1個（必須）</td>
+              <td class="value">大きい広告枠でのみ表示。サービスの特徴や訴求を詳しく書く。</td>
+            </tr>
+            <tr>
+              <td class="label">説明文</td>
+              <td class="value">最大90文字</td>
+              <td class="value">最大5個（必須）</td>
+              <td class="value">広告の詳細説明。ベネフィット・CTA・特典などを含める。</td>
+            </tr>
+            <tr>
+              <td class="label">画像（横型）</td>
+              <td class="value">1.91:1 推奨1200×628px</td>
+              <td class="value">最大15枚</td>
+              <td class="value">最もよく使われるサイズ。バナー的な配信面に使用。</td>
+            </tr>
+            <tr>
+              <td class="label">画像（正方形）</td>
+              <td class="value">1:1 推奨1200×1200px</td>
+              <td class="value">最大15枚（横型と合わせて）</td>
+              <td class="value">スマートフォンのフィード型広告枠で使用。</td>
+            </tr>
+            <tr>
+              <td class="label">ロゴ</td>
+              <td class="value">1:1または4:1</td>
+              <td class="value">最大5枚</td>
+              <td class="value">ブランド認知向上のため必ず設定する。</td>
+            </tr>
+            <tr>
+              <td class="label">最終ページURL</td>
+              <td class="value">制限なし</td>
+              <td class="value">1個（必須）</td>
+              <td class="value">クリック後の遷移先。広告内容と一致したLPを設定。</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="info-box orange mt-16">
+          <span class="info-icon">💡</span>
+          <p>登録素材が多いほどGoogleが最適な組み合わせを見つけやすくなります。<strong>画像は横型・正方形をそれぞれ複数枚登録</strong>し、広告強度「優良」を目指しましょう。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 7. クリエイティブ要件 ─── -->
+  <section id="section-creative" class="section">
+    <div class="section-header">
+      <div class="section-number">7</div>
+      <div class="section-title-wrap">
+        <h2>クリエイティブ要件</h2>
+        <p>画像サイズ・品質の基準を理解してクライアントに適切に指示しましょう</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><span class="icon">📐</span><h3>推奨画像サイズ一覧</h3></div>
+      <div class="card-body">
+        <p style="font-size:14px; color:var(--text-secondary); margin-bottom:16px;">
+          レスポンシブディスプレイ広告では指定サイズの画像を用意すれば、Googleが自動で最適化してさまざまな枠に配信します。以下の<span style="color:#bf360c; font-weight:700;">オレンジ枠</span>が特に重要です。
+        </p>
+        <h4 style="font-size:14px; font-weight:700; margin-bottom:12px;">横型画像（1.91:1）</h4>
+        <div class="size-grid mb-16">
+          <div class="size-item recommended">
+            <div class="size-dims">1200×628</div>
+            <div class="size-name">★ 最推奨（バナー標準）</div>
+          </div>
+          <div class="size-item">
+            <div class="size-dims">1200×400</div>
+            <div class="size-name">スマートフォン対応</div>
+          </div>
+        </div>
+        <h4 style="font-size:14px; font-weight:700; margin-bottom:12px;">正方形画像（1:1）</h4>
+        <div class="size-grid mb-16">
+          <div class="size-item recommended">
+            <div class="size-dims">1200×1200</div>
+            <div class="size-name">★ 最推奨（フィード型）</div>
+          </div>
+        </div>
+        <h4 style="font-size:14px; font-weight:700; margin-bottom:12px;">ロゴ</h4>
+        <div class="size-grid mb-16">
+          <div class="size-item recommended">
+            <div class="size-dims">1:1（正方形）</div>
+            <div class="size-name">★ 512×512px以上</div>
+          </div>
+          <div class="size-item">
+            <div class="size-dims">4:1（横長）</div>
+            <div class="size-name">1200×300px以上</div>
+          </div>
+        </div>
+        <div class="info-box yellow">
+          <span class="info-icon">⚠️</span>
+          <p><strong>ファイルサイズ上限：</strong>各画像は<strong>5MB以下</strong>。JPG・PNG・GIF形式。アニメーションGIFは非推奨（一部の配信面で非対応）。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mt-24">
+      <div class="card-header"><span class="icon">🎨</span><h3>クリエイティブの品質チェックリスト</h3></div>
+      <div class="card-body">
+        <div class="grid-2">
+          <div>
+            <h4 style="font-size:15px; font-weight:700; margin-bottom:12px;">OKなクリエイティブ</h4>
+            <div class="step-list">
+              <div class="step-item">
+                <div style="font-size:20px; flex-shrink:0; color:#34A853;">✅</div>
+                <div class="step-content">
+                  <h4>サービス・商品が明確に見える</h4>
+                  <p>何のサービスか一目でわかる画像。実際の施術写真・商品写真が有効。</p>
+                </div>
+              </div>
+              <div class="step-item">
+                <div style="font-size:20px; flex-shrink:0; color:#34A853;">✅</div>
+                <div class="step-content">
+                  <h4>テキストの量が少ない</h4>
+                  <p>画像内のテキストは画像面積の20%以下が推奨。テキストは広告見出し・説明文で設定する。</p>
+                </div>
+              </div>
+              <div class="step-item">
+                <div style="font-size:20px; flex-shrink:0; color:#34A853;">✅</div>
+                <div class="step-content">
+                  <h4>高解像度・明るい画像</h4>
+                  <p>ぼやけた画像や暗い画像は審査で却下されることがある。プロの撮影写真が理想。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h4 style="font-size:15px; font-weight:700; margin-bottom:12px;">NGなクリエイティブ</h4>
+            <div class="step-list">
+              <div class="step-item">
+                <div style="font-size:20px; flex-shrink:0; color:#EA4335;">❌</div>
+                <div class="step-content">
+                  <h4>過度な装飾・点滅・びっくり感</h4>
+                  <p>派手な矢印・「！！！」などの過剰な装飾はGoogleポリシー違反。</p>
+                </div>
+              </div>
+              <div class="step-item">
+                <div style="font-size:20px; flex-shrink:0; color:#EA4335;">❌</div>
+                <div class="step-content">
+                  <h4>誤解を招く画像</h4>
+                  <p>実際の商品・サービスと異なるイメージの画像は広告ポリシー違反。</p>
+                </div>
+              </div>
+              <div class="step-item">
+                <div style="font-size:20px; flex-shrink:0; color:#EA4335;">❌</div>
+                <div class="step-content">
+                  <h4>クリックを誘導するUI要素</h4>
+                  <p>ボタン・チェックボックスなど、インターフェース要素を模した画像は禁止。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="info-box blue mt-16">
+          <span class="info-icon">📌</span>
+          <p>クライアントから提供された画像が要件を満たさない場合は、<strong>クライアントに再撮影・修正を依頼</strong>してください。自分で無断で画像を編集したり、フリー素材を勝手に使用するのは禁止です。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 8. トラブル対応 ─── -->
+  <section id="section-trouble" class="section">
+    <div class="section-header">
+      <div class="section-number">8</div>
+      <div class="section-title-wrap">
+        <h2>よくあるトラブルと対応方法</h2>
+        <p>ディスプレイ広告特有のトラブルを把握しておきましょう</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><span class="icon">🛠️</span><h3>トラブルシューティング</h3></div>
+      <div class="card-body">
+        <div class="step-list">
+          <div class="step-item">
+            <div style="font-size:24px; flex-shrink:0;">😰</div>
+            <div class="step-content">
+              <h4>広告が審査却下される</h4>
+              <ul>
+                <li>画像内のテキストが多すぎる → テキストを減らした画像に差し替え</li>
+                <li>誇大表現・比較表現が含まれている → 見出し・説明文を見直す</li>
+                <li>LPの内容が不十分（事業者情報・免責事項がない）→ クライアントにLP修正を依頼</li>
+                <li>却下理由をGoogle広告の通知で必ず確認すること</li>
+              </ul>
+            </div>
+          </div>
+          <div class="step-item">
+            <div style="font-size:24px; flex-shrink:0;">💸</div>
+            <div class="step-content">
+              <h4>クリック率（CTR）が極端に低い</h4>
+              <ul>
+                <li>画像が魅力的でない、サービス内容が伝わりにくい → クリエイティブを見直す</li>
+                <li>ターゲティングが広すぎて関係ないユーザーに配信 → ターゲットを絞る</li>
+                <li>広告強度が「低い」「改善の余地あり」 → 素材を追加して強度を上げる</li>
+              </ul>
+            </div>
+          </div>
+          <div class="step-item">
+            <div style="font-size:24px; flex-shrink:0;">📍</div>
+            <div class="step-content">
+              <h4>不適切なサイトに広告が表示されている</h4>
+              <ul>
+                <li>プレースメントレポートで配信先URLを確認する（週1回以上推奨）</li>
+                <li>品質が低いサイトは「プレースメントの除外」で個別除外</li>
+                <li>キャンペーン設定の「コンテンツの除外」でカテゴリ単位でも除外可能</li>
+              </ul>
+            </div>
+          </div>
+          <div class="step-item">
+            <div style="font-size:24px; flex-shrink:0;">🔄</div>
+            <div class="step-content">
+              <h4>リマーケティングリストのユーザーが少ない</h4>
+              <ul>
+                <li>サイトへの流入数が少ない場合、リストが100人未満で配信できない</li>
+                <li>まずリスティング広告・SEOでサイト流入を増やすことを検討</li>
+                <li>短期間のキャンペーン（セール期間限定等）でも使いにくい</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="info-box orange mt-16">
+          <span class="info-icon">💡</span>
+          <p>判断に迷うトラブルは<strong>必ず上長に相談</strong>してください。ディスプレイ広告は配信が始まると予算が思わぬ速度で消費されることがあります。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 9. 作業フロー ─── -->
+  <section id="section-flow" class="section">
+    <div class="section-header">
+      <div class="section-number">9</div>
+      <div class="section-title-wrap">
+        <h2>入稿から運用開始までの作業フロー</h2>
+        <p>この手順に沿って作業すれば漏れを防げます</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><span class="icon">📋</span><h3>標準作業フロー</h3></div>
+      <div class="card-body">
+        <div class="step-list">
+          <div class="step-item">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>クライアント情報・目的の確認</h4>
+              <p>商圏エリア・ターゲット・月間予算・LP URL・クリエイティブ素材の有無をヒアリングシートで事前確認。</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>Googleタグ・リマーケティングリストの確認</h4>
+              <p>タグが設置済みか確認。リストのユーザー数が100人以上あるかチェック。なければ入稿と並行して設置依頼。</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>クリエイティブ素材の収集</h4>
+              <p>1200×628px・1200×1200pxの画像をクライアントから収集。ロゴデータも入手する。</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>キャンペーン作成</h4>
+              <p>ディスプレイキャンペーン・予算・地域・入札戦略（クリック数最大化）を設定。</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">5</div>
+            <div class="step-content">
+              <h4>広告グループ＆ターゲティング設定</h4>
+              <p>テーマ別（リマーケティング/興味関心/購買意向）にグループを分け、各グループにターゲットを設定。</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">6</div>
+            <div class="step-content">
+              <h4>レスポンシブディスプレイ広告の作成</h4>
+              <p>画像・ロゴ・見出し（短5個・長1個）・説明文4個・最終URLを設定。広告強度「良い」以上を目指す。</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">7</div>
+            <div class="step-content">
+              <h4>プレースメント除外・コンテンツ除外の設定</h4>
+              <p>「デリケートなコンテンツ」カテゴリを除外。既知の低品質サイトがあれば個別除外も実施。</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">8</div>
+            <div class="step-content">
+              <h4>最終チェック＆配信開始</h4>
+              <p>全設定を確認後、キャンペーンを有効に。審査通過後に配信開始。配信翌日にはプレースメントレポートを確認。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SUMMARY ─── -->
+  <div class="summary-box">
+    <h2>ディスプレイ広告 入稿チェックポイント</h2>
+    <p>配信前に以下の項目を必ず確認してください</p>
+    <div class="flow-steps">
+      <div class="flow-step">✅ タグ・リスト設定</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">✅ 画像サイズ要件</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">✅ ターゲティング設定</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">✅ 自動拡張オフ確認</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">✅ プレースメント除外</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">✅ 広告強度「良い」以上</div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <p>ディスプレイ広告 入稿マニュアル — 新人研修資料 © 2025 RUNBIRD | 社内研修用・社外秘</p>
+</footer>
+
+</body>
+</html>

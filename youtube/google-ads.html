@@ -1042,6 +1042,7 @@
 <!-- ─── NAVIGATION ─── -->
 <nav class="nav-wrapper" aria-label="セクションナビゲーション">
   <div class="nav-inner">
+    <a href="#section-mechanism" class="nav-item">⚙️ 広告の仕組み</a>
     <a href="#section-intro" class="nav-item">📖 入稿とは</a>
     <a href="#section-entry-flow" class="nav-item">📋 入庫手順</a>
     <a href="#section-structure" class="nav-item">🏗️ 階層構造</a>
@@ -1052,10 +1053,114 @@
     <a href="#section-optimize" class="nav-item">⚙️ 詳細設定</a>
     <a href="#section-trouble" class="nav-item">🛠️ トラブル対応</a>
     <a href="#section-keyword" class="nav-item">🔍 KWプランナー</a>
+    <a href="#section-metrics" class="nav-item">📈 指標の読み方</a>
   </div>
 </nav>
 
 <main class="main">
+
+  <!-- ─── 0. Google広告の仕組み ─── -->
+  <section id="section-mechanism" class="section">
+    <div class="section-header">
+      <div class="section-number" style="background:linear-gradient(135deg,#7c3aed,#4285F4);">⚙</div>
+      <div class="section-title-wrap">
+        <h2>Google広告が動く仕組み</h2>
+        <p>設定の「なぜ」を理解することで、適切な判断と説明ができるようになります</p>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header"><span class="icon">🏆</span><h3>広告オークションの仕組み</h3></div>
+        <div class="card-body">
+          <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px;">
+            ユーザーがYouTubeを開くたびに、広告枠をめぐる<strong>オークション</strong>が自動で行われます。単に入札額が高い広告が表示されるわけではなく、<strong>品質スコアとの掛け算</strong>で順位が決まります。
+          </p>
+          <div class="hierarchy">
+            <div class="hierarchy-box h-lv1">
+              <div class="level-label">Factor 1</div>
+              <h4>💴 入札額（Bid）</h4>
+              <p>「1視聴あたりいくらまで払うか」の上限金額（CPV）。高いほど有利だが、それだけでは決まらない。</p>
+            </div>
+            <div class="hierarchy-box h-lv2">
+              <div class="level-label">Factor 2</div>
+              <h4>⭐ 品質スコア</h4>
+              <p>Googleが広告の「関連性・品質」を評価した数値。高品質な広告は少ない費用でも上位に表示される。</p>
+            </div>
+            <div class="hierarchy-box h-lv3">
+              <div class="level-label">Result</div>
+              <h4>🏆 広告ランク ＝ 入札額 × 品質スコア</h4>
+              <p>この掛け合わせで算出したスコアが高い広告が優先表示される。</p>
+            </div>
+          </div>
+          <div class="info-box blue mt-16">
+            <span class="info-icon">💡</span>
+            <p><strong>ポイント：</strong>品質スコアが高ければ入札額が低くても上位表示が可能。設定の精度を上げることがコスト削減に直結します。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="icon">⭐</span><h3>品質スコアの3つの要素</h3></div>
+        <div class="card-body">
+          <div class="step-list">
+            <div class="step-item">
+              <div style="font-size:24px;flex-shrink:0;">🖱️</div>
+              <div class="step-content">
+                <h4>① 期待クリック率（CTR）</h4>
+                <p>広告が表示されたとき、どれだけクリック・視聴されやすいか。動画の最初5秒で興味を引けるかが重要。</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div style="font-size:24px;flex-shrink:0;">🎯</div>
+              <div class="step-content">
+                <h4>② 広告の関連性</h4>
+                <p>ユーザーの検索意図や興味と広告内容が一致しているか。KWと広告内容の整合性が鍵。</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div style="font-size:24px;flex-shrink:0;">🌐</div>
+              <div class="step-content">
+                <h4>③ ランディングページ（LP）の品質</h4>
+                <p>広告クリック後に遷移するHP・マップの利便性・情報の充実度・読み込み速度。</p>
+              </div>
+            </div>
+          </div>
+          <div class="info-box yellow mt-16">
+            <span class="info-icon">⚠️</span>
+            <p>「HPやマップを更新してください」とオーナーにお願いするのは、LP品質を高めて<strong>広告費の効率を上げる</strong>ためでもあります。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mt-24">
+      <div class="card-header"><span class="icon">▶️</span><h3>YouTube広告特有の課金の仕組み（CPV方式）</h3></div>
+      <div class="card-body">
+        <div class="grid-3">
+          <div class="target-card">
+            <div class="t-icon">⏱️</div>
+            <h4>課金タイミング</h4>
+            <p><strong>30秒以上視聴</strong>した場合、または<strong>動画の最後まで</strong>視聴した場合のみ課金される（CPV方式）。</p>
+          </div>
+          <div class="target-card">
+            <div class="t-icon">⏩</div>
+            <h4>スキップされたら？</h4>
+            <p>5秒でスキップされた場合は<strong>課金なし</strong>。興味のないユーザーへの無駄な費用が発生しない設計。</p>
+          </div>
+          <div class="target-card">
+            <div class="t-icon">👁️</div>
+            <h4>インプレッション</h4>
+            <p>広告が画面に表示された回数。視聴・クリックがなくても「見た」として計上される。<strong>認知度の指標</strong>になる。</p>
+          </div>
+        </div>
+        <div class="info-box green mt-16">
+          <span class="info-icon">✅</span>
+          <p><strong>だから動画の最初5秒が最重要：</strong>5秒以内にスキップされると費用はかかりませんが、認知の機会も失われます。最初のカットで「誰向けか」を明確に見せることが大切です。</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- ─── 1. 入稿とは ─── -->
   <section id="section-intro" class="section">
@@ -2056,6 +2161,205 @@
               <h4>有効なキーワードをプランに追加</h4>
               <p>ボリュームがあり、競合性が低めのキーワードを優先的に選定。カスタムターゲティングに活用する。</p>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="grid-2 mt-24">
+      <div class="card">
+        <div class="card-header"><span class="icon">✅</span><h3>良いキーワードの特徴</h3></div>
+        <div class="card-body">
+          <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px;">
+            YouTube広告のKWは「そのKWを検索したことがあるユーザー」に広告を届けるターゲティングです。具体的で購買意欲が高いKWが有効です。
+          </p>
+          <div class="step-list">
+            <div class="step-item">
+              <div style="font-size:20px;flex-shrink:0;">🎯</div>
+              <div class="step-content">
+                <h4>具体的なサービス名＋地域</h4>
+                <p>「マタニティマッサージ 福岡」「産後 整体 天神」のように絞り込まれたKWは購買意欲が高いユーザーに届く。</p>
+                <span class="tag tag-green" style="margin-top:4px;">推奨</span>
+              </div>
+            </div>
+            <div class="step-item">
+              <div style="font-size:20px;flex-shrink:0;">🔑</div>
+              <div class="step-content">
+                <h4>購買意思が感じられるKW</h4>
+                <p>「予約」「おすすめ」「近く」「料金」などを含むKWは、今まさに探しているユーザーのシグナル。</p>
+                <span class="tag tag-green" style="margin-top:4px;">推奨</span>
+              </div>
+            </div>
+            <div class="step-item">
+              <div style="font-size:20px;flex-shrink:0;">💡</div>
+              <div class="step-content">
+                <h4>ターゲット層の悩みワード</h4>
+                <p>「産後 むくみ」「妊婦 腰痛」のようにターゲットの悩みに紐づくKWは感情的に刺さりやすい。</p>
+                <span class="tag tag-blue" style="margin-top:4px;">検討可</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="icon">🚫</span><h3>避けるべきキーワード</h3></div>
+        <div class="card-body">
+          <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px;">
+            購買・来店につながらないKWを入れると、ターゲットと合わないユーザーに広告が届き費用が無駄になります。
+          </p>
+          <div class="step-list">
+            <div class="step-item">
+              <div style="font-size:20px;flex-shrink:0;">🔨</div>
+              <div class="step-content">
+                <h4>情報収集・DIY系のKW</h4>
+                <p>「マッサージ やり方」「マッサージ 自分で」のような「自分でやる」意図のKWは来店につながらない。</p>
+                <span class="tag tag-red" style="margin-top:4px;">避ける</span>
+              </div>
+            </div>
+            <div class="step-item">
+              <div style="font-size:20px;flex-shrink:0;">🆓</div>
+              <div class="step-content">
+                <h4>無料・節約系のKW</h4>
+                <p>「無料」「タダ」「格安」などを検索するユーザーは支払い意欲が低く、来店に結びつきにくい。</p>
+                <span class="tag tag-red" style="margin-top:4px;">避ける</span>
+              </div>
+            </div>
+            <div class="step-item">
+              <div style="font-size:20px;flex-shrink:0;">📚</div>
+              <div class="step-content">
+                <h4>幅広すぎる一般ワード</h4>
+                <p>「マッサージ」単体や「リラクゼーション」など広すぎるKWはターゲット外ユーザーを大量に含む。</p>
+                <span class="tag tag-yellow" style="margin-top:4px;">要注意</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box blue mt-24">
+      <span class="info-icon">💡</span>
+      <div>
+        <strong>KW選定の実践ポイント：実際に検索して確認する</strong>
+        <p style="margin-top:4px;">候補KWはGoogleで実際に検索し、表示される結果がターゲットユーザーのニーズと合っているか確認する。検索結果が「情報ページ・ハウツー」ばかりなら購買意欲が低いKWの可能性が高い。10個を目安に、具体性の高いものから優先的に選定しよう。</p>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ─── 10. 主要指標の読み方 ─── -->
+  <section id="section-metrics" class="section">
+    <div class="section-header">
+      <div class="section-number">10</div>
+      <div class="section-title-wrap">
+        <h2>主要指標の読み方とマーケティングの考え方</h2>
+        <p>数字の意味を理解することで、定例会でオーナーに正確な説明ができるようになります</p>
+      </div>
+    </div>
+
+    <div class="card mb-24">
+      <div class="card-header"><span class="icon">📊</span><h3>YouTube広告 主要指標一覧</h3></div>
+      <div class="card-body">
+        <table class="setting-table">
+          <thead>
+            <tr><th>指標名</th><th>意味</th><th>計算式</th><th>見方・目安</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="label">インプレッション数</td>
+              <td class="value">広告が画面に表示された回数</td>
+              <td class="value">—</td>
+              <td class="value">多いほど認知が広がっている</td>
+            </tr>
+            <tr>
+              <td class="label">視聴回数</td>
+              <td class="value">30秒以上（または最後まで）視聴された回数</td>
+              <td class="value">—</td>
+              <td class="value">課金対象となる回数。費用に直結する</td>
+            </tr>
+            <tr>
+              <td class="label">VTR<br><span style="font-size:11px;color:var(--text-tertiary);">ビュースルーレート</span></td>
+              <td class="value">表示された中で視聴完了した割合</td>
+              <td class="example">視聴回数 ÷ インプレッション × 100</td>
+              <td class="value">20〜30%以上が目安。低い場合は動画の最初5秒を見直す</td>
+            </tr>
+            <tr>
+              <td class="label">CPV<br><span style="font-size:11px;color:var(--text-tertiary);">コストパービュー</span></td>
+              <td class="value">1視聴あたりのコスト</td>
+              <td class="example">費用 ÷ 視聴回数</td>
+              <td class="value">社内目安は10円/視聴。低いほど効率が良い</td>
+            </tr>
+            <tr>
+              <td class="label">再生率<br><span style="font-size:11px;color:var(--text-tertiary);">25/50/75/100%</span></td>
+              <td class="value">動画をどこまで視聴したかの割合</td>
+              <td class="value">—</td>
+              <td class="value">どこで離脱が多いかを把握し、動画改善のヒントにする</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="info-box green mt-16">
+          <span class="info-icon">✅</span>
+          <p><strong>まとめ：</strong>VTRが高い＝動画が魅力的。CPVが低い＝費用効率が良い。この2つが改善されていれば広告は健全に動いています。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header"><span class="icon">🔺</span><h3>マーケティングファネルとは</h3></div>
+        <div class="card-body">
+          <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px;">
+            顧客が「知る→興味を持つ→検討する→行動する」という段階を経て来店・購買に至るプロセスを<strong>マーケティングファネル</strong>と呼びます。広告はフェーズごとに役割が異なります。
+          </p>
+          <div class="hierarchy">
+            <div class="hierarchy-box h-lv1">
+              <div class="level-label">Top of Funnel</div>
+              <h4>👁️ 認知（Awareness）</h4>
+              <p>「こんなお店がある」と知ってもらう段階。<strong>YouTube広告はここに最も強い。</strong>まず存在を知ってもらう。</p>
+            </div>
+            <div class="hierarchy-box h-lv2">
+              <div class="level-label">Middle of Funnel</div>
+              <h4>🤔 興味・検討（Consideration）</h4>
+              <p>「どんなお店だろう」とHPやGoogleマップで調べる段階。口コミ・写真・情報の充実が鍵。</p>
+            </div>
+            <div class="hierarchy-box h-lv3">
+              <div class="level-label">Bottom of Funnel</div>
+              <h4>✅ 行動（Action）</h4>
+              <p>「予約する」「来店する」という最終アクション。ここはHP・マップが受け止める。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="icon">🎯</span><h3>YouTube広告の役割と限界</h3></div>
+        <div class="card-body">
+          <div class="step-list">
+            <div class="step-item">
+              <div style="font-size:24px;flex-shrink:0;">📺</div>
+              <div class="step-content">
+                <h4>YouTube広告は「認知」に強い</h4>
+                <p>動画で強い印象を残し「知らなかった人」に届けるのが最大の強み。即時の問い合わせ増加は期待しにくい。</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div style="font-size:24px;flex-shrink:0;">🔍</div>
+              <div class="step-content">
+                <h4>認知後は「検討」フェーズへ</h4>
+                <p>広告を見た人はGoogleマップやHPを検索して来店を判断する。HP・マップの整備がセットで必要な理由はここにある。</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div style="font-size:24px;flex-shrink:0;">📈</div>
+              <div class="step-content">
+                <h4>成果は「2ヶ月単位」で見る</h4>
+                <p>認知→検討→来店のサイクルには時間がかかる。短期で判断せず、積み上げで評価することをオーナーにも伝える。</p>
+              </div>
+            </div>
+          </div>
+          <div class="info-box blue mt-16">
+            <span class="info-icon">💡</span>
+            <p><strong>オーナーへの説明例：</strong>「広告はまず認知を広げます。見た方がマップやHPを検索して来店につながる流れです。広告・HP・マップが揃うことで成果が出やすくなります。」</p>
           </div>
         </div>
       </div>

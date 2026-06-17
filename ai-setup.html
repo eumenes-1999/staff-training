@@ -1,0 +1,1524 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>【新人研修】Cursor・GitHub・Claude Code 導入マニュアル</title>
+  <meta name="description" content="新人向けAIツール導入手順。GitHub・Cursor・Claude Codeの初期設定から基本的な使い方まで完全ガイド。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --primary-dark: #3730a3;
+      --primary-light: #eef2ff;
+      --accent: #7c3aed;
+      --accent2: #06b6d4;
+      --success: #059669;
+      --warning: #d97706;
+      --danger: #dc2626;
+      --surface: #ffffff;
+      --surface-2: #f8fafc;
+      --surface-3: #f1f5f9;
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-tertiary: #94a3b8;
+      --border: #e2e8f0;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
+      --shadow-lg: 0 8px 24px rgba(0,0,0,0.10), 0 4px 8px rgba(0,0,0,0.06);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background: #f0f4ff;
+      color: var(--text-primary);
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      background: linear-gradient(135deg, #1e1b4b 0%, #312e81 40%, #4338ca 70%, #6366f1 100%);
+      padding: 80px 24px 100px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -20%;
+      width: 60%;
+      height: 200%;
+      background: rgba(255,255,255,0.04);
+      border-radius: 50%;
+      animation: float1 8s ease-in-out infinite;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -30%;
+      right: -10%;
+      width: 50%;
+      height: 150%;
+      background: rgba(255,255,255,0.05);
+      border-radius: 50%;
+      animation: float2 10s ease-in-out infinite;
+    }
+
+    @keyframes float1 {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-30px) rotate(5deg); }
+    }
+
+    @keyframes float2 {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(20px) rotate(-5deg); }
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 6px 16px;
+      border-radius: 100px;
+      margin-bottom: 24px;
+      backdrop-filter: blur(10px);
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero h1 {
+      font-size: clamp(26px, 5vw, 50px);
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -0.5px;
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 1;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+    }
+
+    .hero h1 span {
+      background: linear-gradient(90deg, #a5f3fc, #c4b5fd);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: clamp(14px, 2vw, 17px);
+      color: rgba(255,255,255,0.85);
+      max-width: 600px;
+      margin: 0 auto 32px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-tools {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-tool-badge {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 10px 20px;
+      border-radius: var(--radius-md);
+      backdrop-filter: blur(10px);
+    }
+
+    .hero-tool-badge .tool-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    /* ─── NAV ─── */
+    .nav-wrapper {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .nav-inner::-webkit-scrollbar { display: none; }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 14px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-decoration: none;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s ease;
+    }
+
+    .nav-item:hover { color: var(--primary); border-bottom-color: var(--primary); }
+    .nav-item.active { color: var(--primary); border-bottom-color: var(--primary); }
+
+    /* ─── MAIN ─── */
+    .main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    /* ─── SECTION ─── */
+    .section {
+      margin-bottom: 72px;
+      animation: fadeUp 0.5s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 28px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .section-number {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+      font-size: 18px;
+      font-weight: 700;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(79,70,229,0.4);
+    }
+
+    .section-title-wrap h2 {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .section-title-wrap p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+
+    /* ─── CARD ─── */
+    .card {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .card-header {
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .card-header.indigo { background: linear-gradient(135deg, #eef2ff, #e0e7ff); border-bottom-color: #c7d2fe; }
+    .card-header.purple { background: linear-gradient(135deg, #faf5ff, #f3e8ff); border-bottom-color: #ddd6fe; }
+    .card-header.cyan   { background: linear-gradient(135deg, #ecfeff, #cffafe); border-bottom-color: #a5f3fc; }
+    .card-header.green  { background: linear-gradient(135deg, #f0fdf4, #dcfce7); border-bottom-color: #bbf7d0; }
+    .card-header.amber  { background: linear-gradient(135deg, #fffbeb, #fef3c7); border-bottom-color: #fde68a; }
+    .card-header.red    { background: linear-gradient(135deg, #fef2f2, #fee2e2); border-bottom-color: #fecaca; }
+
+    .card-header .icon { font-size: 22px; }
+
+    .card-header h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .card-header p {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+
+    .card-body {
+      padding: 24px;
+    }
+
+    /* ─── STEP LIST ─── */
+    .step-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .step {
+      display: flex;
+      gap: 16px;
+    }
+
+    .step-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .step-num.purple { background: var(--accent); }
+    .step-num.cyan   { background: var(--accent2); }
+    .step-num.green  { background: var(--success); }
+
+    .step-content { flex: 1; }
+
+    .step-content strong {
+      display: block;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .step-content p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ─── CODE BLOCK ─── */
+    .code-block {
+      background: #1e1b4b;
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      margin: 12px 0;
+      position: relative;
+    }
+
+    .code-block code {
+      font-family: 'SF Mono', 'Fira Code', 'Fira Mono', monospace;
+      font-size: 14px;
+      color: #a5f3fc;
+      letter-spacing: 0.02em;
+    }
+
+    .code-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+    }
+
+    /* ─── INFO BOX ─── */
+    .info-box {
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      margin: 16px 0;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .info-box.tip   { background: #ecfeff; border: 1px solid #a5f3fc; }
+    .info-box.warn  { background: #fffbeb; border: 1px solid #fde68a; }
+    .info-box.check { background: #f0fdf4; border: 1px solid #bbf7d0; }
+    .info-box.note  { background: #eef2ff; border: 1px solid #c7d2fe; }
+
+    .info-box .info-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+
+    .info-box .info-content { flex: 1; }
+    .info-box .info-content strong { font-weight: 700; font-size: 14px; display: block; margin-bottom: 4px; }
+    .info-box .info-content p { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+
+    /* ─── OVERVIEW GRID ─── */
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-bottom: 32px;
+    }
+
+    .overview-card {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      text-align: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .overview-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .overview-card .oc-icon {
+      font-size: 40px;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .overview-card h3 {
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .overview-card p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .overview-card .oc-tag {
+      display: inline-block;
+      background: var(--primary-light);
+      color: var(--primary);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 100px;
+      margin-top: 12px;
+    }
+
+    /* ─── FLOW ARROW ─── */
+    .flow-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 20px 0;
+      flex-wrap: wrap;
+    }
+
+    .flow-box {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: #fff;
+      border-radius: var(--radius-md);
+      padding: 14px 20px;
+      font-size: 14px;
+      font-weight: 700;
+      flex: 1;
+      min-width: 140px;
+      text-align: center;
+    }
+
+    .flow-box.cyan { background: linear-gradient(135deg, #0891b2, #06b6d4); }
+    .flow-box.green { background: linear-gradient(135deg, #059669, #10b981); }
+
+    .flow-arrow {
+      font-size: 22px;
+      color: var(--text-tertiary);
+      flex-shrink: 0;
+    }
+
+    /* ─── TABLE ─── */
+    .table-wrap { overflow-x: auto; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    th {
+      background: var(--surface-3);
+      padding: 12px 16px;
+      text-align: left;
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--text-secondary);
+      border-bottom: 2px solid var(--border);
+    }
+
+    td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    tr:last-child td { border-bottom: none; }
+
+    tr:hover td { background: var(--surface-2); }
+
+    /* ─── TAG ─── */
+    .tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 100px;
+    }
+
+    .tag.free   { background: #dcfce7; color: #166534; }
+    .tag.paid   { background: #fef3c7; color: #92400e; }
+    .tag.req    { background: #fee2e2; color: #991b1b; }
+    .tag.opt    { background: #e0e7ff; color: #3730a3; }
+
+    /* ─── CHECKLIST ─── */
+    .checklist {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .checklist li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--text-primary);
+    }
+
+    .checklist li::before {
+      content: '✓';
+      width: 22px;
+      height: 22px;
+      background: var(--success);
+      color: #fff;
+      border-radius: 50%;
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      text-align: center;
+      padding: 48px 24px;
+      color: var(--text-tertiary);
+      font-size: 13px;
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    footer strong { color: var(--text-secondary); }
+
+    /* ─── UTILITY ─── */
+    .mt-4  { margin-top: 16px; }
+    .mt-6  { margin-top: 24px; }
+    .mb-4  { margin-bottom: 16px; }
+    .gap-y { display: flex; flex-direction: column; gap: 12px; }
+
+    @media (max-width: 600px) {
+      .overview-grid { grid-template-columns: 1fr; }
+      .flow-row { flex-direction: column; }
+      .flow-arrow { transform: rotate(90deg); }
+    }
+  </style>
+</head>
+<body>
+<script>
+(function(){
+  if(!sessionStorage.getItem('rb_auth')) location.replace('/staff-training/login.html');
+})();
+</script>
+
+<!-- ─── HERO ─── -->
+<div class="hero">
+  <div class="hero-badge">🤖 AI活用ツール 新人研修資料</div>
+  <h1>Cursor・GitHub・<span>Claude Code</span><br>導入マニュアル</h1>
+  <p class="hero-sub">AIを活用した業務をスタートするための3つのツールを、ゼロからセットアップする方法を解説します。</p>
+  <div class="hero-tools">
+    <div class="hero-tool-badge"><div class="tool-icon">🐙</div>GitHub</div>
+    <div class="hero-tool-badge"><div class="tool-icon">🖱️</div>Cursor</div>
+    <div class="hero-tool-badge"><div class="tool-icon">🤖</div>Claude Code</div>
+  </div>
+</div>
+
+<!-- ─── NAV ─── -->
+<nav class="nav-wrapper">
+  <div class="nav-inner">
+    <a href="#overview" class="nav-item">🗺️ 全体像</a>
+    <a href="#github" class="nav-item">🐙 GitHub</a>
+    <a href="#cursor" class="nav-item">🖱️ Cursor</a>
+    <a href="#claude-code" class="nav-item">🤖 Claude Code</a>
+    <a href="#daily-flow" class="nav-item">📋 日常フロー</a>
+    <a href="#faq" class="nav-item">❓ よくある質問</a>
+  </div>
+</nav>
+
+<!-- ─── MAIN ─── -->
+<main class="main">
+
+  <!-- ─── SECTION 0: 全体像 ─── -->
+  <section class="section" id="overview">
+    <div class="section-header">
+      <div class="section-number">🗺️</div>
+      <div class="section-title-wrap">
+        <h2>全体像を理解しよう</h2>
+        <p>3つのツールが何をするのか、関係性を把握する</p>
+      </div>
+    </div>
+
+    <div class="overview-grid">
+      <div class="overview-card">
+        <span class="oc-icon">🐙</span>
+        <h3>GitHub</h3>
+        <p>ファイルを安全にクラウドへ保存・共有するサービス。Googleドライブに近いイメージですが、<strong>変更履歴をすべて記録</strong>できます。</p>
+        <span class="oc-tag">クラウド保管庫</span>
+      </div>
+      <div class="overview-card">
+        <span class="oc-icon">🖱️</span>
+        <h3>Cursor</h3>
+        <p>AIが使える高機能なテキストエディタ（メモ帳の進化版）。ファイルの確認・編集を行う<strong>作業場所</strong>です。</p>
+        <span class="oc-tag">AI対応エディタ</span>
+      </div>
+      <div class="overview-card">
+        <span class="oc-icon">🤖</span>
+        <h3>Claude Code</h3>
+        <p>Anthropic社が開発したAIアシスタントツール。指示を出すだけで<strong>ファイル作成・データ整理・投稿作業</strong>などを自動で行ってくれます。</p>
+        <span class="oc-tag">AI自動化ツール</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header indigo">
+        <span class="icon">🔗</span>
+        <div>
+          <h3>3つのツールの関係性</h3>
+          <p>それぞれの役割と連携の流れ</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="flow-row">
+          <div class="flow-box">🤖 Claude Code<br><small style="font-weight:400;font-size:12px">指示を出して作業を実行</small></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-box cyan">🖱️ Cursor<br><small style="font-weight:400;font-size:12px">ファイルを確認・編集</small></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-box green">🐙 GitHub<br><small style="font-weight:400;font-size:12px">結果をクラウドに保存</small></div>
+        </div>
+        <div class="info-box tip">
+          <span class="info-icon">💡</span>
+          <div class="info-content">
+            <strong>たとえるなら…</strong>
+            <p>Claude Code ＝ 優秀なAI秘書 ／ Cursor ＝ デスク（作業場所） ／ GitHub ＝ クラウド保管庫。<br>秘書（Claude Code）がデスク（Cursor）で作業して、完成したものをクラウド（GitHub）に保存するイメージです。</p>
+          </div>
+        </div>
+
+        <div class="table-wrap mt-4">
+          <table>
+            <thead>
+              <tr>
+                <th>ツール</th>
+                <th>費用</th>
+                <th>主な用途</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>🐙 GitHub</strong></td>
+                <td><span class="tag free">無料</span></td>
+                <td>ファイルの保存・バックアップ・チームとの共有</td>
+              </tr>
+              <tr>
+                <td><strong>🖱️ Cursor</strong></td>
+                <td><span class="tag free">無料</span>（有料プランあり）</td>
+                <td>ファイル確認・AIとのチャット・編集作業</td>
+              </tr>
+              <tr>
+                <td><strong>🤖 Claude Code</strong></td>
+                <td><span class="tag paid">有料</span>（会社が負担）</td>
+                <td>AIへの指示出し・作業の自動化</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box check">
+      <span class="info-icon">✅</span>
+      <div class="info-content">
+        <strong>この資料を終えたらできること</strong>
+        <p>3つのツールがすべてPCにインストールされ、実際の業務でAIに指示を出して作業を自動化できるようになります。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 1: GitHub ─── -->
+  <section class="section" id="github">
+    <div class="section-header">
+      <div class="section-number">1</div>
+      <div class="section-title-wrap">
+        <h2>🐙 GitHub アカウント作成</h2>
+        <p>まず最初にGitHubアカウントを作ります（所要時間：約5分）</p>
+      </div>
+    </div>
+
+    <div class="info-box note">
+      <span class="info-icon">📝</span>
+      <div class="info-content">
+        <strong>GitHubとは？</strong>
+        <p>ファイルやフォルダをインターネット上に保存できるサービスです。「誰がいつどこを変更したか」の履歴が自動で残るので、チームで安全に作業できます。</p>
+      </div>
+    </div>
+
+    <!-- GitHub アカウント作成 -->
+    <div class="card">
+      <div class="card-header indigo">
+        <span class="icon">📝</span>
+        <div>
+          <h3>STEP 1 ｜ アカウントを作成する</h3>
+          <p>github.com からサインアップ</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="step-list">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <strong>ブラウザで GitHub を開く</strong>
+              <p>ブラウザ（ChromeやSafari）で <strong>github.com</strong> にアクセスします。</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <strong>「Sign up」をクリック</strong>
+              <p>画面右上の緑色の「Sign up」ボタンをクリックします。</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <strong>メールアドレスを入力</strong>
+              <p>会社のメールアドレス（@runbird.net）を入力し、「Continue」をクリックします。</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <strong>パスワードを設定</strong>
+              <p>英数字と記号を含む、8文字以上のパスワードを設定します。後で使うのでメモしておきましょう。</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">5</div>
+            <div class="step-content">
+              <strong>ユーザー名を決める</strong>
+              <p>半角英数字とハイフンのみ使えます。例：<code>runbird-tanaka</code>（会社名＋名前）のような形がおすすめです。</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">6</div>
+            <div class="step-content">
+              <strong>メール認証</strong>
+              <p>登録したメールアドレスに確認コードが届きます。コードを入力して認証を完了させます。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-box check mt-4">
+          <span class="info-icon">✅</span>
+          <div class="info-content">
+            <strong>完了の確認</strong>
+            <p>github.com にアクセスして、自分のアイコン（右上）が表示されていればアカウント作成完了です。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GitHub Desktop -->
+    <div class="card">
+      <div class="card-header indigo">
+        <span class="icon">🖥️</span>
+        <div>
+          <h3>STEP 2 ｜ GitHub Desktop をインストールする</h3>
+          <p>コマンド不要でGitHubを使えるアプリ（初心者向け）</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="info-box tip">
+          <span class="info-icon">💡</span>
+          <div class="info-content">
+            <strong>GitHub Desktop とは？</strong>
+            <p>GitHubを画面上のボタン操作だけで使えるアプリです。難しいコマンド入力が不要で、初心者でもファイルのアップロード・ダウンロードが簡単にできます。</p>
+          </div>
+        </div>
+
+        <div class="step-list mt-4">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <strong>GitHub Desktop をダウンロード</strong>
+              <p><strong>desktop.github.com</strong> にアクセスし、「Download for Mac」または「Download for Windows」をクリックします。</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <strong>インストール</strong>
+              <p>Macの場合はダウンロードした .dmg ファイルを開き、アイコンをアプリケーションフォルダにドラッグします。Windowsの場合はインストーラーを実行します。</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <strong>GitHubアカウントでサインイン</strong>
+              <p>アプリを起動して「Sign in to GitHub.com」をクリックし、先ほど作成したアカウントでログインします。</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <strong>自分の名前とメールを設定</strong>
+              <p>名前とメールアドレスの入力を求められたら、実名とメールアドレスを入力します。これは変更履歴に表示される名前です。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 2: Cursor ─── -->
+  <section class="section" id="cursor">
+    <div class="section-header">
+      <div class="section-number">2</div>
+      <div class="section-title-wrap">
+        <h2>🖱️ Cursor インストールと設定</h2>
+        <p>AIと一緒に使えるエディタをセットアップする（所要時間：約10分）</p>
+      </div>
+    </div>
+
+    <div class="info-box note">
+      <span class="info-icon">📝</span>
+      <div class="info-content">
+        <strong>Cursorとは？</strong>
+        <p>メモ帳を大幅に進化させたソフトウェアです。ファイルを開いて確認したり、AIに質問しながら編集したりできます。コードが書けない人でも、AIが手助けしてくれます。</p>
+      </div>
+    </div>
+
+    <!-- Cursor インストール -->
+    <div class="card">
+      <div class="card-header purple">
+        <span class="icon">⬇️</span>
+        <div>
+          <h3>STEP 1 ｜ Cursor をインストールする</h3>
+          <p>cursor.com からダウンロード</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="step-list">
+          <div class="step">
+            <div class="step-num purple">1</div>
+            <div class="step-content">
+              <strong>公式サイトへアクセス</strong>
+              <p>ブラウザで <strong>cursor.com</strong> にアクセスします。</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num purple">2</div>
+            <div class="step-content">
+              <strong>「Download」をクリック</strong>
+              <p>トップページの「Download」ボタンをクリックします。お使いのOS（MacまたはWindows）に合わせたファイルが自動でダウンロードされます。</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num purple">3</div>
+            <div class="step-content">
+              <strong>インストール</strong>
+              <p><strong>Mac：</strong>ダウンロードされた .dmg ファイルを開き、Cursor アイコンを「アプリケーション」フォルダにドラッグします。<br><strong>Windows：</strong>ダウンロードされた .exe ファイルを開き、画面の指示に従います。</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num purple">4</div>
+            <div class="step-content">
+              <strong>Cursor を起動する</strong>
+              <p>アプリケーションフォルダ（Mac）またはデスクトップ（Windows）の Cursor アイコンをダブルクリックします。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cursor 初期設定 -->
+    <div class="card">
+      <div class="card-header purple">
+        <span class="icon">⚙️</span>
+        <div>
+          <h3>STEP 2 ｜ 初期設定をする</h3>
+          <p>初回起動時の設定ウィザード</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="step-list">
+          <div class="step">
+            <div class="step-num purple">1</div>
+            <div class="step-content">
+              <strong>言語設定（任意）</strong>
+              <p>初回起動時に言語を聞かれる場合があります。日本語表示は対応が限られるため、English のまま進めて問題ありません。</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num purple">2</div>
+            <div class="step-content">
+              <strong>アカウント作成・ログイン</strong>
+              <p>「Sign Up」または「Log In」を選択し、<strong>GitHubアカウントでログイン（「Continue with GitHub」）</strong>するのが最も簡単です。</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num purple">3</div>
+            <div class="step-content">
+              <strong>プランの選択</strong>
+              <p>「Hobby（無料）」プランで問題ありません。クレジットカードは不要です。</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num purple">4</div>
+            <div class="step-content">
+              <strong>セットアップ完了</strong>
+              <p>「Open Cursor」ボタンをクリックすると、エディタ画面が開きます。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cursor の基本画面 -->
+    <div class="card">
+      <div class="card-header purple">
+        <span class="icon">🖼️</span>
+        <div>
+          <h3>STEP 3 ｜ 画面の見方を覚える</h3>
+          <p>どこに何があるかを把握する</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>エリア</th>
+                <th>位置</th>
+                <th>用途</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>サイドバー</strong></td>
+                <td>左側</td>
+                <td>フォルダ・ファイルの一覧が表示される</td>
+              </tr>
+              <tr>
+                <td><strong>エディタ画面</strong></td>
+                <td>中央</td>
+                <td>ファイルの内容が表示・編集できる</td>
+              </tr>
+              <tr>
+                <td><strong>AIチャット</strong></td>
+                <td>右側 / 下部</td>
+                <td>AIに質問・指示ができる（Ctrl+Lで開く）</td>
+              </tr>
+              <tr>
+                <td><strong>ターミナル</strong></td>
+                <td>下部</td>
+                <td>コマンドを入力する黒い画面（後述）</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="info-box tip mt-4">
+          <span class="info-icon">💡</span>
+          <div class="info-content">
+            <strong>フォルダを開く方法</strong>
+            <p>メニューの「File → Open Folder」または画面中央の「Open Folder」をクリックして、作業したいフォルダを選択します。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 3: Claude Code ─── -->
+  <section class="section" id="claude-code">
+    <div class="section-header">
+      <div class="section-number">3</div>
+      <div class="section-title-wrap">
+        <h2>🤖 Claude Code インストールと設定</h2>
+        <p>AIに業務を自動化させるツールをセットアップする（所要時間：約15分）</p>
+      </div>
+    </div>
+
+    <div class="info-box note">
+      <span class="info-icon">📝</span>
+      <div class="info-content">
+        <strong>Claude Code とは？</strong>
+        <p>Anthropic社が開発した最先端のAIツールです。日本語でお願いするだけで、ファイルの作成・データ整理・投稿文の作成など、様々な作業を自動でやってくれます。</p>
+      </div>
+    </div>
+
+    <!-- Node.js インストール -->
+    <div class="card">
+      <div class="card-header cyan">
+        <span class="icon">⚡</span>
+        <div>
+          <h3>STEP 1 ｜ Node.js をインストールする（前提ソフト）</h3>
+          <p>Claude Code を動かすために必要なソフトウェア</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="info-box warn">
+          <span class="info-icon">⚠️</span>
+          <div class="info-content">
+            <strong>なぜ必要？</strong>
+            <p>Claude Code を動かすには「Node.js」というソフトが必要です。エンジンのようなもので、インストールするだけで普段は意識する必要はありません。</p>
+          </div>
+        </div>
+
+        <div class="step-list mt-4">
+          <div class="step">
+            <div class="step-num cyan">1</div>
+            <div class="step-content">
+              <strong>公式サイトへアクセス</strong>
+              <p>ブラウザで <strong>nodejs.org</strong> にアクセスします。</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num cyan">2</div>
+            <div class="step-content">
+              <strong>「LTS」バージョンをダウンロード</strong>
+              <p>「LTS（長期サポート版）」と書かれた緑色のボタンをクリックしてダウンロードします。</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num cyan">3</div>
+            <div class="step-content">
+              <strong>インストール</strong>
+              <p>ダウンロードしたファイルを開き、「Continue」「Next」を押して進めます。すべてデフォルト設定のままでOKです。</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num cyan">4</div>
+            <div class="step-content">
+              <strong>インストールを確認する</strong>
+              <p>ターミナル（Macなら「ターミナル」アプリ、Windowsなら「コマンドプロンプト」）を開いて、以下を入力します。</p>
+              <div class="code-block">
+                <div class="code-label">確認コマンド</div>
+                <code>node --version</code>
+              </div>
+              <p>「v20.x.x」のようなバージョン番号が表示されれば成功です。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Claude Code インストール -->
+    <div class="card">
+      <div class="card-header cyan">
+        <span class="icon">🤖</span>
+        <div>
+          <h3>STEP 2 ｜ Claude Code をインストールする</h3>
+          <p>ターミナルでコマンドを実行してインストール</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="info-box tip">
+          <span class="info-icon">💡</span>
+          <div class="info-content">
+            <strong>ターミナルを開く方法</strong>
+            <p><strong>Mac：</strong>「アプリケーション → ユーティリティ → ターミナル」または Spotlight（⌘+スペース）で「terminal」と入力<br>
+            <strong>Windows：</strong>スタートメニューで「cmd」または「PowerShell」と検索<br>
+            <strong>Cursor内：</strong>メニューの「Terminal → New Terminal」でも開けます</p>
+          </div>
+        </div>
+
+        <div class="step-list mt-4">
+          <div class="step">
+            <div class="step-num cyan">1</div>
+            <div class="step-content">
+              <strong>ターミナルを開く</strong>
+              <p>上記の方法でターミナル（黒い画面）を開きます。</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num cyan">2</div>
+            <div class="step-content">
+              <strong>インストールコマンドを実行</strong>
+              <p>以下のコマンドをコピーして、ターミナルに貼り付けてEnterキーを押します。</p>
+              <div class="code-block">
+                <div class="code-label">インストールコマンド</div>
+                <code>npm install -g @anthropic-ai/claude-code</code>
+              </div>
+              <p>しばらく待つと「added XXX packages」のようなメッセージが表示されます。</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num cyan">3</div>
+            <div class="step-content">
+              <strong>インストール確認</strong>
+              <p>以下のコマンドで正しくインストールされたか確認します。</p>
+              <div class="code-block">
+                <div class="code-label">確認コマンド</div>
+                <code>claude --version</code>
+              </div>
+              <p>バージョン番号が表示されれば成功です。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Claude Code ログイン -->
+    <div class="card">
+      <div class="card-header cyan">
+        <span class="icon">🔑</span>
+        <div>
+          <h3>STEP 3 ｜ Claude Code にログインする</h3>
+          <p>Anthropicアカウントと紐付けしてAIを有効化</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="step-list">
+          <div class="step">
+            <div class="step-num cyan">1</div>
+            <div class="step-content">
+              <strong>Claude Code を起動する</strong>
+              <p>ターミナルで以下のコマンドを入力します。</p>
+              <div class="code-block">
+                <div class="code-label">起動コマンド</div>
+                <code>claude</code>
+              </div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num cyan">2</div>
+            <div class="step-content">
+              <strong>認証方法を選ぶ</strong>
+              <p>「Login」の選択肢が表示されます。<strong>「Continue with Claude.ai」</strong>を選択します（Anthropicアカウントでログイン）。</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num cyan">3</div>
+            <div class="step-content">
+              <strong>ブラウザで認証</strong>
+              <p>ブラウザが自動で開き、claude.ai のログイン画面が表示されます。会社から案内されたアカウントでログインします。</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num cyan">4</div>
+            <div class="step-content">
+              <strong>ターミナルに戻る</strong>
+              <p>ブラウザでの認証が完了すると、ターミナルに「Logged in」のメッセージが表示されます。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-box check mt-4">
+          <span class="info-icon">✅</span>
+          <div class="info-content">
+            <strong>ログイン確認方法</strong>
+            <p>ターミナルで <code>claude</code> と入力してEnterキーを押したとき、「>」のようなプロンプトが表示されてAIと会話できる状態になれば完了です。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Claude Code 基本操作 -->
+    <div class="card">
+      <div class="card-header cyan">
+        <span class="icon">💬</span>
+        <div>
+          <h3>STEP 4 ｜ Claude Code の基本操作</h3>
+          <p>AIへの指示の出し方</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="step-list">
+          <div class="step">
+            <div class="step-num cyan">1</div>
+            <div class="step-content">
+              <strong>作業フォルダに移動してから起動する</strong>
+              <p>必ず作業したいフォルダに移動してから Claude Code を起動します。</p>
+              <div class="code-block">
+                <div class="code-label">フォルダ移動→起動（Macの例）</div>
+                <code>cd ~/Documents/AI/CURSOR<br>claude</code>
+              </div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num cyan">2</div>
+            <div class="step-content">
+              <strong>日本語でお願いするだけ</strong>
+              <p>Claude Code が起動したら、やりたいことを日本語で入力するだけです。</p>
+              <div class="code-block">
+                <div class="code-label">例：日本語で指示</div>
+                <code>> 今日の日付でフォルダを作って<br>  その中にレポートのテンプレートを作って</code>
+              </div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num cyan">3</div>
+            <div class="step-content">
+              <strong>スキルコマンドを実行する</strong>
+              <p>「/」から始まるコマンドで、よく使う作業を一発で実行できます。</p>
+              <div class="code-block">
+                <div class="code-label">よく使うコマンド例</div>
+                <code>/おはよう　← 朝の作業開始<br>/おつかれ　← 夕方の作業終了</code>
+              </div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num cyan">4</div>
+            <div class="step-content">
+              <strong>終了するには</strong>
+              <p>「/exit」と入力するか、<strong>Ctrl + C</strong> を押します。</p>
+              <div class="code-block">
+                <div class="code-label">終了コマンド</div>
+                <code>/exit</code>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 4: 日常フロー ─── -->
+  <section class="section" id="daily-flow">
+    <div class="section-header">
+      <div class="section-number">4</div>
+      <div class="section-title-wrap">
+        <h2>📋 日常の作業フロー</h2>
+        <p>毎日の業務での3つのツールの使い方</p>
+      </div>
+    </div>
+
+    <!-- 朝の作業開始 -->
+    <div class="card">
+      <div class="card-header green">
+        <span class="icon">🌅</span>
+        <div>
+          <h3>朝：作業開始のルーティン</h3>
+          <p>毎朝最初に行う手順</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="step-list">
+          <div class="step">
+            <div class="step-num green">1</div>
+            <div class="step-content">
+              <strong>Cursor を開く</strong>
+              <p>Cursor を起動して、作業フォルダ（例：AI/CURSOR）を開きます。</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num green">2</div>
+            <div class="step-content">
+              <strong>ターミナルで Claude Code を起動</strong>
+              <p>Cursor 内のターミナル（メニュー → Terminal → New Terminal）で Claude Code を起動します。</p>
+              <div class="code-block">
+                <div class="code-label">朝のコマンド</div>
+                <code>claude<br><br>> /おはよう</code>
+              </div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num green">3</div>
+            <div class="step-content">
+              <strong>最新データの取得が自動で行われる</strong>
+              <p>「/おはよう」コマンドを実行すると、GitHubから最新のデータが自動で取得されます。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 夕方の作業終了 -->
+    <div class="card">
+      <div class="card-header amber">
+        <span class="icon">🌆</span>
+        <div>
+          <h3>夕方：作業終了のルーティン</h3>
+          <p>業務終了前に必ず行う手順</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="step-list">
+          <div class="step">
+            <div class="step-num" style="background:#d97706">1</div>
+            <div class="step-content">
+              <strong>Claude Code で終了コマンドを実行</strong>
+              <p>作業が終わったら、ターミナルの Claude Code で以下を実行します。</p>
+              <div class="code-block">
+                <div class="code-label">夕方のコマンド</div>
+                <code>> /おつかれ</code>
+              </div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num" style="background:#d97706">2</div>
+            <div class="step-content">
+              <strong>自動でGitHubへ保存</strong>
+              <p>今日の作業内容が自動でGitHubにアップロード（プッシュ）されます。これでデータが安全に保存されます。</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num" style="background:#d97706">3</div>
+            <div class="step-content">
+              <strong>GitHub Desktop で確認（任意）</strong>
+              <p>GitHub Desktop を開くと、今日の変更内容が一覧で確認できます。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-box warn mt-4">
+          <span class="info-icon">⚠️</span>
+          <div class="info-content">
+            <strong>「/おつかれ」を忘れずに！</strong>
+            <p>退勤前に必ず「/おつかれ」を実行してください。実行しないと当日の作業がGitHubに保存されず、データが失われる可能性があります。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AIへの指示の出し方 -->
+    <div class="card">
+      <div class="card-header indigo">
+        <span class="icon">💬</span>
+        <div>
+          <h3>AIに仕事をお願いするコツ</h3>
+          <p>Claude Code を最大限活用するための指示の出し方</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>やりたいこと</th>
+                <th>Claude Code への指示例</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>ファイルを作りたい</td>
+                <td>「〇〇のフォルダに△△というファイルを作って」</td>
+              </tr>
+              <tr>
+                <td>内容を確認したい</td>
+                <td>「〇〇のファイルの内容を教えて」</td>
+              </tr>
+              <tr>
+                <td>文章を作りたい</td>
+                <td>「〇〇向けのMEO投稿文を作って。店舗は△△」</td>
+              </tr>
+              <tr>
+                <td>作業の結果を確認したい</td>
+                <td>「今日何をしたか教えて」</td>
+              </tr>
+              <tr>
+                <td>エラーがわからない</td>
+                <td>「エラーが出た。〇〇と表示されているんだけど原因は？」</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="info-box tip mt-4">
+          <span class="info-icon">💡</span>
+          <div class="info-content">
+            <strong>指示は「5W1H」で具体的に</strong>
+            <p>「だれに・何を・どこに・いつ・なぜ・どのように」を明確にするほど、AIの回答精度が上がります。曖昧な指示より具体的な指示のほうがうまくいきます。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 5: FAQ ─── -->
+  <section class="section" id="faq">
+    <div class="section-header">
+      <div class="section-number">5</div>
+      <div class="section-title-wrap">
+        <h2>❓ よくある質問・トラブル対処</h2>
+        <p>困ったときの対処法</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header red">
+        <span class="icon">🛠️</span>
+        <div>
+          <h3>トラブルシューティング</h3>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="gap-y">
+
+          <div class="info-box warn">
+            <span class="info-icon">⚠️</span>
+            <div class="info-content">
+              <strong>Q. 「command not found: claude」と表示される</strong>
+              <p>Node.js のインストールが正しくできていない可能性があります。Node.js を再インストールした後、<code>npm install -g @anthropic-ai/claude-code</code> を再実行してください。</p>
+            </div>
+          </div>
+
+          <div class="info-box warn">
+            <span class="info-icon">⚠️</span>
+            <div class="info-content">
+              <strong>Q. Claude Code が「認証エラー」になる</strong>
+              <p>ターミナルで <code>claude</code> を起動し、再度ログイン手順（STEP 3）を実行してください。ブラウザで claude.ai にログインできているか確認してください。</p>
+            </div>
+          </div>
+
+          <div class="info-box warn">
+            <span class="info-icon">⚠️</span>
+            <div class="info-content">
+              <strong>Q. GitHubにアップロードできない</strong>
+              <p>GitHub Desktop で「Repository → Pull」（最新データを取得）してから再度試してください。コンフリクト（衝突）が発生している場合は上長に相談してください。</p>
+            </div>
+          </div>
+
+          <div class="info-box warn">
+            <span class="info-icon">⚠️</span>
+            <div class="info-content">
+              <strong>Q. Cursor が重い・フリーズする</strong>
+              <p>一度 Cursor を完全に終了して再起動してください。それでも改善しない場合は、Cursor のキャッシュをクリアするか再インストールを試みてください。</p>
+            </div>
+          </div>
+
+          <div class="info-box tip">
+            <span class="info-icon">💡</span>
+            <div class="info-content">
+              <strong>Q. AIが英語で回答してくる</strong>
+              <p>指示の最初に「日本語で答えて」と一言追加するか、「Please respond in Japanese.」と入力してください。または指示を日本語で書けば日本語で返答されます。</p>
+            </div>
+          </div>
+
+          <div class="info-box tip">
+            <span class="info-icon">💡</span>
+            <div class="info-content">
+              <strong>Q. どこまでAIに頼んでいい？</strong>
+              <p>基本的に何でも頼んでOKです。ただし、パスワードや個人情報などの機密情報はAIに入力しないようにしてください。判断に迷ったら上長に確認してください。</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- セットアップ完了チェックリスト -->
+    <div class="card">
+      <div class="card-header green">
+        <span class="icon">✅</span>
+        <div>
+          <h3>セットアップ完了チェックリスト</h3>
+          <p>全部チェックできたら導入完了です</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <ul class="checklist">
+          <li>GitHub アカウントを作成した</li>
+          <li>GitHub Desktop をインストールしてログインした</li>
+          <li>Cursor をインストールしてログインした</li>
+          <li>Node.js をインストールした（<code>node --version</code> でバージョン確認済み）</li>
+          <li>Claude Code をインストールした（<code>claude --version</code> でバージョン確認済み）</li>
+          <li>Claude Code にログインした（<code>claude</code> を起動してAIと会話できる）</li>
+          <li>「/おはよう」「/おつかれ」コマンドを試した</li>
+          <li>日本語でAIに質問・指示を出してみた</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <p><strong>【新人研修】Cursor・GitHub・Claude Code 導入マニュアル</strong></p>
+  <p style="margin-top:8px;">不明点は上長または先輩スタッフにご確認ください。</p>
+</footer>
+
+<script>
+  // Active nav on scroll
+  const sections = document.querySelectorAll('.section[id]');
+  const navItems = document.querySelectorAll('.nav-item');
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navItems.forEach(n => n.classList.remove('active'));
+        const active = document.querySelector(`.nav-item[href="#${entry.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { threshold: 0.3 });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>

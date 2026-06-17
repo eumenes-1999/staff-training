@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>【新人研修】Google広告 リスティング広告 入稿マニュアル</title>
+    <meta name="description" content="新人向けGoogleリスティング広告（検索広告）入稿マニュアル。キャンペーン作成からキーワード設定・レスポンシブ検索広告の作成まで網羅。" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --google-blue: #4285F4;
+        --google-red: #EA4335;
+        --google-yellow: #FBBC05;
+        --google-green: #34A853;
+        --primary: #1a73e8;
+        --primary-dark: #0d47a1;
+        --primary-light: #e8f0fe;
+        --surface: #ffffff;
+        --surface-2: #f8f9fa;
+        --surface-3: #f1f3f4;
+        --text-primary: #202124;
+        --text-secondary: #5f6368;
+        --text-tertiary: #80868b;
+        --border: #e0e0e0;
+        --shadow-sm: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.08);
+        --shadow-md: 0 4px 12px rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.06);
+        --shadow-lg: 0 8px 24px rgba(0,0,0,0.12), 0 4px 8px rgba(0,0,0,0.08);
+        --radius-sm: 8px;
+        --radius-md: 12px;
+        --radius-lg: 16px;
+        --radius-xl: 24px;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body { font-family: 'Noto Sans JP', sans-serif; background: #f0f4ff; color: var(--text-primary); line-height: 1.7; font-size: 15px; }
+
+      /* ─── HERO ─── */
+      .hero {
+        background: linear-gradient(135deg, #006064 0%, #00838f 40%, #00acc1 70%, #4dd0e1 100%);
+        padding: 80px 24px 100px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero::before {
+        content: ''; position: absolute; top: -50%; left: -20%; width: 60%; height: 200%;
+        background: rgba(255,255,255,0.04); border-radius: 50%;
+        animation: float1 8s ease-in-out infinite;
+      }
+      .hero::after {
+        content: ''; position: absolute; bottom: -30%; right: -10%; width: 50%; height: 150%;
+        background: rgba(255,255,255,0.05); border-radius: 50%;
+        animation: float2 10s ease-in-out infinite;
+      }
+      @keyframes float1 { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-30px) rotate(5deg); } }
+      @keyframes float2 { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(20px) rotate(-5deg); } }
+
+      .hero-badge {
+        display: inline-flex; align-items: center; gap: 8px;
+        background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);
+        color: #fff; font-size: 13px; font-weight: 500; padding: 6px 16px;
+        border-radius: 100px; margin-bottom: 24px; backdrop-filter: blur(10px);
+        position: relative; z-index: 1;
+      }
+      .hero-badge::before { content: '🔍'; font-size: 14px; }
+      .hero h1 {
+        font-size: clamp(28px, 5vw, 52px); font-weight: 900; color: #fff;
+        letter-spacing: -0.5px; margin-bottom: 16px; position: relative; z-index: 1;
+        text-shadow: 0 2px 20px rgba(0,0,0,0.2);
+      }
+      .hero h1 span {
+        background: linear-gradient(90deg, #FBBC05, #FF6D00);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      }
+      .hero-sub { font-size: clamp(14px, 2vw, 18px); color: rgba(255,255,255,0.85); max-width: 600px; margin: 0 auto 32px; position: relative; z-index: 1; }
+      .hero-meta { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; position: relative; z-index: 1; }
+      .hero-meta-item { display: flex; align-items: center; gap: 8px; color: rgba(255,255,255,0.8); font-size: 14px; font-weight: 500; }
+      .hero-meta-item .icon { width: 32px; height: 32px; background: rgba(255,255,255,0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+
+      /* ─── NAV ─── */
+      .nav-wrapper { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.95); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); box-shadow: var(--shadow-sm); }
+      .nav-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; gap: 6px; overflow-x: auto; scrollbar-width: none; }
+      .nav-inner::-webkit-scrollbar { display: none; }
+      .nav-item { display: flex; align-items: center; gap: 6px; padding: 14px 16px; font-size: 13px; font-weight: 600; color: var(--text-secondary); text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 0.2s ease; }
+      .nav-item:hover, .nav-item.active { color: var(--primary); border-bottom-color: var(--primary); }
+
+      /* ─── MAIN ─── */
+      .main { max-width: 1100px; margin: 0 auto; padding: 48px 24px 80px; }
+
+      /* ─── SECTION ─── */
+      .section { margin-bottom: 64px; animation: fadeUp 0.5s ease both; }
+      @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+      .section-header { display: flex; align-items: center; gap: 16px; margin-bottom: 28px; padding-bottom: 20px; border-bottom: 2px solid var(--border); }
+      .section-number { width: 44px; height: 44px; background: linear-gradient(135deg, #006064, #00acc1); color: white; font-size: 18px; font-weight: 700; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 4px 12px rgba(0,131,143,0.4); }
+      .section-title-wrap h2 { font-size: 22px; font-weight: 700; color: var(--text-primary); }
+      .section-title-wrap p { font-size: 13px; color: var(--text-secondary); margin-top: 2px; }
+
+      /* ─── CARD ─── */
+      .card { background: var(--surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--border); overflow: hidden; }
+      .card-header { background: linear-gradient(135deg, #e0f7fa, #b2ebf2); padding: 16px 24px; border-bottom: 1px solid #b2d8e0; display: flex; align-items: center; gap: 12px; }
+      .card-header .icon { font-size: 20px; }
+      .card-header h3 { font-size: 16px; font-weight: 700; color: #006064; }
+      .card-body { padding: 24px; }
+
+      /* ─── GRID ─── */
+      .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+      .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+
+      /* ─── HIERARCHY ─── */
+      .hierarchy { display: flex; flex-direction: column; gap: 0; margin: 8px 0; }
+      .hierarchy-box { flex: 1; border-radius: var(--radius-sm); padding: 14px 20px; margin: 4px 0; }
+      .h-lv1 { background: linear-gradient(135deg, #e8f0fe, #d2e3fc); border-left: 4px solid var(--google-blue); }
+      .h-lv2 { background: linear-gradient(135deg, #e6f4ea, #ceead6); border-left: 4px solid var(--google-green); margin-left: 24px; }
+      .h-lv3 { background: linear-gradient(135deg, #fef7e0, #fde68a); border-left: 4px solid var(--google-yellow); margin-left: 48px; }
+      .h-lv4 { background: linear-gradient(135deg, #fce8e6, #f8c8c5); border-left: 4px solid var(--google-red); margin-left: 72px; }
+      .hierarchy-box .level-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; opacity: 0.6; margin-bottom: 4px; }
+      .hierarchy-box h4 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+      .hierarchy-box p { font-size: 13px; color: var(--text-secondary); }
+
+      /* ─── STEP LIST ─── */
+      .step-list { display: flex; flex-direction: column; gap: 16px; }
+      .step-item { display: flex; gap: 16px; align-items: flex-start; padding: 16px 20px; background: var(--surface-2); border-radius: var(--radius-md); border: 1px solid var(--border); transition: all 0.2s ease; }
+      .step-item:hover { border-color: #80deea; box-shadow: var(--shadow-sm); background: #e0f7fa; transform: translateX(4px); }
+      .step-num { width: 32px; height: 32px; background: linear-gradient(135deg, #006064, #00acc1); color: white; font-size: 14px; font-weight: 700; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 2px 8px rgba(0,131,143,0.35); }
+      .step-content h4 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+      .step-content p, .step-content ul { font-size: 14px; color: var(--text-secondary); }
+      .step-content ul { padding-left: 18px; margin-top: 6px; }
+      .step-content ul li { margin-bottom: 3px; }
+
+      /* ─── INFO BOX ─── */
+      .info-box { border-radius: var(--radius-md); padding: 16px 20px; display: flex; gap: 12px; align-items: flex-start; margin: 16px 0; font-size: 14px; }
+      .info-box.blue { background: #e8f0fe; border-left: 4px solid var(--google-blue); color: #1a237e; }
+      .info-box.green { background: #e6f4ea; border-left: 4px solid var(--google-green); color: #1b5e20; }
+      .info-box.yellow { background: #fff8e1; border-left: 4px solid var(--google-yellow); color: #6d4c00; }
+      .info-box.red { background: #fce8e6; border-left: 4px solid var(--google-red); color: #7f0000; }
+      .info-box.teal { background: #e0f7fa; border-left: 4px solid #00838f; color: #004d40; }
+      .info-box .info-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+
+      /* ─── TABLE ─── */
+      .setting-table { width: 100%; border-collapse: collapse; font-size: 14px; border-radius: var(--radius-md); overflow: hidden; }
+      .setting-table th { background: linear-gradient(135deg, #006064, #00acc1); color: white; padding: 12px 16px; text-align: left; font-weight: 600; font-size: 13px; }
+      .setting-table td { padding: 12px 16px; border-bottom: 1px solid var(--border); vertical-align: top; }
+      .setting-table tr:nth-child(even) td { background: var(--surface-2); }
+      .setting-table tr:hover td { background: #e0f7fa; }
+      .setting-table .label { font-weight: 600; color: var(--text-primary); white-space: nowrap; }
+      .setting-table .value { color: var(--text-secondary); }
+      .setting-table .example { font-size: 13px; color: #006064; font-style: italic; }
+
+      /* ─── TAG ─── */
+      .tag { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 100px; font-size: 12px; font-weight: 600; }
+      .tag-blue { background: #e8f0fe; color: var(--primary); }
+      .tag-green { background: #e6f4ea; color: #137333; }
+      .tag-yellow { background: #fff8e1; color: #f57f17; }
+      .tag-red { background: #fce8e6; color: #c62828; }
+      .tag-teal { background: #e0f7fa; color: #006064; }
+
+      /* ─── MATCH TYPE CARDS ─── */
+      .match-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+      .match-card { border-radius: var(--radius-md); padding: 20px; border: 2px solid; }
+      .match-card.exact { background: #e8f0fe; border-color: var(--google-blue); }
+      .match-card.phrase { background: #e6f4ea; border-color: var(--google-green); }
+      .match-card.broad { background: #fff8e1; border-color: var(--google-yellow); }
+      .match-card .match-type-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
+      .match-card.exact .match-type-label { color: var(--google-blue); }
+      .match-card.phrase .match-type-label { color: #137333; }
+      .match-card.broad .match-type-label { color: #f57f17; }
+      .match-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+      .match-card .syntax { font-size: 15px; font-family: monospace; font-weight: 700; background: rgba(0,0,0,0.06); padding: 2px 8px; border-radius: 4px; display: inline-block; margin-bottom: 8px; }
+      .match-card p { font-size: 13px; color: var(--text-secondary); }
+      .match-card .example { font-size: 12px; margin-top: 8px; color: var(--text-secondary); }
+
+      /* ─── AD PREVIEW ─── */
+      .ad-preview { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 20px; font-family: Arial, sans-serif; }
+      .ad-preview .ad-label { font-size: 12px; font-weight: 700; color: #000; background: #fff; border: 1px solid #555; border-radius: 2px; padding: 0px 4px; display: inline-block; margin-bottom: 4px; }
+      .ad-preview .ad-url { font-size: 13px; color: #006621; margin-bottom: 2px; }
+      .ad-preview .ad-title { font-size: 18px; color: #1a0dab; font-weight: normal; margin-bottom: 4px; line-height: 1.3; }
+      .ad-preview .ad-desc { font-size: 13px; color: #545454; line-height: 1.5; }
+      .ad-preview .ad-extensions { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 8px; }
+      .ad-preview .ad-ext-item { font-size: 12px; color: #1a0dab; border-right: 1px solid #ccc; padding-right: 8px; }
+      .ad-preview .ad-ext-item:last-child { border-right: none; }
+
+      /* ─── SUMMARY BOX ─── */
+      .summary-box { background: linear-gradient(135deg, #006064, #00838f); color: white; border-radius: var(--radius-xl); padding: 40px; text-align: center; margin-top: 64px; position: relative; overflow: hidden; }
+      .summary-box::before { content: ''; position: absolute; top: -40%; right: -10%; width: 40%; height: 200%; background: rgba(255,255,255,0.05); border-radius: 50%; }
+      .summary-box h2 { font-size: 24px; font-weight: 700; margin-bottom: 12px; }
+      .summary-box p { font-size: 15px; color: rgba(255,255,255,0.8); max-width: 600px; margin: 0 auto 24px; }
+      .flow-steps { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 8px; position: relative; }
+      .flow-step { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); backdrop-filter: blur(10px); border-radius: var(--radius-md); padding: 12px 20px; font-size: 14px; font-weight: 600; color: white; }
+      .flow-arrow { color: rgba(255,255,255,0.5); font-size: 18px; }
+
+      /* ─── FOOTER ─── */
+      footer { text-align: center; padding: 32px 24px; color: var(--text-tertiary); font-size: 13px; border-top: 1px solid var(--border); background: var(--surface); }
+
+      /* ─── UTIL ─── */
+      .mt-16 { margin-top: 16px; }
+      .mt-24 { margin-top: 24px; }
+      .mb-16 { margin-bottom: 16px; }
+      .flex-col { display: flex; flex-direction: column; gap: 12px; }
+
+      /* ─── RESPONSIVE ─── */
+      @media (max-width: 640px) {
+        .hero { padding: 56px 16px 72px; }
+        .section-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+        .grid-2, .grid-3, .match-grid { grid-template-columns: 1fr; }
+        .flow-steps { flex-direction: column; }
+        .flow-arrow { transform: rotate(90deg); }
+        .summary-box { padding: 28px 20px; }
+      }
+    </style>
+</head>
+<body>
+<script>
+(function(){
+  if(!sessionStorage.getItem('rb_auth')) location.replace('/staff-training/login.html');
+})();
+</script>
+
+<!-- ─── HERO ─── -->
+<header class="hero">
+  <div class="hero-badge">新人研修資料 2025年度版</div>
+  <h1>リスティング広告<br /><span>入稿マニュアル</span></h1>
+  <p class="hero-sub">キャンペーン作成・キーワード設定・レスポンシブ検索広告の作成まで、検索広告運用の基礎をステップで学ぶ研修テキストです。</p>
+  <div class="hero-meta">
+    <div class="hero-meta-item"><div class="icon">📌</div>対象：入社1〜3ヶ月の新人</div>
+    <div class="hero-meta-item"><div class="icon">⏱️</div>所要時間：約60分</div>
+    <div class="hero-meta-item"><div class="icon">🎯</div>目標：一人で検索広告を入稿できる</div>
+  </div>
+</header>
+
+<!-- ─── NAVIGATION ─── -->
+<nav class="nav-wrapper" aria-label="セクションナビゲーション">
+  <div class="nav-inner">
+    <a href="#section-intro" class="nav-item">🔍 リスティングとは</a>
+    <a href="#section-structure" class="nav-item">🏗️ 階層構造</a>
+    <a href="#section-campaign" class="nav-item">📢 キャンペーン設定</a>
+    <a href="#section-keyword" class="nav-item">🔑 キーワード設定</a>
+    <a href="#section-ad" class="nav-item">📝 広告作成</a>
+    <a href="#section-extension" class="nav-item">⚙️ 表示オプション</a>
+    <a href="#section-bid" class="nav-item">💰 入札戦略</a>
+    <a href="#section-trouble" class="nav-item">🛠️ トラブル対応</a>
+    <a href="#section-flow" class="nav-item">📋 作業フロー</a>
+  </div>
+</nav>
+
+<main class="main">
+
+  <!-- ─── 1. リスティング広告とは ─── -->
+  <section id="section-intro" class="section">
+    <div class="section-header">
+      <div class="section-number">1</div>
+      <div class="section-title-wrap">
+        <h2>リスティング広告とは？</h2>
+        <p>検索広告の基本概念と特徴を理解しましょう</p>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header"><span class="icon">🔍</span><h3>リスティング広告の定義</h3></div>
+        <div class="card-body">
+          <p style="font-size:15px; margin-bottom:16px;">
+            <strong>ユーザーが検索したキーワードに連動して表示されるテキスト広告</strong>のことです。「検索広告」とも呼ばれます。
+          </p>
+          <p style="font-size:14px; color:var(--text-secondary); margin-bottom:12px;">Googleで何かを検索すると、検索結果の上部や下部に「スポンサー」と表示されるのがリスティング広告です。</p>
+          <div class="info-box teal">
+            <span class="info-icon">💡</span>
+            <p><strong>最大の特徴：</strong>すでに「検索している」ユーザーに届けるため、購買意欲が高い見込み客へリーチできます。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="icon">⚖️</span><h3>YouTube広告・ディスプレイ広告との違い</h3></div>
+        <div class="card-body">
+          <table class="setting-table">
+            <thead><tr><th>広告種別</th><th>配信タイミング</th><th>課金方式</th></tr></thead>
+            <tbody>
+              <tr>
+                <td class="label">リスティング広告</td>
+                <td class="value">検索したとき</td>
+                <td class="value">クリック課金（CPC）</td>
+              </tr>
+              <tr>
+                <td class="label">ディスプレイ広告</td>
+                <td class="value">Webサイト閲覧中</td>
+                <td class="value">クリック/表示課金</td>
+              </tr>
+              <tr>
+                <td class="label">YouTube広告</td>
+                <td class="value">動画視聴中</td>
+                <td class="value">視聴課金（CPV）</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="info-box blue mt-16">
+            <span class="info-icon">📌</span>
+            <p>リスティングは<strong>クリックされた時だけ課金</strong>されます。表示されるだけでは費用はかかりません。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 広告プレビュー -->
+    <div class="card mt-24">
+      <div class="card-header"><span class="icon">👁️</span><h3>実際の広告表示イメージ</h3></div>
+      <div class="card-body">
+        <p style="font-size:14px; color:var(--text-secondary); margin-bottom:16px;">Googleの検索結果ページ上部に以下のような形式で表示されます。</p>
+        <div class="ad-preview">
+          <div class="ad-label">スポンサー</div>
+          <div class="ad-url">https://www.example-salon.jp › メニュー › ヘッドスパ</div>
+          <div class="ad-title">地域名のヘッドスパ専門店 | 初回限定50%OFF | 当日予約OK</div>
+          <div class="ad-desc">プロの施術で頭皮からリフレッシュ。完全個室・駅徒歩3分。今すぐオンライン予約で特別価格。キャンセル無料・ご新規様歓迎。</div>
+          <div class="ad-extensions">
+            <span class="ad-ext-item">予約はこちら</span>
+            <span class="ad-ext-item">料金表</span>
+            <span class="ad-ext-item">アクセス</span>
+            <span class="ad-ext-item">スタッフ紹介</span>
+          </div>
+        </div>
+        <div class="info-box yellow mt-16">
+          <span class="info-icon">⚠️</span>
+          <p>見出し・説明文・URLパスは複数登録して、Googleが自動で最適な組み合わせを選んで表示します（レスポンシブ検索広告）。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 2. 階層構造 ─── -->
+  <section id="section-structure" class="section">
+    <div class="section-header">
+      <div class="section-number">2</div>
+      <div class="section-title-wrap">
+        <h2>Google広告の階層構造</h2>
+        <p>検索広告も同じ4層構造で管理されます</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><span class="icon">🏗️</span><h3>4層構造の全体像（検索広告の場合）</h3></div>
+      <div class="card-body">
+        <p style="font-size:14px; color:var(--text-secondary); margin-bottom:20px;">
+          YouTube広告と同じく「アカウント → キャンペーン → 広告グループ → 広告」の4段階構造です。<strong>キーワードは広告グループに紐づきます。</strong>
+        </p>
+        <div class="hierarchy">
+          <div class="hierarchy-box h-lv1">
+            <div class="level-label">Level 1</div>
+            <h4>🏢 アカウント</h4>
+            <p>クライアント企業単位。支払い情報・通貨・タイムゾーンを管理。</p>
+          </div>
+          <div class="hierarchy-box h-lv2">
+            <div class="level-label">Level 2</div>
+            <h4>📢 キャンペーン</h4>
+            <p>予算・入札戦略・配信地域・言語・ネットワーク（検索/ディスプレイ）を設定。</p>
+          </div>
+          <div class="hierarchy-box h-lv3">
+            <div class="level-label">Level 3</div>
+            <h4>📁 広告グループ</h4>
+            <p>キーワードのグループ。テーマごとに広告グループを分けるのが基本。</p>
+          </div>
+          <div class="hierarchy-box h-lv4">
+            <div class="level-label">Level 4</div>
+            <h4>📝 広告（＋キーワード）</h4>
+            <p>表示される広告テキスト（見出し・説明文）とキーワードを登録。</p>
+          </div>
+        </div>
+        <div class="info-box teal mt-16">
+          <span class="info-icon">💡</span>
+          <p><strong>グループ分けの考え方：</strong>サービスや商品のカテゴリごとに広告グループを分けましょう。例：「ヘッドスパ」「カット」「カラー」をそれぞれ別グループに。キーワードと広告の関連性が高まります。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 3. キャンペーン設定 ─── -->
+  <section id="section-campaign" class="section">
+    <div class="section-header">
+      <div class="section-number">3</div>
+      <div class="section-title-wrap">
+        <h2>キャンペーン設定</h2>
+        <p>検索広告キャンペーンの基本設定項目を確認しましょう</p>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header"><span class="icon">📋</span><h3>基本設定項目</h3></div>
+        <div class="card-body">
+          <table class="setting-table">
+            <thead><tr><th>設定項目</th><th>内容・推奨設定</th></tr></thead>
+            <tbody>
+              <tr>
+                <td class="label">キャンペーン名</td>
+                <td><span class="value">クライアント名＋サービス内容で管理</span><br /><span class="example">例：〇〇美容室_検索_ヘッドスパ</span></td>
+              </tr>
+              <tr>
+                <td class="label">キャンペーンの目標</td>
+                <td><span class="value">「目標を指定せずにキャンペーンを作成する」を選択</span><br /><span class="example">※目標を設定すると設定の選択肢が制限されるため</span></td>
+              </tr>
+              <tr>
+                <td class="label">ネットワーク</td>
+                <td><span class="value">「Googleサーチパートナー」「ディスプレイネットワーク」は<strong>チェックを外す</strong></span></td>
+              </tr>
+              <tr>
+                <td class="label">配信地域</td>
+                <td><span class="value">クライアントの商圏エリアに合わせて設定</span><br /><span class="example">例：東京都渋谷区、半径〇km以内</span></td>
+              </tr>
+              <tr>
+                <td class="label">言語</td>
+                <td><span class="value">日本語</span></td>
+              </tr>
+              <tr>
+                <td class="label">日予算</td>
+                <td><span class="value">クライアントと合意した月間予算 ÷ 30.4</span><br /><span class="example">例：月3万円 → 日予算 約1,000円</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="icon">⚠️</span><h3>ネットワーク設定の注意点</h3></div>
+        <div class="card-body">
+          <div class="step-list">
+            <div class="step-item">
+              <div style="font-size:24px; flex-shrink:0;">✅</div>
+              <div class="step-content">
+                <h4>Googleサーチ（検索結果）</h4>
+                <p>必ずオン。Google.co.jpの検索結果ページに広告を配信します。</p>
+                <span class="tag tag-teal" style="margin-top:6px;">必ずオン</span>
+              </div>
+            </div>
+            <div class="step-item">
+              <div style="font-size:24px; flex-shrink:0;">❌</div>
+              <div class="step-content">
+                <h4>Googleサーチパートナー</h4>
+                <p>Yahoo!などGoogle以外の検索サイトにも配信されます。品質が低くなりやすいため<strong>原則オフ</strong>。</p>
+                <span class="tag tag-red" style="margin-top:6px;">原則オフ</span>
+              </div>
+            </div>
+            <div class="step-item">
+              <div style="font-size:24px; flex-shrink:0;">❌</div>
+              <div class="step-content">
+                <h4>ディスプレイネットワーク</h4>
+                <p>Webサイト上のバナー枠にも配信されます。検索広告のキャンペーンと予算・ターゲットが混在するため<strong>必ずオフ</strong>。</p>
+                <span class="tag tag-red" style="margin-top:6px;">必ずオフ</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mt-24">
+      <div class="card-header"><span class="icon">📍</span><h3>配信地域設定のコツ</h3></div>
+      <div class="card-body">
+        <div class="grid-2">
+          <div>
+            <p style="font-size:14px; color:var(--text-secondary); margin-bottom:12px;">地域ターゲティングには2つの方法があります。</p>
+            <table class="setting-table">
+              <thead><tr><th>方法</th><th>使い分け</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td class="label">行政区域指定</td>
+                  <td class="value">都道府県・市区町村単位で指定。広域商圏向け。</td>
+                </tr>
+                <tr>
+                  <td class="label">半径指定</td>
+                  <td class="value">店舗の住所を中心に〇km以内。地元密着型の店舗向け。</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <div class="info-box red">
+              <span class="info-icon">🚨</span>
+              <div class="flex-col">
+                <strong>「ターゲット地域や周辺地域」の設定に注意</strong>
+                <p style="font-size:13px;">デフォルトでは「ターゲット地域に関心を示しているユーザー（所在地は問わない）」が選択されています。地元の顧客だけを狙う場合は<strong>「ターゲット地域内のユーザー」に変更</strong>しましょう。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 4. キーワード設定 ─── -->
+  <section id="section-keyword" class="section">
+    <div class="section-header">
+      <div class="section-number">4</div>
+      <div class="section-title-wrap">
+        <h2>キーワード設定</h2>
+        <p>マッチタイプを理解することがリスティング広告の要です</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><span class="icon">🔑</span><h3>マッチタイプの3種類</h3></div>
+      <div class="card-body">
+        <p style="font-size:14px; color:var(--text-secondary); margin-bottom:20px;">
+          同じキーワードでも「どの範囲の検索に広告を出すか」を制御するのがマッチタイプです。<strong>入力方法が異なります。</strong>
+        </p>
+        <div class="match-grid">
+          <div class="match-card exact">
+            <div class="match-type-label">完全一致</div>
+            <h4>入力したキーワードと<br />ほぼ同じ検索のみ</h4>
+            <div class="syntax">[ヘッドスパ 渋谷]</div>
+            <p>角括弧で囲む。ムダなクリックを防ぎたい時に使う。配信範囲は最も狭い。</p>
+            <div class="example">✅「ヘッドスパ 渋谷」「渋谷 ヘッドスパ」<br />❌「ヘッドスパ 新宿」</div>
+          </div>
+          <div class="match-card phrase">
+            <div class="match-type-label">フレーズ一致</div>
+            <h4>キーワードのフレーズを<br />含む検索に表示</h4>
+            <div class="syntax">"ヘッドスパ 渋谷"</div>
+            <p>ダブルクォーテーションで囲む。完全一致と部分一致の中間。</p>
+            <div class="example">✅「ヘッドスパ 渋谷 安い」「渋谷駅 ヘッドスパ おすすめ」<br />❌「渋谷 マッサージ」</div>
+          </div>
+          <div class="match-card broad">
+            <div class="match-type-label">部分一致（インテント）</div>
+            <h4>関連する幅広い<br />検索に表示</h4>
+            <div class="syntax">ヘッドスパ 渋谷</div>
+            <p>そのまま入力。最も広い範囲に配信されるが、意図しないキーワードでも表示されることがある。</p>
+            <div class="example">✅「渋谷 頭皮マッサージ」「Shibuya head spa」<br />⚠️ 関係ない検索にも表示される場合あり</div>
+          </div>
+        </div>
+        <div class="info-box yellow mt-16">
+          <span class="info-icon">⚠️</span>
+          <p><strong>運用開始時の推奨：</strong>最初は完全一致またはフレーズ一致を中心に設定し、データが溜まってから部分一致を追加するのが安全です。部分一致のみで開始すると予算消化が読めなくなります。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mt-24">
+      <div class="card-header"><span class="icon">🚫</span><h3>除外キーワードの設定</h3></div>
+      <div class="card-body">
+        <div class="grid-2">
+          <div>
+            <p style="font-size:14px; color:var(--text-secondary); margin-bottom:12px;">
+              <strong>広告を表示させたくない</strong>キーワードを登録して、ムダなクリックを防ぎます。
+            </p>
+            <p style="font-size:14px; color:var(--text-secondary); margin-bottom:12px;">
+              例えば「無料」「DIY」「やり方」などの検索では購買意欲が低いため、除外登録が効果的です。
+            </p>
+            <table class="setting-table">
+              <thead><tr><th>除外例</th><th>理由</th></tr></thead>
+              <tbody>
+                <tr><td class="label">無料</td><td class="value">有料サービスへの集客を目的としているため</td></tr>
+                <tr><td class="label">口コミ</td><td class="value">情報収集段階で購買意欲が低い</td></tr>
+                <tr><td class="label">自分で</td><td class="value">セルフ施術を探しているユーザー</td></tr>
+                <tr><td class="label">競合他社名</td><td class="value">他社を探しているユーザーに表示させない</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <div class="info-box teal">
+              <span class="info-icon">💡</span>
+              <div class="flex-col">
+                <strong>検索語句レポートを活用しよう</strong>
+                <p style="font-size:13px;">広告配信後に「検索語句レポート」を確認すると、実際にどんなキーワードで広告がクリックされたか分かります。不要なキーワードは除外登録しましょう。最低でも週1回は確認する習慣をつけてください。</p>
+              </div>
+            </div>
+            <div class="info-box red mt-16">
+              <span class="info-icon">🚨</span>
+              <p>除外キーワードを設定せずに部分一致のみで配信すると、<strong>無関係な検索に広告費が消費</strong>されます。必ず除外設定とセットで運用しましょう。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 5. 広告作成 ─── -->
+  <section id="section-ad" class="section">
+    <div class="section-header">
+      <div class="section-number">5</div>
+      <div class="section-title-wrap">
+        <h2>広告の作成（レスポンシブ検索広告）</h2>
+        <p>現在のGoogle広告はレスポンシブ検索広告（RSA）が標準形式です</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><span class="icon">📝</span><h3>レスポンシブ検索広告の構成要素</h3></div>
+      <div class="card-body">
+        <table class="setting-table">
+          <thead><tr><th>要素</th><th>文字数制限</th><th>登録数</th><th>表示数</th><th>ポイント</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="label">見出し</td>
+              <td class="value">最大30文字</td>
+              <td class="value">最大15個</td>
+              <td class="value">最大3個（自動選択）</td>
+              <td class="value">キーワードを含めると効果的。多様な組み合わせが作れるよう最低10個登録推奨。</td>
+            </tr>
+            <tr>
+              <td class="label">説明文</td>
+              <td class="value">最大90文字</td>
+              <td class="value">最大4個</td>
+              <td class="value">最大2個（自動選択）</td>
+              <td class="value">サービスの特徴・CTA（行動喚起）を含める。4個すべて登録推奨。</td>
+            </tr>
+            <tr>
+              <td class="label">最終ページURL</td>
+              <td class="value">制限なし</td>
+              <td class="value">1個</td>
+              <td class="value">—</td>
+              <td class="value">クリック後に遷移するページ。広告内容と一致したランディングページを設定。</td>
+            </tr>
+            <tr>
+              <td class="label">表示URL（パス）</td>
+              <td class="value">各15文字</td>
+              <td class="value">2個</td>
+              <td class="value">ドメイン/パス1/パス2</td>
+              <td class="value">実際のURLとは別。サービス名や地域名を入れてわかりやすくする。</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="info-box blue mt-16">
+          <span class="info-icon">💡</span>
+          <p>Googleが登録した要素の中から<strong>最も効果が高い組み合わせを自動で学習・配信</strong>します。広告強度「優良」を目指して多様な要素を登録しましょう。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mt-24">
+      <div class="card-header"><span class="icon">✍️</span><h3>見出し・説明文を書くコツ</h3></div>
+      <div class="card-body">
+        <div class="grid-2">
+          <div>
+            <h4 style="font-size:15px; font-weight:700; margin-bottom:12px;">見出し作成のポイント</h4>
+            <div class="step-list">
+              <div class="step-item">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                  <h4>検索キーワードを含める</h4>
+                  <p>ユーザーが検索したキーワードが広告見出しに含まれると、<strong>太字で強調表示</strong>されクリック率が上がります。</p>
+                </div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                  <h4>数字・具体性を入れる</h4>
+                  <p>「初回50%OFF」「駅徒歩3分」「口コミ4.8点」など、具体的な数字で信頼感と訴求力を高める。</p>
+                </div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                  <h4>行動を促す言葉（CTA）を入れる</h4>
+                  <p>「今すぐ予約」「無料相談はこちら」「お気軽にお問合せ」など。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h4 style="font-size:15px; font-weight:700; margin-bottom:12px;">見出し例（美容室の場合）</h4>
+            <table class="setting-table">
+              <thead><tr><th>#</th><th>見出し例</th></tr></thead>
+              <tbody>
+                <tr><td class="label">1</td><td class="value">渋谷のヘッドスパ専門店</td></tr>
+                <tr><td class="label">2</td><td class="value">初回限定50%OFFキャンペーン</td></tr>
+                <tr><td class="label">3</td><td class="value">当日予約OK・駅徒歩3分</td></tr>
+                <tr><td class="label">4</td><td class="value">口コミ平均4.8点の人気店</td></tr>
+                <tr><td class="label">5</td><td class="value">完全個室でリラックス体験</td></tr>
+                <tr><td class="label">6</td><td class="value">今すぐオンライン予約</td></tr>
+                <tr><td class="label">7</td><td class="value">頭皮ケア・育毛にお悩みの方へ</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="info-box red mt-16">
+          <span class="info-icon">🚨</span>
+          <p><strong>NG表現：</strong>「最高品質」「業界No.1」などの根拠のない最上級表現はGoogleポリシー違反で審査却下されます。数字や第三者が認定した情報を使いましょう。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 6. 表示オプション ─── -->
+  <section id="section-extension" class="section">
+    <div class="section-header">
+      <div class="section-number">6</div>
+      <div class="section-title-wrap">
+        <h2>広告アセット（表示オプション）</h2>
+        <p>広告に追加情報を付け加えてクリック率を高めましょう</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><span class="icon">⚙️</span><h3>主な広告アセットの種類と設定</h3></div>
+      <div class="card-body">
+        <table class="setting-table">
+          <thead><tr><th>アセット種別</th><th>表示例</th><th>効果・用途</th><th>優先度</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="label">サイトリンク</td>
+              <td class="value">「予約はこちら」「料金表」「アクセス」</td>
+              <td class="value">広告下にリンクを最大4個追加。特定ページへ誘導できる。</td>
+              <td class="value"><span class="tag tag-red">必須</span></td>
+            </tr>
+            <tr>
+              <td class="label">コールアウト</td>
+              <td class="value">「当日予約OK」「個室完備」「駐車場あり」</td>
+              <td class="value">短いキャッチコピーを追加。サービスの特徴を強調。</td>
+              <td class="value"><span class="tag tag-red">必須</span></td>
+            </tr>
+            <tr>
+              <td class="label">構造化スニペット</td>
+              <td class="value">「サービス: ヘッドスパ、カット、カラー」</td>
+              <td class="value">提供するサービス・商品一覧を表示。</td>
+              <td class="value"><span class="tag tag-yellow">推奨</span></td>
+            </tr>
+            <tr>
+              <td class="label">電話番号</td>
+              <td class="value">店舗の電話番号</td>
+              <td class="value">スマートフォンからタップで電話できる。来店予約に有効。</td>
+              <td class="value"><span class="tag tag-yellow">推奨</span></td>
+            </tr>
+            <tr>
+              <td class="label">住所</td>
+              <td class="value">店舗の住所・地図</td>
+              <td class="value">Googleビジネスプロフィールと連携。店舗への誘導に有効。</td>
+              <td class="value"><span class="tag tag-yellow">推奨</span></td>
+            </tr>
+            <tr>
+              <td class="label">価格</td>
+              <td class="value">「ヘッドスパ ¥4,500〜」</td>
+              <td class="value">サービス価格を表示。料金を見て来る質の高い見込み客に有効。</td>
+              <td class="value"><span class="tag tag-teal">任意</span></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="info-box teal mt-16">
+          <span class="info-icon">💡</span>
+          <p>広告アセットは<strong>設定しても必ず表示されるわけではありません</strong>。Googleが広告スペースや関連性に応じて自動で表示を判断します。設定できるものはすべて設定しておきましょう。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 7. 入札戦略 ─── -->
+  <section id="section-bid" class="section">
+    <div class="section-header">
+      <div class="section-number">7</div>
+      <div class="section-title-wrap">
+        <h2>入札戦略</h2>
+        <p>目的に合った入札戦略を選択しましょう</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><span class="icon">💰</span><h3>主な入札戦略の種類</h3></div>
+      <div class="card-body">
+        <table class="setting-table">
+          <thead><tr><th>入札戦略</th><th>課金方法</th><th>特徴・推奨場面</th><th>新人向け</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="label">クリック数の最大化</td>
+              <td class="value">クリック課金（CPC）</td>
+              <td class="value">設定した予算内で最多クリックを自動取得。<strong>運用開始初期（データ収集期）に推奨</strong>。</td>
+              <td class="value"><span class="tag tag-green">★ 初期推奨</span></td>
+            </tr>
+            <tr>
+              <td class="label">目標コンバージョン単価（tCPA）</td>
+              <td class="value">クリック課金（CPC）</td>
+              <td class="value">1コンバージョンあたりのコストを目標値に近づける。<strong>コンバージョンが月30件以上溜まってから使用</strong>。</td>
+              <td class="value"><span class="tag tag-yellow">データ蓄積後</span></td>
+            </tr>
+            <tr>
+              <td class="label">目標広告費用対効果（tROAS）</td>
+              <td class="value">クリック課金（CPC）</td>
+              <td class="value">売上に対する広告費の比率を目標に自動調整。ECサイトなど売上金額が計測できる場合に使用。</td>
+              <td class="value"><span class="tag tag-teal">上級者向け</span></td>
+            </tr>
+            <tr>
+              <td class="label">手動CPC</td>
+              <td class="value">クリック課金（CPC）</td>
+              <td class="value">キーワードごとに入札単価を手動設定。細かいコントロールが可能だが管理工数が高い。</td>
+              <td class="value"><span class="tag tag-gray">上級者向け</span></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="info-box blue mt-16">
+          <span class="info-icon">📌</span>
+          <p><strong>新人の基本方針：</strong>まず「クリック数の最大化（上限CPC設定あり）」で開始し、1〜3ヶ月でデータを蓄積してから最適な戦略に変更します。上限CPCを設定しないと想定外の高単価クリックが発生することがあるため<strong>必ず上限を設定</strong>してください。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 8. トラブル対応 ─── -->
+  <section id="section-trouble" class="section">
+    <div class="section-header">
+      <div class="section-number">8</div>
+      <div class="section-title-wrap">
+        <h2>よくあるトラブルと対応方法</h2>
+        <p>新人が遭遇しやすい問題の原因と対処法</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><span class="icon">🛠️</span><h3>トラブルシューティング</h3></div>
+      <div class="card-body">
+        <div class="step-list">
+          <div class="step-item">
+            <div style="font-size:24px; flex-shrink:0;">😰</div>
+            <div class="step-content">
+              <h4>広告が表示されない</h4>
+              <ul>
+                <li>キャンペーン・広告グループ・広告のステータスが「有効」になっているか確認</li>
+                <li>予算が1日の早い段階で上限に達していないか確認（予算不足）</li>
+                <li>品質スコアが低く、広告ランクが低い可能性あり → 広告文とキーワードの関連性を改善</li>
+                <li>除外キーワードが広すぎて配信対象がなくなっていないか確認</li>
+              </ul>
+            </div>
+          </div>
+          <div class="step-item">
+            <div style="font-size:24px; flex-shrink:0;">⏳</div>
+            <div class="step-content">
+              <h4>審査がなかなか通らない</h4>
+              <ul>
+                <li>通常は数時間〜1営業日。48時間以上かかる場合は審査チームへ問い合わせを検討</li>
+                <li>ランディングページにサービス内容の詳細・事業者情報が記載されているか確認</li>
+                <li>広告文に禁止表現（誇大表現、個人攻撃、不明確な比較）がないか見直し</li>
+              </ul>
+            </div>
+          </div>
+          <div class="step-item">
+            <div style="font-size:24px; flex-shrink:0;">💸</div>
+            <div class="step-content">
+              <h4>予算が想定より早く消化される</h4>
+              <ul>
+                <li>部分一致キーワードが多すぎないか確認し、除外キーワードを追加</li>
+                <li>無関係な検索語句で表示・クリックされていないか検索語句レポートを確認</li>
+                <li>上限CPCが設定されているか確認。高単価クリックを防ぐため上限を設ける</li>
+              </ul>
+            </div>
+          </div>
+          <div class="step-item">
+            <div style="font-size:24px; flex-shrink:0;">📉</div>
+            <div class="step-content">
+              <h4>クリック率（CTR）が低い</h4>
+              <ul>
+                <li>見出しにキーワードが含まれているか確認（含まれていると太字で強調表示）</li>
+                <li>広告アセット（サイトリンク、コールアウト）が設定されているか確認</li>
+                <li>競合と比較して差別化ポイント（価格・特典・利便性）が伝わっているか見直し</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="info-box teal mt-16">
+          <span class="info-icon">💡</span>
+          <p>自分で解決できないトラブルは<strong>必ず上長に相談</strong>してください。判断が遅れるほど無駄な広告費が発生します。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 9. 作業フロー ─── -->
+  <section id="section-flow" class="section">
+    <div class="section-header">
+      <div class="section-number">9</div>
+      <div class="section-title-wrap">
+        <h2>入稿から運用開始までの作業フロー</h2>
+        <p>この手順に沿って作業すれば漏れを防げます</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><span class="icon">📋</span><h3>標準作業フロー</h3></div>
+      <div class="card-body">
+        <div class="step-list">
+          <div class="step-item">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>クライアント情報・目的の確認</h4>
+              <p>商圏エリア・ターゲット・月間予算・訴求内容・LPのURLをヒアリングシートで事前に確認しておく。</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>キーワード調査</h4>
+              <p>Googleキーワードプランナーで検索ボリューム・競合度・推定入札単価を確認。30〜50個程度を洗い出す。</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>キャンペーン作成</h4>
+              <p>目標なし・検索のみネットワーク・日予算・配信地域・言語を設定。</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>広告グループ＆キーワード登録</h4>
+              <p>テーマごとにグループを分け、各グループに関連キーワードを完全一致/フレーズ一致で登録。除外キーワードも設定。</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">5</div>
+            <div class="step-content">
+              <h4>レスポンシブ検索広告の作成</h4>
+              <p>見出し10個以上・説明文4個・最終URL・表示URLパスを入力。広告強度「良い」以上を目指す。</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">6</div>
+            <div class="step-content">
+              <h4>広告アセット設定</h4>
+              <p>サイトリンク・コールアウト・構造化スニペット・電話番号を設定。</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">7</div>
+            <div class="step-content">
+              <h4>最終チェック＆配信開始</h4>
+              <p>設定内容を全項目確認後、キャンペーンを有効に。審査通過後に配信開始。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SUMMARY ─── -->
+  <div class="summary-box">
+    <h2>リスティング広告 入稿チェックポイント</h2>
+    <p>配信前に以下の項目を必ず確認してください</p>
+    <div class="flow-steps">
+      <div class="flow-step">✅ ネットワーク設定（検索のみ）</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">✅ キーワード＋マッチタイプ</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">✅ 除外キーワード</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">✅ 広告強度「良い」以上</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">✅ 広告アセット設定済み</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">✅ LP URL・日予算の確認</div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <p>リスティング広告 入稿マニュアル — 新人研修資料 © 2025 RUNBIRD | 社内研修用・社外秘</p>
+</footer>
+
+</body>
+</html>
