@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>【新人研修】電話対応マニュアル</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #00695c;
+      --primary-dark: #004d40;
+      --primary-light: #e0f2f1;
+      --surface: #ffffff;
+      --surface-2: #f8f9fa;
+      --surface-3: #f1f3f4;
+      --text-primary: #202124;
+      --text-secondary: #5f6368;
+      --text-tertiary: #80868b;
+      --border: #e0e0e0;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.08);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.06);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background: #f0f7f6;
+      color: var(--text-primary);
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      background: linear-gradient(135deg, #003d33 0%, #00695c 45%, #009688 80%, #4db6ac 100%);
+      padding: 80px 24px 100px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%; left: -20%;
+      width: 60%; height: 200%;
+      background: rgba(255,255,255,0.04);
+      border-radius: 50%;
+      animation: float1 8s ease-in-out infinite;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -30%; right: -10%;
+      width: 50%; height: 150%;
+      background: rgba(255,255,255,0.05);
+      border-radius: 50%;
+      animation: float2 10s ease-in-out infinite;
+    }
+    @keyframes float1 { 0%,100%{transform:translateY(0) rotate(0deg);} 50%{transform:translateY(-30px) rotate(5deg);} }
+    @keyframes float2 { 0%,100%{transform:translateY(0) rotate(0deg);} 50%{transform:translateY(20px) rotate(-5deg);} }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #fff;
+      font-size: 13px; font-weight: 500;
+      padding: 6px 16px;
+      border-radius: 100px;
+      margin-bottom: 24px;
+      backdrop-filter: blur(10px);
+      position: relative; z-index: 1;
+    }
+    .hero h1 {
+      font-size: clamp(28px, 5vw, 52px);
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -0.5px;
+      margin-bottom: 16px;
+      position: relative; z-index: 1;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+    }
+    .hero h1 span {
+      background: linear-gradient(90deg, #b2dfdb, #80cbc4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: clamp(14px, 2vw, 18px);
+      color: rgba(255,255,255,0.85);
+      max-width: 600px;
+      margin: 0 auto 32px;
+      position: relative; z-index: 1;
+    }
+    .hero-meta {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      position: relative; z-index: 1;
+    }
+    .hero-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255,255,255,0.8);
+      font-size: 14px; font-weight: 500;
+    }
+    .hero-meta-item .icon {
+      width: 32px; height: 32px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+    }
+
+    /* ─── NAV ─── */
+    .nav-wrapper {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+    }
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      gap: 4px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .nav-inner::-webkit-scrollbar { display: none; }
+    .nav-item {
+      padding: 14px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-decoration: none;
+      white-space: nowrap;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -1px;
+      transition: all 0.2s;
+    }
+    .nav-item:hover { color: var(--primary); border-bottom-color: var(--primary); }
+    .nav-item.active { color: var(--primary); border-bottom-color: var(--primary); }
+
+    /* ─── MAIN ─── */
+    .main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    /* ─── SECTION ─── */
+    .section {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      padding: 36px 40px;
+      margin-bottom: 32px;
+      box-shadow: var(--shadow-md);
+      animation: fadeInUp 0.5s ease both;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .section-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      margin-bottom: 28px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid var(--primary-light);
+    }
+    .section-number {
+      width: 48px; height: 48px;
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      border-radius: var(--radius-md);
+      display: flex; align-items: center; justify-content: center;
+      color: #fff;
+      font-size: 18px; font-weight: 900;
+      flex-shrink: 0;
+    }
+    .section-title-wrap h2 {
+      font-size: 22px; font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+    .section-title-wrap p {
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    /* ─── CARDS ─── */
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+    .card {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 20px;
+      background: linear-gradient(135deg, #e0f2f1, #b2dfdb);
+      border-bottom: 1px solid #b2dfdb;
+    }
+    .card-header .icon { font-size: 22px; }
+    .card-header h3 { font-size: 15px; font-weight: 700; color: var(--primary-dark); }
+    .card-body { padding: 20px; }
+    .mt-24 { margin-top: 24px; }
+    .mb-24 { margin-bottom: 24px; }
+
+    /* ─── SCRIPT BLOCK ─── */
+    .script-block {
+      background: #f0fdf9;
+      border: 2px solid #4db6ac;
+      border-radius: var(--radius-md);
+      padding: 20px 24px;
+      margin: 16px 0;
+    }
+    .script-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .script-text {
+      font-size: 16px;
+      font-weight: 600;
+      color: #00352c;
+      line-height: 1.8;
+    }
+    .script-text .placeholder {
+      display: inline-block;
+      background: #b2dfdb;
+      color: var(--primary-dark);
+      border-radius: 4px;
+      padding: 1px 8px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .script-block.bad {
+      background: #fff3f3;
+      border-color: #ef9a9a;
+    }
+    .script-block.bad .script-label { color: #c62828; }
+    .script-block.bad .script-text { color: #7f0000; }
+
+    /* ─── STEP LIST ─── */
+    .step-list { display: flex; flex-direction: column; gap: 14px; }
+    .step-item { display: flex; gap: 14px; align-items: flex-start; }
+    .step-num {
+      width: 28px; height: 28px;
+      background: var(--primary);
+      color: #fff;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 700;
+      flex-shrink: 0; margin-top: 2px;
+    }
+    .step-content h4 { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+    .step-content p  { font-size: 13px; color: var(--text-secondary); }
+
+    /* ─── INFO BOX ─── */
+    .info-box {
+      display: flex;
+      gap: 12px;
+      padding: 14px 18px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      line-height: 1.6;
+      margin: 12px 0;
+    }
+    .info-box.green  { background: #e6f4ea; border-left: 4px solid #34A853; color: #1b5e20; }
+    .info-box.yellow { background: #fff8e1; border-left: 4px solid #FBBC05; color: #6d4c00; }
+    .info-box.red    { background: #fce8e6; border-left: 4px solid #ea4335; color: #7f0000; }
+    .info-box.blue   { background: #e8f0fe; border-left: 4px solid #4285F4; color: #1a237e; }
+    .info-box.teal   { background: #e0f2f1; border-left: 4px solid #009688; color: #004d40; }
+    .info-box .info-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+
+    /* ─── NG/OK COMPARE ─── */
+    .compare-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+    .compare-col-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .compare-col-label.ok  { color: #1b5e20; }
+    .compare-col-label.ng  { color: #c62828; }
+    .phrase-line {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+    .phrase-line.ok { border-left: 3px solid #34A853; }
+    .phrase-line.ng { border-left: 3px solid #ea4335; text-decoration: line-through; color: var(--text-tertiary); }
+
+    /* ─── FLOW ─── */
+    .flow-list { display: flex; flex-direction: column; gap: 0; }
+    .flow-item {
+      display: flex;
+      gap: 16px;
+      position: relative;
+    }
+    .flow-item:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 20px;
+      top: 42px;
+      width: 2px;
+      height: calc(100% - 10px);
+      background: #b2dfdb;
+    }
+    .flow-dot {
+      width: 42px; height: 42px;
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+      position: relative; z-index: 1;
+    }
+    .flow-content {
+      padding: 8px 0 24px;
+    }
+    .flow-content h4 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+    .flow-content p  { font-size: 13px; color: var(--text-secondary); }
+
+    /* ─── SUMMARY BOX ─── */
+    .summary-box {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 60%, #4db6ac 100%);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      text-align: center;
+      color: #fff;
+      margin-top: 12px;
+    }
+    .summary-box h2 { font-size: 22px; font-weight: 800; margin-bottom: 12px; }
+    .summary-box p  { font-size: 14px; opacity: 0.85; margin-bottom: 28px; }
+    .check-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      text-align: left;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+    .check-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      text-align: center;
+      padding: 32px 24px;
+      color: var(--text-tertiary);
+      font-size: 13px;
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    @media (max-width: 640px) {
+      .section { padding: 24px 20px; }
+      .grid-2 { grid-template-columns: 1fr; }
+      .compare-wrap { grid-template-columns: 1fr; }
+      .summary-box { padding: 28px 20px; }
+    }
+  </style>
+</head>
+<body>
+<script>
+(function(){
+  if(!sessionStorage.getItem('rb_auth')) location.replace('/staff-training/login.html');
+})();
+</script>
+
+<!-- ─── HERO ─── -->
+<header class="hero">
+  <div class="hero-badge">📞 新人研修資料</div>
+  <h1>電話対応<br /><span>マニュアル</span></h1>
+  <p class="hero-sub">入電から要件確認・不在対応・業務外対応まで、正しい電話応対フレーズと流れをまとめた研修テキストです。</p>
+  <div class="hero-meta">
+    <div class="hero-meta-item"><div class="icon">📌</div>対象：入社1ヶ月以内の新人</div>
+    <div class="hero-meta-item"><div class="icon">⏱️</div>所要時間：約15〜20分</div>
+    <div class="hero-meta-item"><div class="icon">🎯</div>目標：一人でスムーズに電話応対できる</div>
+  </div>
+</header>
+
+<!-- ─── NAVIGATION ─── -->
+<nav class="nav-wrapper" aria-label="セクションナビゲーション">
+  <div class="nav-inner">
+    <a href="#section-flow"    class="nav-item">🔄 基本フロー</a>
+    <a href="#section-greet"   class="nav-item">📞 名乗り</a>
+    <a href="#section-noname"  class="nav-item">❓ 名乗らない場合</a>
+    <a href="#section-purpose" class="nav-item">📋 要件確認</a>
+    <a href="#section-absent"  class="nav-item">🚶 不在・離席時</a>
+    <a href="#section-outside" class="nav-item">🔀 担当外の問い合わせ</a>
+    <a href="#section-ng"      class="nav-item">🚫 NG表現</a>
+  </div>
+</nav>
+
+<main class="main">
+
+  <!-- ─── 0. 基本フロー ─── -->
+  <section id="section-flow" class="section">
+    <div class="section-header">
+      <div class="section-number">🔄</div>
+      <div class="section-title-wrap">
+        <h2>電話対応の基本フロー</h2>
+        <p>電話が鳴ったときから、切るまでの全体の流れを確認しましょう</p>
+      </div>
+    </div>
+
+    <div class="flow-list">
+      <div class="flow-item">
+        <div class="flow-dot">①</div>
+        <div class="flow-content">
+          <h4>受電・名乗り</h4>
+          <p>3コール以内に取る。まず会社名・部署・氏名を名乗る。</p>
+        </div>
+      </div>
+      <div class="flow-item">
+        <div class="flow-dot">②</div>
+        <div class="flow-content">
+          <h4>相手の確認</h4>
+          <p>相手が名乗っているか確認。名乗っていない場合は丁寧に確認を取る。</p>
+        </div>
+      </div>
+      <div class="flow-item">
+        <div class="flow-dot">③</div>
+        <div class="flow-content">
+          <h4>要件の確認</h4>
+          <p>「ご用件をお伺いしてもよろしいでしょうか？」と要件を丁寧に確認する。</p>
+        </div>
+      </div>
+      <div class="flow-item">
+        <div class="flow-dot">④</div>
+        <div class="flow-content">
+          <h4>対応 or 取り次ぎ</h4>
+          <p>自分で対応できる場合はそのまま案内。担当者・別部署への取り次ぎが必要な場合は状況に応じて対応。</p>
+        </div>
+      </div>
+      <div class="flow-item">
+        <div class="flow-dot">⑤</div>
+        <div class="flow-content">
+          <h4>締め・電話を切る</h4>
+          <p>「お電話ありがとうございました」と感謝を述べてから、相手が切るのを確認してから受話器を置く。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box teal mt-24">
+      <span class="info-icon">📌</span>
+      <p><strong>鉄則：</strong>電話が鳴ったら<strong>3コール以内</strong>に取る。もし3コールを超えてしまった場合は、「大変お待たせいたしました」と一言添える。</p>
+    </div>
+  </section>
+
+  <!-- ─── 1. 名乗り ─── -->
+  <section id="section-greet" class="section">
+    <div class="section-header">
+      <div class="section-number">📞</div>
+      <div class="section-title-wrap">
+        <h2>基本の名乗り</h2>
+        <p>電話を取った瞬間が第一印象。明るく・はっきり・丁寧に名乗りましょう</p>
+      </div>
+    </div>
+
+    <div class="script-block">
+      <div class="script-label">✅ 基本フレーズ</div>
+      <div class="script-text">
+        「株式会社ランバード、広告担当の <span class="placeholder">〇〇（自分の苗字）</span> が承ります。」
+      </div>
+    </div>
+
+    <div class="grid-2 mt-24">
+      <div class="card">
+        <div class="card-header"><span class="icon">💡</span><h3>名乗りのポイント</h3></div>
+        <div class="card-body">
+          <div class="step-list">
+            <div class="step-item">
+              <div class="step-num">1</div>
+              <div class="step-content">
+                <h4>会社名を先に</h4>
+                <p>「もしもし」はビジネスでは不適切。必ず「株式会社ランバード」から始める。</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">2</div>
+              <div class="step-content">
+                <h4>部署名を入れる</h4>
+                <p>「広告担当の」と添えることで、相手が用件の確認をしやすくなる。</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">3</div>
+              <div class="step-content">
+                <h4>「承ります」で締める</h4>
+                <p>「です」より「承ります」の方が丁寧で、対応する意思を示せる。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="icon">🔊</span><h3>声のトーンのコツ</h3></div>
+        <div class="card-body">
+          <div class="step-list">
+            <div class="step-item">
+              <div class="step-num">✓</div>
+              <div class="step-content">
+                <h4>普段より少し高めのトーン</h4>
+                <p>電話越しだと声が低く聞こえやすい。意識して少し高く・明るくすると聞き取りやすい。</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">✓</div>
+              <div class="step-content">
+                <h4>ゆっくり・はっきり</h4>
+                <p>自分の名前は特にゆっくり・はっきり。聞き取れなかった相手が聞き返しやすい雰囲気も大事。</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">✓</div>
+              <div class="step-content">
+                <h4>背筋を伸ばして取る</h4>
+                <p>姿勢が声に出る。座ったまま猫背だと声が籠りやすい。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 2. 名乗らない場合 ─── -->
+  <section id="section-noname" class="section">
+    <div class="section-header">
+      <div class="section-number">❓</div>
+      <div class="section-title-wrap">
+        <h2>相手が名乗らない場合</h2>
+        <p>誰からの電話かわからない場合は、丁寧に確認を取りましょう</p>
+      </div>
+    </div>
+
+    <div class="script-block">
+      <div class="script-label">✅ 確認フレーズ</div>
+      <div class="script-text">
+        「恐れ入りますが、お電話口の方の屋号名と苗字をいただいてもよろしいでしょうか？」
+      </div>
+    </div>
+
+    <div class="info-box yellow mt-24">
+      <span class="info-icon">⚠️</span>
+      <p><strong>なぜ確認が必要？</strong>誰からの連絡かわからないまま要件に応じると、担当者への引き継ぎや折り返し対応が困難になります。必ず確認してから対応に進みましょう。</p>
+    </div>
+
+    <div class="card mt-24">
+      <div class="card-header"><span class="icon">📝</span><h3>確認後の会話の流れ</h3></div>
+      <div class="card-body">
+        <div class="step-list">
+          <div class="step-item">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>相手が名乗ってくれたら</h4>
+              <p>「〇〇様でいらっしゃいますね。いつもお世話になっております。」と復唱して確認する。</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>それでも名乗らない・はぐらかす場合</h4>
+              <p>「担当に確認するため、お名前をいただけますと大変助かります」と再度丁寧にお伝えする。記録・担当者へ引き継ぎのために必要である旨を添えてOK。</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>営業電話だとわかった場合</h4>
+              <p>「担当者に確認して改めてご連絡差し上げてもよろしいでしょうか？」と伝え、折り返し確認の形に持ち込む。その場での即断はしない。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 3. 要件確認 ─── -->
+  <section id="section-purpose" class="section">
+    <div class="section-header">
+      <div class="section-number">📋</div>
+      <div class="section-title-wrap">
+        <h2>要件の確認</h2>
+        <p>相手が誰かわかったら、次は用件を確認します</p>
+      </div>
+    </div>
+
+    <div class="script-block">
+      <div class="script-label">✅ 要件確認フレーズ</div>
+      <div class="script-text">
+        「ご用件をお伺いしてもよろしいでしょうか？」
+      </div>
+    </div>
+
+    <div class="grid-2 mt-24">
+      <div class="card">
+        <div class="card-header"><span class="icon">✅</span><h3>自分で対応できる場合</h3></div>
+        <div class="card-body">
+          <p style="font-size:14px;color:var(--text-secondary);margin-bottom:14px;">
+            要件が自分の業務範囲内であれば、そのまま対応します。
+          </p>
+          <div class="step-list">
+            <div class="step-item">
+              <div class="step-num">1</div>
+              <div class="step-content">
+                <h4>要件を聞きながらメモを取る</h4>
+                <p>電話を取ったらすぐメモが書ける状態にしておく。5W1Hを意識して聞く。</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">2</div>
+              <div class="step-content">
+                <h4>内容を復唱・確認する</h4>
+                <p>「〇〇についてのお問い合わせですね。」と復唱して、聞き間違いを防ぐ。</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">3</div>
+              <div class="step-content">
+                <h4>その場で回答できない場合は折り返しを提案</h4>
+                <p>「確認のうえ折り返しご連絡させていただいてもよろしいでしょうか？」と伝える。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="icon">📌</span><h3>メモの取り方（5W1H）</h3></div>
+        <div class="card-body">
+          <table style="width:100%;border-collapse:collapse;font-size:13px;">
+            <tbody>
+              <tr style="border-bottom:1px solid var(--border);">
+                <td style="padding:8px 6px;font-weight:700;color:var(--primary);width:40%;">Who（誰から）</td>
+                <td style="padding:8px 6px;color:var(--text-secondary);">会社名・屋号・氏名</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--border);">
+                <td style="padding:8px 6px;font-weight:700;color:var(--primary);">What（何の件）</td>
+                <td style="padding:8px 6px;color:var(--text-secondary);">要件・問い合わせ内容</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--border);">
+                <td style="padding:8px 6px;font-weight:700;color:var(--primary);">When（いつ）</td>
+                <td style="padding:8px 6px;color:var(--text-secondary);">対応希望日時・折り返し可能時間</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--border);">
+                <td style="padding:8px 6px;font-weight:700;color:var(--primary);">Where（どこへ）</td>
+                <td style="padding:8px 6px;color:var(--text-secondary);">折り返し先の電話番号</td>
+              </tr>
+              <tr>
+                <td style="padding:8px 6px;font-weight:700;color:var(--primary);">How（どうしたい）</td>
+                <td style="padding:8px 6px;color:var(--text-secondary);">折り返し希望 or 担当者へ繋ぐ</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="info-box teal" style="margin-top:12px;">
+            <span class="info-icon">💡</span>
+            <p>電話メモは担当者が不在でも読めるよう、<strong>日時・相手名・要件・折り返し先</strong>を必ず記録する。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 4. 不在・離席時 ─── -->
+  <section id="section-absent" class="section">
+    <div class="section-header">
+      <div class="section-number">🚶</div>
+      <div class="section-title-wrap">
+        <h2>担当者が不在・離席している場合</h2>
+        <p>担当者が対応できない状況の場合は、状況を正確に伝え折り返しの手配をします</p>
+      </div>
+    </div>
+
+    <div class="script-block">
+      <div class="script-label">✅ 不在・離席時フレーズ（Step 1）</div>
+      <div class="script-text">
+        「ただいま席を外しております。<br />戻り次第、折り返しご連絡させていただければと存じます。」
+      </div>
+    </div>
+
+    <div class="script-block mt-24">
+      <div class="script-label">✅ 折り返し希望時間の確認（Step 2）</div>
+      <div class="script-text">
+        「オーナー様のご都合のよい時間・ご希望のお時間はございますでしょうか？」
+      </div>
+    </div>
+
+    <div class="grid-2 mt-24">
+      <div class="card">
+        <div class="card-header"><span class="icon">📋</span><h3>不在対応の流れ</h3></div>
+        <div class="card-body">
+          <div class="step-list">
+            <div class="step-item">
+              <div class="step-num">1</div>
+              <div class="step-content">
+                <h4>担当者が不在であることを伝える</h4>
+                <p>「ただいま席を外しております」が基本。外出中の場合は「ただいま外出しております」でもOK。</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">2</div>
+              <div class="step-content">
+                <h4>折り返しの意思を伝える</h4>
+                <p>「戻り次第ご連絡させていただきます」と伝えて相手を安心させる。</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">3</div>
+              <div class="step-content">
+                <h4>折り返し希望時間を確認</h4>
+                <p>相手の都合に合わせた折り返しができるよう、希望時間を確認する。</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">4</div>
+              <div class="step-content">
+                <h4>連絡先・要件をメモして担当者に伝達</h4>
+                <p>相手の名前・連絡先・要件・折り返し希望時間を担当者に確実に引き継ぐ。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="icon">⚠️</span><h3>不在時の注意点</h3></div>
+        <div class="card-body">
+          <div class="step-list">
+            <div class="step-item">
+              <div class="step-num">🚫</div>
+              <div class="step-content">
+                <h4>不在理由は詳しく言わない</h4>
+                <p>「トイレ中」「昼食中」など具体的な理由は不要。「席を外しております」でOK。</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">🚫</div>
+              <div class="step-content">
+                <h4>「わかりません」は使わない</h4>
+                <p>戻り時間が不明でも「わかりません」はNG。「確認して折り返しご連絡いたします」に言い換える。</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">✅</div>
+              <div class="step-content">
+                <h4>引き継ぎは必ず文字で残す</h4>
+                <p>担当者が戻ったときに確実に伝わるよう、電話メモを机上に置くか社内チャットで連絡する。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box yellow mt-24">
+      <span class="info-icon">⚠️</span>
+      <p><strong>折り返しができない時間帯には注意：</strong>相手が「午後2時以降」と希望したのに午前中に折り返すなど、ズレた対応はクレームの原因になります。メモに時間を正確に記録しましょう。</p>
+    </div>
+  </section>
+
+  <!-- ─── 5. 担当外の問い合わせ ─── -->
+  <section id="section-outside" class="section">
+    <div class="section-header">
+      <div class="section-number">🔀</div>
+      <div class="section-title-wrap">
+        <h2>担当外・業務範囲外の問い合わせ</h2>
+        <p>広告運用以外（金額・契約内容など）の問い合わせは、対応できないことを丁寧に伝えて適切な部署へつなぎます</p>
+      </div>
+    </div>
+
+    <div class="script-block">
+      <div class="script-label">✅ 対応できない場合のフレーズ</div>
+      <div class="script-text">
+        「そちらに関しては、こちらの部署で対応ができかねるため、<br />担当部署からご連絡差し上げさせていただければと存じます。」
+      </div>
+    </div>
+
+    <div class="grid-2 mt-24">
+      <div class="card">
+        <div class="card-header"><span class="icon">📂</span><h3>業務範囲外の問い合わせ例</h3></div>
+        <div class="card-body">
+          <div class="step-list">
+            <div class="step-item">
+              <div style="font-size:20px;flex-shrink:0;">💰</div>
+              <div class="step-content">
+                <h4>料金・費用に関する問い合わせ</h4>
+                <p>契約金額・請求内容・見積もりなどは営業・経理担当へ。</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div style="font-size:20px;flex-shrink:0;">📄</div>
+              <div class="step-content">
+                <h4>契約内容・解約に関する問い合わせ</h4>
+                <p>契約の詳細・変更・解約は担当営業または上長へ。</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div style="font-size:20px;flex-shrink:0;">🌐</div>
+              <div class="step-content">
+                <h4>HP制作・SEOなど他サービスの問い合わせ</h4>
+                <p>広告運用以外のサービスに関する質問は該当担当部署へ。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="icon">🚦</span><h3>対応できない場合の流れ</h3></div>
+        <div class="card-body">
+          <div class="step-list">
+            <div class="step-item">
+              <div class="step-num">1</div>
+              <div class="step-content">
+                <h4>こちらでは対応できないことを丁寧に伝える</h4>
+                <p>「こちらの部署で対応ができかねます」という表現で、相手を不快にさせずに断る。</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">2</div>
+              <div class="step-content">
+                <h4>担当部署から連絡する旨を伝える</h4>
+                <p>「担当部署からご連絡差し上げます」と伝え、その場で回答しようとしない。</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">3</div>
+              <div class="step-content">
+                <h4>社内で担当部署に引き継ぐ</h4>
+                <p>相手の連絡先・要件を記録し、対応できる部署・担当者に確実に伝達する。</p>
+              </div>
+            </div>
+          </div>
+          <div class="info-box red" style="margin-top:14px;">
+            <span class="info-icon">🚫</span>
+            <p><strong>絶対にNG：</strong>「わかりません」「できません」だけで終わらせること。必ず「担当からご連絡します」と代替案をセットで伝える。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 6. NG表現 ─── -->
+  <section id="section-ng" class="section">
+    <div class="section-header">
+      <div class="section-number">🚫</div>
+      <div class="section-title-wrap">
+        <h2>NG表現と言い換え集</h2>
+        <p>無意識に使ってしまいがちなNG表現を正しいビジネス言葉に直しましょう</p>
+      </div>
+    </div>
+
+    <div class="compare-wrap">
+      <div>
+        <div class="compare-col-label ng">❌ NG表現</div>
+        <div class="phrase-line ng">「もしもし」</div>
+        <div class="phrase-line ng">「ちょっと待ってください」</div>
+        <div class="phrase-line ng">「わかりません」</div>
+        <div class="phrase-line ng">「できません」</div>
+        <div class="phrase-line ng">「〇〇はいません」</div>
+        <div class="phrase-line ng">「〇〇に言っておきます」</div>
+        <div class="phrase-line ng">「すみません（謝罪）」</div>
+      </div>
+      <div>
+        <div class="compare-col-label ok">✅ OK表現（言い換え）</div>
+        <div class="phrase-line ok">「株式会社ランバード、〇〇が承ります」</div>
+        <div class="phrase-line ok">「少々お待ちいただけますでしょうか」</div>
+        <div class="phrase-line ok">「確認してご連絡いたします」</div>
+        <div class="phrase-line ok">「対応しかねますが、担当よりご連絡いたします」</div>
+        <div class="phrase-line ok">「ただいま席を外しております」</div>
+        <div class="phrase-line ok">「〇〇に申し伝えます」</div>
+        <div class="phrase-line ok">「申し訳ございません」</div>
+      </div>
+    </div>
+
+    <div class="card mt-24">
+      <div class="card-header"><span class="icon">📖</span><h3>よく使う敬語・丁寧語まとめ</h3></div>
+      <div class="card-body">
+        <table style="width:100%;border-collapse:collapse;font-size:13px;">
+          <thead>
+            <tr style="background:var(--primary-light);">
+              <th style="padding:10px 12px;text-align:left;font-weight:700;color:var(--primary-dark);">場面</th>
+              <th style="padding:10px 12px;text-align:left;font-weight:700;color:var(--primary-dark);">フレーズ</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:10px 12px;font-weight:600;">保留にする</td>
+              <td style="padding:10px 12px;color:var(--text-secondary);">「少々お待ちいただけますでしょうか。」</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);background:var(--surface-2);">
+              <td style="padding:10px 12px;font-weight:600;">電話を取り次ぐ</td>
+              <td style="padding:10px 12px;color:var(--text-secondary);">「只今担当の〇〇に代わりますので、少々お待ちください。」</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:10px 12px;font-weight:600;">聞き取れなかった</td>
+              <td style="padding:10px 12px;color:var(--text-secondary);">「恐れ入りますが、もう一度おっしゃっていただけますでしょうか。」</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);background:var(--surface-2);">
+              <td style="padding:10px 12px;font-weight:600;">電話を終える</td>
+              <td style="padding:10px 12px;color:var(--text-secondary);">「お電話ありがとうございました。失礼いたします。」</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:10px 12px;font-weight:600;">折り返しを約束する</td>
+              <td style="padding:10px 12px;color:var(--text-secondary);">「折り返しご連絡させていただきます。」</td>
+            </tr>
+            <tr style="background:var(--surface-2);">
+              <td style="padding:10px 12px;font-weight:600;">電話番号を確認する</td>
+              <td style="padding:10px 12px;color:var(--text-secondary);">「折り返し先のお電話番号をいただいてもよろしいでしょうか。」</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SUMMARY ─── -->
+  <div class="summary-box">
+    <h2>電話対応 チェックリスト</h2>
+    <p>毎回の電話対応で確認しておきたいポイントです</p>
+    <div class="check-list">
+      <div class="check-item">☑️ 3コール以内に電話を取れたか</div>
+      <div class="check-item">☑️ 会社名・部署・名前を正しく名乗れたか</div>
+      <div class="check-item">☑️ 相手の会社名・名前を確認できたか</div>
+      <div class="check-item">☑️ 要件を正確に聞き取り、メモが取れたか</div>
+      <div class="check-item">☑️ 担当者不在の場合、折り返し時間を確認したか</div>
+      <div class="check-item">☑️ 担当外の問い合わせは、適切な部署へ引き継いだか</div>
+      <div class="check-item">☑️ 相手への感謝「お電話ありがとうございました」を伝えたか</div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <p>電話対応マニュアル 新人研修資料 &copy; 2025 | 社内研修用・社外秘</p>
+</footer>
+
+<script>
+  const sections = document.querySelectorAll('section[id]');
+  const navItems = document.querySelectorAll('.nav-item');
+
+  function updateActiveNav() {
+    let current = '';
+    sections.forEach(section => {
+      if (window.scrollY >= section.offsetTop - 100) {
+        current = section.getAttribute('id');
+      }
+    });
+    navItems.forEach(item => {
+      item.classList.remove('active');
+      if (item.getAttribute('href') === '#' + current) {
+        item.classList.add('active');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', updateActiveNav, { passive: true });
+  updateActiveNav();
+
+  navItems.forEach(item => {
+    item.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(item.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.animationPlayState = 'running';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.section').forEach(section => {
+    section.style.animationPlayState = 'paused';
+    observer.observe(section);
+  });
+</script>
+</body>
+</html>
