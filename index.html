@@ -3,27 +3,263 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>新人研修用マニュアル一覧</title>
+  <title>新人研修用マニュアル一覧 | 株式会社ランバード</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;900&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif; background: #f5f5f5; color: #333; }
-    .header { background: linear-gradient(135deg, #c00 0%, #e53935 100%); color: #fff; padding: 28px 32px; display:flex; justify-content:space-between; align-items:center; }
-    .header h1 { font-size: 22px; font-weight: 700; }
-    .header p  { font-size: 13px; opacity: 0.85; margin-top: 4px; }
-    .logout-btn { background:rgba(255,255,255,0.2); border:1px solid rgba(255,255,255,0.5); color:#fff; padding:6px 14px; border-radius:20px; font-size:13px; cursor:pointer; }
-    .logout-btn:hover { background:rgba(255,255,255,0.3); }
-    .wrapper { max-width: 800px; margin: 32px auto; padding: 0 16px 60px; }
-    .section { background: #fff; border-radius: 10px; margin-bottom: 20px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
-    .section-header { padding: 14px 20px; font-weight: 700; font-size: 15px; color: #fff; }
-    .section-header.youtube  { background: #c00; }
-    .section-header.meo      { background: #1565c0; }
-    .section-header.ai       { background: #4f46e5; }
-    .section-header.manners  { background: #00695c; }
-    .file-list { list-style: none; padding: 8px 0; }
-    .file-list li a { display: flex; align-items: center; gap: 10px; padding: 12px 20px; font-size: 14px; color: #1565c0; text-decoration: none; border-bottom: 1px solid #f0f0f0; transition: background 0.15s; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', sans-serif;
+      background: #f0f2f5;
+      color: #202124;
+      min-height: 100vh;
+    }
+
+    /* ─── HEADER ─── */
+    .header {
+      background: linear-gradient(135deg, #7b0000 0%, #c00 45%, #e53935 80%, #ef5350 100%);
+      padding: 48px 32px 56px;
+      position: relative;
+      overflow: hidden;
+    }
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -60%; left: -15%;
+      width: 55%; height: 220%;
+      background: rgba(255,255,255,0.04);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .header::after {
+      content: '';
+      position: absolute;
+      bottom: -50%; right: -5%;
+      width: 45%; height: 180%;
+      background: rgba(255,255,255,0.04);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .header-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      position: relative;
+      z-index: 1;
+    }
+    .header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: rgba(255,255,255,0.9);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 100px;
+      margin-bottom: 14px;
+      letter-spacing: 0.04em;
+    }
+    .header h1 {
+      font-size: clamp(22px, 4vw, 34px);
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.3;
+      margin-bottom: 8px;
+      text-shadow: 0 2px 16px rgba(0,0,0,0.2);
+    }
+    .header-sub {
+      font-size: 13px;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 24px;
+    }
+    .header-stats {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .stat-item {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 10px;
+      padding: 10px 18px;
+      text-align: center;
+    }
+    .stat-num {
+      font-size: 22px;
+      font-weight: 900;
+      color: #fff;
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 11px;
+      color: rgba(255,255,255,0.75);
+      margin-top: 2px;
+    }
+    .logout-btn {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.4);
+      color: #fff;
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      white-space: nowrap;
+      margin-top: 4px;
+      font-family: inherit;
+    }
+    .logout-btn:hover { background: rgba(255,255,255,0.25); }
+
+    /* ─── WRAPPER ─── */
+    .wrapper {
+      max-width: 960px;
+      margin: -24px auto 60px;
+      padding: 0 16px;
+    }
+
+    /* ─── SECTION CARD ─── */
+    .section-card {
+      background: #fff;
+      border-radius: 16px;
+      margin-bottom: 24px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.07), 0 1px 4px rgba(0,0,0,0.05);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.5s ease forwards;
+    }
+    .section-card:nth-child(1) { animation-delay: 0.05s; }
+    .section-card:nth-child(2) { animation-delay: 0.12s; }
+    .section-card:nth-child(3) { animation-delay: 0.19s; }
+    .section-card:nth-child(4) { animation-delay: 0.26s; }
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 24px;
+    }
+    .section-head.youtube { background: linear-gradient(135deg, #8b0000, #c62828); }
+    .section-head.meo     { background: linear-gradient(135deg, #0d47a1, #1976d2); }
+    .section-head.ai      { background: linear-gradient(135deg, #3730a3, #6366f1); }
+    .section-head.manners { background: linear-gradient(135deg, #004d40, #00897b); }
+
+    .section-title-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .section-icon {
+      width: 40px; height: 40px;
+      background: rgba(255,255,255,0.18);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+    }
+    .section-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: 0.02em;
+    }
+    .section-count {
+      background: rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 100px;
+    }
+
+    /* ─── FILE LIST ─── */
+    .file-list { list-style: none; }
+    .file-list li a {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 24px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #202124;
+      text-decoration: none;
+      border-bottom: 1px solid #f3f4f6;
+      transition: all 0.18s;
+      position: relative;
+    }
     .file-list li:last-child a { border-bottom: none; }
-    .file-list li a:hover { background: #f5f5f5; }
-    .file-list li a::before { content: '📄'; font-size: 16px; }
+    .file-list li a::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      border-radius: 0 3px 3px 0;
+      opacity: 0;
+      transition: opacity 0.18s;
+    }
+    .section-card.youtube .file-list li a::before { background: #c62828; }
+    .section-card.meo     .file-list li a::before { background: #1976d2; }
+    .section-card.ai      .file-list li a::before { background: #6366f1; }
+    .section-card.manners .file-list li a::before { background: #00897b; }
+
+    .file-list li a:hover {
+      background: #f8f9fa;
+      padding-left: 28px;
+    }
+    .file-list li a:hover::before { opacity: 1; }
+
+    .file-icon {
+      width: 34px; height: 34px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 17px;
+      flex-shrink: 0;
+    }
+    .section-card.youtube .file-icon { background: #fff0f0; }
+    .section-card.meo     .file-icon { background: #e8f0fe; }
+    .section-card.ai      .file-icon { background: #ede9fe; }
+    .section-card.manners .file-icon { background: #e0f2f1; }
+
+    .file-name {
+      flex: 1;
+      line-height: 1.4;
+    }
+    .file-arrow {
+      font-size: 12px;
+      color: #bbb;
+      transition: transform 0.18s, color 0.18s;
+    }
+    .file-list li a:hover .file-arrow {
+      transform: translateX(4px);
+      color: #888;
+    }
+
+    /* ─── FOOTER ─── */
+    .footer {
+      text-align: center;
+      padding: 20px 16px 40px;
+      color: #9e9e9e;
+      font-size: 12px;
+    }
+
+    @media (max-width: 600px) {
+      .header { padding: 36px 20px 48px; }
+      .header-stats { gap: 12px; }
+      .stat-item { padding: 8px 14px; }
+      .section-head { padding: 16px 18px; }
+      .file-list li a { padding: 13px 18px; }
+      .file-list li a:hover { padding-left: 22px; }
+    }
   </style>
 </head>
 <body>
@@ -32,50 +268,167 @@
   if(!sessionStorage.getItem('rb_auth')) location.replace('/staff-training/login.html');
 })();
 </script>
-  <div class="header">
+
+<div class="header">
+  <div class="header-inner">
     <div>
-      <h1>📚 新人研修用マニュアル一覧</h1>
-      <p>株式会社ランバード｜業務別マニュアル</p>
+      <div class="header-badge">📚 RUNBIRD TRAINING</div>
+      <h1>新人研修用<br>マニュアル一覧</h1>
+      <p class="header-sub">株式会社ランバード｜業務別マニュアル</p>
+      <div class="header-stats">
+        <div class="stat-item">
+          <div class="stat-num">4</div>
+          <div class="stat-label">カテゴリ</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">16</div>
+          <div class="stat-label">マニュアル</div>
+        </div>
+      </div>
     </div>
     <button class="logout-btn" onclick="sessionStorage.removeItem('rb_auth');location.href='/staff-training/login.html'">ログアウト</button>
   </div>
-  <div class="wrapper">
-    <div class="section">
-      <div class="section-header youtube">📺 YouTube広告 仕様書</div>
-      <ul class="file-list">
-        <li><a href="youtube/channel-setup.html">YouTubeチャンネル開設スクリプト</a></li>
-        <li><a href="youtube/hearing.html">YouTube広告 ヒアリング</a></li>
-        <li><a href="youtube/meeting-script.html">YouTube広告 定例会スクリプト</a></li>
-        <li><a href="youtube/meeting-qa.html">YouTube広告 定例会アウト集</a></li>
-        <li><a href="youtube/operation-manual.html">YouTube広告 運用フローマニュアル</a></li>
-        <li><a href="youtube/google-ads.html">Google広告 入稿マニュアル</a></li>
-        <li><a href="youtube/display-ads.html">ディスプレイ広告 入稿マニュアル</a></li>
-        <li><a href="youtube/listing-ads.html">リスティング広告 入稿マニュアル</a></li>
-        <li><a href="youtube/operation-basics.html">Google広告 基礎概念</a></li>
-        <li><a href="youtube/general.html">業務全般</a></li>
-      </ul>
+</div>
+
+<div class="wrapper">
+
+  <!-- YouTube -->
+  <div class="section-card youtube">
+    <div class="section-head youtube">
+      <div class="section-title-row">
+        <div class="section-icon">📺</div>
+        <span class="section-title">YouTube広告 仕様書</span>
+      </div>
+      <span class="section-count">10 items</span>
     </div>
-    <div class="section">
-      <div class="section-header meo">📍 MEOクラウド 仕様書</div>
-      <ul class="file-list">
-        <li><a href="meo/manual.html">MEOクラウド業務マニュアル</a></li>
-        <li><a href="meo/hearing.html">MEOヒアリングスクリプト</a></li>
-        <li><a href="meo/policy-guide.html">MEOポリシー抵触ガイド</a></li>
-        <li><a href="meo/knowhow.html">MEO運用ノウハウ</a></li>
-      </ul>
-    </div>
-    <div class="section">
-      <div class="section-header ai">🤖 AI活用ツール 研修</div>
-      <ul class="file-list">
-        <li><a href="ai-setup.html">Cursor・GitHub・Claude Code 導入マニュアル</a></li>
-      </ul>
-    </div>
-    <div class="section">
-      <div class="section-header manners">📞 業務マナー</div>
-      <ul class="file-list">
-        <li><a href="youtube/phone-manners.html">電話対応マニュアル</a></li>
-      </ul>
-    </div>
+    <ul class="file-list">
+      <li><a href="youtube/channel-setup.html">
+        <div class="file-icon">📹</div>
+        <span class="file-name">YouTubeチャンネル開設スクリプト</span>
+        <span class="file-arrow">›</span>
+      </a></li>
+      <li><a href="youtube/hearing.html">
+        <div class="file-icon">🎧</div>
+        <span class="file-name">YouTube広告 ヒアリング</span>
+        <span class="file-arrow">›</span>
+      </a></li>
+      <li><a href="youtube/meeting-script.html">
+        <div class="file-icon">🎙️</div>
+        <span class="file-name">YouTube広告 定例会スクリプト</span>
+        <span class="file-arrow">›</span>
+      </a></li>
+      <li><a href="youtube/meeting-qa.html">
+        <div class="file-icon">💬</div>
+        <span class="file-name">YouTube広告 定例会アウト集</span>
+        <span class="file-arrow">›</span>
+      </a></li>
+      <li><a href="youtube/operation-manual.html">
+        <div class="file-icon">⚙️</div>
+        <span class="file-name">YouTube広告 運用フローマニュアル</span>
+        <span class="file-arrow">›</span>
+      </a></li>
+      <li><a href="youtube/google-ads.html">
+        <div class="file-icon">📋</div>
+        <span class="file-name">Google広告 入稿マニュアル</span>
+        <span class="file-arrow">›</span>
+      </a></li>
+      <li><a href="youtube/display-ads.html">
+        <div class="file-icon">🖼️</div>
+        <span class="file-name">ディスプレイ広告 入稿マニュアル</span>
+        <span class="file-arrow">›</span>
+      </a></li>
+      <li><a href="youtube/listing-ads.html">
+        <div class="file-icon">🔍</div>
+        <span class="file-name">リスティング広告 入稿マニュアル</span>
+        <span class="file-arrow">›</span>
+      </a></li>
+      <li><a href="youtube/operation-basics.html">
+        <div class="file-icon">📚</div>
+        <span class="file-name">Google広告 基礎概念</span>
+        <span class="file-arrow">›</span>
+      </a></li>
+      <li><a href="youtube/general.html">
+        <div class="file-icon">📌</div>
+        <span class="file-name">業務全般</span>
+        <span class="file-arrow">›</span>
+      </a></li>
+    </ul>
   </div>
+
+  <!-- MEO -->
+  <div class="section-card meo">
+    <div class="section-head meo">
+      <div class="section-title-row">
+        <div class="section-icon">📍</div>
+        <span class="section-title">MEOクラウド 仕様書</span>
+      </div>
+      <span class="section-count">4 items</span>
+    </div>
+    <ul class="file-list">
+      <li><a href="meo/manual.html">
+        <div class="file-icon">📍</div>
+        <span class="file-name">MEOクラウド業務マニュアル</span>
+        <span class="file-arrow">›</span>
+      </a></li>
+      <li><a href="meo/hearing.html">
+        <div class="file-icon">🎧</div>
+        <span class="file-name">MEOヒアリングスクリプト</span>
+        <span class="file-arrow">›</span>
+      </a></li>
+      <li><a href="meo/policy-guide.html">
+        <div class="file-icon">🛡️</div>
+        <span class="file-name">MEOポリシー抵触ガイド</span>
+        <span class="file-arrow">›</span>
+      </a></li>
+      <li><a href="meo/knowhow.html">
+        <div class="file-icon">💡</div>
+        <span class="file-name">MEO運用ノウハウ</span>
+        <span class="file-arrow">›</span>
+      </a></li>
+    </ul>
+  </div>
+
+  <!-- AI -->
+  <div class="section-card ai">
+    <div class="section-head ai">
+      <div class="section-title-row">
+        <div class="section-icon">🤖</div>
+        <span class="section-title">AI活用ツール 研修</span>
+      </div>
+      <span class="section-count">1 item</span>
+    </div>
+    <ul class="file-list">
+      <li><a href="ai-setup.html">
+        <div class="file-icon">🤖</div>
+        <span class="file-name">Cursor・GitHub・Claude Code 導入マニュアル</span>
+        <span class="file-arrow">›</span>
+      </a></li>
+    </ul>
+  </div>
+
+  <!-- 業務マナー -->
+  <div class="section-card manners">
+    <div class="section-head manners">
+      <div class="section-title-row">
+        <div class="section-icon">📞</div>
+        <span class="section-title">業務マナー</span>
+      </div>
+      <span class="section-count">1 item</span>
+    </div>
+    <ul class="file-list">
+      <li><a href="youtube/phone-manners.html">
+        <div class="file-icon">📞</div>
+        <span class="file-name">電話対応マニュアル</span>
+        <span class="file-arrow">›</span>
+      </a></li>
+    </ul>
+  </div>
+
+</div>
+
+<div class="footer">
+  &copy; 2025 株式会社ランバード｜社内研修用・社外秘
+</div>
+
 </body>
 </html>
