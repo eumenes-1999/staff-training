@@ -574,6 +574,11 @@
             <tr><td><code>.tokyo / .shop / .blog</code>等</td><td>近年増えている業種・地域特化型の新しいTLD（新gTLD）</td></tr>
           </tbody>
         </table>
+        <div class="note" style="margin-top:0;">
+          <strong>厳密には:</strong> 「.co.jp」はDNS上のTLDそのものではなく、「.jp」というTLDの配下にある
+          「属性型（組織種別）JPドメイン」という区分です。業界では慣用的に「.co.jpドメイン」と呼ぶことが多いため、
+          本表でも実務上の分類としてまとめて掲載しています。
+        </div>
 
         <h3>取得・更新の基本</h3>
         <div class="grid two">
@@ -699,6 +704,11 @@
           「Let's Encrypt」という無料の証明書発行の仕組みが普及したことで、現在は多くのレンタルサーバーが
           無料・自動でSSL化に対応しています。「SSL化にはコストがかかる」という前提は現在は当てはまらないケースが多い点に注意。
         </div>
+
+        <p>
+          サイト内の一部のページだけをhttps化するのではなく、<strong>サイト全体のすべてのページをhttps対応にすること</strong>を
+          「常時SSL化」と呼びます。現在は常時SSL化が事実上の標準です。
+        </p>
       </section>
 
       <section id="url">
@@ -711,11 +721,11 @@
         <div class="url-legend">
           <div class="item"><span class="dot p1"></span>スキーム（プロトコル。https= 暗号化通信）</div>
           <div class="item"><span class="dot p2"></span>サブドメイン（ドメインの前につく識別子）</div>
-          <div class="item"><span class="dot p3"></span>ドメイン（住所本体）</div>
+          <div class="item"><span class="dot p3"></span>ドメイン（住所本体。ここではドメイン名とTLDをまとめて示す）</div>
           <div class="item"><span class="dot p4"></span>パス（サイト内の場所）＋パラメータ（計測タグ等）</div>
         </div>
 
-        <h3>サブドメイン と サブディレクトリの違い</h3>
+        <h3>サブドメインとサブディレクトリの違い</h3>
         <table>
           <thead><tr><th>形式</th><th>例</th><th>特徴</th></tr></thead>
           <tbody>
@@ -750,7 +760,7 @@
         <p>
           世界的にはWordPressが全Webサイトの4割以上、CMSを利用しているサイトの中では6割以上を占めるとされ、
           <strong>日本国内では特にWordPressのシェアが高く8割以上</strong>とも言われています。
-          新人がまず名前を覚えるべきCMSとして最優先で押さえておくべき存在です（正確な最新シェアは調査元により変動するため参考値として扱うこと）。
+          新人が最優先で名前を覚えておくべきCMSです（正確な最新シェアは調査元により変動するため参考値として扱うこと）。
         </p>
 
         <div class="grid two">
