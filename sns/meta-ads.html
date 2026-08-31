@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meta広告（Facebook/Instagram）運用マニュアル</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary: #0866ff;
+      --primary-dark: #06316b;
+      --primary-soft: #dbe9ff;
+      --blue: #1877f2;
+      --blue-soft: #e0edff;
+      --orange: #d97706;
+      --orange-soft: #ffedd5;
+      --red: #dc2626;
+      --red-soft: #fee2e2;
+      --green: #059669;
+      --green-soft: #d1fae5;
+      --purple: #7c3aed;
+      --purple-soft: #ede9fe;
+      --ig-grad: linear-gradient(135deg, #4f5bd5 0%, #962fbf 30%, #d62976 60%, #fa7e1e 85%, #feda75 100%);
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --sidebar-active: #0866ff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Noto Sans JP', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.8;
+      font-size: 15px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      background: linear-gradient(180deg, #0b1b3a 0%, #050b1a 100%);
+      color: #cbd5e1;
+      padding: 24px 0 32px;
+    }
+
+    .sidebar-header {
+      padding: 0 20px 18px;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .sidebar-header .label {
+      color: #7db4ff;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .sidebar-header h2 {
+      color: #f8fafc;
+      font-size: 17px;
+      line-height: 1.45;
+    }
+
+    nav { padding: 14px 0 24px; }
+
+    nav a {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      color: #aebed4;
+      text-decoration: none;
+      font-size: 13px;
+      padding: 8px 20px;
+      border-left: 3px solid transparent;
+    }
+
+    nav a:hover,
+    nav a.active {
+      background: rgba(8, 102, 255, 0.16);
+      color: #f8fafc;
+      border-left-color: var(--sidebar-active);
+    }
+
+    .nav-num {
+      display: inline-grid;
+      place-items: center;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      color: #93c5fd;
+      font-size: 11px;
+      font-weight: 800;
+      flex: 0 0 auto;
+    }
+
+    main {
+      max-width: 1180px;
+      width: 100%;
+      padding: 36px 42px 64px;
+    }
+
+    .hero {
+      position: relative;
+      background: linear-gradient(135deg, #06316b 0%, #0866ff 55%, #7c3aed 100%);
+      color: #fff;
+      border-radius: 24px;
+      padding: 36px;
+      margin-bottom: 28px;
+      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.18);
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 5px;
+      background: var(--ig-grad);
+    }
+
+    .hero .eyebrow {
+      display: inline-block;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.28);
+      border-radius: 999px;
+      padding: 4px 12px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      margin-bottom: 14px;
+    }
+
+    .hero h1 {
+      font-size: 32px;
+      line-height: 1.35;
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      max-width: 820px;
+      color: #e0edff;
+      font-size: 16px;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .meta span {
+      background: rgba(255,255,255,0.16);
+      border: 1px solid rgba(255,255,255,0.24);
+      border-radius: 10px;
+      padding: 6px 10px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .meta span.warn-span {
+      background: rgba(255, 255, 255, 0.24);
+      border: 1px solid rgba(255,255,255,0.4);
+    }
+
+    section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 28px;
+      margin-bottom: 22px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
+    }
+
+    section h2 {
+      font-size: 24px;
+      color: var(--primary-dark);
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--primary-soft);
+    }
+
+    section h3 {
+      font-size: 18px;
+      color: #0f172a;
+      margin: 22px 0 10px;
+    }
+
+    p + p { margin-top: 10px; }
+
+    ul, ol {
+      padding-left: 22px;
+      margin: 10px 0;
+    }
+
+    li { margin: 5px 0; }
+
+    strong { color: #0f172a; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0 6px;
+      overflow: hidden;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+
+    th, td {
+      padding: 12px 14px;
+      text-align: left;
+      vertical-align: top;
+      border-bottom: 1px solid var(--border);
+    }
+
+    th {
+      background: #f1f5f9;
+      color: #0f172a;
+      font-size: 13px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    tr:last-child td { border-bottom: 0; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin: 16px 0;
+    }
+
+    .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+    .card {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px;
+      background: #fff;
+    }
+
+    .card.ig-accent {
+      border-top: 3px solid transparent;
+      border-image: var(--ig-grad) 1;
+    }
+
+    .card h3,
+    .card h4 {
+      margin: 0 0 8px;
+      color: #0f172a;
+      font-size: 16px;
+    }
+
+    .card p { color: var(--muted); font-size: 14px; }
+
+    .point {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+      margin: 10px 0;
+    }
+
+    .point .icon {
+      display: inline-grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 10px;
+      background: var(--primary-soft);
+      color: var(--primary-dark);
+      font-weight: 900;
+      flex: 0 0 auto;
+    }
+
+    .tag {
+      display: inline-block;
+      border-radius: 999px;
+      padding: 3px 9px;
+      font-size: 12px;
+      font-weight: 800;
+      margin-right: 6px;
+      margin-bottom: 6px;
+    }
+
+    .tag.green { background: var(--green-soft); color: #065f46; }
+    .tag.blue { background: var(--blue-soft); color: #1d4ed8; }
+    .tag.orange { background: var(--orange-soft); color: #9a3412; }
+    .tag.red { background: var(--red-soft); color: #991b1b; }
+    .tag.purple { background: var(--purple-soft); color: #5b21b6; }
+    .tag.ig { background: var(--ig-grad); color: #fff; }
+
+    .note {
+      border-left: 5px solid var(--primary);
+      background: #eef4ff;
+      padding: 15px 18px;
+      border-radius: 12px;
+      margin: 16px 0;
+    }
+
+    .warning {
+      border-left: 5px solid var(--red);
+      background: #fff7ed;
+      padding: 15px 18px;
+      border-radius: 12px;
+      margin: 16px 0;
+    }
+
+    .checklist {
+      display: grid;
+      gap: 9px;
+      margin: 14px 0;
+    }
+
+    .checkitem {
+      display: grid;
+      grid-template-columns: 24px 1fr;
+      gap: 10px;
+      align-items: start;
+      padding: 10px 12px;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    .box {
+      display: inline-grid;
+      place-items: center;
+      width: 18px;
+      height: 18px;
+      border: 2px solid #94a3b8;
+      border-radius: 4px;
+      margin-top: 4px;
+    }
+
+    .flow {
+      display: grid;
+      gap: 12px;
+      counter-reset: step;
+      margin: 16px 0;
+    }
+
+    .step {
+      position: relative;
+      padding: 16px 18px 16px 58px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: #fff;
+    }
+
+    .step::before {
+      counter-increment: step;
+      content: counter(step);
+      position: absolute;
+      left: 16px;
+      top: 16px;
+      display: inline-grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #fff;
+      font-weight: 900;
+    }
+
+    .step h3 {
+      margin: 0 0 6px;
+      font-size: 16px;
+    }
+
+    .step ul, .step ol { margin-top: 8px; }
+
+    .source-list a {
+      color: var(--blue);
+      word-break: break-all;
+    }
+
+    @media (max-width: 980px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar {
+        position: relative;
+        height: auto;
+      }
+      nav {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      main { padding: 22px 16px 48px; }
+      .hero { padding: 26px 20px; }
+      .hero h1 { font-size: 26px; }
+      .grid,
+      .grid.two { grid-template-columns: 1fr; }
+      table { font-size: 13px; }
+      th, td { padding: 10px; }
+    }
+  </style>
+</head>
+<body>
+<script>
+(function(){
+  if(!sessionStorage.getItem('rb_auth')) location.replace('/staff-training/login.html');
+})();
+</script>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="label">Meta Ads Operation</div>
+        <h2>Meta広告（Facebook/Instagram）運用マニュアル</h2>
+      </div>
+      <nav>
+        <a href="#overview"><span class="nav-num">1</span>概要とユーザー層</a>
+        <a href="#format"><span class="nav-num">2</span>広告フォーマット</a>
+        <a href="#targeting"><span class="nav-num">3</span>ターゲティング</a>
+        <a href="#bidding"><span class="nav-num">4</span>課金方式・入札</a>
+        <a href="#setup"><span class="nav-num">5</span>開設〜入稿の流れ</a>
+        <a href="#policy"><span class="nav-num">6</span>審査ポリシー・注意点</a>
+        <a href="#industry"><span class="nav-num">7</span>向いている業種・戦略</a>
+        <a href="#kpi"><span class="nav-num">8</span>KPI目安・レポートの見方</a>
+        <a href="#checklist"><span class="nav-num">9</span>運用チェックリスト</a>
+      </nav>
+    </aside>
+
+    <main>
+      <header class="hero">
+        <div class="eyebrow">新人研修・SNS広告運用担当者向け</div>
+        <h1>Meta広告（Facebook / Instagram）運用の基礎と実務ポイント</h1>
+        <p>
+          Meta広告はFacebook・Instagram・Threadsなど複数面に配信できる広告プラットフォームです。
+          プラットフォームごとのユーザー層の違い、フォーマット、ターゲティング、課金・入札、入稿フロー、審査ポリシー、KPIの見方までを実務向けに整理しています。
+        </p>
+        <div class="meta">
+          <span>対象: SNS広告運用担当・新人</span>
+          <span>目的: Meta広告の基礎理解と入稿対応</span>
+          <span>更新日: 2026年8月31日</span>
+          <span class="warn-span">本資料は2026年8月時点の調査に基づく。料金・仕様は変更されるため、実案件では必ずMeta Business Help Centerで最新情報を確認すること</span>
+        </div>
+      </header>
+
+      <section id="overview">
+        <h2>1. 概要とユーザー層</h2>
+        <p>
+          Meta広告は、Facebook・Instagram・Threadsなど複数のプラットフォームへ横断的に配信できる広告メニューです。
+          プラットフォームごとにユーザー層・使われ方が異なるため、案件のターゲットに合わせて配信面を選ぶ・組み合わせる判断が必要になります。
+        </p>
+
+        <h3>Facebook</h3>
+        <div class="note">
+          Meta社は2019年以降、<strong>国内単独のMAU（月間アクティブユーザー数）を公式に公表していません</strong>。
+          代理店系メディアが参考値として挙げる「国内2,600万人」という数字は2019年時点の情報であり、2026年時点の実数としては古いため、
+          研修資料で使う場合は「2019年公表値を最後に更新なし」と注記すべきです。
+        </div>
+        <ul>
+          <li>年齢層は他のSNSと比べて<strong>20代以降、特に30〜50代の利用率が相対的に高い</strong>傾向があるとされる。10代の新規利用は少なく、実名登録・冠婚葬祭や転職報告など「フォーマルな人生の節目の共有」に使われる傾向があるとされる。</li>
+          <li>ビジネス用途では「企業ページ・地域コミュニティ・BtoBの情報収集」に使われる場面が多いとされ、実名制ゆえに信頼性を重視する層（不動産、士業、BtoBサービスなど）との相性が良いといわれる。</li>
+        </ul>
+
+        <h3><span class="tag ig">IG</span> Instagram</h3>
+        <ul>
+          <li>国内MAUについても同様にMeta公式の最新値は非公開。代理店調査でよく引用される「6,600万人以上」は2023年11月時点の推計値であり、これも古い数字である点に注意（要最新確認）。</li>
+          <li>年齢層は10代後半〜30代が中心とされ、他SNSと比較して<strong>女性利用率が男性を上回る</strong>傾向が複数の調査で共通して報告されている。</li>
+          <li>利用シーンはビジュアル訴求と親和性が高く、ファッション・コスメ・グルメ・旅行・美容医療・住宅など「写真・動画で世界観を伝えたい」業種との相性が良いとされる。フィード・ストーリーズ・リール・発見タブなど回遊性の高い導線が特徴。</li>
+        </ul>
+
+        <h3>FacebookとInstagramの利用シーンの違い（研修用の整理）</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>観点</th>
+              <th>Facebook</th>
+              <th>Instagram</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>年齢層の傾向</td>
+              <td>20〜50代中心（やや高め）</td>
+              <td>10代後半〜30代中心</td>
+            </tr>
+            <tr>
+              <td>実名性</td>
+              <td>高い（実名登録が原則）</td>
+              <td>匿名利用も多い</td>
+            </tr>
+            <tr>
+              <td>使われ方</td>
+              <td>情報収集・コミュニティ・BtoB</td>
+              <td>ビジュアル訴求・トレンド消費・購買検討</td>
+            </tr>
+            <tr>
+              <td>得意な業種例</td>
+              <td>BtoB、不動産、士業、地域サービス</td>
+              <td>EC、美容、飲食、アパレル、旅行</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Threadsへの広告配信状況</h3>
+        <div class="note">
+          <p>Threadsは2023年7月ローンチ後、短期間で大規模なユーザーを獲得し、その後もMAUは成長を続けているとされる（具体的な最新MAU数値は要最新確認）。</p>
+          <p>広告配信は2025年初頭に米国・日本の一部広告主向けにテスト開始、2025年4月に条件を満たす全広告主へ提供拡大、2026年1月にMetaが<strong>全世界への正式導入</strong>を発表し、数か月かけて展開中とされる。</p>
+          <p>実務上は<strong>Meta広告マネージャーの配置設定（Placements）にThreadsが選択肢として追加</strong>されており、Facebook・Instagramと同じキャンペーンから配信面を広げる形で利用できる。新人向けには「配置の一つとしてThreadsが選べるようになった」という理解で十分。</p>
+        </div>
+      </section>
+
+      <section id="format">
+        <h2>2. 広告フォーマット一覧</h2>
+        <p>
+          Meta広告は「画像」「動画」「カルーセル」「コレクション」を基本形として、配置面（フィード・ストーリーズ・リール等）ごとにバリエーションが展開される構成になっています。
+          2026年時点で主要とされるフォーマットは以下の通りです。
+        </p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>フォーマット</th>
+              <th>特徴</th>
+              <th>適したシーン</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>画像広告</td>
+              <td>静止画1枚＋テキスト。もっともベーシックで作成コストが低い</td>
+              <td>商品単体訴求、ブランド認知、テスト初期のクリエイティブ検証</td>
+            </tr>
+            <tr>
+              <td>動画広告</td>
+              <td>数秒〜数分の動画。ストーリー性・使用感を伝えやすい</td>
+              <td>ブランディング、Before/After訴求、サービス説明</td>
+            </tr>
+            <tr>
+              <td>カルーセル広告</td>
+              <td>最大10枚程度の画像/動画をスワイプで切替可能</td>
+              <td>複数商品の紹介、機能別の訴求、比較訴求</td>
+            </tr>
+            <tr>
+              <td>コレクション広告</td>
+              <td>メインの画像/動画＋その下に複数の商品サムネイルを組み合わせ、タップ後は商品カタログのような没入型体験へ遷移</td>
+              <td>ECサイトの複数商品展開、カタログ連携した購買導線</td>
+            </tr>
+            <tr>
+              <td><span class="tag ig">IG</span>リール広告</td>
+              <td>縦型9:16のフルスクリーンでリールの合間に表示。没入感が高く、冒頭数秒の設計が特に重要とされる</td>
+              <td>若年層向け訴求、トレンド感のあるブランディング</td>
+            </tr>
+            <tr>
+              <td><span class="tag ig">IG</span>ストーリーズ広告</td>
+              <td>縦型9:16のフルスクリーン、Facebook/Instagramのストーリーズ間に表示</td>
+              <td>期間限定訴求、キャンペーン告知、リマインド型リターゲティング</td>
+            </tr>
+            <tr>
+              <td>リード獲得広告（リードジェネレーション）</td>
+              <td>タップするとMeta上で完結するフォームが開き、外部LPへの遷移なしに問い合わせ・資料請求を完結できる</td>
+              <td>資料請求・見積依頼・来店予約など、離脱を防ぎたいリード獲得</td>
+            </tr>
+            <tr>
+              <td>Advantage+ カタログ広告（旧ダイナミック広告）</td>
+              <td>商品カタログと連動し、ユーザーごとに閲覧・カート放棄商品などを自動で出し分け</td>
+              <td>ECのリターゲティング、カゴ落ち対策</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="note">
+          補足：具体的な入稿規定（推奨解像度・アスペクト比・ファイルサイズ・文字数上限など）は配置面ごとに細かく異なり、変更頻度も高いため、
+          <strong>入稿直前に必ずMeta公式の「広告ガイド」（facebook.com/business/ads-guide）で最新のスペックを確認する</strong>運用が実務上望ましい。
+        </div>
+      </section>
+
+      <section id="targeting">
+        <h2>3. ターゲティング機能</h2>
+        <p>主なオーディエンス種別は以下の4つです。目的に応じて使い分けます。</p>
+
+        <div class="grid two">
+          <div class="card">
+            <h3>コアオーディエンス</h3>
+            <p>年齢・性別・地域・言語・興味関心・行動などの属性情報をもとに広告主が手動で条件設定するオーディエンス。新規層への認知拡大に使われることが多い。</p>
+          </div>
+          <div class="card">
+            <h3>カスタムオーディエンス</h3>
+            <p>自社が保有するデータ（顧客リスト、サイト訪問者、アプリ利用者、動画視聴者、Facebook/Instagramでのエンゲージメントユーザーなど）をもとに作成するオーディエンス。リターゲティング施策の土台になる。</p>
+          </div>
+          <div class="card">
+            <h3>類似オーディエンス（Lookalike Audience）</h3>
+            <p>既存の優良顧客リストやサイト訪問者などの「ソース」を基に、Metaの機械学習が似た特徴を持つ新規ユーザー層を自動生成する機能。新規層への拡張に使われる。</p>
+          </div>
+          <div class="card">
+            <span class="tag purple">Advantage+</span>
+            <h3>Advantage+ オーディエンス</h3>
+            <p>2024〜2026年にかけて主流化した、AIが自動でターゲットを探索する仕組み。広告主は詳細な条件を絞り込むのではなく「ヒント（年齢範囲や興味関心の目安など）」を与えるだけで、あとはAIが最適なユーザーを探索して配信する位置づけ。</p>
+          </div>
+        </div>
+
+        <div class="note">
+          2026年時点では、<strong>手動ターゲティングとAdvantage+を組み合わせるハイブリッド運用が実務上のベストプラクティス</strong>とされ、
+          シグナル（コンバージョンデータの質・量）とクリエイティブの質が成果を左右する要素として重視されている。
+        </div>
+
+        <h3>iOS14以降のプライバシー変更の影響とその後の対応</h3>
+        <div class="flow">
+          <div class="step">
+            <h3>ATT導入による打撃（2021年4月〜）</h3>
+            <p>2021年4月のiOS14.5導入によるApp Tracking Transparency（ATT）で、Meta広告の計測基盤（Facebookピクセル）は大きな打撃を受けた。IDFA（広告識別子）の取得同意率が大幅に低下し、Meta側は自己申告で数十億ドル規模の売上インパクトがあったと報告しているとされる。</p>
+          </div>
+          <div class="step">
+            <h3>影響の実態</h3>
+            <p>ブラウザ・アプリ単体でのユーザー識別・計測精度が低下し、コンバージョン数の過少計上や、ターゲティング精度の低下（特にリターゲティングの母集団縮小）が起きたとされる。</p>
+          </div>
+          <div class="step">
+            <h3>対応：Conversions API（CAPI）</h3>
+            <p>Metaは<strong>Conversions API（CAPI）</strong>を軸にした計測基盤の再構築を進めた。CAPIはサーバー側から直接Metaへイベントを送信する仕組みで、ブラウザ側の制限（Cookie削除・計測ブロック）を受けにくいのが特徴。2026年には設定を簡易化した「ワンクリックCAPI設定」もEvents Manager内に追加されたとされ、標準的なWebイベントであれば技術者を介さず設定できるようになったとされる（要最新確認）。</p>
+          </div>
+          <div class="step">
+            <h3>実務上のポイント</h3>
+            <p>現在Meta広告の計測は「ピクセル＋CAPIの併用」が推奨構成であり、CAPI導入によって計測漏れが是正され、コンバージョン数の見え方が改善するケースが多いと報告されている。新人向けには「iOS14以降、計測が甘くなった分をサーバー側連携（CAPI）で補っている」という理解で十分。</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="bidding">
+        <h2>4. 課金方式・入札</h2>
+
+        <h3>課金方式</h3>
+        <p>
+          Meta広告は<strong>オークション形式</strong>で配信が決まる。入札額だけでなく、「広告の推定アクション率」「広告品質（ユーザーからのポジティブ/ネガティブフィードバック含む）」を加味した総合スコアで表示順位・配信可否が決まる仕組み。
+        </p>
+        <div class="note">
+          課金形態は目的によって変わり、インプレッション課金（CPM：1,000回表示ごとの課金）が基本だが、目的やキャンペーン設定によってはクリック課金相当の実質単価で語られることもある。
+          <strong>新人には「基本はCPM課金だが、成果は最終的にCPC・CPA・ROASで評価する」という整理</strong>が分かりやすい。
+        </div>
+
+        <h3>最低出稿金額の目安</h3>
+        <p>
+          システム上の下限は「1日あたり広告費の最低額（目安として数百円/日程度）」とされ、明確な最低出稿金額の縛りはないとされる。
+          少額（月3万円程度、1日100〜300円程度）からでも開始できるとする代理店解説が複数見られる。
+        </p>
+        <div class="warning">
+          実務での推奨予算感（代理店解説ベースの目安であり公式基準ではない）：
+          <ul>
+            <li>テスト期間（1〜2か月）：月3万〜10万円程度</li>
+            <li>本運用：月10万〜30万円程度、成果次第でスケール</li>
+          </ul>
+          ※上記の金額感はあくまで代理店の経験則的な目安であり、業種・競合状況・目標CPAによって大きく変動する。研修資料には「絶対額」ではなく「目安」として記載すること。
+        </div>
+
+        <h3>入札戦略の種類（目的別に選択）</h3>
+        <div class="grid">
+          <div class="card">
+            <h3>最低コスト型</h3>
+            <p>最低のコストで最大の成果を狙う（自動入札／コスト最小化に近い考え方）。多くのキャンペーンで初期設定として推奨される、AIに委ねる入札方式。</p>
+          </div>
+          <div class="card">
+            <h3>目標コスト型</h3>
+            <p>費用対効果の目標値を設定する入札。目標CPAやROASの目安値を入力し、その水準に近づけるよう配信を調整する方式。</p>
+          </div>
+          <div class="card">
+            <h3>入札上限型</h3>
+            <p>入札上限を設定する方式。1コンバージョンあたりに支払う上限額を厳格にコントロールしたい場合に使う。</p>
+          </div>
+        </div>
+        <div class="note">
+          実務上は「まず自動入札で学習させ、データが十分たまってから目標値型に切り替える」という段階的な運用が一般的とされる。
+        </div>
+
+        <h3>自動化キャンペーン（Advantage+）の位置づけ</h3>
+        <div class="card ig-accent">
+          <span class="tag purple">Advantage+ セールスキャンペーン</span>
+          <p style="margin-top:8px;">（旧称：Advantage+ ショッピングキャンペーン／ASC）Meta Advantage群の中核機能で、入札・ターゲティング・配置・クリエイティブの4要素を機械学習で自動化するEC向け販売促進キャンペーン。</p>
+        </div>
+        <div class="grid two" style="margin-top:14px;">
+          <div class="card">
+            <h3>メリット</h3>
+            <p>手動設定の手間が少なく、コンバージョンしやすいユーザーへ自動配信、クリエイティブもユーザーごとに最適化される。Meta公式は「導入広告主のコンバージョン単価が平均9%改善」という趣旨の成果を公表しているとされる（要最新確認、数値は変動しうる）。</p>
+          </div>
+          <div class="card">
+            <h3>デメリット・制約</h3>
+            <p>キャンペーン目的が「売上」に限定され、認知目的では使えない。詳細ターゲティングの自由度は手動設定より低い。</p>
+          </div>
+        </div>
+        <div class="note">
+          位置づけとしては「EC事業者が販売目的で使う場合の第一選択肢」だが、認知拡大やリード獲得など別目的では通常のキャンペーン構造（5章）を使う必要がある。
+        </div>
+      </section>
+
+      <section id="setup">
+        <h2>5. アカウント開設〜入稿の流れ</h2>
+        <p>
+          Meta広告は「ビジネスマネージャー（ビジネスポートフォリオ）→ キャンペーン → 広告セット → 広告」という階層構造で管理される。
+          新人が流れを追えるよう、操作の順序で整理する。
+        </p>
+
+        <div class="flow">
+          <div class="step">
+            <h3>ステップ0：土台の準備（ビジネスマネージャー）</h3>
+            <ol>
+              <li>Meta Business Suite（ビジネスマネージャー／ビジネスポートフォリオ）を作成する。ここが「広告アカウント」「Facebookページ」「Instagramアカウント」「ピクセル／データセット」などを一元管理する母艦になる。</li>
+              <li>広告アカウントを新規作成する。この際、<strong>通貨（JPY）とタイムゾーン（Asia/Tokyo）は作成後に変更できない</strong>ため、必ず最初に正しく設定する。</li>
+              <li>FacebookページとInstagramアカウントをビジネスマネージャーに紐づける。</li>
+              <li>計測用のピクセル（またはデータセット／Conversions APIの連携）を発行し、クライアントのサイトに実装する。ここが正しく設定されていないと、後工程の成果測定・最適化が機能しない。</li>
+            </ol>
+          </div>
+          <div class="step">
+            <h3>ステップ1：キャンペーン作成（第1階層）</h3>
+            <ol>
+              <li>広告マネージャーで「新しいキャンペーンを作成」を選択。</li>
+              <li>キャンペーンの目的を選択する（下表の6区分）。</li>
+              <li>キャンペーン単位で「予算の設定方法（キャンペーン予算最適化を使うか、広告セットごとに予算を持たせるか）」を決める。</li>
+              <li>EC事業者で「売上」目的かつ自動化を優先したい場合はここで「Advantage+ セールスキャンペーン」を選ぶ分岐もある。</li>
+            </ol>
+            <table style="margin-top:12px;">
+              <thead><tr><th>キャンペーン目的</th><th>内容</th></tr></thead>
+              <tbody>
+                <tr><td>認知度</td><td>ブランド認知・リーチ拡大</td></tr>
+                <tr><td>トラフィック</td><td>サイト・LPへの誘導</td></tr>
+                <tr><td>エンゲージメント</td><td>いいね・コメント・シェア・動画再生・フォロワー獲得</td></tr>
+                <tr><td>リード</td><td>Meta上で完結するフォーム経由の見込み客獲得</td></tr>
+                <tr><td>アプリの宣伝</td><td>アプリインストール・アプリ内アクション促進</td></tr>
+                <tr><td>売上</td><td>購入・問い合わせ等のコンバージョン獲得</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="step">
+            <h3>ステップ2：広告セット作成（第2階層）</h3>
+            <ol>
+              <li>コンバージョンの計測対象（ピクセルイベント／アプリイベントなど）を設定する。</li>
+              <li>予算・掲載期間（開始日・終了日、または継続配信）を設定する。</li>
+              <li>オーディエンスを設定する：コアオーディエンス（年齢・性別・地域・興味関心等）を手動設定するか、カスタムオーディエンス／類似オーディエンスを選択するか、Advantage+ オーディエンス（AIにヒントを与えて任せる）を使うか、を目的に応じて選ぶ。</li>
+              <li>配置（プレースメント）を設定する。初期は「自動配置（Advantage+ 配置）」が推奨されることが多く、Facebookフィード・Instagramフィード・ストーリーズ・リール・Threads・オーディエンスネットワークなど複数面へ自動で最適配分される。</li>
+              <li>入札戦略を選択する（4章参照）。</li>
+            </ol>
+          </div>
+          <div class="step">
+            <h3>ステップ3：広告作成・入稿（第3階層）</h3>
+            <ol>
+              <li>フォーマットを選択する（画像／動画／カルーセル／コレクション等、2章参照）。</li>
+              <li>クリエイティブ（画像・動画素材）をアップロードし、配置ごとのトリミング・アスペクト比を確認する。</li>
+              <li>メインテキスト・見出し・説明文・CTAボタン（詳しくはこちら／購入する／今すぐ予約 等）を入力する。</li>
+              <li>リンク先URL（またはリード獲得広告の場合はインスタントフォーム）を設定する。</li>
+              <li>プレビューで各配置（フィード・ストーリーズ・リール等）での見え方を確認する。</li>
+              <li><strong>最低3〜4パターン程度のクリエイティブをテスト出稿する</strong>ことが推奨される（クリエイティブ間のパフォーマンス差が大きいため）。</li>
+            </ol>
+          </div>
+          <div class="step">
+            <h3>ステップ4：審査提出</h3>
+            <ol>
+              <li>「公開」を押すと自動的に審査キューに送られる。</li>
+              <li>審査は通常AIによる自動審査が中心で、多くは数分〜24時間程度で完了するとされる（要最新確認、内容によっては数日かかる場合もある）。</li>
+              <li>審査通過後に配信が開始される。否認された場合は理由が通知され、修正して再申請するか、不服申立て（レビュー依頼）を行う。</li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <section id="policy">
+        <h2>6. 審査ポリシー・出稿時の注意点</h2>
+        <p>否認されやすい表現・注意点は以下の通り。案件のクリエイティブ・コピーを作る前に必ず確認する。</p>
+
+        <div class="grid two">
+          <div class="card">
+            <span class="tag red">NG</span>
+            <h3>断定的な効果表現</h3>
+            <p>「絶対に痩せる」「100%効果保証」「必ず稼げる」など、断定・保証を示す表現は誤解を招く広告として禁止される。「1週間で○kg減」のような具体的な数値を伴う効果の約束も同様にリスクが高い。</p>
+          </div>
+          <div class="card">
+            <span class="tag red">NG</span>
+            <h3>権威の悪用</h3>
+            <p>「医師も驚いた」「専門家が推奨」など、裏付けのない権威付け表現は根拠提示がない限り否認対象になりやすい。</p>
+          </div>
+          <div class="card">
+            <span class="tag red">NG</span>
+            <h3>個人の属性を推測・断定する表現</h3>
+            <p>Meta広告ポリシーの「個人の属性」に抵触するもの。身体的特徴・経済状況・人種・宗教・性的指向・健康状態などを推測・断定する文言は禁止されている。例：「あなたは太っていませんか？」「借金でお悩みのあなたへ」「50代のあなたへ」など、ユーザー個人に直接語りかけて属性を決めつける表現は避ける必要がある。</p>
+          </div>
+          <div class="card">
+            <span class="tag red">NG</span>
+            <h3>断定を強める副詞・言い回し</h3>
+            <p>「絶対」「必ず」「100%」「誰でも」なども審査上リスクのある表現として扱われることが多い。</p>
+          </div>
+        </div>
+
+        <div class="note">
+          <strong>業種特有の制限：</strong>
+          金融（消費者金融・投資勧誘等）、医療・美容医療、アルコール、成人向けコンテンツ、ギャンブル、ヘルスケアなど、業種そのものに追加の審査基準やライセンス提示が必要な領域がある。
+          研修では「案件が上記業種に該当する場合は事前に個別のポリシーを確認する」ルールを徹底する。
+        </div>
+
+        <div class="warning">
+          <strong>遡及的な検出とアカウント停止リスク：</strong>
+          審査通過後の配信中でも、ポリシー違反がシステム的に検出されると広告が停止されたり、違反が蓄積するとアカウント自体が停止（無効化）されるリスクがある。
+          停止理由は主に「広告ポリシー違反」「疑わしい・異常なアクティビティ」「本人確認・ビジネス認証の問題」「支払いの問題」に分類されるとされる。
+        </div>
+
+        <h3>アカウントの安全運用のポイント</h3>
+        <ul>
+          <li>二段階認証の設定</li>
+          <li>複数人運用時の権限管理の適正化</li>
+          <li>急激な予算変更を避け段階的に増額する</li>
+          <li>複数国・複数端末からの同時ログインを避ける</li>
+          <li>ユーザーからの「スパム」等のネガティブフィードバックを増やさない</li>
+        </ul>
+        <p style="color:var(--muted); font-size:13px;">上記は実務上の予防策として挙げられている点。</p>
+      </section>
+
+      <section id="industry">
+        <h2>7. 向いている業種・活用戦略</h2>
+        <p>
+          詳細な興味関心データ・行動データに基づくターゲティングと、実名制（Facebook）・ビジュアル訴求（Instagram）という特性から、
+          <strong>「潜在層への認知拡大」と「既存接点への再アプローチ（リターゲティング）」の両方に強い</strong>という評価が一般的。
+          検索広告（Google等）のような「顕在ニーズの刈り取り」より、SNS上での偶然の出会い・興味喚起からの需要創出（プッシュ型）に強みがあるとされる。
+        </p>
+
+        <div class="grid two">
+          <div class="card">
+            <h3>ECにおける強み</h3>
+            <p>商品カタログと連携したダイナミック広告／Advantage+ カタログ広告により、閲覧履歴・カゴ落ちユーザーへの自動リターゲティングが可能。コレクション広告やカルーセル広告で複数商品を見せられる点もEC向き。Advantage+ セールスキャンペーンによる自動化も相性が良い。</p>
+          </div>
+          <div class="card">
+            <h3>リード獲得における強み</h3>
+            <p>インスタントフォーム（リード獲得広告）によりMeta上で入力が完結するため、外部LPへの遷移によるフォーム離脱を防げる。BtoBでは資料請求・ホワイトペーパーDL・ウェビナー申込・メルマガ登録などの獲得チャネルとして活用されている。</p>
+          </div>
+        </div>
+
+        <h3>リターゲティングの活用</h3>
+        <p>
+          サイト訪問者・カート放棄ユーザー・動画視聴者・過去の反応（いいね・保存・プロフィール閲覧等）をカスタムオーディエンスとして抽出し、購買・再訪を促す広告を配信する使い方が典型。
+          新規獲得（類似オーディエンス／Advantage+ オーディエンスでの拡張）と、既存接点への再アプローチ（カスタムオーディエンスでのリターゲティング）を組み合わせるファネル設計が基本戦略とされる。
+        </p>
+
+        <h3>向いている業種の例</h3>
+        <div>
+          <span class="tag ig">EC・D2C</span>
+          <span class="tag ig">美容医療・エステ・美容室</span>
+          <span class="tag blue">飲食・店舗ビジネス</span>
+          <span class="tag blue">不動産・住宅</span>
+          <span class="tag green">BtoBサービス</span>
+          <span class="tag ig">旅行・レジャー</span>
+        </div>
+        <ul style="margin-top:10px;">
+          <li>EC・D2Cブランド（アパレル、コスメ、食品など）</li>
+          <li>美容医療・エステ・美容室（ビジュアル訴求と地域ターゲティングの両立）</li>
+          <li>飲食・店舗ビジネス（地域を絞った来店促進、リール活用）</li>
+          <li>不動産・住宅（Facebookの実名性・年齢層とマッチ）</li>
+          <li>BtoBサービス（リード獲得広告での資料請求・商談化）</li>
+          <li>旅行・レジャー（ビジュアル訴求との親和性）</li>
+        </ul>
+      </section>
+
+      <section id="kpi">
+        <h2>8. KPI目安・レポートの見方</h2>
+
+        <h3>主要指標の意味（新人向け整理）</h3>
+        <table>
+          <thead><tr><th>指標</th><th>意味</th></tr></thead>
+          <tbody>
+            <tr><td>CPM（Cost Per Mille）</td><td>広告が1,000回表示されるごとにかかる費用。認知目的のキャンペーンで重視される。</td></tr>
+            <tr><td>CPC（Cost Per Click）</td><td>クリック1回あたりの費用。トラフィック目的で重視される。</td></tr>
+            <tr><td>CTR（Click Through Rate）</td><td>表示回数に対するクリック率。クリエイティブの訴求力・関連性を測る指標。</td></tr>
+            <tr><td>CPA（Cost Per Acquisition）</td><td>コンバージョン（購入・問い合わせ・リード獲得等）1件あたりの獲得費用。売上・リード目的で最重要視される指標の一つ。</td></tr>
+            <tr><td>ROAS（Return On Ad Spend）</td><td>広告費に対する売上の倍率（売上 ÷ 広告費）。ECの売上目的キャンペーンで特に重視される。</td></tr>
+          </tbody>
+        </table>
+
+        <h3>相場感（2026年時点、代理店・海外ベンチマークサイトの集計値：要最新確認・業種により大きく変動）</h3>
+        <div class="warning">
+          <p>全業界の中央値目安として、CPM 約1,300〜1,800円程度（$13〜$14前後）、CPC 数十円〜200円程度（$0.78〜$1.40前後）、CTR 1.0〜2.2%程度、CVR 約1.6%前後、CPA 数千円程度（$38前後）、ROAS 1.9〜3.3倍程度という数値が複数のベンチマーク記事で報告されている。</p>
+          <p>業種間でCPM・CPAは<strong>最大3倍程度の差</strong>が出るとされ、単純に「業界平均」と比較するのではなく、必ず自社・自案件の過去実績や同業種のベンチマークと比較することが重要と強調されている。</p>
+          <p>年次の傾向として、CPMやCPAは上昇傾向（値上がり）にある一方、CTRは改善傾向にあり、ROASは維持〜成長している業種が多いとされる（要最新確認、市況により変動）。</p>
+          <p>※上記の数値は為替レートや集計元によって幅があり、研修資料に転記する際は「目安・参考値」であることを明記し、実際の予算計画では必ず最新のベンチマークデータや自社実績を確認するよう新人に指導すること。</p>
+        </div>
+
+        <h3>レポート画面で見るべき指標（実務チェックリスト）</h3>
+        <div class="checklist">
+          <div class="checkitem"><span class="box"></span><span><strong>配信状況：</strong>予算消化ペース、フリークエンシー（同一ユーザーへの表示回数、高すぎると広告疲れのサイン）</span></div>
+          <div class="checkitem"><span class="box"></span><span><strong>クリエイティブ別のCTR・CPA：</strong>広告セット内の複数クリエイティブのうち、どれが伸びているかを比較し、勝ちクリエイティブへの予算集中や差し替えを判断する</span></div>
+          <div class="checkitem"><span class="box"></span><span><strong>配置別の内訳：</strong>フィード・ストーリーズ・リール等、どの配置で成果が出ているかを確認する（自動配置の場合も内訳は確認可能）</span></div>
+          <div class="checkitem"><span class="box"></span><span><strong>オーディエンス別の成果：</strong>手動オーディエンス／Advantage+ オーディエンスそれぞれの成果を比較し、拡張の是非を判断する</span></div>
+          <div class="checkitem"><span class="box"></span><span><strong>CPA・ROASの目標値との乖離：</strong>日次〜週次で目標値と実績を突き合わせ、乖離が大きい場合は入札戦略・予算・クリエイティブ・オーディエンスのどこに要因があるかを切り分ける</span></div>
+          <div class="checkitem"><span class="box"></span><span><strong>学習フェーズの状態：</strong>広告セットが「学習中」「学習済み」のどちらの状態かを確認する。学習中に頻繁に設定変更すると学習がリセットされ、パフォーマンスが不安定になりやすい点に注意</span></div>
+        </div>
+      </section>
+
+      <section id="checklist">
+        <h2>9. 運用チェックリスト</h2>
+        <p>案件着手前〜運用中に確認すべき項目です。抜け漏れを防ぐため、作業前後に必ず確認してください。</p>
+
+        <div class="checklist">
+          <div class="checkitem"><span class="box"></span><span>ビジネスマネージャーで広告アカウント・Facebookページ・Instagramアカウントの紐づけを確認したか</span></div>
+          <div class="checkitem"><span class="box"></span><span>広告アカウント作成時に通貨（JPY）とタイムゾーン（Asia/Tokyo）を正しく設定したか（作成後は変更できないため要注意）</span></div>
+          <div class="checkitem"><span class="box"></span><span>ピクセル／Conversions API（CAPI）の実装状況を確認し、計測漏れがないか確認したか</span></div>
+          <div class="checkitem"><span class="box"></span><span>キャンペーン目的（認知度・トラフィック・エンゲージメント・リード・アプリの宣伝・売上）を案件のゴールに合わせて選んだか</span></div>
+          <div class="checkitem"><span class="box"></span><span>EC案件で自動化を優先する場合、Advantage+ セールスキャンペーンの適用可否を検討したか</span></div>
+          <div class="checkitem"><span class="box"></span><span>オーディエンス設計（コア／カスタム／類似／Advantage+）を目的に応じて選び、リターゲティングと新規拡張のバランスを検討したか</span></div>
+          <div class="checkitem"><span class="box"></span><span>入札戦略（自動入札から目標値型への段階移行を含む）を予算・学習データ量に応じて選んだか</span></div>
+          <div class="checkitem"><span class="box"></span><span>最低3〜4パターン程度のクリエイティブを用意し、配置ごとのプレビュー（トリミング・アスペクト比）を確認したか</span></div>
+          <div class="checkitem"><span class="box"></span><span>広告文・訴求表現に断定的効果表現、権威の悪用、個人の属性を決めつける言い回しが含まれていないか確認したか</span></div>
+          <div class="checkitem"><span class="box"></span><span>案件が金融・医療美容・アルコール・成人向け・ギャンブル等の規制業種に該当する場合、個別ポリシーを事前確認したか</span></div>
+          <div class="checkitem"><span class="box"></span><span>予算設定は急激な増額を避け、段階的に調整する計画になっているか</span></div>
+          <div class="checkitem"><span class="box"></span><span>二段階認証・権限管理などアカウントの安全対策が講じられているか</span></div>
+          <div class="checkitem"><span class="box"></span><span>配信開始後、学習フェーズ中に不要な設定変更をしていないか確認したか</span></div>
+          <div class="checkitem"><span class="box"></span><span>レポートでフリークエンシー・クリエイティブ別／配置別／オーディエンス別の成果を定期的に確認しているか</span></div>
+          <div class="checkitem"><span class="box"></span><span>CPA・ROASの目標値と実績の乖離を日次〜週次で確認し、要因（入札／予算／クリエイティブ／オーディエンス）を切り分けているか</span></div>
+        </div>
+
+        <h3>参考情報源</h3>
+        <ul class="source-list">
+          <li><a href="https://gaiax-socialmedialab.jp/socialmedia/435" target="_blank" rel="noopener noreferrer">2026年8月版！性別・年齢別 SNSユーザー数（ガイアックス ソーシャルメディアラボ）</a></li>
+          <li><a href="https://www.comnico.jp/we-love-social/sns-users" target="_blank" rel="noopener noreferrer">【2026年8月版】日本国内・国外人気SNSユーザー数ランキング（コムニコ）</a></li>
+          <li><a href="https://canvas.d2cr.co.jp/meta_recommendedcreative/" target="_blank" rel="noopener noreferrer">【2026年版】Meta広告とは？入稿規定を解説（CANVAS）</a></li>
+          <li><a href="https://www.medix-inc.co.jp/webbu/meta_collectionads-12633" target="_blank" rel="noopener noreferrer">Metaのコレクション広告とは（medix）</a></li>
+          <li><a href="https://anagrams.jp/blog/meta-ads-advantage-audience/" target="_blank" rel="noopener noreferrer">Meta広告「Advantage+ オーディエンス」とは（アナグラム）</a></li>
+          <li><a href="https://curumi.co.jp/blog/meta-ads-cost-guide" target="_blank" rel="noopener noreferrer">Meta広告 費用の相場と課金方式・予算設定（curumi）</a></li>
+          <li><a href="https://www.glad-cube.com/blog/?p=56253" target="_blank" rel="noopener noreferrer">【2026年5月更新】Metaビジネスポートフォリオの作成方法（グラッドキューブ）</a></li>
+          <li><a href="https://blog.adnabu.com/shopify/ios-14-impact-on-facebook-ads/" target="_blank" rel="noopener noreferrer">iOS 14 Impact on Facebook Ads: Key Changes & Solutions 2026（AdNabu）</a></li>
+          <li><a href="https://www.wetracked.io/post/what-is-capi-meta-facebook-conversion-api" target="_blank" rel="noopener noreferrer">Meta Ads CAPI Explained 2026（wetracked.io）</a></li>
+          <li><a href="https://bea-star.co.jp/blog/5524/" target="_blank" rel="noopener noreferrer">Meta広告の審査落ちの原因9パターン（BEASTAR）</a></li>
+          <li><a href="https://contentstudio.io/blog/meta-ads-benchmarks" target="_blank" rel="noopener noreferrer">Meta Ads benchmarks: Average CPM, CPC, and CTR in 2026（ContentStudio）</a></li>
+          <li><a href="https://adriselab.com/data/meta-ads-benchmarks-2026" target="_blank" rel="noopener noreferrer">Meta Ads Benchmarks 2026: CPC, CPA & ROAS for 11 Industries（AdRiseLab）</a></li>
+          <li><a href="https://www.sora-michi.co.jp/blog/5463" target="_blank" rel="noopener noreferrer">Threads(スレッズ)広告とは？（SORAMICHI）</a></li>
+          <li><a href="https://www.medix-inc.co.jp/webbu/meta-asc-12722" target="_blank" rel="noopener noreferrer">Meta広告のASC（Advantage+ セールスキャンペーン）とは（medix）</a></li>
+          <li><a href="https://www.kwm.co.jp/blog/meta-campaign-objectives-and-goals/" target="_blank" rel="noopener noreferrer">Meta広告のキャンペーン目的・パフォーマンスの目標の選び方（キーワードマーケティング）</a></li>
+          <li><a href="https://anagrams.jp/blog/basics-of-facebook-lead-ads/" target="_blank" rel="noopener noreferrer">Metaリード獲得広告とは（アナグラム）</a></li>
+          <li><a href="https://bruceclay.jpn.com/column/meta-adaccount-suspension/" target="_blank" rel="noopener noreferrer">Meta広告アカウントが停止された原因と対処法（ブルースクレイ・ジャパン）</a></li>
+          <li><a href="https://wevion.ai/ja/blog/meta-ad-account-safety-best-practices-2026/" target="_blank" rel="noopener noreferrer">Meta広告アカウントの安全対策2026（Wevion）</a></li>
+          <li><a href="https://www.facebook.com/business/ads-guide/update" target="_blank" rel="noopener noreferrer">Facebook Ads Guide: Ad Format Specs & Recommendations（Meta公式）</a></li>
+          <li><a href="https://www.facebook.com/business/help/469767027114079" target="_blank" rel="noopener noreferrer">Recommended Minimum Image Pixel Requirements Across Placements（Meta Business Help Center）</a></li>
+        </ul>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const links = Array.from(document.querySelectorAll('nav a'));
+    const sections = links
+      .map((link) => document.querySelector(link.getAttribute('href')))
+      .filter(Boolean);
+
+    const activateCurrentSection = () => {
+      let currentId = sections[0]?.id;
+      sections.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= 140) currentId = section.id;
+      });
+
+      links.forEach((link) => {
+        link.classList.toggle('active', link.getAttribute('href') === `#${currentId}`);
+      });
+    };
+
+    window.addEventListener('scroll', activateCurrentSection, { passive: true });
+    activateCurrentSection();
+  </script>
+</body>
+</html>

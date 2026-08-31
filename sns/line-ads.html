@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LINE広告 運用マニュアル</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary: #06c755;
+      --primary-dark: #045c33;
+      --primary-soft: #d9f9e6;
+      --blue: #2563eb;
+      --blue-soft: #dbeafe;
+      --orange: #d97706;
+      --orange-soft: #ffedd5;
+      --red: #dc2626;
+      --red-soft: #fee2e2;
+      --green: #059669;
+      --green-soft: #d1fae5;
+      --purple: #7c3aed;
+      --purple-soft: #ede9fe;
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --sidebar: #04351f;
+      --sidebar-active: #06c755;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.8;
+      font-size: 15px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      background: linear-gradient(180deg, #04351f 0%, #051d12 100%);
+      color: #cfe8da;
+      padding: 24px 0 32px;
+    }
+
+    .sidebar-header {
+      padding: 0 20px 18px;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .sidebar-header .label {
+      color: #7af0a8;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .sidebar-header h2 {
+      color: #f8fafc;
+      font-size: 17px;
+      line-height: 1.45;
+    }
+
+    nav { padding: 14px 0 24px; }
+
+    nav a {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      color: #a9d6bc;
+      text-decoration: none;
+      font-size: 13px;
+      padding: 8px 20px;
+      border-left: 3px solid transparent;
+    }
+
+    nav a:hover,
+    nav a.active {
+      background: rgba(6, 199, 85, 0.16);
+      color: #f8fafc;
+      border-left-color: var(--sidebar-active);
+    }
+
+    .nav-num {
+      display: inline-grid;
+      place-items: center;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      color: #b9f6ca;
+      font-size: 11px;
+      font-weight: 800;
+      flex: 0 0 auto;
+    }
+
+    main {
+      max-width: 1180px;
+      width: 100%;
+      padding: 36px 42px 64px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #06c755 0%, #04703b 100%);
+      color: #fff;
+      border-radius: 24px;
+      padding: 36px;
+      margin-bottom: 28px;
+      box-shadow: 0 18px 45px rgba(4, 92, 51, 0.28);
+    }
+
+    .hero .eyebrow {
+      display: inline-block;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.28);
+      border-radius: 999px;
+      padding: 4px 12px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      margin-bottom: 14px;
+    }
+
+    .hero h1 {
+      font-size: 34px;
+      line-height: 1.35;
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      max-width: 820px;
+      color: #e5fbec;
+      font-size: 16px;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .meta span {
+      background: rgba(255,255,255,0.16);
+      border: 1px solid rgba(255,255,255,0.24);
+      border-radius: 10px;
+      padding: 6px 10px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .hero-warning {
+      margin-top: 22px;
+      background: rgba(255,255,255,0.14);
+      border: 1px solid rgba(255,255,255,0.4);
+      border-left: 5px solid #fff59d;
+      border-radius: 14px;
+      padding: 16px 20px;
+      color: #fff;
+    }
+
+    .hero-warning strong.label {
+      display: inline-block;
+      color: #fff59d;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      margin-bottom: 6px;
+    }
+
+    .hero-warning p { color: #fff; font-size: 14px; max-width: none; }
+
+    section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 28px;
+      margin-bottom: 22px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
+    }
+
+    section h2 {
+      font-size: 24px;
+      color: var(--primary-dark);
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--primary-soft);
+    }
+
+    section h3 {
+      font-size: 18px;
+      color: #0f172a;
+      margin: 22px 0 10px;
+    }
+
+    p + p { margin-top: 10px; }
+
+    ul, ol {
+      padding-left: 22px;
+      margin: 10px 0;
+    }
+
+    li { margin: 5px 0; }
+
+    strong { color: #0f172a; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0 6px;
+      overflow: hidden;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+
+    th, td {
+      padding: 12px 14px;
+      text-align: left;
+      vertical-align: top;
+      border-bottom: 1px solid var(--border);
+    }
+
+    th {
+      background: #f1f5f9;
+      color: #0f172a;
+      font-size: 13px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    tr:last-child td { border-bottom: 0; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin: 16px 0;
+    }
+
+    .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+    .card {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px;
+      background: #fff;
+    }
+
+    .card h3,
+    .card h4 {
+      margin: 0 0 8px;
+      color: #0f172a;
+      font-size: 16px;
+    }
+
+    .card p { color: var(--muted); font-size: 14px; }
+
+    .point {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+      margin: 10px 0;
+    }
+
+    .point .icon {
+      display: inline-grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 10px;
+      background: var(--primary-soft);
+      color: var(--primary-dark);
+      font-weight: 900;
+      flex: 0 0 auto;
+    }
+
+    .tag {
+      display: inline-block;
+      border-radius: 999px;
+      padding: 3px 9px;
+      font-size: 12px;
+      font-weight: 800;
+      margin-right: 6px;
+      margin-bottom: 6px;
+    }
+
+    .tag.green { background: var(--green-soft); color: #065f46; }
+    .tag.blue { background: var(--blue-soft); color: #1d4ed8; }
+    .tag.orange { background: var(--orange-soft); color: #9a3412; }
+    .tag.red { background: var(--red-soft); color: #991b1b; }
+    .tag.purple { background: var(--purple-soft); color: #5b21b6; }
+
+    .note {
+      border-left: 5px solid var(--primary);
+      background: #ecfdf3;
+      padding: 15px 18px;
+      border-radius: 12px;
+      margin: 16px 0;
+    }
+
+    .warning {
+      border-left: 5px solid var(--red);
+      background: #fff7ed;
+      padding: 15px 18px;
+      border-radius: 12px;
+      margin: 16px 0;
+    }
+
+    .checklist {
+      display: grid;
+      gap: 9px;
+      margin: 14px 0;
+    }
+
+    .checkitem {
+      display: grid;
+      grid-template-columns: 24px 1fr;
+      gap: 10px;
+      align-items: start;
+      padding: 10px 12px;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    .box {
+      display: inline-grid;
+      place-items: center;
+      width: 18px;
+      height: 18px;
+      border: 2px solid #94a3b8;
+      border-radius: 4px;
+      margin-top: 4px;
+    }
+
+    .flow {
+      display: grid;
+      gap: 12px;
+      counter-reset: step;
+      margin: 16px 0;
+    }
+
+    .step {
+      position: relative;
+      padding: 16px 18px 16px 58px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: #fff;
+    }
+
+    .step::before {
+      counter-increment: step;
+      content: counter(step);
+      position: absolute;
+      left: 16px;
+      top: 16px;
+      display: inline-grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #fff;
+      font-weight: 900;
+    }
+
+    .step h3 {
+      margin: 0 0 6px;
+      font-size: 16px;
+    }
+
+    .hierarchy {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: stretch;
+      gap: 10px;
+      margin: 16px 0;
+    }
+
+    .hierarchy .h-card {
+      flex: 1 1 220px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+      background: #f8fafc;
+    }
+
+    .hierarchy .h-card h4 {
+      color: var(--primary-dark);
+      font-size: 15px;
+      margin-bottom: 6px;
+    }
+
+    .hierarchy .h-card p { color: var(--muted); font-size: 13px; }
+
+    .hierarchy .arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: var(--primary);
+      font-weight: 900;
+      padding: 0 2px;
+    }
+
+    .source-list a {
+      color: var(--blue);
+      word-break: break-all;
+    }
+
+    @media (max-width: 980px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar {
+        position: relative;
+        height: auto;
+      }
+      nav {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      main { padding: 22px 16px 48px; }
+      .hero { padding: 26px 20px; }
+      .hero h1 { font-size: 26px; }
+      .grid,
+      .grid.two { grid-template-columns: 1fr; }
+      table { font-size: 13px; }
+      th, td { padding: 10px; }
+      .hierarchy { flex-direction: column; }
+      .hierarchy .arrow { transform: rotate(90deg); }
+    }
+  </style>
+</head>
+<body>
+<script>
+(function(){
+  if(!sessionStorage.getItem('rb_auth')) location.replace('/staff-training/login.html');
+})();
+</script>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="label">LINE Ads Operation</div>
+        <h2>LINE広告 運用マニュアル</h2>
+      </div>
+      <nav>
+        <a href="#unification"><span class="nav-num">1</span>⚠️2026年の統合と現状</a>
+        <a href="#overview"><span class="nav-num">2</span>概要とユーザー層</a>
+        <a href="#format"><span class="nav-num">3</span>広告フォーマット</a>
+        <a href="#targeting"><span class="nav-num">4</span>ターゲティング</a>
+        <a href="#billing"><span class="nav-num">5</span>課金方式・入札</a>
+        <a href="#flow"><span class="nav-num">6</span>開設〜入稿の流れ</a>
+        <a href="#review"><span class="nav-num">7</span>審査ポリシー・注意点</a>
+        <a href="#industry"><span class="nav-num">8</span>向いている業種・戦略</a>
+        <a href="#kpi"><span class="nav-num">9</span>KPI目安・レポート</a>
+        <a href="#checklist"><span class="nav-num">10</span>運用チェックリスト</a>
+      </nav>
+    </aside>
+
+    <main>
+      <header class="hero">
+        <div class="eyebrow">新人研修・SNS広告運用担当者向け</div>
+        <h1>LINE広告 運用マニュアル</h1>
+        <p>
+          国内月間利用者数トップクラスのLINEを軸に、配信面・ターゲティング・課金方式・入稿フロー・審査ポリシー・KPIの見方を実務向けに整理しています。
+          ただし2026年はLINE広告そのものの構造が大きく変わる過渡期にあるため、まず1章の警告を必ず読んでから各論に進んでください。
+        </p>
+        <div class="meta">
+          <span>対象: SNS広告運用担当・新人</span>
+          <span>目的: LINE広告の基礎理解と入稿対応</span>
+          <span>更新日: 2026年8月31日</span>
+        </div>
+        <div class="hero-warning">
+          <strong class="label">⚠️ 最重要：「LINE広告」は統合・終了段階に入っています</strong>
+          <p>
+            2026年4月1日、LINEヤフーは「LINE広告」と「Yahoo!広告 ディスプレイ広告」を統合し「LINEヤフー広告 ディスプレイ広告」をリリースしました。
+            2026年6月30日をもって旧「LINE広告」の新規アカウント開設申し込みは停止し、2026年10月下旬頃（予定）には旧LINE広告の配信自体が停止するとされています。
+            2026年8月現在、新規に広告を始める場合の入口は統合後の「LINEヤフー広告」です。本資料の入稿フロー章（6章）の画面名称は統合前の情報を基にしているため、
+            実務で使う際は執筆時点で公式マニュアルとの差異確認が必要です。詳細は1章を参照してください。
+          </p>
+        </div>
+      </header>
+
+      <section id="unification">
+        <h2>1. ⚠️2026年の統合と現状（最重要）</h2>
+        <p>
+          新人研修としてまずこの構造変化を理解してから、2章以降の各論を読んでください。ここを飛ばして「LINE広告」という名称・単体の管理画面を前提に覚えてしまうと、実務と食い違います。
+        </p>
+
+        <h3>統合・終了までの時系列</h3>
+        <div class="flow">
+          <div class="step">
+            <h3>2026年4月1日：プラットフォーム統合</h3>
+            <p>LINEヤフーは「LINE広告（Talk Head Viewを含む）」と「Yahoo!広告 ディスプレイ広告」を統合し、新プラットフォーム「LINEヤフー広告 ディスプレイ広告」をリリースした。あわせて「Yahoo!広告 検索広告」は「LINEヤフー広告 検索広告」に名称変更されている。</p>
+          </div>
+          <div class="step">
+            <h3>2026年6月30日：旧LINE広告の新規開設が終了</h3>
+            <p>このシステムリリースをもって、旧「LINE広告」における新規アカウント作成の申し込みが停止した（申込期限は6月29日）。</p>
+          </div>
+          <div class="step">
+            <h3>2026年10月下旬頃（予定）：旧LINE広告の配信停止</h3>
+            <p>旧「LINE広告」は広告配信自体を停止し、その後段階的に提供終了予定とされる。既存のLINE広告アカウントは「LINEヤフー広告 ディスプレイ広告」への移行（管理画面上の移行ツール、または手動移行）が必要とされる。</p>
+          </div>
+        </div>
+
+        <div class="warning">
+          <strong>移行における実務上の重要注意点：</strong>
+          LINE Tag（旧計測タグ）はディスプレイ広告に対応しておらず、新規のタグ設置・コンバージョン設定のやり直しが必要とされ、既存の学習データ（機械学習の最適化実績）も引き継がれないとされる。
+          予算設計・立ち上げ初期のCPA悪化を織り込む必要がある。
+        </div>
+
+        <div class="note">
+          <strong>実務上の結論：</strong>
+          2026年8月現在、新人が新規に広告アカウントを開設する場合、入口は旧来の「LINE Ads Manager（LINE広告単体の管理画面）」ではなく、統合後の「LINEヤフー広告」管理ツールになる。
+          ただし本資料の「6. アカウント開設〜入稿の流れ」章では、しばらく現場で併存すると見られる旧LINE広告の操作用語（キャンペーン／広告グループ／広告という3階層構造）をベースに解説する。
+          この階層構造自体は統合後も概念として引き継がれるとされるが、実際の画面遷移・呼称は今後変更される可能性が高いため、実務で使う際は必ず公式マニュアルのスクリーンショットと突き合わせて最新確認すること。
+        </div>
+      </section>
+
+      <section id="overview">
+        <h2>2. 概要とユーザー層</h2>
+
+        <h3>国内リーチ規模</h3>
+        <p>
+          LINEの国内月間利用者数（MAU）は1億人前後（2025年12月末時点〜2026年3月末時点で「1億人」という言及が複数の一次情報・二次情報で確認できる）。
+          総務省の2026年6月発表の調査でも「全年代で92.9%がLINEを利用」とされ、日本国内における普及率は他のSNSと一線を画す。
+          統合後の「LINEヤフー広告」は、LINE（月間約1億ユーザーとされる）とYahoo! JAPAN（月間5,400万ユーザー前後とされる）の両サービスの掲載面を横断配信できる点が最大の特徴。
+        </p>
+        <div class="note">
+          <strong>数値の扱い方：</strong>
+          MAU等の具体数値は媒体資料の更新頻度が高く（2026年6月30日更新版など）、変動する。実務で使う際は必ず最新の公式媒体資料（lycbiz.comの「媒体資料」ページ）で確認すること。
+        </div>
+
+        <h3>年齢層・属性の傾向</h3>
+        <p>
+          LINEは「インフラ」的な位置づけであり、10代〜60代以上まで年齢層に大きな偏りがない全世代型のプラットフォームとされる。
+          これはX（Twitter）・Instagram・TikTokなど年齢層に明確な偏りがある他SNSとの決定的な違い。
+          ただし配信面によっては属性差があり、例えばLINEクーポンは女性ユーザー比率が高く40〜50代がボリュームゾーンとされる。
+        </p>
+
+        <h3>他SNS広告との違い（インフラ的位置づけ）</h3>
+        <div class="grid">
+          <div class="card">
+            <h3>毎日開かれる媒体</h3>
+            <p>X・Instagram・TikTok等は「コンテンツ消費・発見」目的の利用が主だが、LINEは「日常のコミュニケーションインフラ」として毎日開かれるため、広告接触の母数（DAU/MAU比率）が非常に高いとされる。</p>
+          </div>
+          <div class="card">
+            <h3>自社チャネルと連携できる</h3>
+            <p>「LINE公式アカウント」という自社チャネルと連携できる点が他のSNS広告にはない大きな特徴（友だち追加施策との連動、詳細は8章）。</p>
+          </div>
+          <div class="card">
+            <h3>補完的・基盤的なリーチ</h3>
+            <p>BtoCの日本国内向けマス〜ミドルリーチ施策において、他媒体で届きにくい層（LINEしか使っていない層）にリーチできる補完的・基盤的な位置づけとされる。</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="format">
+        <h2>3. 広告フォーマット（配信面一覧）</h2>
+        <p>
+          LINE広告（統合前時点の情報。統合後の呼称は変更の可能性あり）には20種類以上の配信面があるとされる。新人がまず押さえるべき主要なものは以下の通り。
+        </p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>配信面</th>
+              <th>特徴</th>
+              <th>適したシーン</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>トークリスト広告</td>
+              <td>LINEのトーク画面最上部に表示。LINEの中で最もアクティブ率（DAU）の高い枠で、LINEを開くたびに目に触れる。ユーザーの目的意識が低い状態（トークを見に来ているだけ）での接触のため、購買意欲が高い状態のユーザーが集まる枠ではないとされる。</td>
+              <td>大規模な認知拡大・リーチ最大化。初めてLINE広告を運用する場合、まずここから始めることが推奨されるとされる。クリエイティブで興味を喚起する設計が重要。</td>
+            </tr>
+            <tr>
+              <td>LINE NEWS</td>
+              <td>MAU約7,700万人以上とされる。ニュース記事一覧ページや提携メディアアカウント（430前後とされる）内に配信。</td>
+              <td>ニュース閲読中の文脈でのブランディング、幅広い層への認知。</td>
+            </tr>
+            <tr>
+              <td>LINE VOOM（旧LINEタイムライン）</td>
+              <td>MAU6,800万人以上とされ、うち月1回以上広告接触するユーザーは4,900万人以上とされる。ショート動画・フィード型の配信面。<strong>2026年9月30日に提供終了予定という情報あり（要最新確認）</strong>。</td>
+              <td>外部送客、ダイレクトレスポンス、アプリインストール促進。ただし提供終了が近い場合は新規の出稿設計に含めるべきか要確認。</td>
+            </tr>
+            <tr>
+              <td>Smart Channel</td>
+              <td>LINEのトーク一覧最上部（トークリストに近い位置）に表示される広告枠として過去に案内されていた名称。2026年時点の最新の一次資料検索では単独の名称としての言及が明確に確認できなかった。トークリスト関連の配信面名称が再編されている可能性があり、<strong>実務で使う際に必ず最新の媒体資料で名称を確認すること（要最新確認）</strong>。</td>
+              <td>（確認後に記載）</td>
+            </tr>
+            <tr>
+              <td>LINEポイントAd／LINEポイントクラブ</td>
+              <td>ポイント貯蓄・利用機能を通じて、購買意欲・お得情報への感度が高いユーザー層にリーチできる面とされる。</td>
+              <td>クーポン訴求、購買直結型のプロモーション、ポイント経済圏との親和性が高い商材。</td>
+            </tr>
+            <tr>
+              <td>ミニアプリタブ</td>
+              <td>オフライン・オンライン双方でLINEを利用するユーザー（店舗のミニアプリ利用者等）にアプローチできる面とされる。</td>
+              <td>O2O施策、店舗送客。</td>
+            </tr>
+            <tr>
+              <td>LINEクーポン</td>
+              <td>女性ユーザー比率が高く（約70%とされる）、40〜50代がボリュームゾーンとされる。購買活動が活発な層向け。</td>
+              <td>店舗・EC送客のクーポン配布施策。</td>
+            </tr>
+            <tr>
+              <td>ホーム画面</td>
+              <td>LINEアプリのホームタブに表示。</td>
+              <td>認知拡大。</td>
+            </tr>
+            <tr>
+              <td>ウォレットタブ／LINEマイカード／LINEチラシ／LINEブランドカタログ等</td>
+              <td>決済・会員証・チラシ・ブランドカタログなど、生活密着系の各機能内に配信面が用意されているとされる。</td>
+              <td>業種・訴求内容に応じたピンポイント配信。</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>主なクリエイティブ形式</h3>
+        <ul>
+          <li>Cardフォーマット：静止画または動画、1200×628px（16:9比率）が主要規格とされ、トークリスト・LINE NEWS・LINE VOOMなど主要配信面のほぼすべてに対応。</li>
+          <li>このほか、静止画・動画・カルーセル（複数カード）・画像＋テキストなど、5種類以上のフォーマットが用意されているとされる。</li>
+          <li>手動配置と自動配置（おまかせ配置）があり、初心者には自動配置が推奨されることが多いとされる（配信面ごとの入札・学習を機械に任せられるため）。</li>
+        </ul>
+      </section>
+
+      <section id="targeting">
+        <h2>4. ターゲティング</h2>
+        <p>
+          LINE広告のターゲティングは大きく分けて「オーディエンスセグメントターゲティング」と「カスタムオーディエンスターゲティング」に分類され、あわせて9種類程度に整理されることが多いとされる。
+        </p>
+
+        <div class="grid two">
+          <div class="card">
+            <span class="tag green">デモグラフィック</span>
+            <h3>性別・年齢・地域</h3>
+            <p>LINEアカウントの登録情報と、行動データから推定した「みなし属性」を組み合わせて判定されるとされる（LINE登録時の年齢・性別が必ずしも実態と一致しないため、みなし属性による補正がある）。</p>
+          </div>
+          <div class="card">
+            <span class="tag blue">興味関心（オーディエンスセグメント）</span>
+            <h3>行動データから推定</h3>
+            <p>LINE内の行動データ（スタンプ購入、公式アカウントの友だち追加履歴など）から推定されるセグメント。18カテゴリ・約300のサブカテゴリが用意されているとされる（数値は変動する可能性があるため要最新確認）。</p>
+          </div>
+          <div class="card">
+            <span class="tag purple">オーディエンス配信（カスタム／リターゲティング）</span>
+            <h3>既存顧客・見込み客への再アプローチ</h3>
+            <p>自社のLINE公式アカウントの友だちリストや、Webサイト訪問者データ（LINE Tag経由）、顧客リスト（電話番号・メールアドレス等のハッシュ化データ）をアップロードして再アプローチできる機能。「友だち登録者へのリターゲティング」は代表的な使い方（友だちには別メッセージ配信、非友だちには友だち追加広告を配信、という切り分け）。</p>
+          </div>
+          <div class="card">
+            <span class="tag orange">類似オーディエンス（Lookalike）</span>
+            <h3>優良顧客に似た新規層へ</h3>
+            <p>既存の優良顧客・コンバージョンユーザーのデータを基に、似た特徴を持つ新規ユーザー層に配信する機能。拡張率を1%〜15%の範囲で設定できるとされ、拡張率が低いほど元のオーディエンスに近い（＝精度は高いがリーチは狭い）ユーザーに配信され、CVRが高くなる傾向があるとされる。</p>
+          </div>
+        </div>
+
+        <h3>位置情報ターゲティング</h3>
+        <p>
+          「居住地」「勤務地」「現在地」の3モードから選択できるとされる。地域密着型ビジネス（店舗集客等）では、店舗周辺に絞った配信で低コストに友だち追加・来店誘導を狙う代表的な手法（8章で詳述）。
+        </p>
+      </section>
+
+      <section id="billing">
+        <h2>5. 課金方式・入札</h2>
+
+        <h3>課金方式</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>課金方式</th>
+              <th>内容</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>クリック課金（CPC）</td>
+              <td>クリック発生時に課金。</td>
+            </tr>
+            <tr>
+              <td>インプレッション課金（CPM）</td>
+              <td>広告表示1,000回ごとに課金（ビューアブルインプレッション課金など、視認性を条件にした課金方式も含むとされる）。</td>
+            </tr>
+            <tr>
+              <td>動画再生課金</td>
+              <td>動画広告の再生に応じた課金方式。</td>
+            </tr>
+            <tr>
+              <td>友だち追加課金（CPF：Cost Per Friend）</td>
+              <td>LINE公式アカウントの友だち追加という成果地点に対して課金。成果地点が明確なため費用対効果を計算しやすく、中長期的な顧客関係構築を目指す施策と相性がよいとされる。</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="note">
+          <strong>最低出稿金額の目安：</strong>
+          かつては「最低出稿額100万円」という条件があったとされるが、2017年に最低予算設定が撤廃され、現在は少額（月数万円）からでも開始可能とされる。
+          統合後の「LINEヤフー広告」でも「最低出稿金額なし。月数万円からの少額運用に対応」と案内されている情報を確認。
+          全体的な最低出稿金額の定めはないが、入札方式ごとに最低入札単価が存在する。
+        </div>
+
+        <h3>入札方法の種類</h3>
+        <ul>
+          <li><strong>自動入札</strong>：コンバージョン数の蓄積に応じて機械学習で入札を最適化していく方式。LINE広告全体の8割以上が自動入札で運用されているとされる。</li>
+          <li><strong>手動入札</strong>：広告グループごとに設定した入札金額で入札する方式。</li>
+          <li>最低入札単価は入札方式で異なり、<strong>手動入札は1クリックあたり24円、自動入札は1クリックあたり36円</strong>が最低ラインとして案内されているとされる（要最新確認、変更の可能性あり）。</li>
+        </ul>
+
+        <h3>CPF（友だち追加課金）の相場観</h3>
+        <p>
+          友だち1人あたり50〜200円程度、実運用では100〜150円前後で推移することが多いとされる（業種・地域・クリエイティブにより大きく変動）。
+        </p>
+      </section>
+
+      <section id="flow">
+        <h2>6. アカウント開設〜入稿の流れ</h2>
+        <div class="note">
+          <strong>前提：</strong>
+          2026年8月時点で新規開設する場合の入口は「LINEヤフー広告」の管理ツールになる。以下は開設ステップ（LINEヤフー広告での案内順）と、その後の入稿階層（キャンペーン→広告グループ→広告）を解説する。両者は別プロセスなので混同しないこと。
+        </div>
+
+        <h3>A. アカウント開設ステップ（新規の場合）</h3>
+        <div class="flow">
+          <div class="step">
+            <h3>ビジネスIDの登録</h3>
+            <p>メールアドレスでビジネスIDを登録する。すでにLINEヤフーの他サービス（Yahoo!広告等）を利用している場合は既存のビジネスIDを流用できる。</p>
+          </div>
+          <div class="step">
+            <h3>LINE公式アカウントの作成</h3>
+            <p>広告配信の受け皿となるLINE公式アカウントを用意する（未開設の場合はここで作成）。</p>
+          </div>
+          <div class="step">
+            <h3>ビジネスマネージャーの作成・接続</h3>
+            <p>ビジネスマネージャーを作成し、LINE公式アカウントと接続する。統合後は「新規アカウント開設時にビジネスマネージャーとLINE公式アカウントの接続が必須」とされている点に注意（未接続だとアカウント作成が進められない、という趣旨のトラブルが多いとされる）。</p>
+          </div>
+          <div class="step">
+            <h3>ディスプレイ広告アカウントの作成</h3>
+            <p>広告管理ツール画面上部のアカウント名をクリック →「アカウント追加」→「ディスプレイ広告アカウント作成」を選択して広告アカウントを作成する。</p>
+          </div>
+          <div class="step">
+            <h3>審査・配信開始</h3>
+            <p>初回審査には目安として1〜3営業日程度かかるとされる（変動あり）。</p>
+          </div>
+        </div>
+
+        <h3>B. 入稿の階層構造（キャンペーン → 広告グループ → 広告）</h3>
+        <p>新人がまず理解すべきは「3階層構造」であること。</p>
+
+        <div class="hierarchy">
+          <div class="h-card">
+            <h4>キャンペーン</h4>
+            <p>配信目的・全体予算・掲載期間を管理する最上位階層</p>
+          </div>
+          <div class="arrow">→</div>
+          <div class="h-card">
+            <h4>広告グループ</h4>
+            <p>ターゲティング・入札方法・配信面・1日あたり予算などを管理</p>
+          </div>
+          <div class="arrow">→</div>
+          <div class="h-card">
+            <h4>広告</h4>
+            <p>クリエイティブそのもの（画像／動画／テキスト／リンク先URL）</p>
+          </div>
+        </div>
+
+        <div class="flow">
+          <div class="step">
+            <h3>キャンペーンを作成</h3>
+            <p>
+              管理画面の「公式アカウント」タブから該当の広告アカウント名をクリックし、キャンペーンタブで「＋キャンペーンを作成」をクリック。
+              配信目的（例：Webサイトへのアクセス、コンバージョン、友だち追加、動画再生、アプリインストール等）に合わせてキャンペーン目的を選択する。
+              この目的選択によって後段で選べる課金方式・最適化ロジックが変わるため最初に慎重に選ぶ必要がある。
+              基本情報（キャンペーン名）、掲載期間、任意設定（コンバージョン計測の紐付け等）を入力。
+            </p>
+          </div>
+          <div class="step">
+            <h3>広告グループを作成</h3>
+            <p>
+              キャンペーン作成直後は自動的に広告グループの作成画面に遷移する。既存キャンペーンに追加する場合は「＋広告グループを作成」をクリック。
+              ターゲティング（デモグラフィック・興味関心・オーディエンス・類似オーディエンス・位置情報）を設定し、入札方法（自動／手動）と入札単価、配信面（自動配置／手動配置）、1日あたり予算を設定する。
+            </p>
+          </div>
+          <div class="step">
+            <h3>広告（クリエイティブ）を作成</h3>
+            <p>
+              広告グループ設定直後からそのまま進むか、「広告」タブから「＋広告を作成」で作成。画像・動画・見出し・説明文・リンク先URL（LP／LINE公式アカウントのトーク画面等）を入稿する。入稿後、審査へ自動的に提出される。
+            </p>
+          </div>
+          <div class="step">
+            <h3>審査提出・配信開始</h3>
+            <p>新規クリエイティブは都度審査が必要。審査通過後に配信が始まる。</p>
+          </div>
+        </div>
+
+        <div class="warning">
+          <strong>注記：</strong>
+          上記の画面名称・ボタン名は2026年前半時点の複数の代理店解説記事に基づく。統合後の「LINEヤフー広告」管理画面では表記・導線が変更されている可能性が高いため、
+          実際の実務対応・研修実施時には公式マニュアル（lycbiz.com/jp/manual/）のスクリーンショットで必ず裏取りすること。
+        </div>
+      </section>
+
+      <section id="review">
+        <h2>7. 審査ポリシー・注意点</h2>
+
+        <h3>審査の種類・タイミング</h3>
+        <p>
+          新規クリエイティブ入稿時に審査が行われるほか、配信開始後も継続的なモニタリング審査があるとされる。掲載中でも規約違反が判明すれば途中で非承認・停止になり得る。
+        </p>
+
+        <h3>否認されやすい表現</h3>
+        <div class="grid two">
+          <div class="card">
+            <span class="tag red">NG</span>
+            <h3>誇張・根拠のない表現</h3>
+            <p>「100%成功」「業界No.1」など、客観的根拠を示せない最上級表現・断定表現。</p>
+          </div>
+          <div class="card">
+            <span class="tag red">NG</span>
+            <h3>投機心・射幸心を過度に煽る表現</h3>
+            <p>ギャンブル的な期待を煽る訴求、「絶対に儲かる」等。</p>
+          </div>
+          <div class="card">
+            <span class="tag red">NG</span>
+            <h3>虚偽・誤認させる表現</h3>
+            <p>非科学的な内容で効果効能を誤認させるもの、意図的な虚偽情報。</p>
+          </div>
+          <div class="card">
+            <span class="tag red">NG</span>
+            <h3>クリック誘導を目的とした表現</h3>
+            <p>クリック自体を報酬化するような煽り文句（「今すぐタップして確認」といった過度な誘導など）。</p>
+          </div>
+          <div class="card">
+            <span class="tag red">NG</span>
+            <h3>法規に抵触するおそれのある表現</h3>
+            <p>薬機法（化粧品・医薬部外品・医薬品等の効能効果表現）、景品表示法（優良誤認・有利誤認表示）など。特に美容・健康・医療系は「医薬品等適正広告基準」に基づき表現が厳しく制限される。</p>
+          </div>
+          <div class="card">
+            <span class="tag red">NG</span>
+            <h3>視認性の低いデザイン</h3>
+            <p>小さすぎるフォント、背景と文字のコントラスト不足など、ユーザーが読み取れないデザインも否認対象になり得る。</p>
+          </div>
+        </div>
+
+        <div class="warning">
+          <strong>業種制限：</strong>
+          特定の宗教団体、ギャンブル関連、アダルト関連、マッチングサービス等の一部業種・サービスは、そもそもアカウント開設不可、または開設後も運用停止の対象になり得るとされる。
+          新人が案件を受ける際は、業種によっては出稿自体ができない可能性があることを前提に、事前にLINEヤフー for Businessの審査ガイドライン一次情報で確認する癖をつけること。
+        </div>
+
+        <h3>実務上の注意点（新人向け）</h3>
+        <ul>
+          <li>クライアントの業界が化粧品・健康食品・医療・金融（ローン等）・美容医療など「規制業種」に該当する場合は、着手前に薬機法・景品表示法の観点でクリエイティブ文言を確認する。</li>
+          <li>審査通過後の配信中でも、キャンペーン内容の変更（LP内容変更等）によって非承認になるケースがあるため、LP更新時は広告文言との整合性も都度チェックする。</li>
+        </ul>
+      </section>
+
+      <section id="industry">
+        <h2>8. 向いている業種・戦略</h2>
+
+        <h3>LINE広告の特性から見た適性</h3>
+        <p>
+          全世代・全属性にリーチできる「インフラ型」媒体であるため、BtoCの幅広い業種（小売、飲食、美容、教育、不動産、金融、EC、アプリ等）で活用実績があるとされる。
+          特に強みを発揮しやすいのは以下のような目的・業種。
+        </p>
+        <div class="grid">
+          <div class="card">
+            <h3>店舗集客・地域密着型ビジネス</h3>
+            <p>飲食店、美容室、クリニック、整体、小売店等。位置情報ターゲティングと友だち追加課金（CPF）を組み合わせることで、低予算からでも「地元の見込み客」にピンポイントでリーチできる。</p>
+          </div>
+          <div class="card">
+            <h3>アプリインストール促進</h3>
+            <p>LINE VOOM等の動画配信面を使ったアプリDL訴求。</p>
+          </div>
+          <div class="card">
+            <h3>リピート・LTV向上施策</h3>
+            <p>LINE公式アカウントと連携し、広告経由で獲得した友だちにクーポン配信・再来店促進のメッセージを送る。</p>
+          </div>
+        </div>
+
+        <h3>公式アカウントの友だち追加施策との連携</h3>
+        <p>
+          LINE広告の「友だち追加」広告（CPF課金）は、認証済みLINE公式アカウントの友だちを自然な流入で獲得できる広告商品。
+          獲得後はLINE公式アカウントを通じて、新商品案内・期間限定キャンペーン・クーポン配布・イベント情報などを継続的に配信でき、
+          <strong>広告（獲得）→公式アカウント（関係構築・再来店/再購入）</strong>という2段階の設計が基本戦略となる。
+          友だち追加率を高めるコツとして、店頭POP・Webサイト・広告にQRコードや友だち追加ボタンを設置し、登録特典（クーポン等）を用意することが有効とされる。
+        </p>
+
+        <div class="note">
+          <strong>参考事例：</strong>
+          熊本のラーメン店が月2〜3万円程度の予算で運用し、友だちを約500人から3,700人まで増加させたという事例が確認できる（個別事例のため再現性は要検討）。
+        </div>
+
+        <h3>地域密着型ビジネスでの活用</h3>
+        <p>
+          位置情報ターゲティング（居住地・勤務地・現在地）を使い、店舗の商圏内に絞った低予算配信が可能。
+          「友だち追加課金（CPF）」との組み合わせにより、費用対効果が計算しやすく、中小の地域店舗でも予算コントロールがしやすいのが特徴とされる。
+        </p>
+      </section>
+
+      <section id="kpi">
+        <h2>9. KPI目安・レポートの見方</h2>
+        <div class="note">
+          <strong>数値の扱い方：</strong>
+          以下の単価はあくまで一般的な目安として複数の代理店解説記事で言及されている水準。業種・地域・クリエイティブ・競合状況によって大きく変動するため、断定せず「相場感」として研修生に伝えること。
+        </div>
+
+        <h3>費用相場の目安</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>指標</th>
+              <th>目安</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>CPC（クリック単価）</td>
+              <td>おおむね30〜100円程度とされる。</td>
+            </tr>
+            <tr>
+              <td>CPM（インプレッション単価、1,000表示あたり）</td>
+              <td>おおむね50〜200円前後とされる。</td>
+            </tr>
+            <tr>
+              <td>CPF（友だち追加単価）</td>
+              <td>50〜200円程度、実運用では100〜150円前後で推移することが多いとされる。</td>
+            </tr>
+            <tr>
+              <td>CPA（顧客獲得単価）</td>
+              <td>業種・商材によって差が大きく、汎用的な相場値の断定は避け、必ずクライアントの過去実績・競合水準と照らして個別に設定すること。</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>レポート画面で見るべき指標</h3>
+        <ul>
+          <li><strong>インプレッション数（表示回数）</strong>：認知施策の到達規模を見る基本指標。</li>
+          <li><strong>クリック数／CTR（クリック率）</strong>：クリエイティブの訴求力・関連性を判断する指標。</li>
+          <li><strong>CPC／CPM／CPF</strong>：課金方式に応じた効率指標。</li>
+          <li><strong>コンバージョン数／CVR／CPA</strong>：成果地点（購入・申込・友だち追加等）に対する費用対効果。</li>
+          <li><strong>フリークエンシー（Frequency）</strong>：同一ユーザーへの表示回数。過度に高い場合は広告疲れ（クリエイティブの摩耗）のサインとして、クリエイティブ差し替えを検討する。</li>
+          <li><strong>配信面別の内訳</strong>：トークリスト／LINE NEWS／LINE VOOM等、配信面ごとの成果差を見て、手動配置に切り替えるかの判断材料にする。</li>
+        </ul>
+        <p>
+          自動入札を使っている場合は、学習期間中（配信初期）は数値が不安定になりやすいため、判断を急がず一定期間（一般的にコンバージョンが一定数蓄積するまで）様子を見ることが推奨される。
+        </p>
+
+        <h3>新人向けの見方のコツ</h3>
+        <div class="point">
+          <span class="icon">A</span>
+          <div>
+            <strong>目的に対応した指標を見ているか</strong>
+            <p>数値そのものだけでなく、「目的（キャンペーン目的）に対して正しい指標を見ているか」を最初に確認する（例：認知目的のキャンペーンでCPAだけを見て一喜一憂しない）。</p>
+          </div>
+        </div>
+        <div class="point">
+          <span class="icon">B</span>
+          <div>
+            <strong>面ごとの内訳を意識する</strong>
+            <p>統合後のLINEヤフー広告では、LINE面とYahoo!面を横断したレポート集計になるとされるため、面ごとの内訳を意識的に確認しないと、どちらの効果か見えにくくなる点に注意。</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="checklist">
+        <h2>10. 運用チェックリスト</h2>
+        <p>
+          案件着手前〜運用中に、以下を確認すると抜け漏れを防ぎやすくなります。特に統合の過渡期であることを踏まえた項目（1〜4）は必ず確認してください。
+        </p>
+
+        <div class="checklist">
+          <div class="checkitem"><span class="box"></span><span>クライアントが新規開設か既存アカウントかを確認し、新規なら「LINEヤフー広告」の入口から開設した</span></div>
+          <div class="checkitem"><span class="box"></span><span>既存アカウントの場合、旧LINE広告→LINEヤフー広告への移行状況・移行スケジュール（配信停止予定：2026年10月下旬頃）を確認した</span></div>
+          <div class="checkitem"><span class="box"></span><span>移行済み・移行予定のアカウントについて、LINE Tagの再設置・コンバージョン再設定が必要か確認し、学習データが引き継がれない前提で立ち上げ初期のCPA悪化を織り込んだ</span></div>
+          <div class="checkitem"><span class="box"></span><span>入稿フローの画面名称・導線は、本資料ではなく公式マニュアル（lycbiz.com/jp/manual/）の最新版で必ず突き合わせて確認した</span></div>
+          <div class="checkitem"><span class="box"></span><span>キャンペーン目的（Webサイトへのアクセス／コンバージョン／友だち追加／動画再生／アプリインストール等）を配信目的に応じて正しく選択した</span></div>
+          <div class="checkitem"><span class="box"></span><span>ターゲティング（デモグラフィック／興味関心／オーディエンス／類似オーディエンス／位置情報）を目的に応じて設定した</span></div>
+          <div class="checkitem"><span class="box"></span><span>入札方式（自動／手動）を選び、最低入札単価（要最新確認の目安：手動24円・自動36円）を踏まえて予算設計した</span></div>
+          <div class="checkitem"><span class="box"></span><span>クリエイティブが否認されやすい表現（誇張・煽り・虚偽・過度なクリック誘導・薬機法/景品表示法抵触・視認性不足）に該当していないか確認した</span></div>
+          <div class="checkitem"><span class="box"></span><span>クライアントが規制業種（化粧品・健康食品・医療・金融・美容医療等）に該当する場合、着手前に薬機法・景品表示法の観点でクリエイティブ文言を確認した</span></div>
+          <div class="checkitem"><span class="box"></span><span>クライアントの業種がそもそも出稿制限対象（宗教団体・ギャンブル関連・アダルト関連・マッチングサービス等）でないか事前に確認した</span></div>
+          <div class="checkitem"><span class="box"></span><span>LINE公式アカウントとの連携設計（友だち追加後のメッセージ配信・クーポン配布計画）を確認した</span></div>
+          <div class="checkitem"><span class="box"></span><span>配信開始直後は自動入札の学習期間で数値が不安定になりやすい点を踏まえ、判断を急がなかった</span></div>
+          <div class="checkitem"><span class="box"></span><span>レポート確認時はLINE面・Yahoo!面の内訳を分けて確認した</span></div>
+          <div class="checkitem"><span class="box"></span><span>KPIはキャンペーン目的に対応した指標を見ているか確認した（認知目的でCPAだけを見て判断しない等）</span></div>
+          <div class="checkitem"><span class="box"></span><span>本資料内の「要最新確認」マークが付いた数値・料金・機能名・配信面名称は、実務で使う前に必ず公式サイトで裏取りした</span></div>
+        </div>
+
+        <div class="warning">
+          <strong>本資料の位置づけ：</strong>
+          本資料は2026年8月時点の調査に基づく。LINE広告は統合の過渡期にあり仕様変更が特に大きいため、実案件では必ず公式サイト（LINEヤフー for Business, lycbiz.com）で最新情報を確認すること。
+        </div>
+
+        <h3>参考情報源</h3>
+        <ul class="source-list">
+          <li><a href="https://www.lycbiz.com/jp/service/line-ads/" target="_blank" rel="noopener noreferrer">【公式】LINE広告-9800万人に届く（LINEヤフー for Business）</a></li>
+          <li><a href="https://www.lycbiz.com/jp/service/line-ads/media/" target="_blank" rel="noopener noreferrer">LINE広告の配信面一覧（LINEヤフー for Business）</a></li>
+          <li><a href="https://www.lycbiz.com/jp/service/line-ads/review/" target="_blank" rel="noopener noreferrer">LINE広告 審査の基本（LINEヤフー for Business）</a></li>
+          <li><a href="https://www.lycbiz.com/jp/manual/line-ads/ad_015/" target="_blank" rel="noopener noreferrer">LINE広告｜入札方法と入札価格について（LINEヤフー for Businessマニュアル）</a></li>
+          <li><a href="https://www.lycbiz.com/jp/manual/line-ads/ad_007/" target="_blank" rel="noopener noreferrer">LINE広告 オーディエンスセグメントのターゲティング項目（マニュアル）</a></li>
+          <li><a href="https://www.lycbiz.com/jp/news/line-ads/20260526/" target="_blank" rel="noopener noreferrer">【LINE広告】新規アカウント作成終了日について（LINEヤフー for Business）</a></li>
+          <li><a href="https://www.lycbiz.com/jp/news/20260218/" target="_blank" rel="noopener noreferrer">「LINEヤフー広告」プラットフォーム統合リリースについて（LINEヤフー for Business）</a></li>
+          <li><a href="https://www.lycorp.co.jp/ja/news/release/020307/" target="_blank" rel="noopener noreferrer">LINEヤフー、ディスプレイ広告プラットフォームを統合（LYコーポレーション ニュースリリース）</a></li>
+          <li><a href="https://www.lycbiz.com/jp/service/line-official-account/cpf/" target="_blank" rel="noopener noreferrer">友だち追加広告・LINE広告（友だち追加）（LINEヤフー for Business）</a></li>
+          <li><a href="https://primenumbers.co.jp/blog/snsads/linead-all-placement/" target="_blank" rel="noopener noreferrer">【2026年最新版】LINE広告の配信面一覧！特徴と手動/自動配置の使い分け（primenumbers）</a></li>
+          <li><a href="https://primenumbers.co.jp/blog/snsads/about-lineyahoo-ad/" target="_blank" rel="noopener noreferrer">LINEヤフー広告とは？統合の注意点から料金・始め方まで（primenumbers）</a></li>
+          <li><a href="https://curumi.co.jp/blog/line-ads-types" target="_blank" rel="noopener noreferrer">LINE広告の種類と選び方｜配信面×目的別の判断基準2026（curumi）</a></li>
+          <li><a href="https://curumi.co.jp/blog/line-ads-list-targeting" target="_blank" rel="noopener noreferrer">LINE広告ターゲティング一覧｜全9種の特徴と目的別の選び方（curumi）</a></li>
+          <li><a href="https://www.kwm.co.jp/blog/line-ads-policy/" target="_blank" rel="noopener noreferrer">LINE広告で審査落ち！ポリシーと対処法（キーマケ）</a></li>
+          <li><a href="https://adrim.co.jp/adma/line-ads-creative-rejection-reasons-5-key-tips/" target="_blank" rel="noopener noreferrer">LINE広告クリエイティブが否認される理由5選（ADMA）</a></li>
+          <li><a href="https://www.data-be.at/magazine/line-ads-cpa/" target="_blank" rel="noopener noreferrer">LINE広告の顧客獲得単価（CPA）を詳しく解説（データベイト）</a></li>
+          <li><a href="https://lymcampus.jp/line-ads/courses/local/lessons/da-3-3-1" target="_blank" rel="noopener noreferrer">地域ビジネスにおけるLINE広告の活用（LINEヤフーマーケティングキャンパス）</a></li>
+          <li><a href="https://note.com/fourglobe_uz/n/n82dd9b9c1186" target="_blank" rel="noopener noreferrer">地元のお客様へ確実にアプローチ！LINE広告で実現する地域密着型マーケティング（note）</a></li>
+          <li><a href="https://www.glad-cube.com/blog/?p=49674" target="_blank" rel="noopener noreferrer">LINE広告の入稿方法を画像付きで分かりやすく解説（グラッドキューブ）</a></li>
+          <li><a href="https://www.lycbiz.com/jp/column/ly-ads/service-information/business-manager/" target="_blank" rel="noopener noreferrer">LINEヤフー広告の開設で迷わない！ビジネスマネージャーとLINE公式アカウント接続時の注意点（LINEヤフー for Business）</a></li>
+        </ul>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const links = Array.from(document.querySelectorAll('nav a'));
+    const sections = links
+      .map((link) => document.querySelector(link.getAttribute('href')))
+      .filter(Boolean);
+
+    const activateCurrentSection = () => {
+      let currentId = sections[0]?.id;
+      sections.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= 140) currentId = section.id;
+      });
+
+      links.forEach((link) => {
+        link.classList.toggle('active', link.getAttribute('href') === `#${currentId}`);
+      });
+    };
+
+    window.addEventListener('scroll', activateCurrentSection, { passive: true });
+    activateCurrentSection();
+  </script>
+</body>
+</html>

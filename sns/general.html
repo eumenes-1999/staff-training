@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SNS広告 戦略・媒体選定ガイド</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary: #4338ca;
+      --primary-dark: #312e81;
+      --primary-soft: #e0e7ff;
+      --blue: #2563eb;
+      --blue-soft: #dbeafe;
+      --orange: #d97706;
+      --orange-soft: #ffedd5;
+      --red: #dc2626;
+      --red-soft: #fee2e2;
+      --green: #059669;
+      --green-soft: #d1fae5;
+      --purple: #7c3aed;
+      --purple-soft: #ede9fe;
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --sidebar: #1e1b4b;
+      --sidebar-active: #4338ca;
+
+      --x-color: #14171a;
+      --tiktok-color: #fe2c55;
+      --meta-color: #0866ff;
+      --line-color: #06c755;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Noto Sans JP', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.8;
+      font-size: 15px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      background: linear-gradient(180deg, #1e1b4b 0%, #0f172a 100%);
+      color: #cbd5e1;
+      padding: 24px 0 32px;
+    }
+
+    .sidebar-header {
+      padding: 0 20px 18px;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .sidebar-header .label {
+      color: #a5b4fc;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .sidebar-header h2 {
+      color: #f8fafc;
+      font-size: 17px;
+      line-height: 1.45;
+    }
+
+    nav { padding: 14px 0 24px; }
+
+    nav a {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      color: #aebed4;
+      text-decoration: none;
+      font-size: 13px;
+      padding: 8px 20px;
+      border-left: 3px solid transparent;
+    }
+
+    nav a:hover,
+    nav a.active {
+      background: rgba(99, 102, 241, 0.16);
+      color: #f8fafc;
+      border-left-color: var(--sidebar-active);
+    }
+
+    .nav-num {
+      display: inline-grid;
+      place-items: center;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      color: #c7d2fe;
+      font-size: 11px;
+      font-weight: 800;
+      flex: 0 0 auto;
+    }
+
+    .sidebar-footer {
+      padding: 18px 20px 0;
+      margin-top: 8px;
+      border-top: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .sidebar-footer a {
+      display: block;
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 12px;
+      padding: 6px 0;
+    }
+    .sidebar-footer a:hover { color: #fff; }
+
+    main {
+      max-width: 1180px;
+      width: 100%;
+      padding: 36px 42px 64px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #4338ca 0%, #7c3aed 100%);
+      color: #fff;
+      border-radius: 24px;
+      padding: 36px;
+      margin-bottom: 28px;
+      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.18);
+    }
+
+    .hero .eyebrow {
+      display: inline-block;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.28);
+      border-radius: 999px;
+      padding: 4px 12px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      margin-bottom: 14px;
+    }
+
+    .hero h1 {
+      font-size: 34px;
+      line-height: 1.35;
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      max-width: 820px;
+      color: #e0e7ff;
+      font-size: 16px;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .meta span {
+      background: rgba(255,255,255,0.16);
+      border: 1px solid rgba(255,255,255,0.24);
+      border-radius: 10px;
+      padding: 6px 10px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 28px;
+      margin-bottom: 22px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
+    }
+
+    section h2 {
+      font-size: 24px;
+      color: var(--primary-dark);
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--primary-soft);
+    }
+
+    section h3 {
+      font-size: 18px;
+      color: #0f172a;
+      margin: 22px 0 10px;
+    }
+
+    p + p { margin-top: 10px; }
+
+    ul, ol {
+      padding-left: 22px;
+      margin: 10px 0;
+    }
+
+    li { margin: 5px 0; }
+
+    strong { color: #0f172a; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0 6px;
+      overflow: hidden;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+
+    th, td {
+      padding: 12px 14px;
+      text-align: left;
+      vertical-align: top;
+      border-bottom: 1px solid var(--border);
+    }
+
+    th {
+      background: #f1f5f9;
+      color: #0f172a;
+      font-size: 13px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    tr:last-child td { border-bottom: 0; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin: 16px 0;
+    }
+
+    .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+    .card {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px;
+      background: #fff;
+    }
+
+    .card.x-brand { border-top: 4px solid var(--x-color); }
+    .card.tiktok-brand { border-top: 4px solid var(--tiktok-color); }
+    .card.meta-brand { border-top: 4px solid var(--meta-color); }
+    .card.line-brand { border-top: 4px solid var(--line-color); }
+
+    .card h3,
+    .card h4 {
+      margin: 0 0 8px;
+      color: #0f172a;
+      font-size: 16px;
+    }
+
+    .card p { color: var(--muted); font-size: 14px; }
+
+    .point {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+      margin: 10px 0;
+    }
+
+    .point .icon {
+      display: inline-grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 10px;
+      background: var(--primary-soft);
+      color: var(--primary-dark);
+      font-weight: 900;
+      flex: 0 0 auto;
+    }
+
+    .tag {
+      display: inline-block;
+      border-radius: 999px;
+      padding: 3px 9px;
+      font-size: 12px;
+      font-weight: 800;
+      margin-right: 6px;
+      margin-bottom: 6px;
+    }
+
+    .tag.green { background: var(--green-soft); color: #065f46; }
+    .tag.blue { background: var(--blue-soft); color: #1d4ed8; }
+    .tag.orange { background: var(--orange-soft); color: #9a3412; }
+    .tag.red { background: var(--red-soft); color: #991b1b; }
+    .tag.purple { background: var(--purple-soft); color: #5b21b6; }
+
+    .tag.x-tag { background: #e5e7eb; color: #14171a; }
+    .tag.tiktok-tag { background: #ffe1e9; color: #9d174d; }
+    .tag.meta-tag { background: #dbeafe; color: #0842a0; }
+    .tag.line-tag { background: #d1fae5; color: #04652f; }
+
+    .note {
+      border-left: 5px solid var(--primary);
+      background: #eef2ff;
+      padding: 15px 18px;
+      border-radius: 12px;
+      margin: 16px 0;
+    }
+
+    .warning {
+      border-left: 5px solid var(--red);
+      background: #fff7ed;
+      padding: 15px 18px;
+      border-radius: 12px;
+      margin: 16px 0;
+    }
+
+    .checklist {
+      display: grid;
+      gap: 9px;
+      margin: 14px 0;
+    }
+
+    .checkitem {
+      display: grid;
+      grid-template-columns: 24px 1fr;
+      gap: 10px;
+      align-items: start;
+      padding: 10px 12px;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    .box {
+      display: inline-grid;
+      place-items: center;
+      width: 18px;
+      height: 18px;
+      border: 2px solid #94a3b8;
+      border-radius: 4px;
+      margin-top: 4px;
+    }
+
+    .flow {
+      display: grid;
+      gap: 12px;
+      counter-reset: step;
+      margin: 16px 0;
+    }
+
+    .step {
+      position: relative;
+      padding: 16px 18px 16px 58px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: #fff;
+    }
+
+    .step::before {
+      counter-increment: step;
+      content: counter(step);
+      position: absolute;
+      left: 16px;
+      top: 16px;
+      display: inline-grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #fff;
+      font-weight: 900;
+    }
+
+    .step h3 {
+      margin: 0 0 6px;
+      font-size: 16px;
+    }
+
+    .link-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 18px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: #fff;
+      text-decoration: none;
+      color: var(--text);
+      transition: all 0.15s;
+    }
+    .link-card:hover {
+      border-color: var(--primary);
+      box-shadow: 0 6px 18px rgba(67, 56, 202, 0.12);
+      transform: translateY(-1px);
+    }
+    .link-card .badge {
+      width: 42px; height: 42px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+      flex: 0 0 auto;
+      color: #fff;
+    }
+    .link-card.x .badge { background: var(--x-color); }
+    .link-card.tiktok .badge { background: linear-gradient(135deg, var(--tiktok-color), var(--tiktok-color) 50%, #25f4ee 130%); }
+    .link-card.meta .badge { background: var(--meta-color); }
+    .link-card.line .badge { background: var(--line-color); }
+    .link-card .title { font-weight: 700; font-size: 15px; margin-bottom: 2px; }
+    .link-card .desc { font-size: 12.5px; color: var(--muted); }
+    .link-card .arrow { margin-left: auto; color: #bbb; font-size: 14px; }
+
+    .source-list a {
+      color: var(--blue);
+      word-break: break-all;
+    }
+
+    @media (max-width: 980px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar {
+        position: relative;
+        height: auto;
+      }
+      nav {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      main { padding: 22px 16px 48px; }
+      .hero { padding: 26px 20px; }
+      .hero h1 { font-size: 26px; }
+      .grid,
+      .grid.two,
+      .grid.three { grid-template-columns: 1fr; }
+      table { font-size: 13px; }
+      th, td { padding: 10px; }
+    }
+  </style>
+</head>
+<body>
+<script>
+(function(){
+  if(!sessionStorage.getItem('rb_auth')) location.replace('/staff-training/login.html');
+})();
+</script>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="label">SNS Ads Strategy</div>
+        <h2>SNS広告 戦略・媒体選定ガイド</h2>
+      </div>
+      <nav>
+        <a href="#position"><span class="nav-num">1</span>SNS広告の位置づけ</a>
+        <a href="#compare"><span class="nav-num">2</span>4媒体比較サマリー</a>
+        <a href="#framework"><span class="nav-num">3</span>目的別 媒体選定</a>
+        <a href="#industry"><span class="nav-num">4</span>業種別の考え方</a>
+        <a href="#budget"><span class="nav-num">5</span>予算設計・複数媒体運用</a>
+        <a href="#creative"><span class="nav-num">6</span>クリエイティブ戦略</a>
+        <a href="#kpi"><span class="nav-num">7</span>KPI設計とレポーティング</a>
+        <a href="#pitfall"><span class="nav-num">8</span>陥りやすい失敗</a>
+        <a href="#checklist"><span class="nav-num">9</span>提案前チェックリスト</a>
+        <a href="#links"><span class="nav-num">10</span>各媒体マニュアル</a>
+      </nav>
+      <div class="sidebar-footer">
+        <a href="../index.html">← 研修マニュアル一覧に戻る</a>
+      </div>
+    </aside>
+
+    <main>
+      <header class="hero">
+        <div class="eyebrow">新人研修・SNS広告運用担当者向け</div>
+        <h1>SNS広告 戦略ガイド<br>媒体特性を理解して、目的に合った提案をする</h1>
+        <p>
+          X・TikTok・Meta（Facebook/Instagram）・LINEは、それぞれユーザー層・アルゴリズム・広告フォーマットが大きく異なります。
+          「とりあえず全部やる」ではなく、クライアントの目的・業種・予算に応じて媒体を選び、組み合わせる考え方を身につけるための資料です。
+          各媒体の詳細な仕様・入稿手順は、この資料の最後にあるリンクから個別マニュアルを参照してください。
+        </p>
+        <div class="meta">
+          <span>対象: SNS広告運用担当・新人</span>
+          <span>目的: 媒体特性の理解と提案時の媒体選定判断</span>
+          <span>更新日: 2026年8月31日</span>
+        </div>
+      </header>
+
+      <section id="position">
+        <h2>1. SNS広告の位置づけ</h2>
+        <p>
+          Google/Yahoo!の検索広告が「すでに欲しいと思っている人（顕在層）」を検索キーワードで刈り取るのに対し、
+          SNS広告は「まだ探していない人（潜在層）」に、興味関心やアルゴリズムのレコメンドを通じて偶然出会わせる
+          <strong>プッシュ型の広告</strong>です。この前提の違いを理解しておくと、クライアントから「検索広告みたいにすぐ問い合わせが来ない」と
+          言われた際に、目的の違いを正しく説明できます。
+        </p>
+
+        <div class="grid two">
+          <div class="card">
+            <h3>検索広告（Google/Yahoo!）</h3>
+            <p>ユーザーが能動的に検索した瞬間に接触する「刈り取り型」。顕在ニーズに強く、即効性が高い。</p>
+          </div>
+          <div class="card">
+            <h3>SNS広告（X/TikTok/Meta/LINE）</h3>
+            <p>フィード・レコメンドの中に自然に差し込まれる「プッシュ型」。潜在層への認知・興味喚起に強く、
+              コンバージョンまでの検討期間が長い商材ほど、複数回の接触設計が重要になる。</p>
+          </div>
+        </div>
+
+        <div class="note">
+          <strong>実務での結論:</strong> SNS広告は「認知拡大」「興味喚起」「リターゲティングによる後押し」の3つの役割を、
+          媒体ごとの特性を使い分けながら組み立てるものと理解してください。単発の媒体だけで完結させようとせず、
+          検索広告・LINE公式アカウント・自社サイトなど他の接点と合わせて「顧客が最終的に購入・問い合わせに至るまでの導線全体」を設計する視点が重要です。
+        </div>
+      </section>
+
+      <section id="compare">
+        <h2>2. 4媒体比較サマリー</h2>
+        <p>各媒体の詳細は個別マニュアルに譲り、ここではまず「ざっくりとした違い」を頭に入れます。数値は媒体資料の更新頻度が高く変動するため、あくまで目安（要最新確認）です。</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>観点</th>
+              <th>X（旧Twitter）</th>
+              <th>TikTok</th>
+              <th>Meta（Facebook/Instagram）</th>
+              <th>LINE</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>ユーザー層の傾向</td>
+              <td>20〜30代中心だが40〜50代の利用率も一定数あり、裾野が広い（要最新確認）</td>
+              <td>もともと10〜20代中心。近年は全世代への広がりが進んでいるとされる</td>
+              <td>Facebookは20〜50代中心・実名制。Instagramは10代後半〜30代中心・ビジュアル重視</td>
+              <td>10代〜60代以上まで偏りのない全世代型。国内では「インフラ」的な位置づけ</td>
+            </tr>
+            <tr>
+              <td>コンテンツ消費の仕組み</td>
+              <td>フォロー関係＋リポストによる拡散が中心。話題性・リアルタイム性が強い</td>
+              <td>フォロー関係に依存しないレコメンド（FYP）。フォロワー0でも伸びる可能性がある</td>
+              <td>フォロー関係＋興味関心ベースのフィード。Instagramは発見タブ・リールでの回遊性が高い</td>
+              <td>コンテンツ消費というより「連絡インフラ」。広告接触の母数（開封率）が非常に高い</td>
+            </tr>
+            <tr>
+              <td>代表的な広告フォーマット</td>
+              <td>プロモ広告（画像/動画/カルーセル/カンバセーション等）、予約型テイクオーバー</td>
+              <td>インフィード広告、Spark Ads、TopView、Smart+</td>
+              <td>画像/動画/カルーセル/コレクション/リール/ストーリーズ/リード獲得、Advantage+</td>
+              <td>トークリスト広告、LINE NEWS、LINE VOOM、友だち追加広告（CPF）</td>
+            </tr>
+            <tr>
+              <td>媒体特有の強み</td>
+              <td>リアルタイム拡散力・議論の場・UGC誘発</td>
+              <td>ネイティブな短尺動画で潜在層に一気にリーチ。フォロワー0からの拡散可能性</td>
+              <td>詳細な興味関心データに基づく精緻なターゲティングとリターゲティング</td>
+              <td>友だち追加からLINE公式アカウントへつなぎ、関係構築・再来店を促せる</td>
+            </tr>
+            <tr>
+              <td>リスク・留意点</td>
+              <td>炎上・批判的リプライも同じ速度で拡散されやすい</td>
+              <td>音楽著作権・クリエイティブ規定への抵触で審査落ちしやすい</td>
+              <td>iOS14以降の計測制限（CAPI等での補完が前提）</td>
+              <td>2026年に「LINEヤフー広告」へ統合中。仕様・管理画面が変化の過渡期（詳細は個別マニュアル参照）</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="grid">
+          <div class="card x-brand">
+            <span class="tag x-tag">X</span>
+            <h3>向く目的</h3>
+            <p>話題化・認知拡大・イベント連動・BtoB情報発信</p>
+          </div>
+          <div class="card tiktok-brand">
+            <span class="tag tiktok-tag">TikTok</span>
+            <h3>向く目的</h3>
+            <p>若年層への大量リーチ・衝動買い系商材・アプリ/ゲームDL</p>
+          </div>
+          <div class="card meta-brand">
+            <span class="tag meta-tag">Meta</span>
+            <h3>向く目的</h3>
+            <p>EC販売・リターゲティング・リード獲得・ビジュアル訴求</p>
+          </div>
+          <div class="card line-brand">
+            <span class="tag line-tag">LINE</span>
+            <h3>向く目的</h3>
+            <p>地域集客・店舗送客・既存顧客の関係構築・全世代リーチ</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="framework">
+        <h2>3. 目的別 媒体選定フレームワーク</h2>
+        <p>
+          クライアントから相談を受けたら、まず「今回の広告で達成したいことは何か」を目的に分解し、そこから媒体の優先順位を考えます。
+          以下は代表的な目的とその際に優先を検討する媒体の組み合わせ例です（唯一の正解ではなく、業種・予算次第で変わる前提の目安）。
+        </p>
+
+        <div class="flow">
+          <div class="step">
+            <h3>認知拡大・話題化を最優先したい</h3>
+            <p>
+              <span class="tag x-tag">X</span><span class="tag tiktok-tag">TikTok</span>
+              リアルタイム性・拡散力のX、レコメンドでフォロワー0でも一気に伸びる可能性のあるTikTokが有力候補。
+              大型予算があれば、Xの予約型枠（テイクオーバー）やTikTokのTopViewのような独占枠も検討対象になる。
+            </p>
+          </div>
+          <div class="step">
+            <h3>ビジュアルで世界観を伝え、購買意欲を高めたい（EC・美容・アパレル等）</h3>
+            <p>
+              <span class="tag meta-tag">Meta（Instagram）</span><span class="tag tiktok-tag">TikTok</span>
+              フィード・ストーリーズ・リールでの回遊性が高いInstagramと、実演・Before/After訴求と相性が良いTikTokの
+              組み合わせが定番。Advantage+カタログ広告など、商品点数が多いECはMeta側の自動化機能とも相性が良い。
+            </p>
+          </div>
+          <div class="step">
+            <h3>問い合わせ・資料請求などリードを獲得したい（BtoB含む）</h3>
+            <p>
+              <span class="tag meta-tag">Meta</span><span class="tag x-tag">X</span>
+              Meta上で入力が完結するリード獲得広告はフォーム離脱を防ぎやすく、BtoB・高単価商材のリード獲得に向く。
+              Xは「情報収集・議論の場」という性質上、BtoB訴求がしやすいという指摘もあり、認知〜比較検討層への接触に使える。
+            </p>
+          </div>
+          <div class="step">
+            <h3>地域の店舗に来店してほしい（美容室・飲食・クリニック等）</h3>
+            <p>
+              <span class="tag line-tag">LINE</span><span class="tag meta-tag">Meta</span>
+              LINEは位置情報ターゲティングと友だち追加課金（CPF）の組み合わせで、低予算からでも商圏内の見込み客に
+              ピンポイントでリーチしやすい。友だち追加後はLINE公式アカウントでの再来店促進にもつなげられる。
+              Metaも地域ターゲティング＋リール活用で来店訴求との相性が良い。
+            </p>
+          </div>
+          <div class="step">
+            <h3>既存顧客との関係を深め、リピート・LTVを高めたい</h3>
+            <p>
+              <span class="tag line-tag">LINE</span><span class="tag meta-tag">Meta</span>
+              LINE公式アカウントでのクーポン配信・再来店促進メッセージは、獲得した友だちに対する関係構築の代表策。
+              Meta側もサイト訪問者・購入者へのカスタムオーディエンス配信で再購入を促す設計が可能。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="industry">
+        <h2>4. 業種別の考え方</h2>
+        <p>あくまで一般的な傾向であり、個別事例では例外も多い。「絶対にこの媒体でないとダメ」という断定は避け、テストしながら判断すること。</p>
+
+        <div class="grid two">
+          <div class="card">
+            <h3>EC・D2C（アパレル・コスメ・雑貨等）</h3>
+            <p><span class="tag meta-tag">Meta</span><span class="tag tiktok-tag">TikTok</span>
+              商品訴求のビジュアル力とカタログ連携・リターゲティングが強み。TikTok ShopなどEC機能の強化も進んでいるとされる。</p>
+          </div>
+          <div class="card">
+            <h3>飲食・店舗ビジネス</h3>
+            <p><span class="tag line-tag">LINE</span><span class="tag tiktok-tag">TikTok</span>
+              LINEは地域集客・友だち追加からのリピート施策、TikTokは実演・グルメ系コンテンツとの相性が良い。</p>
+          </div>
+          <div class="card">
+            <h3>美容医療・エステ・美容室</h3>
+            <p><span class="tag meta-tag">Meta</span><span class="tag tiktok-tag">TikTok</span>
+              Before/After等のビジュアル訴求が効きやすい一方、薬機法・景品表示法の観点での表現チェックが媒体共通で厳しく必要。</p>
+          </div>
+          <div class="card">
+            <h3>不動産・住宅・BtoBサービス</h3>
+            <p><span class="tag meta-tag">Meta（Facebook）</span><span class="tag x-tag">X</span>
+              実名制で信頼性を重視する層に強いFacebook、情報収集・比較検討の場としてのXが候補になりやすい。
+              高単価・検討期間の長い商材は検索広告との併用も前提に設計する。</p>
+          </div>
+          <div class="card">
+            <h3>アプリ・ゲーム</h3>
+            <p><span class="tag tiktok-tag">TikTok</span><span class="tag x-tag">X</span>
+              実況・感想投稿とのUGC連鎖が起きやすいTikTok・Xが有力。アプリインストール向けの最適化キャンペーンとも相性が良い。</p>
+          </div>
+          <div class="card">
+            <h3>金融・医療など規制業種</h3>
+            <p><span class="tag red">全媒体共通で要注意</span>
+              媒体を問わず審査基準が厳しく、事前認可（プレオーソライゼーション）が必要なケースもある。
+              案件着手前に「そもそも出稿できる業種か」を必ず確認する。</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="budget">
+        <h2>5. 予算設計・複数媒体運用の考え方</h2>
+
+        <h3>テスト予算の目安</h3>
+        <p>
+          複数の代理店解説記事で共有されている経験則として、新規媒体をテストする際は
+          <strong>月3万〜10万円程度</strong>を目安にクリエイティブ・ターゲティングの検証を行い、
+          成果が見えてきたら<strong>月10万〜30万円程度</strong>へ本運用としてスケールする、という段階的な予算設計が
+          Meta・TikTok・X共通で紹介されることが多い（媒体・業種で幅があるため断定はしない）。
+        </p>
+
+        <h3>複数媒体に同時出稿する場合の考え方</h3>
+        <div class="grid two">
+          <div class="card">
+            <h3>役割を分けて配分する</h3>
+            <p>「認知はTikTok/X」「リターゲティングはMeta」「地域集客・関係構築はLINE」のように、
+              媒体ごとに役割（ファネルの段階）を分けて予算配分すると、成果の切り分けと改善判断がしやすい。</p>
+          </div>
+          <div class="card">
+            <h3>学習期間は焦って変更しない</h3>
+            <p>自動入札・Smart+（TikTok）・Advantage+（Meta）はいずれも配信初期の「学習期間」があり、
+              この間に頻繁に設定変更すると学習がリセットされ成果が不安定になりやすい。数日〜2、3週間は様子を見る。</p>
+          </div>
+        </div>
+
+        <div class="note">
+          <strong>キャンペーン目的の選択は慎重に:</strong> X・Meta・TikTokはいずれも、
+          キャンペーン作成時に選ぶ「広告目的」によって以降選択できる課金方式・最適化ロジックが決まり、
+          <strong>作成後に目的そのものを変更できない</strong>仕様のことが多い。新人が最も間違えやすいポイントなので、
+          最初の目的選択でクライアントの本来のゴール（認知か、送客か、コンバージョンか）を必ず確認すること。
+        </div>
+      </section>
+
+      <section id="creative">
+        <h2>6. クリエイティブ戦略</h2>
+
+        <h3>媒体ごとにクリエイティブを作り分ける</h3>
+        <p>
+          TikTok・Instagramリール・ストーリーズはいずれも縦型（9:16）が基本で、横型動画やテレビCMの使い回しは
+          違和感が出やすく成果が伸びにくいとされる。特にTikTokは「広告っぽくないネイティブな見せ方」が好まれやすく、
+          作り込みすぎたクリエイティブはスキップされやすい傾向がある。
+        </p>
+
+        <div class="grid two">
+          <div class="card">
+            <h3>フックの重要性（TikTok/リール/ストーリーズ共通）</h3>
+            <p>冒頭1〜3秒で「自分に関係がある」と思わせられるかが視聴継続率を左右する。
+              インパクトのある映像・疑問形のテキスト・Before/Afterなどが定番の型。</p>
+          </div>
+          <div class="card">
+            <h3>複数パターンのテスト出稿</h3>
+            <p>Metaでは最低3〜4パターン程度のクリエイティブをテスト出稿することが推奨される。
+              どの媒体でも「1つの広告グループに複数クリエイティブを入れ、成果の良いものを見極める」運用が基本。</p>
+          </div>
+        </div>
+
+        <div class="warning">
+          <strong>ターゲティングとクリエイティブは同時に複数変更しない：</strong>
+          成果が変化した際に「ターゲティングが良かったのか」「クリエイティブが良かったのか」を切り分けられなくなる。
+          A/Bテストの基本は「比較したい条件を1つだけ変える」こと。
+        </div>
+      </section>
+
+      <section id="kpi">
+        <h2>7. KPI設計とレポーティング</h2>
+        <p>
+          媒体ごとに指標の呼び方は多少異なるが、基本となる考え方は共通している。CPMやCPCといった単発の効率指標だけでなく、
+          最終的な<strong>CPA（獲得単価）</strong>・<strong>ROAS（広告費用対効果）</strong>まで含めて評価することが重要。
+        </p>
+
+        <table>
+          <thead>
+            <tr><th>指標</th><th>意味</th><th>主に重視される目的</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>CPM</td><td>表示1,000回あたりの費用</td><td>認知・リーチ目的</td></tr>
+            <tr><td>CTR</td><td>表示に対するクリック率</td><td>クリエイティブの訴求力の評価</td></tr>
+            <tr><td>CPC</td><td>クリック1回あたりの費用</td><td>サイト誘導目的</td></tr>
+            <tr><td>CPA</td><td>コンバージョン1件あたりの費用</td><td>売上・リード獲得目的</td></tr>
+            <tr><td>ROAS</td><td>広告費に対する売上の倍率</td><td>ECの売上目的キャンペーン</td></tr>
+            <tr><td>CPF（LINE特有）</td><td>友だち追加1件あたりの費用</td><td>LINE公式アカウントの友だち獲得</td></tr>
+          </tbody>
+        </table>
+
+        <h3>レポーティングの実務ポイント</h3>
+        <div class="checklist">
+          <div class="checkitem"><span class="box"></span><span>日次の振れ幅に一喜一憂せず、週次のトレンド（改善/横ばい/悪化）で判断する</span></div>
+          <div class="checkitem"><span class="box"></span><span>クリエイティブ別・配置（配信面）別・オーディエンス別に内訳を確認し、勝ちパターンへ予算を寄せる</span></div>
+          <div class="checkitem"><span class="box"></span><span>フリークエンシー（同一ユーザーへの表示回数）が高すぎる場合はクリエイティブ疲労のサインとして差し替えを検討する</span></div>
+          <div class="checkitem"><span class="box"></span><span>CPMやCPCが良くても最終的なCPA・ROASが悪ければ「良い成果」とは言えない、という視点を忘れない</span></div>
+        </div>
+      </section>
+
+      <section id="pitfall">
+        <h2>8. 新人が陥りやすい失敗</h2>
+
+        <div class="grid two">
+          <div class="card">
+            <h3>「バズらせてほしい」への安易な同意</h3>
+            <p>クライアントが求める「バズ」は無償の偶発的拡散を指すことが多く、予算をかけて狙ってリーチする
+              「広告運用」とは目的も手法も異なる。着手前に期待値をすり合わせる。</p>
+          </div>
+          <div class="card">
+            <h3>全媒体で同じクリエイティブを使い回す</h3>
+            <p>アスペクト比・尺・「広告っぽさ」の許容度は媒体ごとに異なる。使い回しは成果を落とす典型的な原因。</p>
+          </div>
+          <div class="card">
+            <h3>学習期間中に設定を頻繁にいじる</h3>
+            <p>自動入札・Smart+・Advantage+はいずれも学習期間中の変更で最適化がリセットされやすい。</p>
+          </div>
+          <div class="card">
+            <h3>規制業種の事前確認漏れ</h3>
+            <p>金融・医療・美容医療等は媒体を問わず審査基準が厳しく、事前認可が必要なケースもある。着手前に必ず確認する。</p>
+          </div>
+          <div class="card">
+            <h3>薬機法・景品表示法に触れる表現の見落とし</h3>
+            <p>「絶対」「必ず」「100%」等の断定表現、効果効能の保証表現は媒体を問わず否認の主要因。</p>
+          </div>
+          <div class="card">
+            <h3>媒体の仕様変化を追わない</h3>
+            <p>LINE広告のように統合・名称変更が起きる媒体もある。研修資料の内容を「一度覚えたら終わり」にせず、
+              実案件では必ず各媒体の公式ヘルプで最新情報を確認する習慣をつける。</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="checklist">
+        <h2>9. 提案前チェックリスト</h2>
+        <p>クライアントへの媒体提案・案件着手前に、以下を確認する。</p>
+        <div class="checklist">
+          <div class="checkitem"><span class="box"></span><span>今回の広告の目的（認知／興味喚起／リード獲得／売上／来店・友だち追加）は明確か</span></div>
+          <div class="checkitem"><span class="box"></span><span>目的に対して、優先すべき媒体の組み合わせを整理したか（本資料3章のフレームワーク参照）</span></div>
+          <div class="checkitem"><span class="box"></span><span>クライアントの業種が規制業種（金融・医療・美容医療等）に該当しないか、該当する場合は事前認可の要否を確認したか</span></div>
+          <div class="checkitem"><span class="box"></span><span>媒体ごとに適切なクリエイティブ（縦型/横型、尺、ネイティブ感）を用意できる体制か</span></div>
+          <div class="checkitem"><span class="box"></span><span>テスト予算・本運用予算の目安をクライアントと合意できているか</span></div>
+          <div class="checkitem"><span class="box"></span><span>計測タグ（ピクセル・CAPI・コンバージョンタグ等）の実装状況を確認したか</span></div>
+          <div class="checkitem"><span class="box"></span><span>KPI（CPA・ROAS等）と、判断に使うレポート指標をクライアントとすり合わせたか</span></div>
+          <div class="checkitem"><span class="box"></span><span>各媒体の最新の仕様・料金を、出稿直前に公式ヘルプで再確認したか（本資料・個別マニュアルの数値は要最新確認前提）</span></div>
+        </div>
+      </section>
+
+      <section id="links">
+        <h2>10. 各媒体マニュアル</h2>
+        <p>媒体ごとの広告フォーマット・ターゲティング・入稿手順・審査ポリシー・KPI目安などの詳細は、以下の個別マニュアルを参照してください。</p>
+
+        <div class="grid two">
+          <a class="link-card x" href="x-ads.html">
+            <div class="badge">𝕏</div>
+            <div>
+              <div class="title">X（旧Twitter）広告 運用マニュアル</div>
+              <div class="desc">拡散力・リアルタイム性を活かす運用型/予約型広告の詳細</div>
+            </div>
+            <div class="arrow">›</div>
+          </a>
+          <a class="link-card tiktok" href="tiktok-ads.html">
+            <div class="badge">♪</div>
+            <div>
+              <div class="title">TikTok広告 運用マニュアル</div>
+              <div class="desc">Spark Ads・Smart+・縦型動画クリエイティブの作り方</div>
+            </div>
+            <div class="arrow">›</div>
+          </a>
+          <a class="link-card meta" href="meta-ads.html">
+            <div class="badge">f</div>
+            <div>
+              <div class="title">Meta広告（Facebook/Instagram）運用マニュアル</div>
+              <div class="desc">ターゲティング・Advantage+・入稿フローの詳細</div>
+            </div>
+            <div class="arrow">›</div>
+          </a>
+          <a class="link-card line" href="line-ads.html">
+            <div class="badge">L</div>
+            <div>
+              <div class="title">LINE広告 運用マニュアル</div>
+              <div class="desc">2026年のLINEヤフー広告統合の最新状況と地域集客での活用</div>
+            </div>
+            <div class="arrow">›</div>
+          </a>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</body>
+</html>

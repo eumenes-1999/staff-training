@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>X（旧Twitter）広告 運用マニュアル</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary: #14171a;
+      --primary-dark: #000000;
+      --primary-soft: #e2e8f0;
+      --blue: #1d9bf0;
+      --blue-soft: #e1f5fe;
+      --orange: #d97706;
+      --orange-soft: #ffedd5;
+      --red: #dc2626;
+      --red-soft: #fee2e2;
+      --green: #059669;
+      --green-soft: #d1fae5;
+      --purple: #7c3aed;
+      --purple-soft: #ede9fe;
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --sidebar: #14171a;
+      --sidebar-active: #1d9bf0;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Noto Sans JP', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.8;
+      font-size: 15px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      background: linear-gradient(180deg, #14171a 0%, #000000 100%);
+      color: #cbd5e1;
+      padding: 24px 0 32px;
+    }
+
+    .sidebar-header {
+      padding: 0 20px 18px;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .sidebar-header .label {
+      color: #7dd3fc;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .sidebar-header h2 {
+      color: #f8fafc;
+      font-size: 17px;
+      line-height: 1.45;
+    }
+
+    nav { padding: 14px 0 24px; }
+
+    nav a {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      color: #aebed4;
+      text-decoration: none;
+      font-size: 13px;
+      padding: 8px 20px;
+      border-left: 3px solid transparent;
+    }
+
+    nav a:hover,
+    nav a.active {
+      background: rgba(29, 155, 240, 0.16);
+      color: #f8fafc;
+      border-left-color: var(--sidebar-active);
+    }
+
+    .nav-num {
+      display: inline-grid;
+      place-items: center;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      color: #93c5fd;
+      font-size: 11px;
+      font-weight: 800;
+      flex: 0 0 auto;
+    }
+
+    main {
+      max-width: 1180px;
+      width: 100%;
+      padding: 36px 42px 64px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #14171a 0%, #1d9bf0 100%);
+      color: #fff;
+      border-radius: 24px;
+      padding: 36px;
+      margin-bottom: 28px;
+      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.18);
+    }
+
+    .hero .eyebrow {
+      display: inline-block;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.28);
+      border-radius: 999px;
+      padding: 4px 12px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      margin-bottom: 14px;
+    }
+
+    .hero h1 {
+      font-size: 34px;
+      line-height: 1.35;
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      max-width: 820px;
+      color: #e0f2fe;
+      font-size: 16px;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .meta span {
+      background: rgba(255,255,255,0.16);
+      border: 1px solid rgba(255,255,255,0.24);
+      border-radius: 10px;
+      padding: 6px 10px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .meta span.highlight {
+      background: rgba(255, 255, 255, 0.92);
+      color: #0f172a;
+      border-color: rgba(255,255,255,0.92);
+    }
+
+    section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 28px;
+      margin-bottom: 22px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
+    }
+
+    section h2 {
+      font-size: 24px;
+      color: var(--primary-dark);
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--primary-soft);
+    }
+
+    section h3 {
+      font-size: 18px;
+      color: #0f172a;
+      margin: 22px 0 10px;
+    }
+
+    p + p { margin-top: 10px; }
+
+    ul, ol {
+      padding-left: 22px;
+      margin: 10px 0;
+    }
+
+    li { margin: 5px 0; }
+
+    strong { color: #0f172a; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0 6px;
+      overflow: hidden;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+
+    th, td {
+      padding: 12px 14px;
+      text-align: left;
+      vertical-align: top;
+      border-bottom: 1px solid var(--border);
+    }
+
+    th {
+      background: #f1f5f9;
+      color: #0f172a;
+      font-size: 13px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    tr:last-child td { border-bottom: 0; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin: 16px 0;
+    }
+
+    .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+    .card {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px;
+      background: #fff;
+    }
+
+    .card h3,
+    .card h4 {
+      margin: 0 0 8px;
+      color: #0f172a;
+      font-size: 16px;
+    }
+
+    .card p { color: var(--muted); font-size: 14px; }
+
+    .point {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+      margin: 10px 0;
+    }
+
+    .point .icon {
+      display: inline-grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 10px;
+      background: var(--blue-soft);
+      color: #0c4a6e;
+      font-weight: 900;
+      flex: 0 0 auto;
+    }
+
+    .tag {
+      display: inline-block;
+      border-radius: 999px;
+      padding: 3px 9px;
+      font-size: 12px;
+      font-weight: 800;
+      margin-right: 6px;
+      margin-bottom: 6px;
+    }
+
+    .tag.green { background: var(--green-soft); color: #065f46; }
+    .tag.blue { background: var(--blue-soft); color: #0c4a6e; }
+    .tag.orange { background: var(--orange-soft); color: #9a3412; }
+    .tag.red { background: var(--red-soft); color: #991b1b; }
+    .tag.purple { background: var(--purple-soft); color: #5b21b6; }
+    .tag.dark { background: #e2e8f0; color: #14171a; }
+
+    .note {
+      border-left: 5px solid var(--blue);
+      background: #ecfeff;
+      padding: 15px 18px;
+      border-radius: 12px;
+      margin: 16px 0;
+    }
+
+    .warning {
+      border-left: 5px solid var(--red);
+      background: #fff7ed;
+      padding: 15px 18px;
+      border-radius: 12px;
+      margin: 16px 0;
+    }
+
+    .checklist {
+      display: grid;
+      gap: 9px;
+      margin: 14px 0;
+    }
+
+    .checkitem {
+      display: grid;
+      grid-template-columns: 24px 1fr;
+      gap: 10px;
+      align-items: start;
+      padding: 10px 12px;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    .box {
+      display: inline-grid;
+      place-items: center;
+      width: 18px;
+      height: 18px;
+      border: 2px solid #94a3b8;
+      border-radius: 4px;
+      margin-top: 4px;
+    }
+
+    .flow {
+      display: grid;
+      gap: 12px;
+      counter-reset: step;
+      margin: 16px 0;
+    }
+
+    .step {
+      position: relative;
+      padding: 16px 18px 16px 58px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: #fff;
+    }
+
+    .step::before {
+      counter-increment: step;
+      content: counter(step);
+      position: absolute;
+      left: 16px;
+      top: 16px;
+      display: inline-grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #fff;
+      font-weight: 900;
+    }
+
+    .step h3 {
+      margin: 0 0 6px;
+      font-size: 16px;
+    }
+
+    .step-group-label {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      color: #0c4a6e;
+      background: var(--blue-soft);
+      border-radius: 999px;
+      padding: 3px 10px;
+      margin: 18px 0 8px;
+    }
+
+    .source-list a {
+      color: var(--blue);
+      word-break: break-all;
+    }
+
+    @media (max-width: 980px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar {
+        position: relative;
+        height: auto;
+      }
+      nav {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      main { padding: 22px 16px 48px; }
+      .hero { padding: 26px 20px; }
+      .hero h1 { font-size: 26px; }
+      .grid,
+      .grid.two { grid-template-columns: 1fr; }
+      table { font-size: 13px; }
+      th, td { padding: 10px; }
+    }
+  </style>
+</head>
+<body>
+<script>
+(function(){
+  if(!sessionStorage.getItem('rb_auth')) location.replace('/staff-training/login.html');
+})();
+</script>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="label">X Ads Operation</div>
+        <h2>X（旧Twitter）広告 運用マニュアル</h2>
+      </div>
+      <nav>
+        <a href="#overview"><span class="nav-num">1</span>概要とユーザー層</a>
+        <a href="#format"><span class="nav-num">2</span>広告フォーマット</a>
+        <a href="#targeting"><span class="nav-num">3</span>ターゲティング</a>
+        <a href="#billing"><span class="nav-num">4</span>課金方式・入札</a>
+        <a href="#flow"><span class="nav-num">5</span>開設〜入稿の流れ</a>
+        <a href="#policy"><span class="nav-num">6</span>審査ポリシー・注意点</a>
+        <a href="#industry"><span class="nav-num">7</span>向いている業種・戦略</a>
+        <a href="#kpi"><span class="nav-num">8</span>KPI目安・レポート</a>
+        <a href="#checklist"><span class="nav-num">9</span>運用チェックリスト</a>
+      </nav>
+    </aside>
+
+    <main>
+      <header class="hero">
+        <div class="eyebrow">新人研修・SNS広告運用担当者向け</div>
+        <h1>X（旧Twitter）広告の基礎理解と入稿対応</h1>
+        <p>
+          Xはリアルタイム性と拡散力が最大の特徴のSNS広告媒体です。フォーマット、ターゲティング、課金方式、
+          審査ポリシー、レポートの見方まで、入稿対応に必要な知識を実務向けに整理しています。
+        </p>
+        <div class="meta">
+          <span>対象: SNS広告運用担当・新人</span>
+          <span>目的: X広告の基礎理解と入稿対応</span>
+          <span>更新日: 2026年8月31日</span>
+          <span class="highlight">本資料は2026年8月時点の調査に基づく。料金・仕様は変更されるため、実案件では必ず公式ヘルプ（business.x.com）で最新情報を確認すること</span>
+        </div>
+      </header>
+
+      <section id="overview">
+        <h2>1. 概要とユーザー層</h2>
+        <p>
+          Xは旧Twitterで、2023年に「X」へ名称変更されました（運営はX Corp.）。
+          日本は世界的に見てもXの利用率が突出して高い市場の一つ<strong>とされます</strong>。
+        </p>
+
+        <h3>国内ユーザー規模（要最新確認）</h3>
+        <div class="note">
+          X日本法人の発表によると、<strong>国内MAU（月間アクティブユーザー数）は約6,800万人、DAU（日間アクティブユーザー数）は約4,000万人</strong>とされます（2025年5月時点の情報がベース）。
+          公式の最新値は変動するため、提案書に使う際は必ず直近のX公式発表または総務省調査で再確認してください。
+        </div>
+        <p>
+          総務省の2026年6月発表（情報通信メディアの利用時間と情報行動に関する調査）によると、年代別利用率は<strong>20代73.4%、30代67.7%</strong>と20〜30代が中心です。
+          ただし<strong>40代でも約45%、50代でも約34%</strong>が利用しており、他のSNSと比べて年齢層の裾野が広いのが特徴<strong>とされます</strong>。
+        </p>
+
+        <h3>属性・利用シーンの傾向</h3>
+        <div class="grid">
+          <div class="card">
+            <h3>属性・話題の幅</h3>
+            <p>男性比率がやや高め。ニュース・時事・エンタメ・スポーツ・ゲーム・ビジネス（BtoB）など話題の幅が広く、匿名利用も多いため本音の口コミ・感想が流通しやすい。</p>
+          </div>
+          <div class="card">
+            <h3>使われ方の性格</h3>
+            <p>「実名SNS」というよりは「情報収集・実況・議論の場」としての性格が強く、サービス名や店舗名で検索して評判を調べる検索的な使われ方も多い。</p>
+          </div>
+          <div class="card">
+            <h3>拡散構造</h3>
+            <p>拡散（リポスト）を前提とした情報流通構造が最大の特徴で、フォロワー外への到達（オーガニック含む）が起こりやすい。</p>
+          </div>
+        </div>
+
+        <h3>他媒体との違い（ポジショニング）</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>観点</th>
+              <th>X</th>
+              <th>Instagram</th>
+              <th>TikTok</th>
+              <th>LINE</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>強み</td>
+              <td>リアルタイム性・拡散力・議論</td>
+              <td>ビジュアル訴求・世界観・EC連携</td>
+              <td>短尺動画のアルゴリズム拡散</td>
+              <td>顧客との1to1連絡・囲い込み</td>
+            </tr>
+            <tr>
+              <td>向く目的</td>
+              <td>認知拡大・話題化・炎上対応含む双方向対話</td>
+              <td>ブランディング・購買喚起</td>
+              <td>若年層への大量リーチ・トレンド起点の認知</td>
+              <td>既存顧客への再来店・再購入促進</td>
+            </tr>
+            <tr>
+              <td>リスク特性</td>
+              <td>炎上・批判的リプライが可視化されやすい</td>
+              <td>比較的穏やか</td>
+              <td>バズの予測が難しい</td>
+              <td>クローズドなので炎上しにくい</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="note">
+          <strong>新人が押さえるべきポイント:</strong>
+          Xは「バズって一気に広がる」「批判も同じ速度で広がる」という<strong>諸刃の剣の即時拡散力</strong>を持つ媒体、という理解が重要です。
+        </div>
+      </section>
+
+      <section id="format">
+        <h2>2. 広告フォーマット一覧</h2>
+        <p>
+          X広告は大きく<strong>「運用型（誰でも少額から出稿できる従量課金）」</strong>と<strong>「予約型（大型予算で枠を買い切る）」</strong>の2系統に分かれます。
+          2026年時点での主要フォーマットは以下の通りですが、名称・提供状況は変更されることがあるため、実施前に必ずAds Managerの最新選択肢を確認してください。
+        </p>
+
+        <h3>2-1. 運用型（プロモ広告 = Promoted Ads）</h3>
+        <p>通常の投稿と同じ見た目でタイムラインや検索結果、プロフィール等に表示される、最も標準的な広告タイプです。</p>
+        <table>
+          <thead>
+            <tr>
+              <th>フォーマット</th>
+              <th>特徴</th>
+              <th>適したシーン</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>テキスト広告</td>
+              <td>文章のみ（280文字以内）で構成。画像・動画なし</td>
+              <td>速報性の高い訴求、キャンペーン告知の低コストテスト</td>
+            </tr>
+            <tr>
+              <td>画像広告</td>
+              <td>単一画像＋テキスト。ウェブサイトボタンやアプリボタンを付与可能</td>
+              <td>LP誘導、商品訴求全般</td>
+            </tr>
+            <tr>
+              <td>動画広告</td>
+              <td>静止画より高いエンゲージメント率が見込める<strong>とされる</strong>。縦型（バーティカル）動画にも対応</td>
+              <td>ブランディング、商品の使用感訴求、認知拡大</td>
+            </tr>
+            <tr>
+              <td>カルーセル広告</td>
+              <td>最大6枚の画像・動画をスワイプで閲覧できる形式</td>
+              <td>複数商品・複数訴求軸の比較提示、機能紹介</td>
+            </tr>
+            <tr>
+              <td>コレクション広告</td>
+              <td>ヒーロー画像＋複数のサブ商品画像を組み合わせて表示</td>
+              <td>EC事業者の商品ラインナップ訴求</td>
+            </tr>
+            <tr>
+              <td>カンバセーション広告</td>
+              <td>独自ハッシュタグ付きの返信ボタンでユーザーの投稿を誘発する機能付き広告</td>
+              <td>UGC創出、ハッシュタグキャンペーン</td>
+            </tr>
+            <tr>
+              <td>投票（アンケート）付き広告</td>
+              <td>広告内に投票機能を設置</td>
+              <td>エンゲージメント獲得、簡易リサーチ</td>
+            </tr>
+            <tr>
+              <td>ライブ配信広告</td>
+              <td>リアルタイム動画配信と連動する広告枠</td>
+              <td>イベント・発表会との連動施策</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>2-2. 予約型（大型予算・買い切り枠）</h3>
+        <div class="warning">
+          金額は複数の代理店解説記事に基づく相場観であり、<strong>公式レートカードは非公開・要問い合わせ</strong>のため参考値にとどめます。
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>フォーマット</th>
+              <th>特徴</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>タイムラインテイクオーバー</td>
+              <td>タイムライン最上部を1日1社限定で独占表示。大型予算（日額数百万〜千万円台<strong>とされる</strong>）を要する高視認性枠</td>
+            </tr>
+            <tr>
+              <td>スポットライトテイクオーバー</td>
+              <td>「話題を検索」タブ最上部への独占表示</td>
+            </tr>
+            <tr>
+              <td>タイムラインリーチ</td>
+              <td>ターゲティング可能な予約型枠（テイクオーバーよりリーチ限定的）</td>
+            </tr>
+            <tr>
+              <td>イマーシブテイクオーバー</td>
+              <td>縦型動画の全画面表示（ベータ提供<strong>とされる</strong>）</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>2-3. Amplify（プレロール動画広告）</h3>
+        <div class="grid two">
+          <div class="card">
+            <h3>Amplifyスポンサーシップ</h3>
+            <p>特定のプレミアムパブリッシャー（報道・スポーツ・エンタメ企業等）とのタイアップで、その動画コンテンツ再生前に広告を挿入。</p>
+          </div>
+          <div class="card">
+            <h3>Amplifyオーディエンス</h3>
+            <p>複数パブリッシャーのカテゴリを横断して配信。</p>
+          </div>
+        </div>
+
+        <h3>2-4. ブランド機能（アドオン的施策）</h3>
+        <div>
+          <span class="tag dark">ブランド絵文字</span>
+          <span class="tag dark">ブランドいいね</span>
+        </div>
+        <p>
+          <strong>ブランド絵文字:</strong> 特定ハッシュタグの隣に企業独自の絵文字が表示される。<br>
+          <strong>ブランドいいね:</strong> 「いいね」操作時に専用アニメーションが表示される。
+        </p>
+
+        <div class="warning">
+          <strong>【要最新確認】フォロワー獲得広告について:</strong>
+          かつて存在した「フォロワー獲得広告」は<strong>2023年8月頃にサービス提供が終了した</strong>という情報があります。
+          研修資料に「フォロワー獲得広告」を現行フォーマットとして記載する場合は、Ads Manager上で実際に選択可能か必ず確認してください
+          （キャンペーン目的として「フォロワー」系の選択肢自体は名称を変えて残っている可能性もあります）。
+        </div>
+      </section>
+
+      <section id="targeting">
+        <h2>3. ターゲティング機能</h2>
+        <p>
+          X広告のターゲティングは主に以下のカテゴリに整理されます（呼称は代理店により多少異なります）。
+        </p>
+
+        <div class="grid two">
+          <div class="card">
+            <h3>1. デモグラフィック（属性）ターゲティング</h3>
+            <p>性別・年齢・地域（国・都道府県・市区町村単位）・言語</p>
+          </div>
+          <div class="card">
+            <h3>2. 興味関心ターゲティング</h3>
+            <p>X側が定義する大分類カテゴリ（25カテゴリ程度）とその配下のサブカテゴリ（350以上<strong>とされる</strong>）から選択。例：「グルメ」「美容」「ゲーム」等</p>
+          </div>
+          <div class="card">
+            <h3>3. キーワードターゲティング</h3>
+            <p>特定キーワードを含む投稿、またはそのキーワードに関連する投稿にエンゲージ（いいね・リポスト等）したユーザーに配信</p>
+          </div>
+          <div class="card">
+            <h3>4. ハンドル（フォロワー類似）ターゲティング</h3>
+            <p>特定アカウントのフォロワーと似た興味関心を持つユーザーに配信。競合アカウントや業界インフルエンサーのフォロワー層を指定するのが定番の使い方</p>
+          </div>
+          <div class="card">
+            <h3>5. カスタムオーディエンス</h3>
+            <p>自社の顧客リスト（メールアドレス等）やウェブサイト訪問者データ（Xピクセル計測）をアップロードしてターゲティング</p>
+          </div>
+          <div class="card">
+            <h3>6. テイラードオーディエンス／リターゲティング</h3>
+            <p>自社サイト訪問者や過去のエンゲージユーザーに再アプローチ</p>
+          </div>
+          <div class="card">
+            <h3>7. 会話（Conversation）トピックターゲティング</h3>
+            <p>特定の話題について会話している投稿に反応したユーザーへ配信</p>
+          </div>
+          <div class="card">
+            <h3>8. 映画・TV番組ターゲティング</h3>
+            <p>特定の映画・番組に関心を持つユーザー層。TVCM連動施策と相性が良い</p>
+          </div>
+          <div class="card">
+            <h3>9. イベントターゲティング</h3>
+            <p>スポーツ大会・展示会・大型イベント等、開催前後で関心が高まるユーザーに配信</p>
+          </div>
+          <div class="card">
+            <h3>10. ツイートエンゲージャーターゲティング</h3>
+            <p>自社や他社の特定の投稿にエンゲージしたユーザーを追跡してターゲティング</p>
+          </div>
+          <div class="card">
+            <h3>11. 自動ターゲティング</h3>
+            <p>X側のアルゴリズムに最適化を任せる設定</p>
+          </div>
+        </div>
+
+        <div class="note">
+          <strong>新人向け実務ポイント:</strong>
+          ターゲティングとクリエイティブを同時に複数変更すると、どちらが成果差を生んだのか判断できなくなります。
+          <strong>A/Bテストの基本は「比較したい条件を1つだけ変える」</strong>ことです。
+        </div>
+      </section>
+
+      <section id="billing">
+        <h2>4. 課金方式・入札</h2>
+        <p>
+          キャンペーンの目的（認知／検討／コンバージョン）ごとに、課金対象となる指標と最適化の対象が変わります。
+          すべての目的で全方式が使えるわけではなく、選んだキャンペーン目的によって利用可能な課金方式が決まります。
+        </p>
+
+        <h3>課金方式</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>方式</th>
+              <th>内容</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>CPM（インプレッション課金）</td>
+              <td>表示1,000回ごとの課金。認知・リーチ目的向け</td>
+            </tr>
+            <tr>
+              <td>CPC（クリック課金）</td>
+              <td>クリック（リンククリック等）ごとの課金。サイト誘導向け</td>
+            </tr>
+            <tr>
+              <td>CPE（エンゲージメント課金）</td>
+              <td>いいね・リポスト・返信・クリック等いずれかのアクション発生ごとの課金</td>
+            </tr>
+            <tr>
+              <td>CPF（フォロー課金）</td>
+              <td>フォロー発生ごとの課金（フォロワー獲得系施策向け、現行提供状況は要確認）</td>
+            </tr>
+            <tr>
+              <td>CPV（動画再生課金）</td>
+              <td>動画の一定秒数再生ごとの課金</td>
+            </tr>
+            <tr>
+              <td>CPI（アプリインストール課金）</td>
+              <td>アプリインストール発生ごとの課金</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>入札方法</h3>
+        <div class="grid">
+          <div class="card">
+            <span class="tag blue">自動</span>
+            <h3>自動入札</h3>
+            <p>X側のアルゴリズムが、設定予算内で成果を最大化するように入札額を自動調整</p>
+          </div>
+          <div class="card">
+            <span class="tag dark">手動</span>
+            <h3>上限入札単価（マニュアル入札）</h3>
+            <p>CPMやCPC等の上限額を広告主側が指定</p>
+          </div>
+          <div class="card">
+            <span class="tag orange">要確認</span>
+            <h3>ターゲット単価</h3>
+            <p>目標とする単価水準を指定して最適化する方式（提供状況・呼称は要最新確認）</p>
+          </div>
+        </div>
+
+        <h3>予算・最低出稿金額の目安</h3>
+        <p>
+          X広告には法的な「最低出稿金額」の制限はなく、<strong>日予算を数百円〜数千円といった少額から設定可能</strong>とされます。
+          ただし実務上の目安として、以下のような相場感が代理店解説記事で共有されています
+          （<strong>社内合意された公式基準ではないため、提案時は幅を持たせて説明する</strong>こと）。
+        </p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>運用段階</th>
+              <th>予算目安</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>クリエイティブ・ターゲティングの検証段階</td>
+              <td>月3万〜5万円程度</td>
+            </tr>
+            <tr>
+              <td>成果を評価できるデータ蓄積の目安</td>
+              <td>月10万円程度〜</td>
+            </tr>
+            <tr>
+              <td>継続的なPDCA運用の現実的なライン</td>
+              <td>月20万〜50万円程度</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="note">
+          支払いはクレジットカードが基本です。<strong>月50万円以上の出稿がある場合は請求書払いへの切り替えが可能になるケースがある</strong>とされます（要最新確認・審査あり）。
+          広告費とは別に、認証バッジ（旧ブルーバッジ）の月額費用が別途発生する場合がある点も留意してください
+          （バッジ自体は広告出稿の必須要件ではないが、企業アカウントの信頼性向上策として案内されることがあります）。
+        </div>
+      </section>
+
+      <section id="flow">
+        <h2>5. アカウント開設〜入稿の流れ</h2>
+        <p>
+          Xアカウント自体（ログインアカウント）を持っている状態からの、広告アカウント開設〜配信開始までの流れです。
+          実際の画面のボタン名・レイアウトは随時アップデートされるため、以下は<strong>操作の階層構造・順序を理解するためのステップ</strong>として読んでください。
+        </p>
+
+        <div class="step-group-label">STEP0：事前準備</div>
+        <div class="checklist">
+          <div class="checkitem"><span class="box"></span><span>広告用に使うXアカウント（企業アカウント推奨）を用意する</span></div>
+          <div class="checkitem"><span class="box"></span><span>支払いに使うクレジットカード情報・請求先住所を手元に準備する</span></div>
+          <div class="checkitem"><span class="box"></span><span>配信したいランディングページ、使用するクリエイティブ（画像・動画）を用意しておく</span></div>
+        </div>
+
+        <div class="flow">
+          <div class="step">
+            <h3>STEP1：広告アカウントの開設</h3>
+            <p>
+              Xにログインした状態で広告管理画面（Ads Manager）へアクセスし、案内に沿って<strong>国・タイムゾーン・通貨</strong>などの基本情報を入力すると、広告アカウントが発行されます。
+            </p>
+          </div>
+          <div class="step">
+            <h3>STEP2：支払い方法の登録</h3>
+            <p>
+              広告マネージャー右上のユーザー名から【お支払い方法】を選択し、【新しいお支払い方法を追加】からクレジットカード情報・住所を入力。
+              メールアドレス確認・広告規約への同意を行い保存します。
+            </p>
+          </div>
+          <div class="step">
+            <h3>STEP3：キャンペーンの作成（階層構造：キャンペーン ＞ 広告グループ ＞ 広告）</h3>
+            <p>以下の順で設定していきます。</p>
+            <ol>
+              <li><strong>キャンペーン目的の選択</strong>：「認知」「検討（サイト誘導・エンゲージメント・アプリインストール・動画再生等）」「コンバージョン」のいずれに該当する目的を選ぶ。この選択で以降選択できる課金方式・最適化指標が決まる</li>
+              <li><strong>キャンペーン全体の予算・掲載期間の設定</strong>：開始日・終了日、キャンペーン全体の予算上限（設定する場合）</li>
+              <li><strong>広告グループの作成</strong>：1つのキャンペーンに複数の広告グループを作成可能。広告グループ単位で「1日あたりの予算上限（予算に達すると配信停止）」「ターゲティング（デモグラフィック・興味関心・キーワード等、3章参照）」「掲載面（タイムライン・検索結果・プロフィール等）」「入札方式（自動入札／上限入札単価）」を設定する</li>
+              <li><strong>クリエイティブ（広告ポスト）の入稿</strong>：広告グループの中に、配信する投稿（新規作成または既存投稿の流用）を複数登録できる。1つの広告グループに複数クリエイティブを入れて、成果の良いものが自動的に優先配信される仕組み</li>
+              <li><strong>広告ポリシーの事前確認</strong>：入稿前に最新の広告ポリシー（禁止表現・センシティブカテゴリ等）を確認しておく（6章参照）</li>
+              <li><strong>審査提出</strong>：内容を確定すると自動審査（場合により目視審査）が行われ、通過後に配信開始</li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="note">
+          <strong>運用時の基本原則:</strong>
+          ターゲティングとクリエイティブを同時に複数変更しない（成果差の要因を特定できなくする）。
+          広告グループを目的・ターゲット層別に分け、予算配分と成果を比較しながら最適化する。
+        </div>
+      </section>
+
+      <section id="policy">
+        <h2>6. 審査ポリシー・出稿時の注意点</h2>
+        <p>
+          審査を通すためには、どのような表現・コンテンツが否認につながりやすいかを事前に把握しておくことが重要です。
+        </p>
+
+        <h3>よくある否認理由（4パターン）</h3>
+        <div class="grid two">
+          <div class="card">
+            <span class="tag red">否認</span>
+            <h3>誇大・根拠不明な表現</h3>
+            <p>「食べるだけで痩せる」「何もしなくても稼げる」等、効果・効能を保証するような表現。健康食品・美容系で特に注意（薬機法・景品表示法の観点からも要注意）</p>
+          </div>
+          <div class="card">
+            <span class="tag red">否認</span>
+            <h3>性的コンテンツ・過度な露出</h3>
+            <p>水着・肌の露出が多い画像等。悪質な場合はアカウント凍結に至ることもある<strong>とされる</strong></p>
+          </div>
+          <div class="card">
+            <span class="tag red">否認</span>
+            <h3>不快感を与える表現</h3>
+            <p>過度な肥満・痩身の強調、流血・暴力的な描写など</p>
+          </div>
+          <div class="card">
+            <span class="tag red">否認</span>
+            <h3>広告内容とリンク先の不一致</h3>
+            <p>広告文・画像の訴求内容と遷移先ページの内容が異なる場合（仮ページ・準備中ページへの遷移も含む）</p>
+          </div>
+        </div>
+
+        <h3>禁止・制限カテゴリ（グローバル共通ポリシーがベース。国・地域により運用が異なるため要最新確認）</h3>
+        <div class="warning">
+          <strong>禁止（globally prohibited）とされる主な領域:</strong>
+          違法な製品・サービス、武器・武器関連アクセサリー、規制薬物・薬物関連器具、成人向け性的コンテンツ、ヘイトスピーチ・差別的コンテンツ、政治的コンテンツ（一部地域・一部形式を除き制限が強い）
+        </div>
+
+        <p><strong>制限付きで許可（restricted）とされる主な領域：</strong></p>
+        <table>
+          <thead>
+            <tr>
+              <th>領域</th>
+              <th>制限内容</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>金融サービス</td>
+              <td>金融商品・暗号資産（仮想通貨）・NFT等。国・地域ごとに事前認可（プレオーソライゼーション）が必要な場合がある</td>
+            </tr>
+            <tr>
+              <td>医療・ヘルスケア／医薬品</td>
+              <td>プロモーション対象の商品・サービスやターゲティング国によって制限内容が異なる</td>
+            </tr>
+            <tr>
+              <td>アルコール</td>
+              <td>オンライン販売・実店舗販促・ブランディング活動それぞれに制限がある</td>
+            </tr>
+            <tr>
+              <td>ギャンブル</td>
+              <td>国・地域のライセンス要件に基づく制限</td>
+            </tr>
+            <tr>
+              <td>たばこ・たばこ関連製品</td>
+              <td>多くの地域で制限・禁止</td>
+            </tr>
+            <tr>
+              <td>社会課題訴求（Cause-based advertising）</td>
+              <td>市民参加・環境・社会的公正等をテーマにした広告は、広告主の認証（サーティフィケーション）が必要で、ターゲティングも地域・キーワード・興味関心に限定される</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="note">
+          <strong>実務上の注意点:</strong>
+          業種によっては出稿前に<strong>事前認可（プレオーソライゼーション）</strong>の取得が必要なケースがあります（特に金融・ヘルスケア系）。
+          案件対応時は「そもそもX広告に出稿できる業種か」を最初に確認してください。
+          ポリシーは頻繁に更新されるため、案件着手時に必ずbusiness.x.com上の最新ポリシーページを確認する運用にしてください。
+        </div>
+      </section>
+
+      <section id="industry">
+        <h2>7. 向いている業種・活用戦略</h2>
+
+        <h3>向いている業種・目的</h3>
+        <div class="grid two">
+          <div class="card">
+            <h3>エンタメ・飲料・食品</h3>
+            <p>TVCM連動施策、話題化・トレンド活用と相性が良い</p>
+          </div>
+          <div class="card">
+            <h3>ゲーム・アプリ</h3>
+            <p>ユーザーの実況・感想投稿と親和性が高く、UGC発生・拡散が期待しやすい</p>
+          </div>
+          <div class="card">
+            <h3>BtoB・ビジネス系サービス</h3>
+            <p>ビジネスパーソンの情報収集・議論の場という側面があり、他SNSに比べてBtoB訴求がしやすいという指摘がある</p>
+          </div>
+          <div class="card">
+            <h3>イベント・スポーツ・展示会・大型ライブ</h3>
+            <p>開催前後の関心の高まりに合わせた事前・当日・事後配信が可能</p>
+          </div>
+          <div class="card">
+            <h3>新商品ローンチ・キャンペーン告知</h3>
+            <p>リアルタイム拡散力を活かした瞬発的な認知拡大</p>
+          </div>
+        </div>
+
+        <h3>媒体特有の戦略ポイント</h3>
+        <div class="point">
+          <span class="icon">1</span>
+          <div>
+            <strong>リアルタイム性・トレンド活用</strong>
+            <p>「今、話題になっていること」に合わせた出稿タイミングの調整が効果を左右する。会話トピックターゲティングや映画・TV番組ターゲティングもこの特性を活かす機能。</p>
+          </div>
+        </div>
+        <div class="point">
+          <span class="icon">2</span>
+          <div>
+            <strong>UGC（ユーザー生成コンテンツ）との相性</strong>
+            <p>カンバセーション広告や独自ハッシュタグ施策で、ユーザー自身の投稿を誘発しやすい。マイクロインフルエンサー活用は「広告っぽさ」を抑えつつUGC連鎖を起こしやすい<strong>とされる</strong>。</p>
+          </div>
+        </div>
+        <div class="point">
+          <span class="icon">3</span>
+          <div>
+            <strong>拡散＝諸刃の剣</strong>
+            <p>ポジティブな話題は急速に広がる一方、批判的な反応・炎上リスクも同じ速度で拡散されやすい。炎上対応の基本方針は「隠さない・攻撃しない・真摯に対応する」<strong>とされ</strong>、削除依頼や攻撃的な返信は炎上を悪化させるリスクがある。</p>
+          </div>
+        </div>
+        <div class="point">
+          <span class="icon">4</span>
+          <div>
+            <strong>美容・健康系UGCの法令遵守</strong>
+            <p>UGCの内容が薬機法・景品表示法に抵触していないか、企業側が事前にガイドラインを示しておく必要がある。</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="kpi">
+        <h2>8. KPI目安・レポートの見方</h2>
+        <div class="warning">
+          以下の費用相場は<strong>あくまで目安</strong>です。市場・競合状況・季節要因で大きく変動するため「絶対値」として顧客に提示しないでください。
+        </div>
+
+        <h3>CPM（リーチ目的）の目安</h3>
+        <p>
+          日本市場の中心レンジは<strong>200〜800円</strong>程度<strong>とされます</strong>。
+          競合が集中する繁忙期・業種では1,000〜1,500円まで上振れすることもある<strong>とされます</strong>。
+        </p>
+
+        <h3>CPC（サイト誘導）の業種別レンジ目安</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>業種傾向</th>
+              <th>CPC目安</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>低単価業種（エンタメ・ゲーム・キャンペーン系）</td>
+              <td>50〜150円</td>
+            </tr>
+            <tr>
+              <td>中単価業種（EC・サービス）</td>
+              <td>150〜250円</td>
+            </tr>
+            <tr>
+              <td>高単価業種（金融・BtoB・教育）</td>
+              <td>250〜400円</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>動画広告（バーティカル動画）</h3>
+        <p>
+          CPMは500〜1,200円程度<strong>とされ</strong>、静止画広告に比べエンゲージメント率が高くなる傾向があり、結果としてCPAが改善するケースもある<strong>とされます</strong>。
+        </p>
+
+        <div class="note">
+          上記の単価はすべて第三者の広告代理店解説記事に基づく相場感であり、<strong>公式のレートカードではありません</strong>。
+          実際のクライアント提案では「過去実績」または「直近の同業種ベンチマーク」を優先し、上記数値は参考値としてのみ扱ってください。
+        </div>
+
+        <h3>レポート画面で見るべき主要指標</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>指標</th>
+              <th>内容</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>インプレッション数</td>
+              <td>表示回数（リーチ目的の基礎指標）</td>
+            </tr>
+            <tr>
+              <td>CPM</td>
+              <td>インプレッション単価</td>
+            </tr>
+            <tr>
+              <td>エンゲージメント数・エンゲージメント率</td>
+              <td>いいね・リポスト・返信・クリックなど広告に対する反応の合計とその発生率</td>
+            </tr>
+            <tr>
+              <td>CTR（クリック率）</td>
+              <td>表示に対するクリックの割合</td>
+            </tr>
+            <tr>
+              <td>CPC</td>
+              <td>クリック単価</td>
+            </tr>
+            <tr>
+              <td>CPA</td>
+              <td>コンバージョン（サイト誘導後の申込・購入等）1件あたりの単価</td>
+            </tr>
+            <tr>
+              <td>動画再生数・再生率（VTR）</td>
+              <td>動画広告の視聴完了度合い</td>
+            </tr>
+            <tr>
+              <td>フォロワー増加数</td>
+              <td>フォロワー獲得を目的とした場合の指標</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>レポーティングの実務ポイント</h3>
+        <div class="checklist">
+          <div class="checkitem"><span class="box"></span><span>CPMやCPCなど単発の指標だけでなく、<strong>最終的なCPA・受注単価まで含めて評価する</strong>（CPMが安くてもCV率が低ければ意味がない）</span></div>
+          <div class="checkitem"><span class="box"></span><span>月次レポートでは、①業種ベンチマークとの比較、②前週・前月比の変動率（CTR・CPC・CPA）、③改善打ち手の優先順位、④次月のKPI設定、をセットで示す</span></div>
+          <div class="checkitem"><span class="box"></span><span>CRM連携がある場合は、クリックやCVだけでなく<strong>商談化率・受注単価</strong>まで追うことで広告の実質的な貢献度を評価する</span></div>
+        </div>
+      </section>
+
+      <section id="checklist">
+        <h2>9. 運用チェックリスト</h2>
+        <p>
+          案件着手前〜運用中に以下を確認すると、抜け漏れやポリシー違反リスクを防ぎやすくなります。
+        </p>
+
+        <h3>案件着手前チェック</h3>
+        <div class="checklist">
+          <div class="checkitem"><span class="box"></span><span>クライアントの業種がX広告に出稿可能か（禁止・制限カテゴリに該当しないか、事前認可の要否）を確認した</span></div>
+          <div class="checkitem"><span class="box"></span><span>広告用Xアカウント・支払い方法（クレジットカード情報・請求先住所）が準備できている</span></div>
+          <div class="checkitem"><span class="box"></span><span>配信先LP・使用するクリエイティブ（画像・動画）が準備できている</span></div>
+          <div class="checkitem"><span class="box"></span><span>キャンペーン目的（認知／検討／コンバージョン）を明確にし、それに応じた課金方式を選べる状態にした</span></div>
+          <div class="checkitem"><span class="box"></span><span>ターゲティング方針（デモグラフィック・興味関心・キーワード等）を決めた</span></div>
+          <div class="checkitem"><span class="box"></span><span>最新の広告ポリシー（business.x.com）を確認した</span></div>
+          <div class="checkitem"><span class="box"></span><span>予算感（検証段階／データ蓄積段階／PDCA運用段階のどこに当たるか）をクライアントと合意した</span></div>
+        </div>
+
+        <h3>入稿・運用中チェック</h3>
+        <div class="checklist">
+          <div class="checkitem"><span class="box"></span><span>クリエイティブの表現が誇大・断定的でないか（薬機法・景品表示法の観点含む）を確認した</span></div>
+          <div class="checkitem"><span class="box"></span><span>リンク先LPと広告の訴求内容が一致しているか確認した（仮ページ・準備中ページになっていないか）</span></div>
+          <div class="checkitem"><span class="box"></span><span>広告グループを目的・ターゲット層別に分け、ターゲティングとクリエイティブを同時に複数変更していない</span></div>
+          <div class="checkitem"><span class="box"></span><span>1つの広告グループに複数クリエイティブを入れ、成果差を比較できる状態にした</span></div>
+          <div class="checkitem"><span class="box"></span><span>審査状況（承認・否認）を確認し、否認の場合は理由を特定して修正した</span></div>
+          <div class="checkitem"><span class="box"></span><span>炎上リスクのある反応・未対応の返信がないか日次で確認する体制がある</span></div>
+          <div class="checkitem"><span class="box"></span><span>月次レポートで業種ベンチマーク比較・前月比・改善優先順位・次月KPIをセットで示す準備をした</span></div>
+          <div class="checkitem"><span class="box"></span><span>単価（CPM・CPC）だけでなく、CPA・受注単価まで含めて成果を評価する視点を持っている</span></div>
+        </div>
+
+        <h3>参考情報源</h3>
+        <ul class="source-list">
+          <li><a href="https://business.x.com/en/help/ads-policies" target="_blank" rel="noopener noreferrer">X Ads policies (business.x.com)</a></li>
+          <li><a href="https://business.x.com/en/help/ads-policies/ads-content-policies/unacceptable-content" target="_blank" rel="noopener noreferrer">Unacceptable Content (business.x.com)</a></li>
+          <li><a href="https://business.x.com/en/help/ads-policies/ads-content-policies/financial-services" target="_blank" rel="noopener noreferrer">Financial services policy (business.x.com)</a></li>
+          <li><a href="https://business.x.com/en/help/ads-policies/ads-content-policies/cause-based-advertising" target="_blank" rel="noopener noreferrer">Cause-based advertising policy (business.x.com)</a></li>
+          <li><a href="https://business.x.com/ja/blog/how-to-select-campaign-objective" target="_blank" rel="noopener noreferrer">キャンペーン目的の選び方 (business.x.com/ja)</a></li>
+          <li><a href="https://primenumbers.co.jp/blog/snsads/twitter-tweet-format/" target="_blank" rel="noopener noreferrer">【2026年最新】一覧DL可！X(Twitter)広告フォーマット・配信面を全種紹介 (primenumbers.co.jp)</a></li>
+          <li><a href="https://five-inc.co.jp/blog/2446/" target="_blank" rel="noopener noreferrer">【2026年最新版】X広告(Twitter広告)とは？種類、費用、メリットを広告代理店が解説 (five-inc.co.jp)</a></li>
+          <li><a href="https://grill.co.jp/marketing-log/3849/" target="_blank" rel="noopener noreferrer">X広告の費用相場はどのくらい？課金方式6種・入札3種 (grill.co.jp)</a></li>
+          <li><a href="https://ppc-master.jp/labo/2025/09/xads-targeting.html" target="_blank" rel="noopener noreferrer">X広告ターゲティング全14種の設定方法・選び方 (ppc-master.jp)</a></li>
+          <li><a href="https://www.hottolink.co.jp/column/20260817_121185/" target="_blank" rel="noopener noreferrer">X広告マネージャーの使い方｜2026年刷新後の画面でキャンペーンを作る手順 (hottolink.co.jp)</a></li>
+          <li><a href="https://waltex.jp/twitter-ads-examination/" target="_blank" rel="noopener noreferrer">X広告(旧Twitter広告)の審査を突破！よくある非承認ケース (waltex.jp)</a></li>
+          <li><a href="https://webhub-media.com/column/x-ads-cpm-benchmark-guide/" target="_blank" rel="noopener noreferrer">【2026年版】X広告のCPM・CPC相場ベンチマーク (webhub-media.com)</a></li>
+          <li><a href="https://anagrams.jp/blog/3-preparations-before-creating-x-ads-account/" target="_blank" rel="noopener noreferrer">X広告アカウント作成前にやっておきたい3つの準備 (アナグラム, anagrams.jp)</a></li>
+          <li><a href="https://www.auditsocials.com/platforms/x-ads-policy" target="_blank" rel="noopener noreferrer">X (Twitter) Ads Policy 2026: Every Rule + Rejection Fixes (auditsocials.com)</a></li>
+        </ul>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const links = Array.from(document.querySelectorAll('nav a'));
+    const sections = links
+      .map((link) => document.querySelector(link.getAttribute('href')))
+      .filter(Boolean);
+
+    const activateCurrentSection = () => {
+      let currentId = sections[0]?.id;
+      sections.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= 140) currentId = section.id;
+      });
+
+      links.forEach((link) => {
+        link.classList.toggle('active', link.getAttribute('href') === `#${currentId}`);
+      });
+    };
+
+    window.addEventListener('scroll', activateCurrentSection, { passive: true });
+    activateCurrentSection();
+  </script>
+</body>
+</html>
