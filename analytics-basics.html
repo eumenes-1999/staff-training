@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GA4・GTM基礎知識｜計測とレポートの読み方</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary: #b45309;
+      --primary-dark: #78350f;
+      --primary-soft: #ffedd0;
+      --blue: #2563eb;
+      --blue-soft: #dbeafe;
+      --orange: #d97706;
+      --orange-soft: #ffedd5;
+      --red: #dc2626;
+      --red-soft: #fee2e2;
+      --green: #059669;
+      --green-soft: #d1fae5;
+      --purple: #7c3aed;
+      --purple-soft: #ede9fe;
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --sidebar: #2a1a05;
+      --sidebar-active: #d97706;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Noto Sans JP', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.8;
+      font-size: 15px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      background: linear-gradient(180deg, #2a1a05 0%, #0f172a 100%);
+      color: #cbd5e1;
+      padding: 24px 0 32px;
+    }
+
+    .sidebar-header {
+      padding: 0 20px 18px;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .sidebar-header .label {
+      color: #fbbf24;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .sidebar-header h2 {
+      color: #f8fafc;
+      font-size: 17px;
+      line-height: 1.45;
+    }
+
+    nav { padding: 14px 0 24px; }
+
+    nav a {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      color: #aebed4;
+      text-decoration: none;
+      font-size: 13px;
+      padding: 8px 20px;
+      border-left: 3px solid transparent;
+    }
+
+    nav a:hover,
+    nav a.active {
+      background: rgba(217, 119, 6, 0.18);
+      color: #f8fafc;
+      border-left-color: var(--sidebar-active);
+    }
+
+    .nav-num {
+      display: inline-grid;
+      place-items: center;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      color: #fde68a;
+      font-size: 11px;
+      font-weight: 800;
+      flex: 0 0 auto;
+    }
+
+    .sidebar-footer {
+      padding: 18px 20px 0;
+      margin-top: 8px;
+      border-top: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .sidebar-footer a {
+      display: block;
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 12px;
+      padding: 6px 0;
+    }
+    .sidebar-footer a:hover { color: #fff; }
+
+    main {
+      max-width: 1180px;
+      width: 100%;
+      padding: 36px 42px 64px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #b45309 0%, #78350f 100%);
+      color: #fff;
+      border-radius: 24px;
+      padding: 36px;
+      margin-bottom: 28px;
+      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.18);
+    }
+
+    .hero .eyebrow {
+      display: inline-block;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.28);
+      border-radius: 999px;
+      padding: 4px 12px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      margin-bottom: 14px;
+    }
+
+    .hero h1 {
+      font-size: 34px;
+      line-height: 1.35;
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      max-width: 820px;
+      color: #ffedd0;
+      font-size: 16px;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .meta span {
+      background: rgba(255,255,255,0.16);
+      border: 1px solid rgba(255,255,255,0.24);
+      border-radius: 10px;
+      padding: 6px 10px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 28px;
+      margin-bottom: 22px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
+    }
+
+    section h2 {
+      font-size: 24px;
+      color: var(--primary-dark);
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--primary-soft);
+    }
+
+    section h3 {
+      font-size: 18px;
+      color: #0f172a;
+      margin: 22px 0 10px;
+    }
+
+    p + p { margin-top: 10px; }
+
+    ul, ol {
+      padding-left: 22px;
+      margin: 10px 0;
+    }
+
+    li { margin: 5px 0; }
+
+    strong { color: #0f172a; }
+
+    code {
+      background: #f1f5f9;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 1px 6px;
+      font-size: 13px;
+      font-family: 'SFMono-Regular', Consolas, monospace;
+      color: #0f172a;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0 6px;
+      overflow: hidden;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+
+    th, td {
+      padding: 12px 14px;
+      text-align: left;
+      vertical-align: top;
+      border-bottom: 1px solid var(--border);
+    }
+
+    th {
+      background: #f1f5f9;
+      color: #0f172a;
+      font-size: 13px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    tr:last-child td { border-bottom: 0; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin: 16px 0;
+    }
+
+    .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid.four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+    .card {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px;
+      background: #fff;
+    }
+
+    .card h3,
+    .card h4 {
+      margin: 0 0 8px;
+      color: #0f172a;
+      font-size: 16px;
+    }
+
+    .card p { color: var(--muted); font-size: 14px; }
+
+    .point {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+      margin: 10px 0;
+    }
+
+    .point .icon {
+      display: inline-grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 10px;
+      background: var(--primary-soft);
+      color: var(--primary-dark);
+      font-weight: 900;
+      flex: 0 0 auto;
+    }
+
+    .tag {
+      display: inline-block;
+      border-radius: 999px;
+      padding: 3px 9px;
+      font-size: 12px;
+      font-weight: 800;
+      margin-right: 6px;
+      margin-bottom: 6px;
+    }
+
+    .tag.green { background: var(--green-soft); color: #065f46; }
+    .tag.blue { background: var(--blue-soft); color: #1d4ed8; }
+    .tag.orange { background: var(--orange-soft); color: #9a3412; }
+    .tag.red { background: var(--red-soft); color: #991b1b; }
+    .tag.purple { background: var(--purple-soft); color: #5b21b6; }
+
+    .note {
+      border-left: 5px solid var(--primary);
+      background: #fffbeb;
+      padding: 15px 18px;
+      border-radius: 12px;
+      margin: 16px 0;
+    }
+
+    .warning {
+      border-left: 5px solid var(--red);
+      background: #fff7ed;
+      padding: 15px 18px;
+      border-radius: 12px;
+      margin: 16px 0;
+    }
+
+    .checklist {
+      display: grid;
+      gap: 9px;
+      margin: 14px 0;
+    }
+
+    .checkitem {
+      display: grid;
+      grid-template-columns: 24px 1fr;
+      gap: 10px;
+      align-items: start;
+      padding: 10px 12px;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    .box {
+      display: inline-grid;
+      place-items: center;
+      width: 18px;
+      height: 18px;
+      border: 2px solid #94a3b8;
+      border-radius: 4px;
+      margin-top: 4px;
+    }
+
+    .flow {
+      display: grid;
+      gap: 12px;
+      counter-reset: step;
+      margin: 16px 0;
+    }
+
+    .step {
+      position: relative;
+      padding: 16px 18px 16px 58px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: #fff;
+    }
+
+    .step::before {
+      counter-increment: step;
+      content: counter(step);
+      position: absolute;
+      left: 16px;
+      top: 16px;
+      display: inline-grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #fff;
+      font-weight: 900;
+    }
+
+    .step h3 {
+      margin: 0 0 6px;
+      font-size: 16px;
+    }
+
+    .source-list a {
+      color: var(--blue);
+      word-break: break-all;
+    }
+
+    @media (max-width: 980px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar {
+        position: relative;
+        height: auto;
+      }
+      nav {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      main { padding: 22px 16px 48px; }
+      .hero { padding: 26px 20px; }
+      .hero h1 { font-size: 26px; }
+      .grid,
+      .grid.two,
+      .grid.four { grid-template-columns: 1fr; }
+      table { font-size: 13px; }
+      th, td { padding: 10px; }
+    }
+  </style>
+</head>
+<body>
+<script>
+(function(){
+  if(!sessionStorage.getItem('rb_auth')) location.replace('/staff-training/login.html');
+})();
+</script>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="label">Measurement Basics</div>
+        <h2>GA4・GTM基礎知識｜計測とレポートの読み方</h2>
+      </div>
+      <nav>
+        <a href="#overview"><span class="nav-num">1</span>全体像：計測の仕組み</a>
+        <a href="#ga4"><span class="nav-num">2</span>GA4とは</a>
+        <a href="#ga4report"><span class="nav-num">3</span>GA4レポートの見方</a>
+        <a href="#gtm"><span class="nav-num">4</span>GTMとは</a>
+        <a href="#convtag"><span class="nav-num">5</span>コンバージョンタグの仕組み</a>
+        <a href="#consent"><span class="nav-num">6</span>プライバシー対応・同意モード</a>
+        <a href="#trouble"><span class="nav-num">7</span>よくあるトラブルと確認の視点</a>
+        <a href="#media"><span class="nav-num">8</span>広告媒体の計測連携との関係</a>
+        <a href="#glossary"><span class="nav-num">9</span>用語集</a>
+        <a href="#checklist"><span class="nav-num">10</span>理解度チェックリスト</a>
+      </nav>
+      <div class="sidebar-footer">
+        <a href="index.html">← 研修マニュアル一覧に戻る</a>
+      </div>
+    </aside>
+
+    <main>
+      <header class="hero">
+        <div class="eyebrow">新人研修・Webマーケティング担当者向け</div>
+        <h1>GA4・GTM基礎知識<br>計測の仕組みとレポートの読み方を理解する</h1>
+        <p>
+          この資料は、Googleアナリティクス4（GA4）とGoogleタグマネージャー（GTM）について、
+          <strong>「実際に画面を操作して設定する手順」ではなく「仕組み・用語・レポートの読み方」を理解すること</strong>
+          に的を絞った内容です。GTMは画面操作を前提とした説明が多くテキストだけでは実務で使いにくいため、
+          具体的なタグ設定操作は制作・実装担当と連携する前提とし、ここでは
+          「クライアントやディレクターと会話する上で困らない土台」を身につけることを目的とします。
+        </p>
+        <div class="meta">
+          <span>対象: Webマーケティング担当・新人</span>
+          <span>目的: 計測の仕組みの理解とレポートを読む力を身につける</span>
+          <span>更新日: 2026年8月31日</span>
+        </div>
+      </header>
+
+      <section id="overview">
+        <h2>1. 全体像：計測の仕組み</h2>
+        <p>
+          広告運用でもMEOでもSNS運用でも、「効果があったかどうか」を判断するには計測の仕組みを理解している必要があります。
+          登場人物が多く混乱しやすい分野なので、まず全体の役割分担を掴みます。
+        </p>
+
+        <div class="flow">
+          <div class="step">
+            <h3>① ユーザーがサイトに訪れる・行動する</h3>
+            <p>広告をクリックしてLPに来訪する、フォームを送信する、購入するなど、計測したい「行動」が発生する。</p>
+          </div>
+          <div class="step">
+            <h3>② GTM（タグマネージャー）がタグを発火させる</h3>
+            <p>あらかじめ設定された条件（トリガー）に一致すると、GTMが該当の計測用プログラム（タグ）を動かす。
+              「どのタイミングで」「何のタグを」発火させるかを一元管理する役割。</p>
+          </div>
+          <div class="step">
+            <h3>③ GA4・広告媒体などにデータが送られる</h3>
+            <p>発火したタグを通じて、行動データがGA4（サイト分析ツール）やGoogle広告・Meta広告等の
+              各広告媒体のコンバージョン計測システムに送信される。</p>
+          </div>
+          <div class="step">
+            <h3>④ レポートとして確認・分析する</h3>
+            <p>GA4の各種レポートや、広告媒体の管理画面上で「どれだけ成果が出ているか」を確認し、
+              改善判断に使う。</p>
+          </div>
+        </div>
+
+        <div class="grid two">
+          <div class="card">
+            <h3>GA4（Google Analytics 4）</h3>
+            <p>サイトに来た人が「何をしたか」を分析するツール。以前の「ユニバーサルアナリティクス（UA）」の
+              後継として提供されている、現行の標準的なアクセス解析ツール。</p>
+          </div>
+          <div class="card">
+            <h3>GTM（Google Tag Manager）</h3>
+            <p>GA4のタグ、広告のコンバージョンタグ、その他マーケティングツールのタグをまとめて管理する「配電盤」。
+              エンジニアがサイトのソースコードを毎回書き換えなくても、GTMの管理画面上でタグの追加・変更ができる。</p>
+          </div>
+        </div>
+
+        <div class="note">
+          <strong>実務での結論:</strong> GA4は「見る（分析する）ためのツール」、GTMは「送る（発火させる）ための仕組み」
+          という役割の違いを押さえておくと、混同しにくくなります。「GA4が正しく数字を出さない」という相談を受けたとき、
+          原因はGA4側の設定ではなく、GTM側でタグがそもそも発火していない、というケースも多くあります。
+        </div>
+      </section>
+
+      <section id="ga4">
+        <h2>2. GA4とは</h2>
+        <p>
+          GA4（Google Analytics 4）は、Googleが提供する無料のアクセス解析ツールです。
+          以前の「ユニバーサルアナリティクス（UA）」がすでに終了しており、現在はGA4が標準です。
+        </p>
+
+        <h3>UAとの考え方の違い（概念として押さえておく）</h3>
+        <div class="grid two">
+          <div class="card">
+            <h3>旧UA：セッション（訪問）中心</h3>
+            <p>「1回の訪問」を軸にページビュー等を集計する考え方が中心だった。</p>
+          </div>
+          <div class="card">
+            <h3>GA4：イベントベース</h3>
+            <p>ページの閲覧、クリック、スクロール、購入などの<strong>あらゆるユーザーの行動を「イベント」という単位で記録</strong>する
+              考え方に変わった。「page_view」「click」「purchase」のように、行動そのものが記録の基本単位になっている。</p>
+          </div>
+        </div>
+
+        <div class="note">
+          <strong>新人が最初に理解すべきこと:</strong> GA4では、クリック・スクロール・ファイルダウンロードなど、
+          以前は特別な設定をしないと取れなかったデータの一部が「拡張計測機能」として最初から自動収集される設計になっています。
+          ただし、コンバージョンにあたる重要な行動（フォーム送信・購入完了等）は、案件ごとにイベントとして
+          明示的に計測設定する必要があるのが基本です。
+        </div>
+      </section>
+
+      <section id="ga4report">
+        <h2>3. GA4レポートの見方</h2>
+        <p>
+          GA4のレポートは大きく<strong>「標準レポート」「探索レポート」「Looker Studio連携レポート」</strong>の
+          3種類に整理されるとされています。まずは日常的に使う標準レポートの主要指標から押さえます。
+        </p>
+
+        <table>
+          <thead><tr><th>レポート種別</th><th>特徴</th></tr></thead>
+          <tbody>
+            <tr><td>標準レポート</td><td>あらかじめ用意された定型のレポート画面。ユーザー・集客・エンゲージメント・収益化等のメニューから日常的な数値確認に使う</td></tr>
+            <tr><td>探索レポート</td><td>自由に指標・ディメンションを組み合わせて分析できる高度な機能。セグメント比較やファネル分析など、個別の深掘り分析に使う</td></tr>
+            <tr><td>Looker Studio連携</td><td>GA4のデータを外部の無料BIツール「Looker Studio」に取り込み、クライアント向けレポートとして見やすく整形・自動更新する用途で使われる</td></tr>
+          </tbody>
+        </table>
+
+        <h3>まず押さえるべき主要指標</h3>
+        <table>
+          <thead><tr><th>指標</th><th>意味</th></tr></thead>
+          <tbody>
+            <tr><td>ユーザー数</td><td>サイトに訪れた人の数（重複を除いた人数ベース）</td></tr>
+            <tr><td>セッション数</td><td>訪問の回数。同じ人が複数回訪れれば複数セッションとしてカウントされる</td></tr>
+            <tr><td>エンゲージメント率／エンゲージのあったセッション数</td><td>「10秒以上の滞在」「コンバージョンイベントの発生」「2ページ以上の閲覧」のいずれかを満たした、質の高い訪問の割合</td></tr>
+            <tr><td>イベント数</td><td>ページ閲覧・クリック・購入等、計測対象となる行動が発生した回数</td></tr>
+            <tr><td>コンバージョン</td><td>案件ごとに「成果」として設定したイベント（フォーム送信・購入完了等）の発生数</td></tr>
+            <tr><td>ユーザー獲得／トラフィック獲得</td><td>ユーザーがどの経路（広告・自然検索・SNS・参照サイト等）から流入したかを示すレポート</td></tr>
+          </tbody>
+        </table>
+
+        <div class="note">
+          <strong>実務での勘所:</strong> 広告運用の成果を見る際、広告媒体の管理画面上の数値（クリック数・コンバージョン数）と、
+          GA4上の数値が完全には一致しないことがよくあります。計測の仕組み（計測期間の定義、クロスドメイン計測の有無、
+          広告ブロッカーの影響等）が異なるためで、「どちらが正しいか」ではなく「それぞれ何を数えているか」を理解した上で
+          クライアントに説明できるようにしておくと信頼されやすくなります。
+        </div>
+      </section>
+
+      <section id="gtm">
+        <h2>4. GTMとは</h2>
+        <p>
+          GTM（Google Tag Manager／Googleタグマネージャー）は、サイトに設置する様々な「タグ」（計測・広告用の
+          小さなプログラム）をまとめて管理できる無料ツールです。
+        </p>
+
+        <h3>3つの基本構成要素（概念だけ押さえる）</h3>
+        <div class="grid">
+          <div class="card">
+            <h3>タグ</h3>
+            <p>実際に発火させたい計測プログラム本体。「GA4にイベントを送る」「Google広告にコンバージョンを送る」など。</p>
+          </div>
+          <div class="card">
+            <h3>トリガー</h3>
+            <p>タグを「いつ」発火させるかの条件。「特定のボタンがクリックされたら」「特定のURL（サンクスページ）が表示されたら」等。</p>
+          </div>
+          <div class="card">
+            <h3>変数</h3>
+            <p>トリガーやタグの中で使う「値」。URL、クリックされた要素の情報、フォームの入力内容など、動的に変わる情報を扱う部品。</p>
+          </div>
+        </div>
+
+        <h3>なぜGTMを使うのか</h3>
+        <div class="point">
+          <div class="icon">✓</div>
+          <div>サイトのソースコードを直接編集しなくても、GTMの管理画面上でタグの追加・変更・削除ができるため、
+            エンジニアの手を借りずにマーケティング担当・代理店側で計測設定を完結しやすくなる（案件・体制によっては
+            制作会社側の対応が必要な場合もある）。</div>
+        </div>
+        <div class="point">
+          <div class="icon">✓</div>
+          <div>GA4用タグ、Google広告のコンバージョンタグ、Meta広告のピクセル、LINE Tagなど、
+            複数の計測タグを1つの管理画面でまとめて管理できる。</div>
+        </div>
+
+        <div class="warning">
+          <strong>本資料の範囲について:</strong> GTMの実際の設定作業（タグ・トリガー・変数の新規作成、公開の手順等）は
+          管理画面上のクリック操作の連続で、文章だけでは実務レベルの再現性を担保しにくい領域です。
+          本資料では「何ができる仕組みか」の理解にとどめ、実際の設定は制作・実装担当と連携して進めてください。
+        </div>
+      </section>
+
+      <section id="convtag">
+        <h2>5. コンバージョンタグの仕組み</h2>
+        <p>
+          「コンバージョンタグ」とは、成果（購入完了・問い合わせ完了等）が発生したことを、
+          広告媒体やGA4に伝えるための計測タグの総称です。案件で最もトラブルが起きやすい領域でもあります。
+        </p>
+
+        <table>
+          <thead><tr><th>設置方法</th><th>特徴</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>サイトへ直接コードを埋め込む方式</td>
+              <td>GTMを使わず、サンクスページ等に直接タグのコードを貼り付ける方式。設定はシンプルだが、
+                変更のたびにサイト側の編集作業が必要になる</td>
+            </tr>
+            <tr>
+              <td>GTM経由で発火させる方式</td>
+              <td>あらかじめGTMの土台（コンテナ）だけをサイト全体に設置しておき、個別のタグ追加・変更はGTM管理画面で行う方式。
+                現在の主流とされる</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>媒体側で計測基盤が補完されている流れ（概要）</h3>
+        <p>
+          近年はブラウザ側の計測制限（Cookie規制、広告ブロッカー等）により、ブラウザ経由のタグだけでは
+          正確に成果を捕捉しきれないケースが増えています。そのため、サーバー側から直接データを送信する
+          仕組み（Google広告の拡張コンバージョン、Meta広告のConversions API＝CAPI等）を併用するのが
+          現在の実務上の標準的な考え方とされています。<strong>「ブラウザ計測＋サーバー側連携」の二段構え</strong>という
+          理解で十分です（各媒体の詳細はSNS広告マニュアルの該当章を参照）。
+        </p>
+      </section>
+
+      <section id="consent">
+        <h2>6. プライバシー対応・同意モード</h2>
+        <p>
+          EU等の個人情報保護規制の強化に伴い、Googleは「同意モード（Consent Mode）」という仕組みを提供しています。
+          サイト訪問者がCookie利用に同意したかどうかに応じて、計測タグの動作を切り替える仕組みです。
+        </p>
+
+        <div class="grid two">
+          <div class="card">
+            <h3>Basic（基本）モード</h3>
+            <p>ユーザーが同意しなかった場合、計測タグの発火自体をブロックする。データは取得されないが、
+              プライバシー対応としてはシンプル。</p>
+          </div>
+          <div class="card">
+            <h3>Advanced（詳細）モード</h3>
+            <p>ユーザーが同意しなかった場合でも、個人を特定しない匿名化された信号（Cookieless ping）を送信し、
+              Google側のモデリング機能で不足データを統計的に補完する方式。</p>
+          </div>
+        </div>
+
+        <div class="note">
+          <strong>2026年時点の位置づけ（要最新確認）:</strong> 同意モードのバージョン2（Consent Mode v2）への対応は、
+          Google広告のパーソナライズ機能や広告効果の精緻な計測を維持する上で重要性が増しているとされます。
+          Cookie同意バナー（CMP：Cookie同意管理ツール）と連携して実装されるのが一般的で、
+          具体的な実装要否・方式は案件のターゲット地域（EU圏を含むか等）や規約変更によって変わるため、
+          該当しそうな案件では制作担当・法務確認と連携すること。
+        </div>
+      </section>
+
+      <section id="trouble">
+        <h2>7. よくあるトラブルと確認の視点</h2>
+        <p>
+          計測トラブルの原因を100%自力で特定できる必要はありませんが、「どこを疑うべきか」の見立てができると、
+          制作・実装担当への相談がスムーズになります。
+        </p>
+
+        <table>
+          <thead><tr><th>症状</th><th>疑うべきポイント（例）</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>コンバージョン数が急にゼロになった</td>
+              <td>サイトリニューアル・URL変更・フォーム改修のタイミングと重なっていないか。
+                タグの発火条件（トリガー）が変更後のページ構造と合っていない可能性がある</td>
+            </tr>
+            <tr>
+              <td>広告媒体とGA4の数値が大きく食い違う</td>
+              <td>計測期間の定義の違い、クロスドメイン計測の設定漏れ、広告ブロッカーの影響、
+                そもそも計測している「成果」の定義が媒体間で異なっていないか</td>
+            </tr>
+            <tr>
+              <td>一部のブラウザ・ユーザーだけ計測されない</td>
+              <td>Cookie同意状況（同意モードの設定）や、特定ブラウザの追跡防止機能の影響である可能性</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>確認によく使われるツール（名称を知っておく）</h3>
+        <div class="grid two">
+          <div class="card">
+            <h3>GA4のDebugViewレポート</h3>
+            <p>今まさに発生しているイベントをリアルタイムで確認できる機能。タグが実際に届いているかの確認に使う。</p>
+          </div>
+          <div class="card">
+            <h3>タグアシスタント（Tag Assistant）</h3>
+            <p>Googleが提供する、特定ページでどのタグが発火しているかをブラウザ上で確認できるツール。</p>
+          </div>
+        </div>
+
+        <div class="note">
+          <strong>実務での立ち回り方:</strong> 新人のうちは「自分でタグの不具合を直す」ことよりも、
+          「いつから」「どのページで」「どんな症状が」起きているかを正確にヒアリング・記録し、
+          制作・実装担当や社内のGTM管理者に的確に引き継ぐことが最も価値を発揮しやすい役割です。
+        </div>
+      </section>
+
+      <section id="media">
+        <h2>8. 広告媒体の計測連携との関係</h2>
+        <p>
+          各広告媒体のマニュアルで登場する計測関連の用語は、すべてこの資料の内容とつながっています。
+          横断的に整理しておきます。
+        </p>
+
+        <table>
+          <thead><tr><th>媒体</th><th>関連する計測の仕組み</th></tr></thead>
+          <tbody>
+            <tr><td>Google広告</td><td>コンバージョンタグ（GTM経由の設置が一般的）、拡張コンバージョン、GA4との連携インポート</td></tr>
+            <tr><td>Meta広告</td><td>Metaピクセル（ブラウザ側）＋Conversions API（CAPI・サーバー側）の併用構成</td></tr>
+            <tr><td>LINE広告</td><td>LINE Tag。ただし2026年の「LINEヤフー広告」統合に伴い、旧LINE Tagがディスプレイ広告に対応せず
+              再設定が必要になるケースがある（詳細はLINE広告マニュアル参照）</td></tr>
+            <tr><td>X／TikTok広告</td><td>各媒体独自の計測タグをGTM経由、または直接埋め込みで設置。基本構造はGoogle広告と同様</td></tr>
+          </tbody>
+        </table>
+
+        <div class="note">
+          <strong>Web基礎知識との関連:</strong> サイトの移管・リニューアル時に計測タグの再設定が漏れやすいという話は
+          「Web基礎知識」資料の8章でも触れています。計測は「一度設定したら終わり」ではなく、
+          サイト側の変更のたびに動作確認が必要なものと理解しておいてください。
+        </div>
+      </section>
+
+      <section id="glossary">
+        <h2>9. 用語集</h2>
+        <table>
+          <thead><tr><th>用語</th><th>意味</th></tr></thead>
+          <tbody>
+            <tr><td>GA4</td><td>Googleが提供する無料のアクセス解析ツール（現行の標準）</td></tr>
+            <tr><td>GTM</td><td>複数の計測タグをまとめて管理できる無料ツール</td></tr>
+            <tr><td>タグ</td><td>計測・広告連携のために発火させるプログラム本体</td></tr>
+            <tr><td>トリガー</td><td>タグを発火させる条件（クリック、特定ページの表示等）</td></tr>
+            <tr><td>変数</td><td>トリガーやタグの中で使う動的な値</td></tr>
+            <tr><td>イベント</td><td>GA4における計測の基本単位（ページ閲覧、クリック、購入等）</td></tr>
+            <tr><td>コンバージョン</td><td>案件ごとに定義した「成果」となる行動</td></tr>
+            <tr><td>ピクセル</td><td>Meta広告などで使われる計測タグの呼び方</td></tr>
+            <tr><td>CAPI（Conversions API）</td><td>ブラウザを介さずサーバー側から直接広告媒体へ計測データを送る仕組み</td></tr>
+            <tr><td>同意モード（Consent Mode）</td><td>Cookie同意の有無に応じて計測タグの動作を切り替える仕組み</td></tr>
+            <tr><td>CMP</td><td>Cookie同意管理ツール（同意バナーの表示・管理を行うサービス）</td></tr>
+            <tr><td>Looker Studio</td><td>GA4等のデータを取り込んで見やすいレポートに整形できる無料BIツール</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="checklist">
+        <h2>10. 理解度チェックリスト</h2>
+        <p>以下の質問に自分の言葉で説明できるか確認してみましょう。</p>
+        <div class="checklist">
+          <div class="checkitem"><span class="box"></span><span>GA4とGTMの役割の違い（「見る」ツールと「送る」仕組み）を説明できる</span></div>
+          <div class="checkitem"><span class="box"></span><span>GA4が「イベントベース」の計測であることの意味を説明できる</span></div>
+          <div class="checkitem"><span class="box"></span><span>GA4の主要指標（ユーザー数・セッション数・エンゲージメント率・コンバージョン）の違いを説明できる</span></div>
+          <div class="checkitem"><span class="box"></span><span>タグ・トリガー・変数というGTMの3要素の役割を説明できる</span></div>
+          <div class="checkitem"><span class="box"></span><span>広告媒体とGA4の数値が完全には一致しない理由を説明できる</span></div>
+          <div class="checkitem"><span class="box"></span><span>ブラウザ計測とサーバー側連携（CAPI等）を併用する理由を説明できる</span></div>
+          <div class="checkitem"><span class="box"></span><span>同意モード（Consent Mode）が何のための仕組みかを説明できる</span></div>
+          <div class="checkitem"><span class="box"></span><span>コンバージョン数が急に0になった際、まず何を確認すべきか説明できる</span></div>
+        </div>
+
+        <div class="warning">
+          <strong>注記:</strong> 本資料に記載のGA4・GTM・同意モードに関する情報は2026年8月時点の調査に基づく目安です。
+          Googleの仕様は頻繁にアップデートされるため、実案件で具体的な設定を行う際は必ず最新の公式ヘルプで確認してください。
+        </div>
+
+        <h3 style="margin-top:24px;">参考情報源</h3>
+        <ul class="source-list" style="list-style:none; padding-left:0;">
+          <li><a href="https://inhouse-plus.jp/marketing/ga4-reporting/" target="_blank" rel="noopener">2026年版 GA4レポートの作り方・見方（inhouse+）</a></li>
+          <li><a href="https://inno-mark.jp/blog/google-analytics/ga4-latest-update/" target="_blank" rel="noopener">GA4アップデートまとめ 2026年最新（inno-mark）</a></li>
+          <li><a href="https://stape.io/blog/google-consent-mode-v2" target="_blank" rel="noopener">Google Consent Mode V2: 2026 Setup & Guide（Stape）</a></li>
+          <li><a href="https://adaptique.jp/tips/gtmagree/" target="_blank" rel="noopener">GTMの同意モード（Consent Mode）とは（Adaptique）</a></li>
+        </ul>
+      </section>
+
+    </main>
+  </div>
+</body>
+</html>
