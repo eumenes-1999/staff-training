@@ -590,6 +590,17 @@
       border-top: 1px solid #eef0f5;
     }
 
+    .accordion-body h4 {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: #2c4a8a;
+      margin: 20px 0 8px;
+    }
+
+    .accordion-body h4:first-child {
+      margin-top: 0;
+    }
+
     /* ===== レスポンシブ ===== */
     @media (max-width: 768px) {
       .sidebar { display: none; }
@@ -617,14 +628,15 @@
     <nav>
       <a href="#sec1"><span class="nav-num">1</span>MEO運用とは？</a>
       <a href="#sec2"><span class="nav-num">2</span>meoクラウドとは？</a>
-      <a href="#sec3"><span class="nav-num">3</span>案件の種類とステータス</a>
-      <a href="#sec4"><span class="nav-num">4</span>案件別 作業フロー</a>
-      <a href="#sec5"><span class="nav-num">5</span>毎月の業務フロー</a>
-      <a href="#sec6"><span class="nav-num">6</span>投稿文の作成ルール</a>
-      <a href="#sec7"><span class="nav-num">7</span>口コミ返信対応</a>
-      <a href="#sec8"><span class="nav-num">8</span>投稿ステータスの管理</a>
-      <a href="#sec9"><span class="nav-num">9</span>meoリセットとは</a>
-      <a href="#sec10"><span class="nav-num">10</span>よくある用語集</a>
+      <a href="#sec3"><span class="nav-num">3</span>meoクラウド操作マニュアル</a>
+      <a href="#sec4"><span class="nav-num">4</span>案件の種類とステータス</a>
+      <a href="#sec5"><span class="nav-num">5</span>案件別 作業フロー</a>
+      <a href="#sec6"><span class="nav-num">6</span>毎月の業務フロー</a>
+      <a href="#sec7"><span class="nav-num">7</span>投稿文の作成ルール</a>
+      <a href="#sec8"><span class="nav-num">8</span>口コミ返信対応</a>
+      <a href="#sec9"><span class="nav-num">9</span>投稿ステータスの管理</a>
+      <a href="#sec10"><span class="nav-num">10</span>meoリセットとは</a>
+      <a href="#sec11"><span class="nav-num">11</span>よくある用語集</a>
       <a href="#summary"><span class="nav-num">✓</span>まとめ</a>
     </nav>
   </aside>
@@ -635,7 +647,7 @@
     <div class="page-header">
       <div class="badge">新人研修用</div>
       <h1>MEO業務マニュアル</h1>
-      <p class="header-sub">案件別の作業フロー・投稿ルール・ステータス管理・meoリセットまで、MEO業務に必要な知識をまとめた研修資料です。</p>
+      <p class="header-sub">meoクラウドの操作方法から、案件別の作業フロー・投稿ルール・ステータス管理・meoリセットまで、MEO業務に必要な知識をまとめた研修資料です。</p>
       <a class="header-link" href="./MEOヒアリングスクリプト.html">MEOヒアリングスクリプトを開く</a>
       <a class="header-link" href="./MEOポリシー抵触ガイド.html">MEOポリシー抵触ガイドを開く</a>
     </div>
@@ -685,6 +697,430 @@
     <div class="section" id="sec3">
       <div class="section-header">
         <div class="section-num">3</div>
+        <h2>meoクラウド操作マニュアル</h2>
+      </div>
+
+      <p>ここでは実際にmeoクラウドの管理画面を操作する手順を、<strong>「個店機能」</strong>（1店舗ごとの管理画面）と<strong>「グループ機能」</strong>（複数店舗をまとめて管理する画面）に分けて解説します。各項目をクリックすると詳細な操作手順が開きます。初めて触る機能は、必ずここを確認してから作業しましょう。</p>
+
+      <h3>店舗・グループの切り替え方（共通操作）</h3>
+      <p>meoクラウドには、1店舗だけを表示する「個店」画面と、複数店舗をまとめて表示する「グループ」画面があります。まずはこの切り替え方を覚えましょう。</p>
+
+      <div class="pattern-grid">
+        <div class="pattern-card" style="align-items:flex-start;">
+          <div class="pattern-badge" style="border-radius:10px;">個</div>
+          <div class="pattern-text">
+            <div class="pattern-label">個店（1店舗）に切り替える</div>
+            <div class="pattern-example">
+              画面左上のロゴ横の店舗名表示をクリック→「店舗」タブを選択→検索ボックスか都道府県・エリアの階層から対象店舗をクリック→「閉じる」でその店舗のダッシュボードに切り替わる。<br>
+              ※画面右上のGoogleアイコンから「Googleビジネスプロフィール一覧」を開き、店舗名で検索して選ぶ方法もある。
+            </div>
+          </div>
+        </div>
+        <div class="pattern-card" style="align-items:flex-start;">
+          <div class="pattern-badge" style="border-radius:10px;">G</div>
+          <div class="pattern-text">
+            <div class="pattern-label">グループ（複数店舗）に切り替える</div>
+            <div class="pattern-example">
+              画面左上のロゴ横の表示をクリック→「グループ」タブを選択→検索窓でグループ名を検索、または一覧からグループ名をクリック→そのグループのダッシュボードに切り替わる。<br>
+              ※「任意グループ比較」ボタンで、店舗を自由に組み合わせた一時的な比較グループも作成できる。
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3>個店機能（1店舗ごとの管理）</h3>
+
+      <details class="accordion">
+        <summary>① 個店ダッシュボード</summary>
+        <div class="accordion-body">
+          <p>個店DBにログインした際に最初に表示されるトップ画面です。左側メニューから「ダッシュボード」「Googleデータ連携」など各機能に入ることができ、画面中央には当月の主要数値（表示回数・インタラクション＝ユーザーの反応回数など）とグラフが表示されます。</p>
+          <p>ここが以降のすべての機能（インサイト・順位チャート・GBP基本情報・投稿・口コミ・アンケートなど）への入り口になります。担当店舗の状態をざっくり把握したいときは、まずこの画面の数値を確認しましょう。</p>
+        </div>
+      </details>
+
+      <details class="accordion">
+        <summary>② インサイト（Googleインサイト）</summary>
+        <div class="accordion-body">
+          <p><strong>インサイトとは</strong>：GBPがGoogle検索・Googleマップ上でどれだけ表示され、ユーザーからどんな行動（クリック・電話・経路検索）をされたかを示す公式データです。</p>
+
+          <h4>見られる4種類のデータ</h4>
+          <p>左メニュー「Googleデータ連携」→「Googleインサイト」→「インサイト情報」から確認します。</p>
+          <ol>
+            <li><strong>ユーザーがビジネス情報の検索に使ったGoogleサービス（当月）</strong>：「Google検索での表示回数」と「GoogleMap表示回数」の内訳をドーナツグラフで表示</li>
+            <li><strong>ビジネス情報の検索に使ったビジネス情報とデバイス</strong>：「Googleマップ／Google検索」×「モバイル／パソコン」の4区分をドーナツグラフで表示</li>
+            <li><strong>アクション回数</strong>：Webサイトクリック数・電話数・経路案内数を折れ線グラフで日別表示（GBP上の「ウェブサイト」「経路案内」「電話」ボタンのクリックに対応）</li>
+            <li><strong>電話をかけた回数（曜日別）</strong>：曜日ごとの電話件数を棒グラフで表示。問い合わせが多い曜日の把握に使う</li>
+          </ol>
+
+          <h4>データ保存期間とCSVダウンロード</h4>
+          <p>meoクラウド上のデータ保存期間は<strong>18ヶ月</strong>（GBP公式は6ヶ月までしか遡れない）。19ヶ月以上前のデータを見たい場合は、事前にCSVでダウンロードしておきます。</p>
+          <p>手順：左メニュー「Googleデータ連携」→「データダウンロード」→「Googleインサイトデータ」フォームで①出力範囲（単店／複数）②ビジネス名③期間④表示形式（月別／日別）⑤ファイル形式（SHIFT-JIS／UTF-8）を設定→「CSVダウンロード」</p>
+
+          <h4>比較分析（期間比較）</h4>
+          <p>「インサイト情報」画面右上の<strong>「比較レポート」トグルをON</strong>にすると期間比較の棒グラフに切り替わります。期間は「1週間」「1ヶ月」「3ヶ月」「カスタム」から選択でき、比較対象は1週間＝昨年同時期、1ヶ月＝先月、3ヶ月＝3ヶ月前（カスタムは比較なし）です。画面上部には「全体表示回数」「全体アクション数」「全体アクション率」がタイル表示され、増減率とスパークラインが付きます。</p>
+
+          <h4>他店比較インサイト（業種別・都道府県別）</h4>
+          <p>店舗登録時に「業種」「都道府県」を設定しておくと、左メニュー「Googleデータ連携」→「業種別インサイト比較」／「都道府県別インサイト比較」から、同業種・同都道府県の平均値と自店舗を比較できます（表示回数・アクション回数・電話／ルート／Webサイトクリックの差）。自店舗が同条件の店舗と比べて見られている量が多いか少ないかを確認し、改善施策の参考にします。</p>
+        </div>
+      </details>
+
+      <details class="accordion">
+        <summary>③ 順位チャート・キーワード分析</summary>
+        <div class="accordion-body">
+          <p><strong>順位チャートとは</strong>：設定したキーワードでGoogleマップ検索をした際、自店舗が何位に表示されているかを日々計測・記録した機能です。</p>
+
+          <h4>4種類の順位分析（左メニュー「順位チャート」）</h4>
+          <ol>
+            <li><strong>順位チャート</strong>：「キーワード別前日比ランキング」に日付・キーワード・順位・前日比・検索エリアを一覧表示</li>
+            <li><strong>キーワード別デイリーランキング</strong>：期間指定・「20位以内のみ」等のフィルタで、複数キーワードの順位推移を折れ線グラフで表示</li>
+            <li><strong>全キーワード平均値デイリーランキング</strong>：全設定キーワードの平均順位を1本の折れ線で表示</li>
+            <li><strong>競合キーワード別デイリーランキング</strong>：キーワードを1つ選び、自店舗と競合店の順位推移を比較表示</li>
+          </ol>
+
+          <h4>キーワード分析（左メニュー「キーワード分析」）</h4>
+          <p>画面上部に「最高順位」「最低順位」「3位以内率」「GBPの検索総数」の4指標がタイル表示されます。「GBPの検索語句ランキング」テーブルでは、GBPを見たユーザーが実際にどんなキーワードで検索してたどり着いたかを月次で確認でき、右上の「CSVダウンロード」で出力できます。</p>
+
+          <h4>カレンダー順位レポート</h4>
+          <p>日付単位でキーワードごとの順位が青字リンクで一覧表示され、<strong>クリックするとその日にGoogleマップで検索した際の順位を示すキャプチャー画像（証跡）</strong>がポップアップ表示されます。</p>
+          <div class="ok-box">
+            <div class="ok-title">💡 活用シーン</div>
+            <p style="margin:0;">キーワード順位は計測地点・端末の検索履歴・時間帯によって変動するため、クライアントから「順位が違う」と質問された際のエビデンス（証跡資料）として活用します。</p>
+          </div>
+        </div>
+      </details>
+
+      <details class="accordion">
+        <summary>④ GBP基本情報</summary>
+        <div class="accordion-body">
+          <p><strong>GBP（Googleビジネスプロフィール）とは</strong>：Google検索・Googleマップ上に表示される、店舗の名称・住所・電話番号・営業時間などを管理する無料の公式ツール（旧称：Googleマイビジネス）です。MEO対策の土台となる情報源で、約50項目の設定項目があります。</p>
+
+          <h4>MEO順位を決める要素</h4>
+          <table>
+            <thead><tr><th>要素</th><th>重要度</th><th>内容</th></tr></thead>
+            <tbody>
+              <tr><td>Google Map内情報最適化（GBPシグナル）</td><td><strong>32%</strong></td><td>内部テキスト・投稿・画像の最適化</td></tr>
+              <tr><td>遷移先LPの最適化（オンページシグナル）</td><td>19%</td><td>構造化マークアップ等</td></tr>
+              <tr><td>口コミ・レビュー強化（レビューシグナル）</td><td>16%</td><td>口コミ返信・アンケート施策等</td></tr>
+              <tr><td>外部被リンク（リンクシグナル）</td><td>11%</td><td>他サイトからのリンク</td></tr>
+              <tr><td>アクション率（行動シグナル）</td><td>8%</td><td>クリック・電話・経路検索の発生率</td></tr>
+              <tr><td>サイテーション（引用シグナル）</td><td>7%</td><td>他サイトでの店舗名・住所等の言及</td></tr>
+            </tbody>
+          </table>
+          <p style="font-size:12.5px;color:#888;">出典：Whitespark社「ローカル検索ランキング要因調査」。最も影響が大きい「GBP情報最適化」＝この章のGBP基本情報の充実がMEO対策の中心になります。</p>
+
+          <h4>編集手順</h4>
+          <p>個店DBにログイン→左メニュー「Googleデータ連携」→「店舗基本情報」を開く。ビジネス名・郵便番号・都道府県・住所（住所2〜4）・WEBサイトURL・電話番号・営業時間（曜日ごとに「定休日／営業」ラジオボタン、24時間営業チェック、時間帯の「+追加」で複数設定）などを編集します。</p>
+
+          <h4>設定時の注意点</h4>
+          <div class="ng-box">
+            <div class="ng-title">⚠️ 必ず守ること</div>
+            <ul>
+              <li><strong>NAP情報（Name・Address・Phone）の統一</strong>：ビジネス名・住所・電話番号は、クライアントのHP記載内容と完全に一致させる（丁目表記の違いなどの表記ゆれもNG）</li>
+              <li><strong>WEBサイトURL</strong>：店舗情報が載っているLPを設定。メニューリンク・予約リンクも対象があれば必ず設定する</li>
+              <li><strong>メインカテゴリー</strong>：検索キーワードとの「関連性」に大きく影響する最重要項目。狙ったキーワードで上位表示されている競合店舗のカテゴリー設定を参考にする</li>
+              <li><strong>ビジネス情報（説明文）</strong>：半角750文字（全角350文字）以内。狙いたいキーワードを自然な文章に入れ込む</li>
+              <li><strong>属性</strong>：入れられる項目はすべてチェックを入れる。ホテル業等はユーザー側のフィルター検索（Wi-Fi・駐車場・ペットOK等）に使われるため、未設定だと機会損失になる</li>
+            </ul>
+          </div>
+
+          <h4>改ざん防止機能</h4>
+          <p>GBPは第三者も編集提案できるため、勝手に情報を書き換えられるリスクがあります。これに対応するのが「改ざん防止」機能です。</p>
+          <ul>
+            <li><strong>仕組み</strong>：毎朝バッチ処理時刻（6時／7時／8時のいずれか）に、meoクラウド側の登録情報を「正」としてGBPへ自動で上書きする</li>
+            <li><strong>適用項目</strong>：ビジネス名・住所・WEBサイトURL・電話番号・メインカテゴリー・開業日・ビジネス情報（説明文）・営業時間</li>
+            <li><strong>操作</strong>：「店舗基本情報」画面の各項目横、および画面右上にON/OFFのトグルスイッチがある</li>
+          </ul>
+          <div class="ng-box">
+            <div class="ng-title">⚠️ 特に注意</div>
+            <ul>
+              <li>改ざん防止ONの項目はGBP側から修正しても翌朝には元に戻る。<strong>更新作業は必ずmeoクラウド側から行うこと</strong></li>
+              <li>GBP側から直接修正したい場合は、事前に該当項目の改ざん防止を「OFF」にしてから行う</li>
+            </ul>
+          </div>
+        </div>
+      </details>
+
+      <details class="accordion">
+        <summary>⑤ GBP最新情報投稿</summary>
+        <div class="accordion-body">
+          <p><strong>最新情報投稿とは</strong>：GBP上の「投稿」機能。お知らせ・キャンペーン・イベントなどをGoogle検索／マップ上に表示させ、アクション率の向上やGBPの情報鮮度向上によるMEO順位向上につなげます。</p>
+
+          <h4>投稿手順</h4>
+          <p>左メニュー「Googleビジネスプロフィール」→「投稿」→右端の「新規作成」ボタン→タブ「最新情報／特典／イベント／COVID-19最新情報」を選択し、以下を設定します。</p>
+          <ol>
+            <li><strong>媒体</strong>：Google／Facebook／Instagram／X（旧Twitter）にチェック（複数同時選択も可）</li>
+            <li><strong>投稿日時</strong>：「即時」または「予約」</li>
+            <li><strong>投稿内容</strong>：本文を入力（1,500文字以内）。「文章生成AIアシスタント」ボタンで自動生成も可能</li>
+            <li><strong>画像</strong>：「ファイル選択」でアップロード、または「画像生成AIアシスタント」で自動生成</li>
+            <li><strong>ボタンの追加（任意）</strong>：CTAボタン「予約／オンライン注文／購入／詳細／登録／今すぐ電話」から選択</li>
+            <li><strong>ハッシュタグ</strong>：「#＋語句」の形式。<strong>「#」は必ず半角</strong>で入力</li>
+            <li><strong>承認者（ワークフロー）</strong>：設定している場合は「ワークフロー申請」ボタンから申請し、承認後に投稿反映</li>
+            <li><strong>反映店舗の選択</strong>（グループ投稿の場合）：エリアや店舗名で絞り込み「追加」で対象店舗を選択。未選択の場合は全店舗に反映</li>
+            <li>最後に「登録する」ボタンで確定</li>
+          </ol>
+
+          <h4>ChatGPTによる投稿生成（作業目安：1件あたり2分）</h4>
+          <p>「文章生成AIアシスタント」ボタン→文字数・伝えたいポイントを入力→「作成する」で複数候補が生成される。「画像生成AIアシスタント」ボタンも同様に指示文を入力して候補画像を生成できます。複数店舗への一括投稿でも内容をユニーク（重複回避）にできるのが利点です。</p>
+
+          <h4>画像・SNS連携の注意点</h4>
+          <table>
+            <thead><tr><th>媒体</th><th>GBPへの反映可能枚数</th></tr></thead>
+            <tbody>
+              <tr><td>GBP</td><td>1枚のみ</td></tr>
+              <tr><td>Instagram（フィード投稿のみ対象）</td><td>1枚のみ</td></tr>
+              <tr><td>Facebook</td><td>制限なし</td></tr>
+              <tr><td>X（Twitter）</td><td>4枚まで</td></tr>
+            </tbody>
+          </table>
+          <div class="ng-box">
+            <div class="ng-title">⚠️ 注意</div>
+            <ul>
+              <li>SNS側で2枚以上の画像を投稿しても、GBPには<strong>1枚目のみ</strong>が反映される</li>
+              <li>Instagramは「フィード投稿」のみGBP連携対象。「リール」「ストーリー」は連携対象外</li>
+              <li>初回SNSアカウント連携後は、<strong>連携日時から24時間以内の投稿のみ</strong>がGBPへの反映対象になる</li>
+            </ul>
+          </div>
+
+          <h4>SNS→GBPへの反映タイミング（バッチ処理時刻）</h4>
+          <table>
+            <thead><tr><th>媒体</th><th>反映タイミング</th></tr></thead>
+            <tbody>
+              <tr><td>Instagram</td><td>1:00 / 9:00 / 17:00</td></tr>
+              <tr><td>Facebook</td><td>10:00 / 14:00 / 19:00</td></tr>
+              <tr><td>X（Twitter）</td><td>1:00 / 4:00 / 7:00 / 10:00 / 13:00 / 16:00 / 19:00 / 22:00</td></tr>
+            </tbody>
+          </table>
+          <p style="font-size:13px;color:#888;">※meoクラウドからの直接投稿は即時反映されます。上記はSNS側に投稿した内容がGBPへ反映されるタイミングです。</p>
+        </div>
+      </details>
+
+      <details class="accordion">
+        <summary>⑥ 構造化マークアップ／口コミ・レビュー強化</summary>
+        <div class="accordion-body">
+          <p><strong>構造化マークアップ（構造化データ）とは</strong>：Webページの内容（店舗名・住所・営業時間など）をGoogleなどの検索エンジンが正確に読み取れるよう、HTMLに埋め込む専用コードのこと。設定するとGoogle検索結果に「リッチリザルト」（評価の星やパンくずリストなど）が表示されやすくなります。「遷移先LPの最適化」19%に該当し、<strong>クライアント（Web担当者）側の協力が必要</strong>な施策です。</p>
+
+          <h4>構造化データワンタグ作成手順</h4>
+          <ol>
+            <li>左メニュー「Googleデータ連携」→「構造化データ作成」を開く</li>
+            <li>形態（法人／クラブ・チーム／自治体・公的機関・官公庁／学校・大学／その他）・業種・店舗の説明文・MEO対象URL・ロゴ画像URL・タイトル・説明文などを入力</li>
+            <li>自動でソースコード（構造化データのタグ）が生成される</li>
+            <li>生成コードを「コピー」ボタンでコピーし、以下いずれかの方法でクライアントのWebページに埋め込んでもらう
+              <ul>
+                <li>HTMLに直接コードを貼り付け</li>
+                <li>HTMLに1行のコードを貼り付け</li>
+                <li>JavaScriptファイルをアップロードしてリンク</li>
+              </ul>
+            </li>
+          </ol>
+
+          <h4>埋め込み後の確認方法（リッチリザルトテスト）</h4>
+          <p><code>https://search.google.com/test/rich-results</code> にアクセス→タグを埋め込んだページのURLを貼り付け→「URLをテスト」→「◯件の有効なアイテムを検出しました」と表示されればOK（1件でも検出されれば問題なし）。</p>
+
+          <h4>口コミ返信（ChatGPT自動生成）</h4>
+          <ol>
+            <li>左メニュー「Googleデータ連携」→「クチコミ管理」を開く</li>
+            <li>返信したい口コミの下にある「AI返信アシスタント」ボタンをクリック</li>
+            <li>返信文が自動生成され、テキストエリアに反映される（自由に修正可能）</li>
+            <li>内容を確認後、「登録する」（ワークフロー設定がある場合は申請）で返信を確定</li>
+          </ol>
+          <p style="font-size:13px;color:#888;">※AIが生成しただけで勝手に返信が送信されることはありません。必ず人が確認・登録操作をします。</p>
+
+          <div class="ok-box">
+            <div class="ok-title">💡 口コミ返信の重要性</div>
+            <p style="margin:0;">口コミ返信率が高い店舗ほどCVR（コンバージョン率）が高い相関があるため（uberall社調査）、弊社では<strong>すべての口コミに返信する</strong>方針です。評価点（★平均）が4.4以上になるとCVRが大きく向上する傾向があるため、評点自体を上げる取り組み（アンケート施策など）も重要です。</p>
+          </div>
+
+          <h4>口コミアンケートPOPの作成（良質な口コミを集める施策）</h4>
+          <p>左メニュー「クチコミ促進」関連→「アンケート配布デザイン」で、名刺形式／パンフレット付きのテンプレートを選び、QRコード・対象アンケート・カラー・サイズ・タイトル・本文（全角180文字以内）・電話番号を設定→「PDFファイルを生成」でPOPを作成。店頭掲示やメルマガ・LINE配信で回答を促します。</p>
+          <p style="font-size:13px;color:#888;">流れ：店舗でアンケート配布→利用者がアンケート回答・口コミ投稿→独自の口コミツールで確認、の3ステップです。</p>
+        </div>
+      </details>
+
+      <details class="accordion">
+        <summary>⑦ 新規アンケート作成方法（個店）</summary>
+        <div class="accordion-body">
+          <p><strong>アンケート機能とは</strong>：来店客に満足度アンケートに答えてもらい、回答内容（評価の高低）によって「Googleの口コミ投稿画面」または「社内の口コミ管理画面」のどちらかに誘導する仕組みです。ネガティブな声を社内でキャッチしつつ、ポジティブな声はGoogleの口コミとして反映させ、口コミの質向上につなげます。</p>
+          <div class="ng-box">
+            <div class="ng-title">⚠️ 注意</div>
+            <p style="margin:0;">アンケートは<strong>一度でも回答されると内容の編集ができなくなる</strong>ため、作成前に内容を十分に確認しましょう。</p>
+          </div>
+
+          <h4>作成手順</h4>
+          <p>左メニュー「クチコミ促進」→「アンケート一覧」→右上の「＋新規作成」ボタン→以下を設定します。</p>
+          <ol>
+            <li><strong>アンケート名</strong>（管理用。回答者には非表示）</li>
+            <li><strong>質問タイトル</strong>（全角35文字以内）</li>
+            <li><strong>選択項目</strong>：回答の選択肢を最低3項目・最大5項目まで設定（1問目は「選択形式」必須）</li>
+            <li><strong>アンケート後レビュー画面遷移先</strong>：選択肢ごとに設定
+              <ul>
+                <li>「Googleレビュー」→Googleの口コミ投稿画面へ（満足度が高い回答向け）</li>
+                <li>「MEOツールのレビュー」→社内の口コミ評価入力画面へ（満足度が低い回答向け、社内で直接キャッチ）</li>
+              </ul>
+            </li>
+            <li>2問目以降は「＋質問追加」ボタンで追加。「選択形式」「自由入力形式」いずれかを選択可能</li>
+          </ol>
+
+          <h4>アンケート回答者付きアンケート（任意設定）</h4>
+          <p>下部の「アンケート回答者付きアンケート」チェックボックスをONにすると、最後に氏名・送信先メールアドレスの入力画面が追加されます（クーポン等の後日案内に活用）。「カスタマイズ設定」から冒頭文の編集や追加項目（項目名・補足説明）の設定が可能です。回答された氏名・メールアドレスは、店舗情報に設定されたメールアドレス宛に自動送信されます。</p>
+
+          <h4>管理・編集・QRコード発行</h4>
+          <ul>
+            <li>「アンケート一覧」の鉛筆アイコン（編集）：<strong>回答件数が0件のアンケートのみ</strong>編集可能</li>
+            <li>虫眼鏡アイコン（プレビュー）：回答者が実際に見る画面を確認。「アンケート画面QRコード」「レビュー画面QRコード」をPNG／JPGでダウンロードでき、店頭POPやチラシに活用</li>
+          </ul>
+
+          <h4>結果の確認</h4>
+          <p>「クチコミ促進」→「アンケート結果」で①対象アンケート名②期間③店舗を選択すると、ドーナツグラフと選択肢別の回答件数テーブルが表示され、「ダウンロード」からXLSX／PDFで出力できます。「ユーザーレビュー」欄には、「MEOツールのレビューへ遷移」を選んだ回答者が社内画面に直接書き込んだ内容（Google未公開の生の声）が表示され、ネガティブな意見の早期発見・社内対応に使います。</p>
+        </div>
+      </details>
+
+      <h3>グループ機能（複数店舗まとめ管理）</h3>
+
+      <details class="accordion">
+        <summary>① グループダッシュボード／インサイト情報</summary>
+        <div class="accordion-body">
+          <p>グループを選択すると最初に表示される画面。個店ダッシュボードと同様に「全体表示回数」「インタラクション（反応）回数」「アクション数」などがグループ全体の合算値で表示されます。複数店舗をまとめて管理している場合、まずこの画面でグループ全体の動きを把握します。</p>
+
+          <h4>インサイト情報</h4>
+          <p>左メニュー「Googleインサイト」から、以下を1週間／1ヶ月／3ヶ月／カスタム期間で確認できます。</p>
+          <ol>
+            <li><strong>ユーザーがビジネス情報の検索に使ったGoogleサービス</strong>：右上プルダウンで表示項目を切替。「（1）個店比較」＝10店舗ごとの折れ線グラフで店舗間の差を比較、「（2）グループ総数」＝全店舗合計を棒グラフ＋円グラフで表示</li>
+            <li><strong>ビジネス情報の検索に使ったGoogleサービス（PC／SP別）</strong>：PC・スマホ別の検索経路を積み上げ棒グラフで表示</li>
+            <li><strong>アクション回数</strong>：電話・ルート検索・Webサイトクリックの合計回数を折れ線グラフで表示。個店比較（10店舗ごと）で、突出して数値が高い店舗をひと目で発見できる</li>
+          </ol>
+          <p style="font-size:13px;color:#888;">用途：グループ内でどの店舗の集客状況が良い／悪いかを比較し、テコ入れが必要な店舗を洗い出すために使います。</p>
+        </div>
+      </details>
+
+      <details class="accordion">
+        <summary>② グループ基本情報（一括編集）</summary>
+        <div class="accordion-body">
+          <p>左メニュー「Googleビジネスプロフィール」→「店舗基本情報」から、目的に応じて3パターンの編集方法があります。</p>
+
+          <h4>パターンA：1店舗だけ修正したい場合</h4>
+          <p>一覧表の各店舗行にある鉛筆マーク（✎）から、その店舗単体の基本情報を編集します。</p>
+
+          <h4>パターンB：複数店舗を同じ内容に一括修正したい場合</h4>
+          <ol>
+            <li>一覧画面右上の「グループ一括編集」ボタンをクリック</li>
+            <li>「ビジネスプロフィール一括編集」画面で対象店舗にチェック</li>
+            <li>「メインカテゴリー」「サイトURL」「予約リンク」（※後者2つはグループ共通の場合のみ登録可）「ビジネス情報」（全角750文字以内）「営業時間」を編集</li>
+            <li>下部の「登録する」ボタンで、選択した全店舗に一括反映</li>
+          </ol>
+
+          <h4>パターンC：店舗ごとに異なる内容へ一括修正したい場合（CSV一括編集）</h4>
+          <ol>
+            <li>一覧画面右上の「ダウンロード」ボタンで、登録済み情報が入ったExcel/CSVを取得</li>
+            <li>ファイルを開き、店舗ごとに変更したいセルを編集</li>
+            <li>「インポート」ボタンから編集済みファイルをアップロードし、各店舗ごとに異なる内容を一括反映</li>
+          </ol>
+          <div class="ng-box">
+            <div class="ng-title">⚠️ CSV記入時の注意点（特別営業時間・定休日）</div>
+            <ul>
+              <li>1つのセルに1行でまとめて記載する（例：定休日「2023/11/06 定休日、2023/11/07 定休日」／特別営業時間「2023/11/06 11:00 20:00、 2023/11/07 12:00 19:00」）</li>
+              <li>複数日程は「、」（読点）で区切る</li>
+              <li>日付と時刻の間のスペースは<strong>半角</strong>で入力する</li>
+              <li>開始時刻と終了時刻の間は記号不要、半角スペースのみ</li>
+            </ul>
+          </div>
+        </div>
+      </details>
+
+      <details class="accordion">
+        <summary>③ グループGBP最新情報投稿</summary>
+        <div class="accordion-body">
+          <p>個店と同じ要領で、複数店舗に一括投稿できます（作業目安：1ユニークあたり2分）。左メニュー「Googleビジネスプロフィール」→「投稿」→「新規作成」から、媒体・投稿日時・投稿内容（1,500文字以内）・画像・CTAボタン・ハッシュタグ・承認者（ワークフロー）を設定するのは個店と共通です（詳細は「⑤ GBP最新情報投稿」参照）。グループ特有の設定項目は以下の通りです。</p>
+          <ul>
+            <li><strong>反映店舗の選択</strong>：エリアや店舗名で絞り込み、対象店舗を「追加」ボタンで選択。<strong>何も選択しなければ全店舗に反映される</strong></li>
+          </ul>
+
+          <h4>ChatGPTによる投稿文・画像の一括生成</h4>
+          <p>「詳細文AIアシスタント」ボタン→文字数・投稿の狙いを入力→「作成する」で投稿文を生成。「画像アシスタント」ボタン→条件文・画質基準（High等）を入力→「作成する」で候補画像を複数生成し、使いたい画像を選んで反映します。</p>
+
+          <h4>グループでの一括インポート</h4>
+          <ol>
+            <li>「投稿」一覧画面の「ダウンロード」ボタンからインポート用テンプレート（Excel）を出力</li>
+            <li>店舗名・投稿タイプ・即時／予約・開始日時／終了日時・Facebook／Instagram／X配信可否（○×）を入力して保存</li>
+            <li>「ファイルアップロード」で対象ファイルを選択</li>
+            <li>「投稿一括インポート」ボタンで取り込み、一括反映</li>
+          </ol>
+        </div>
+      </details>
+
+      <details class="accordion">
+        <summary>④ グループ クチコミ対策</summary>
+        <div class="accordion-body">
+          <p>複数店舗の口コミをまとめて確認・返信する機能です。左メニュー「Googleデータ連携」→「クチコミ管理」から操作します。返信方法は主に3パターンあります。</p>
+
+          <h4>方法1：クチコミ一括ダウンロード／一括返信（各口コミにユニークな返信をつけたい場合）</h4>
+          <ol>
+            <li>「クチコミ一括返信」画面で対象フォルダ・対象店舗・期間を指定し「ダウンロード」（Excelに「投稿者名」「★数」「コメント」「感情分析評価」「初回投稿日」「返信」等が出力される）</li>
+            <li>「返信内容」列に各口コミへの返信文を記入</li>
+            <li>「一括返信インポート」ボタンからアップロード→Googleビジネスプロフィールの口コミ欄に自動反映</li>
+          </ol>
+          <p style="font-size:13px;color:#888;">※ワークフロー（承認フロー）を経由したい場合は「WF申請付インポート」ボタンを使用します。</p>
+
+          <h4>方法2：クチコミ自動返信一括設定（条件に応じたテンプレート返信）</h4>
+          <p>専用Excel（一括返信インポート用フォーマット）で、店舗ごとに条件と自動返信ルールを設定します。</p>
+          <table>
+            <thead><tr><th>列</th><th>内容</th></tr></thead>
+            <tbody>
+              <tr><td>A・B列</td><td>店舗ID・店舗名（編集しない）</td></tr>
+              <tr><td>C列</td><td>投稿パターンID（自動採番）</td></tr>
+              <tr><td>D列</td><td>投稿パターン名（重複不可。「店舗名＋条件内容」推奨）</td></tr>
+              <tr><td>E・F・G列</td><td>適用条件（感情分析評価・評価点・コメント有無）※同一店舗×同一条件は1つまで</td></tr>
+              <tr><td>H列</td><td>自動返信するテンプレート返信文</td></tr>
+              <tr><td>I列</td><td>自動返信の有無（○／×）</td></tr>
+            </tbody>
+          </table>
+          <p style="font-size:13px;color:#888;">例：「星5・コメントなし」の口コミには自動でお礼文を返す、など定型対応の工数を削減できます。</p>
+
+          <h4>方法3：ChatGPTによる返信文一括生成</h4>
+          <ol>
+            <li>「クチコミAI返信アシスタント」画面で期間を指定</li>
+            <li>「AI返信条件の設定」でトーン・条件（文字数・謝礼の要否・担当者名等）を設定</li>
+            <li>「AI返信文章ダウンロード」ボタンで、生成された返信文をExcelでダウンロード</li>
+            <li>内容を確認・手直しし、「一括返信インポート」で反映</li>
+          </ol>
+
+          <div class="ok-box">
+            <div class="ok-title">💡 実運用のおすすめフロー</div>
+            <ol style="margin:0;">
+              <li>「クチコミ一括返信」で対象を指定してダウンロード</li>
+              <li>件数が多い／内容にばらつきがある場合は「AI返信アシスタント」で下書きを生成</li>
+              <li>AI生成分は必ず目視確認（店名・固有名詞・不自然な言い回しをチェック）</li>
+              <li>「一括返信インポート」（必要ならWF申請付き）でアップロード</li>
+              <li>定型パターンは「クチコミ自動返信一括設定」で自動化しておく</li>
+            </ol>
+          </div>
+        </div>
+      </details>
+
+      <details class="accordion">
+        <summary>⑤ グループ 新規アンケート作成方法</summary>
+        <div class="accordion-body">
+          <p>グループ化した状態でアンケートを発行する機能で、発行方法は2パターンあります。</p>
+          <ul>
+            <li><strong>グループ共通アンケート</strong>：グループ内の全店舗に対して、共通の1つのアンケートを使う</li>
+            <li><strong>店舗個別アンケート</strong>：グループ内の各店舗にそれぞれ個別のアンケートを発行する</li>
+          </ul>
+
+          <h4>作成手順</h4>
+          <p>左メニュー「クチコミ促進」→「アンケート一覧」→「＋新規作成」→以下を設定します（個店とほぼ共通、グループ特有項目のみ抜粋）。</p>
+          <ol>
+            <li><strong>アンケートURL発行方法</strong>：「グループ共通URL発行」または「店舗ごとのURL発行」を選択</li>
+            <li>アンケート名・質問タイトル・選択項目（最低3〜最大5項目）・アンケート後レビュー画面遷移先（Googleレビュー／MEOツールのレビュー）の設定は個店と同様</li>
+          </ol>
+          <p style="font-size:13px;color:#888;">アンケート回答者付きアンケート・QRコード発行・結果ダウンロード（XLSX／PDF）・ユーザーレビュー確認の操作も個店機能と共通です（詳細は「⑦ 新規アンケート作成方法（個店）」参照）。</p>
+        </div>
+      </details>
+
+    </div>
+
+    <!-- 4 -->
+    <div class="section" id="sec4">
+      <div class="section-header">
+        <div class="section-num">4</div>
         <h2>案件の種類とステータス</h2>
       </div>
 
@@ -715,10 +1151,10 @@
       </table>
     </div>
 
-    <!-- 4 -->
-    <div class="section" id="sec4">
+    <!-- 5 -->
+    <div class="section" id="sec5">
       <div class="section-header">
-        <div class="section-num">4</div>
+        <div class="section-num">5</div>
         <h2>案件別 作業フロー</h2>
       </div>
 
@@ -809,9 +1245,9 @@
     </div>
 
     <!-- 5 -->
-    <div class="section" id="sec5">
+    <div class="section" id="sec6">
       <div class="section-header">
-        <div class="section-num">5</div>
+        <div class="section-num">6</div>
         <h2>毎月の業務フロー</h2>
       </div>
 
@@ -907,10 +1343,10 @@
       </table>
     </div>
 
-    <!-- 5 -->
-    <div class="section" id="sec6">
+    <!-- 7 -->
+    <div class="section" id="sec7">
       <div class="section-header">
-        <div class="section-num">6</div>
+        <div class="section-num">7</div>
         <h2>投稿文の作成ルール</h2>
       </div>
 
@@ -1015,10 +1451,10 @@
 
     </div>
 
-    <!-- 6 -->
-    <div class="section" id="sec7">
+    <!-- 8 -->
+    <div class="section" id="sec8">
       <div class="section-header">
-        <div class="section-num">7</div>
+        <div class="section-num">8</div>
         <h2>口コミ返信対応</h2>
       </div>
 
@@ -1035,10 +1471,10 @@
       </ol>
     </div>
 
-    <!-- 7 -->
-    <div class="section" id="sec8">
+    <!-- 9 -->
+    <div class="section" id="sec9">
       <div class="section-header">
-        <div class="section-num">8</div>
+        <div class="section-num">9</div>
         <h2>投稿ステータスの管理</h2>
       </div>
 
@@ -1073,10 +1509,10 @@
       </table>
     </div>
 
-    <!-- 8 -->
-    <div class="section" id="sec9">
+    <!-- 10 -->
+    <div class="section" id="sec10">
       <div class="section-header">
-        <div class="section-num">9</div>
+        <div class="section-num">10</div>
         <h2>月次リセット（meoリセット）とは</h2>
       </div>
 
@@ -1109,10 +1545,10 @@
       </ol>
     </div>
 
-    <!-- 9 -->
-    <div class="section" id="sec10">
+    <!-- 11 -->
+    <div class="section" id="sec11">
       <div class="section-header">
-        <div class="section-num">10</div>
+        <div class="section-num">11</div>
         <h2>よくある用語集</h2>
       </div>
 
