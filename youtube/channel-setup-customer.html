@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YouTubeチャンネル開設・オーナー権限付与 手順書</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+      font-size: 14px;
+      line-height: 1.7;
+      background: #f5f5f5;
+      color: #333;
+    }
+
+    .page-wrapper {
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 0 16px 60px;
+    }
+
+    /* ヘッダー */
+    .page-header {
+      background: linear-gradient(135deg, #c00 0%, #e53935 100%);
+      color: #fff;
+      border-radius: 10px;
+      padding: 24px 28px;
+      margin-bottom: 28px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .page-header h1 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .page-header .subtitle {
+      font-size: 13px;
+      opacity: 0.85;
+    }
+
+    /* セクション */
+    .section {
+      background: #fff;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .section-header {
+      padding: 14px 20px;
+      font-weight: 700;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-header.blue   { background: #1565c0;  color: #fff; }
+    .section-header.green  { background: #2e7d32;  color: #fff; }
+    .section-header.purple { background: #6a1b9a;  color: #fff; }
+    .section-header.gray   { background: #455a64;  color: #fff; }
+
+    .section-body {
+      padding: 18px 20px;
+    }
+
+    .method-label {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 700;
+      color: #1565c0;
+      background: #e3f2fd;
+      border-radius: 6px;
+      padding: 4px 12px;
+      margin: 16px 0 10px;
+    }
+
+    .method-label:first-child {
+      margin-top: 4px;
+    }
+
+    /* 操作ステップ */
+    .steps {
+      list-style: none;
+      counter-reset: step-counter;
+      margin: 10px 0 14px;
+    }
+
+    .steps li {
+      counter-increment: step-counter;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    .steps li::before {
+      content: counter(step-counter);
+      min-width: 24px;
+      height: 24px;
+      background: #1565c0;
+      color: #fff;
+      border-radius: 50%;
+      font-weight: 700;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* 分岐ボックス */
+    .branch {
+      border: 2px solid #90caf9;
+      border-radius: 8px;
+      margin: 12px 0;
+      overflow: hidden;
+    }
+
+    .branch-header {
+      background: #bbdefb;
+      padding: 8px 14px;
+      font-weight: 700;
+      font-size: 13px;
+      color: #0d47a1;
+    }
+
+    .branch-body {
+      padding: 12px 14px;
+    }
+
+    /* 注意書き */
+    .note {
+      background: #fce4ec;
+      border-left: 4px solid #e91e63;
+      border-radius: 4px;
+      padding: 10px 14px;
+      margin: 10px 0;
+      font-size: 13px;
+      color: #880e4f;
+    }
+
+    .note::before {
+      content: '⚠️ 注意：';
+      font-weight: 700;
+    }
+
+    /* 情報メモ */
+    .info {
+      background: #e8f5e9;
+      border-left: 4px solid #43a047;
+      border-radius: 4px;
+      padding: 10px 14px;
+      margin: 10px 0;
+      font-size: 13px;
+      color: #1b5e20;
+    }
+
+    .info::before {
+      content: '📌 メモ：';
+      font-weight: 700;
+    }
+
+    /* アカウント情報 */
+    .account-box {
+      background: #e3f2fd;
+      border: 2px dashed #1976d2;
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin: 10px 0;
+      text-align: center;
+    }
+
+    .account-box .label {
+      font-size: 12px;
+      color: #555;
+      margin-bottom: 4px;
+    }
+
+    .account-box .value {
+      font-size: 18px;
+      font-weight: 700;
+      color: #0d47a1;
+      letter-spacing: 0.5px;
+    }
+
+    /* Q&A */
+    .qa-item {
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      overflow: hidden;
+    }
+
+    .qa-question {
+      background: #f5f5f5;
+      padding: 10px 14px;
+      font-weight: 700;
+      font-size: 14px;
+      color: #c00;
+    }
+
+    .qa-answer {
+      padding: 12px 14px;
+      font-size: 14px;
+      background: #fffde7;
+      border-top: 1px solid #e0e0e0;
+    }
+
+    /* 区切り */
+    .divider {
+      border: none;
+      border-top: 1px dashed #ddd;
+      margin: 16px 0;
+    }
+
+    /* 目次 */
+    .toc {
+      background: #fff;
+      border-radius: 10px;
+      padding: 18px 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .toc h2 {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 10px;
+    }
+
+    .toc ul {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .toc ul li a {
+      display: inline-block;
+      padding: 5px 14px;
+      background: #e8eaf6;
+      color: #3949ab;
+      border-radius: 20px;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .footer-note {
+      text-align: center;
+      font-size: 12px;
+      color: #888;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-wrapper">
+
+  <!-- ページヘッダー -->
+  <div class="page-header">
+    <h1>📺 YouTubeチャンネル開設・オーナー権限付与 手順書</h1>
+    <div class="subtitle">株式会社ランバード</div>
+  </div>
+
+  <!-- 目次 -->
+  <div class="toc">
+    <h2>📋 目次</h2>
+    <ul>
+      <li><a href="#channel-create">① チャンネル開設</a></li>
+      <li><a href="#permission">② オーナー権限の付与</a></li>
+      <li><a href="#upload">③ 動画アップロードについて</a></li>
+      <li><a href="#analytics">④ アナリティクスの確認方法</a></li>
+      <li><a href="#qa">💬 よくあるご質問</a></li>
+    </ul>
+  </div>
+
+  <!-- ① チャンネル開設 -->
+  <div class="section" id="channel-create">
+    <div class="section-header blue">① チャンネル開設</div>
+    <div class="section-body">
+      <p>以下の手順に沿って、YouTubeチャンネルを作成してください。</p>
+
+      <div class="method-label">💻 パソコンでの操作</div>
+      <ol class="steps">
+        <li>パソコンでYouTubeのホーム画面を開いてください</li>
+        <li>画面右上の<strong>丸いアイコン（プロフィール写真）</strong>をクリックしてください</li>
+        <li>メニューの中から<strong>「設定」</strong>をクリックしてください</li>
+        <li>左メニューの<strong>「アカウント」</strong>をクリックしてください</li>
+        <li><strong>「チャンネルを追加または管理する」</strong>をクリックしてください</li>
+        <li>画面に表示される<strong>「＋ チャンネルを作成」</strong>をクリックしてください</li>
+        <li><strong>チャンネル名</strong>と<strong>ハンドルネーム（@〇〇）</strong>を入力してください</li>
+        <li>入力が完了しましたら、<strong>「作成」</strong>ボタンをクリックしてください</li>
+      </ol>
+
+      <div class="note">
+        ハンドルネームはGoogleが末尾にランダムな英数字を付与することがあります。変更可能な場合は屋号名に合わせて修正をお願いします。
+      </div>
+
+      <div class="branch">
+        <div class="branch-header">✅ 作成後、画面右上のアイコンをクリックし、一番上にチャンネル名が表示されている場合</div>
+        <div class="branch-body">これでチャンネル作成は完了です。</div>
+      </div>
+      <div class="branch">
+        <div class="branch-header">❌ 別のアカウントが表示されている場合</div>
+        <div class="branch-body">「アカウントを切り替える」をクリックし、先ほど作成したチャンネルを選択してください。これでアカウントの切り替えが完了となります。</div>
+      </div>
+
+      <hr class="divider">
+
+      <div class="method-label">📱 スマホ・タブレットでの操作</div>
+      <p>お使いの端末に<strong>YouTubeアプリ</strong>をダウンロードしたうえで、以下の手順を行ってください。</p>
+      <ol class="steps">
+        <li>YouTubeアプリを開いてください</li>
+        <li>画面右上（または右下）の<strong>丸いアイコン</strong>または<strong>「マイページ」</strong>をタップしてください</li>
+        <li>画面が切り替わり、アカウント名が表示されます。<strong>名前の下にある「チャンネルを表示」</strong>をタップしてください</li>
+        <li>右側に表示される<strong>ペンマーク（編集アイコン）</strong>をタップしてください</li>
+        <li>名前・ハンドルを<strong>屋号名</strong>に変更してください</li>
+        <li>下部の<strong>「保存」</strong>をタップしてください</li>
+      </ol>
+
+      <div class="note">
+        ハンドルネームはGoogleが末尾にランダムな英数字を付与することがあります。変更可能な場合は屋号名に合わせて修正をお願いします。
+      </div>
+
+      <p>以上で、YouTubeチャンネルの開設は完了です。</p>
+    </div>
+  </div>
+
+  <!-- ② オーナー権限の付与 -->
+  <div class="section" id="permission">
+    <div class="section-header blue">② オーナー権限の付与</div>
+    <div class="section-body">
+      <p>納品した動画を弊社にてアップロードできるよう、以下のメールアドレスに対してオーナー権限の付与をお願いいたします。</p>
+
+      <div class="account-box">
+        <div class="label">招待するメールアドレス</div>
+        <div class="value">runbird.ads@gmail.com</div>
+      </div>
+
+      <div class="method-label">💻 パソコンでの操作</div>
+      <ol class="steps">
+        <li>YouTubeのホーム画面から、画面右上のアイコンをクリックし、<strong>「YouTube Studio」</strong>へ移動してください</li>
+        <li>YouTube Studio の左メニュー下部にある<strong>「設定」（歯車マーク）</strong>をクリックしてください</li>
+        <li>設定画面が開きましたら、左側の<strong>「権限」（人マーク）</strong>をクリックしてください</li>
+        <li><strong>「招待」</strong>ボタンをクリックしてください</li>
+        <li>メールアドレス欄に <strong>runbird.ads@gmail.com</strong> を入力してください</li>
+        <li>役割の欄で<strong>「管理者」</strong>を選択してください</li>
+        <li>右下の<strong>「完了」または「保存」</strong>ボタンをクリックしてください</li>
+        <li>Googleアカウントのパスワードを求められた場合は入力してください</li>
+      </ol>
+
+      <hr class="divider">
+
+      <div class="method-label">📱 スマホ・タブレットでの操作</div>
+      <p><strong>「YouTube Studio」アプリ</strong>をダウンロードしたうえで、以下の手順を行ってください。</p>
+      <ol class="steps">
+        <li>YouTube Studioアプリを開いてください</li>
+        <li>画面右上の<strong>アイコン（プロフィール写真）</strong>をタップしてください</li>
+        <li><strong>「設定」（歯車マーク）</strong>をタップしてください</li>
+        <li><strong>「権限」（人マーク）</strong>をタップしてください</li>
+        <li><strong>「招待」</strong>をタップしてください</li>
+        <li>メールアドレス欄に <strong>runbird.ads@gmail.com</strong> を入力し、役割で<strong>「管理者」</strong>を選択してください</li>
+        <li><strong>「招待」ボタン</strong>をタップしてください</li>
+      </ol>
+
+      <div class="info">
+        招待完了後、弊社にてログインできるか確認のうえ、改めてご連絡いたします。
+      </div>
+    </div>
+  </div>
+
+  <!-- ③ 動画アップロードについて -->
+  <div class="section" id="upload">
+    <div class="section-header green">③ 動画アップロードについて</div>
+    <div class="section-body">
+      <p>オーナー権限の付与が完了しましたら、納品した動画のアップロードは弊社にて行います。お客様に別途ご対応いただく作業はございません。</p>
+
+      <div class="info">
+        アップロード後、運用開始月になるまでは公開ステータスを「限定公開」に設定しております。運用開始月になりましたら「公開」に変更いたします。
+      </div>
+
+      <p>また、アップロードした動画の<strong>タイトル・説明文</strong>につきましては、弊社にて入力後、内容にお間違いがないかご確認をお願いする場合がございます。ご確認の際は、YouTube Studioにログインいただき、該当の動画をクリックすると「タイトル」「概要」の項目をご覧いただけます。修正されたい箇所がございましたら、そのままご修正いただいて問題ございません。</p>
+    </div>
+  </div>
+
+  <!-- ④ アナリティクスの確認方法 -->
+  <div class="section" id="analytics">
+    <div class="section-header purple">④ アナリティクスの確認方法</div>
+    <div class="section-body">
+      <p><strong>「YouTube Studio」</strong>では、アップロードした動画の視聴回数などを確認いただけます。</p>
+      <ol class="steps">
+        <li>YouTube Studioのホーム画面を開いてください</li>
+        <li>画面左側の<strong>「アナリティクス」</strong>をクリックしてください</li>
+        <li>アップロードした動画がどれくらい視聴されているか確認いただけます</li>
+      </ol>
+      <p>視聴回数などが気になる際は、いつでもアナリティクスからご確認いただけます。</p>
+    </div>
+  </div>
+
+  <!-- よくあるご質問 -->
+  <div class="section" id="qa">
+    <div class="section-header gray">💬 よくあるご質問</div>
+    <div class="section-body">
+
+      <div class="qa-item">
+        <div class="qa-question">アップロードした動画は使ってもいいの？</div>
+        <div class="qa-answer">動画の使用権はお客様にございますので、ご自由にお使いいただいて差し支えございません。</div>
+      </div>
+
+      <div class="qa-item">
+        <div class="qa-question">このチャンネルに自分で動画をアップロードしてもいいの？</div>
+        <div class="qa-answer">問題ございません。他にもアップロードいただくと、さらに店舗のことを知っていただくきっかけ作りになりますので、ぜひご検討ください。</div>
+      </div>
+
+      <div class="qa-item">
+        <div class="qa-question">チャンネルの写真（アイコン・バナー）は変えられるの？</div>
+        <div class="qa-answer">変更可能です。YouTube Studioの左メニュー下部にある「カスタマイズ」→「ブランディング」からチャンネルアイコンやバナー画像を変更いただけます。</div>
+      </div>
+
+      <div class="qa-item">
+        <div class="qa-question">チャンネル名やハンドルは後から変えられるの？</div>
+        <div class="qa-answer">変更可能です。YouTube Studioの「カスタマイズ」→「基本情報」からチャンネル名とハンドルを変更いただけます。ただしハンドルは変更後に一定期間ロックされる場合がございますのでご注意ください。</div>
+      </div>
+
+      <div class="qa-item">
+        <div class="qa-question">権限を後から削除したい場合は？</div>
+        <div class="qa-answer">YouTube Studioの「設定」→「権限」から、追加したユーザーの削除が可能です。お手続きが必要な際はお気軽に弊社担当までご連絡ください。</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="footer-note">ご不明な点がございましたら、担当までお気軽にお問い合わせください。</div>
+
+</div><!-- /page-wrapper -->
+
+</body>
+</html>

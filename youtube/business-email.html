@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>【新人研修】ビジネスメール・チャットマナー</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #00695c;
+      --primary-dark: #004d40;
+      --primary-light: #e0f2f1;
+      --surface: #ffffff;
+      --surface-2: #f8f9fa;
+      --surface-3: #f1f3f4;
+      --text-primary: #202124;
+      --text-secondary: #5f6368;
+      --text-tertiary: #80868b;
+      --border: #e0e0e0;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.08);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.06);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background: #f0f7f6;
+      color: var(--text-primary);
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      background: linear-gradient(135deg, #003d33 0%, #00695c 45%, #009688 80%, #4db6ac 100%);
+      padding: 80px 24px 100px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%; left: -20%;
+      width: 60%; height: 200%;
+      background: rgba(255,255,255,0.04);
+      border-radius: 50%;
+      animation: float1 8s ease-in-out infinite;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -30%; right: -10%;
+      width: 50%; height: 150%;
+      background: rgba(255,255,255,0.05);
+      border-radius: 50%;
+      animation: float2 10s ease-in-out infinite;
+    }
+    @keyframes float1 { 0%,100%{transform:translateY(0) rotate(0deg);} 50%{transform:translateY(-30px) rotate(5deg);} }
+    @keyframes float2 { 0%,100%{transform:translateY(0) rotate(0deg);} 50%{transform:translateY(20px) rotate(-5deg);} }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #fff;
+      font-size: 13px; font-weight: 500;
+      padding: 6px 16px;
+      border-radius: 100px;
+      margin-bottom: 24px;
+      backdrop-filter: blur(10px);
+      position: relative; z-index: 1;
+    }
+    .hero h1 {
+      font-size: clamp(28px, 5vw, 52px);
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -0.5px;
+      margin-bottom: 16px;
+      position: relative; z-index: 1;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+    }
+    .hero h1 span {
+      background: linear-gradient(90deg, #b2dfdb, #80cbc4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: clamp(14px, 2vw, 18px);
+      color: rgba(255,255,255,0.85);
+      max-width: 620px;
+      margin: 0 auto 32px;
+      position: relative; z-index: 1;
+    }
+    .hero-meta {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      position: relative; z-index: 1;
+    }
+    .hero-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255,255,255,0.8);
+      font-size: 14px; font-weight: 500;
+    }
+    .hero-meta-item .icon {
+      width: 32px; height: 32px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+    }
+
+    /* ─── NAV ─── */
+    .nav-wrapper {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+    }
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      gap: 4px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .nav-inner::-webkit-scrollbar { display: none; }
+    .nav-item {
+      padding: 14px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-decoration: none;
+      white-space: nowrap;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -1px;
+      transition: all 0.2s;
+    }
+    .nav-item:hover { color: var(--primary); border-bottom-color: var(--primary); }
+    .nav-item.active { color: var(--primary); border-bottom-color: var(--primary); }
+
+    /* ─── MAIN ─── */
+    .main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    /* ─── SECTION ─── */
+    .section {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      padding: 36px 40px;
+      margin-bottom: 32px;
+      box-shadow: var(--shadow-md);
+      animation: fadeInUp 0.5s ease both;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .section-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      margin-bottom: 28px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid var(--primary-light);
+    }
+    .section-number {
+      width: 48px; height: 48px;
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      border-radius: var(--radius-md);
+      display: flex; align-items: center; justify-content: center;
+      color: #fff;
+      font-size: 18px; font-weight: 900;
+      flex-shrink: 0;
+    }
+    .section-title-wrap h2 {
+      font-size: 22px; font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+    .section-title-wrap p {
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    /* ─── CARDS ─── */
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+    .card {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 20px;
+      background: linear-gradient(135deg, #e0f2f1, #b2dfdb);
+      border-bottom: 1px solid #b2dfdb;
+    }
+    .card-header .icon { font-size: 22px; }
+    .card-header h3 { font-size: 15px; font-weight: 700; color: var(--primary-dark); }
+    .card-body { padding: 20px; }
+    .mt-24 { margin-top: 24px; }
+    .mb-24 { margin-bottom: 24px; }
+
+    /* ─── SCRIPT BLOCK ─── */
+    .script-block {
+      background: #f0fdf9;
+      border: 2px solid #4db6ac;
+      border-radius: var(--radius-md);
+      padding: 20px 24px;
+      margin: 16px 0;
+    }
+    .script-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .script-text {
+      font-size: 16px;
+      font-weight: 600;
+      color: #00352c;
+      line-height: 1.8;
+    }
+    .script-text .placeholder {
+      display: inline-block;
+      background: #b2dfdb;
+      color: var(--primary-dark);
+      border-radius: 4px;
+      padding: 1px 8px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .script-block.bad {
+      background: #fff3f3;
+      border-color: #ef9a9a;
+    }
+    .script-block.bad .script-label { color: #c62828; }
+    .script-block.bad .script-text { color: #7f0000; }
+
+    /* ─── STEP LIST ─── */
+    .step-list { display: flex; flex-direction: column; gap: 14px; }
+    .step-item { display: flex; gap: 14px; align-items: flex-start; }
+    .step-num {
+      width: 28px; height: 28px;
+      background: var(--primary);
+      color: #fff;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 700;
+      flex-shrink: 0; margin-top: 2px;
+    }
+    .step-content h4 { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+    .step-content p  { font-size: 13px; color: var(--text-secondary); }
+
+    /* ─── INFO BOX ─── */
+    .info-box {
+      display: flex;
+      gap: 12px;
+      padding: 14px 18px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      line-height: 1.6;
+      margin: 12px 0;
+    }
+    .info-box.green  { background: #e6f4ea; border-left: 4px solid #34A853; color: #1b5e20; }
+    .info-box.yellow { background: #fff8e1; border-left: 4px solid #FBBC05; color: #6d4c00; }
+    .info-box.red    { background: #fce8e6; border-left: 4px solid #ea4335; color: #7f0000; }
+    .info-box.blue   { background: #e8f0fe; border-left: 4px solid #4285F4; color: #1a237e; }
+    .info-box.teal   { background: #e0f2f1; border-left: 4px solid #009688; color: #004d40; }
+    .info-box .info-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+
+    /* ─── NG/OK COMPARE ─── */
+    .compare-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+    .compare-col-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .compare-col-label.ok  { color: #1b5e20; }
+    .compare-col-label.ng  { color: #c62828; }
+    .phrase-line {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+    .phrase-line.ok { border-left: 3px solid #34A853; }
+    .phrase-line.ng { border-left: 3px solid #ea4335; text-decoration: line-through; color: var(--text-tertiary); }
+
+    /* ─── FLOW ─── */
+    .flow-list { display: flex; flex-direction: column; gap: 0; }
+    .flow-item {
+      display: flex;
+      gap: 16px;
+      position: relative;
+    }
+    .flow-item:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 20px;
+      top: 42px;
+      width: 2px;
+      height: calc(100% - 10px);
+      background: #b2dfdb;
+    }
+    .flow-dot {
+      width: 42px; height: 42px;
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+      position: relative; z-index: 1;
+    }
+    .flow-content {
+      padding: 8px 0 24px;
+    }
+    .flow-content h4 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+    .flow-content p  { font-size: 13px; color: var(--text-secondary); }
+
+    /* ─── MOCK MAIL/CHAT ─── */
+    .mail-mock {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      margin: 16px 0;
+    }
+    .mail-mock-row {
+      display: flex;
+      padding: 10px 18px;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+    }
+    .mail-mock-row .label { width: 70px; flex-shrink: 0; font-weight: 700; color: var(--text-secondary); }
+    .mail-mock-row .value { color: var(--text-primary); }
+    .mail-mock-body { padding: 20px 18px; font-size: 14px; white-space: pre-line; color: var(--text-primary); }
+
+    .chat-mock { display: flex; flex-direction: column; gap: 8px; margin: 16px 0; }
+    .chat-bubble {
+      max-width: 78%;
+      padding: 10px 14px;
+      border-radius: 14px;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    .chat-bubble.in  { align-self: flex-start; background: #f1f3f4; color: var(--text-primary); border-bottom-left-radius: 4px; }
+    .chat-bubble.out { align-self: flex-end; background: #b2dfdb; color: #00352c; border-bottom-right-radius: 4px; }
+    .chat-bubble.bad { background: #fce8e6; color: #7f0000; }
+
+    /* ─── SUMMARY BOX ─── */
+    .summary-box {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 60%, #4db6ac 100%);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      text-align: center;
+      color: #fff;
+      margin-top: 12px;
+    }
+    .summary-box h2 { font-size: 22px; font-weight: 800; margin-bottom: 12px; }
+    .summary-box p  { font-size: 14px; opacity: 0.85; margin-bottom: 28px; }
+    .check-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      text-align: left;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+    .check-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      text-align: center;
+      padding: 32px 24px;
+      color: var(--text-tertiary);
+      font-size: 13px;
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    @media (max-width: 640px) {
+      .section { padding: 24px 20px; }
+      .grid-2 { grid-template-columns: 1fr; }
+      .compare-wrap { grid-template-columns: 1fr; }
+      .summary-box { padding: 28px 20px; }
+      .chat-bubble { max-width: 90%; }
+    }
+  </style>
+</head>
+<body>
+<script>
+(function(){
+  if(!sessionStorage.getItem('rb_auth')) location.replace('/staff-training/login.html');
+})();
+</script>
+
+<!-- ─── HERO ─── -->
+<header class="hero">
+  <div class="hero-badge">✉️ 新人研修資料</div>
+  <h1>ビジネスメール<br /><span>LINE WORKSチャットマナー</span></h1>
+  <p class="hero-sub">メールの基本構造・わかりやすい日本語の書き方から敬語の使い方、LINE WORKSでのやり取りのマナーまで、社外・社内でのやり取りに必要な言葉遣いをまとめた研修テキストです。</p>
+  <div class="hero-meta">
+    <div class="hero-meta-item"><div class="icon">📌</div>対象：入社1ヶ月以内の新人</div>
+    <div class="hero-meta-item"><div class="icon">⏱️</div>所要時間：約20〜25分</div>
+    <div class="hero-meta-item"><div class="icon">🎯</div>目標：一人で安心してメール・チャットを送れる</div>
+  </div>
+</header>
+
+<!-- ─── NAVIGATION ─── -->
+<nav class="nav-wrapper" aria-label="セクションナビゲーション">
+  <div class="nav-inner">
+    <a href="#section-structure" class="nav-item">📧 メールの基本構造</a>
+    <a href="#section-nihongo"   class="nav-item">✏️ わかりやすい日本語</a>
+    <a href="#section-keigo"     class="nav-item">🗣️ 敬語・言い換え</a>
+    <a href="#section-scene"     class="nav-item">📝 シーン別テンプレ</a>
+    <a href="#section-chat"      class="nav-item">💬 LINE WORKSマナー</a>
+    <a href="#section-usage"     class="nav-item">🔀 使い分け</a>
+  </div>
+</nav>
+
+<main class="main">
+
+  <!-- ─── 0. メールの基本構造 ─── -->
+  <section id="section-structure" class="section">
+    <div class="section-header">
+      <div class="section-number">📧</div>
+      <div class="section-title-wrap">
+        <h2>ビジネスメールの基本構造</h2>
+        <p>件名から締めの挨拶まで、どのメールにも共通する型を覚えましょう</p>
+      </div>
+    </div>
+
+    <div class="mail-mock">
+      <div class="mail-mock-row"><div class="label">件名</div><div class="value">【株式会社ランバード】〇月分ご請求書のご送付</div></div>
+      <div class="mail-mock-row"><div class="label">宛先</div><div class="value">株式会社〇〇 〇〇様</div></div>
+      <div class="mail-mock-body">いつもお世話になっております。
+株式会社ランバードの〇〇です。
+
+〇月分のご請求書をお送りいたします。
+ご確認のうえ、ご不明点等ございましたらお知らせください。
+
+お忙しいところ恐れ入りますが、
+よろしくお願いいたします。
+
+株式会社ランバード
+〇〇 〇〇
+TEL：000-0000-0000</div>
+    </div>
+
+    <div class="grid-2 mt-24">
+      <div class="card">
+        <div class="card-header"><span class="icon">🧩</span><h3>メールを構成する6つの要素</h3></div>
+        <div class="card-body">
+          <div class="step-list">
+            <div class="step-item">
+              <div class="step-num">1</div>
+              <div class="step-content">
+                <h4>件名</h4>
+                <p>「【会社名】要件が一目でわかる件名」にする。「お世話になっております」だけの件名はNG。</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">2</div>
+              <div class="step-content">
+                <h4>宛名</h4>
+                <p>「会社名（正式名称）＋部署名＋お名前＋様」の順。「様」は敬称なので「〇〇様さん」のような二重敬称にしない。</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">3</div>
+              <div class="step-content">
+                <h4>挨拶＋名乗り</h4>
+                <p>「いつもお世話になっております。株式会社ランバードの〇〇です。」が基本形。初回は「初めてご連絡いたします。」から。</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">4</div>
+              <div class="step-content">
+                <h4>本文</h4>
+                <p>結論・要件を先に、詳細は後から。1文は短く、改行と空行で読みやすく区切る。</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">5</div>
+              <div class="step-content">
+                <h4>締めの挨拶</h4>
+                <p>「よろしくお願いいたします。」が基本。依頼事項がある場合は依頼内容を一言添えてから締める。</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">6</div>
+              <div class="step-content">
+                <h4>署名</h4>
+                <p>会社名・氏名・連絡先を必ず入れる。社内共通の署名テンプレートがあれば流用する。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="icon">💡</span><h3>読みやすいメールにするコツ</h3></div>
+        <div class="card-body">
+          <div class="step-list">
+            <div class="step-item">
+              <div class="step-num">✓</div>
+              <div class="step-content">
+                <h4>1文40〜50字程度にする</h4>
+                <p>一文に情報を詰め込みすぎない。「〜ので、〜ですが、〜のため」と接続詞で繋げすぎたら分割する。</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">✓</div>
+              <div class="step-content">
+                <h4>結論を先に書く</h4>
+                <p>「〇〇の件でご連絡いたしました。」と最初に要件を伝え、経緯や詳細は後にまわす。</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">✓</div>
+              <div class="step-content">
+                <h4>箇条書きを使う</h4>
+                <p>依頼事項や確認事項が複数ある場合は、文章で並べず箇条書きにして見落としを防ぐ。</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">✓</div>
+              <div class="step-content">
+                <h4>送信前に必ず読み返す</h4>
+                <p>宛先名・添付ファイル・敬語のミスは送信後に取り返せない。声に出して読むと誤字に気づきやすい。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box teal mt-24">
+      <span class="info-icon">📌</span>
+      <p><strong>件名の付け方の鉄則：</strong>「ご連絡」「ご確認」だけの件名は避け、<strong>【会社名】＋何の用件か</strong>が一目でわかるようにする。例：「【株式会社ランバード】8月分レポートのご送付」</p>
+    </div>
+  </section>
+
+  <!-- ─── 0.5. わかりやすい日本語の書き方 ─── -->
+  <section id="section-nihongo" class="section">
+    <div class="section-header">
+      <div class="section-number">✏️</div>
+      <div class="section-title-wrap">
+        <h2>わかりやすい日本語の書き方</h2>
+        <p>敬語より前に、まず「伝わる文章」を書くための基本ルールです。丁寧な言葉を使っていても、文の組み立てが崩れていると読み手に伝わりません</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><span class="icon">1️⃣</span><h3>主語と述語を対応させる（ねじれをなくす）</h3></div>
+      <div class="card-body">
+        <p style="font-size:13px;color:var(--text-secondary);margin-bottom:14px;">文が長くなると、主語と述語がずれてしまう「ねじれ文」が起きやすくなります。書き終えたら主語に戻って確認しましょう。</p>
+        <div class="script-block bad">
+          <div class="script-label">❌ NG（主語と述語がねじれている）</div>
+          <div class="script-text">「今回のトラブルの原因は、担当者が確認を忘れていました。」</div>
+        </div>
+        <div class="script-block">
+          <div class="script-label">✅ OK</div>
+          <div class="script-text">「今回のトラブルの原因は、担当者が確認を忘れていたことです。」</div>
+        </div>
+        <div class="info-box teal mt-24" style="margin-top:16px;">
+          <span class="info-icon">💡</span>
+          <p>「〇〇は」で始めた文は、必ず「〇〇です／〇〇ということです」のように名詞・状態で受ける。書き終えたら「〇〇は、〜」を声に出して読み、噛み合っているか確認する。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mt-24">
+      <div class="card-header"><span class="icon">2️⃣</span><h3>修飾語は、修飾する言葉の近くに置く</h3></div>
+      <div class="card-body">
+        <p style="font-size:13px;color:var(--text-secondary);margin-bottom:14px;">説明を加える言葉（修飾語）と、説明される言葉（被修飾語）が離れていると、どこにかかっているのか誤解を生みます。</p>
+        <div class="script-block bad">
+          <div class="script-label">❌ NG（「本日中に対応が必要な」がどこにかかるか曖昧）</div>
+          <div class="script-text">「本日中に対応が必要な社内チャットで共有された問い合わせに回答してください。」</div>
+        </div>
+        <div class="script-block">
+          <div class="script-label">✅ OK</div>
+          <div class="script-text">「社内チャットで共有された問い合わせのうち、本日中に対応が必要なものに回答してください。」</div>
+        </div>
+        <div class="info-box teal mt-24" style="margin-top:16px;">
+          <span class="info-icon">💡</span>
+          <p>修飾語は、修飾したい言葉の<strong>すぐ前</strong>に置くと誤解が減る。長い修飾語ほど前に、短い修飾語ほど後ろに置くと読みやすい文になる。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mt-24">
+      <div class="card-header"><span class="icon">3️⃣</span><h3>一文一義（ひとつの文に、ひとつの内容）</h3></div>
+      <div class="card-body">
+        <p style="font-size:13px;color:var(--text-secondary);margin-bottom:14px;">「〜し、〜し、〜のため」と接続詞でつなぎ続けると、依頼事項や結論が埋もれてしまいます。伝えたい内容ごとに文を分けましょう。</p>
+        <div class="script-block bad">
+          <div class="script-label">❌ NG（1文に複数の内容が入っている）</div>
+          <div class="script-text">「本日お送りいただいた資料を確認したところ〇〇の記載に誤りがあったため、修正版を再度ご送付いただきたく、あわせて先方への共有も今週中にお願いしたいのですが、ご対応いただけますでしょうか。」</div>
+        </div>
+        <div class="script-block">
+          <div class="script-label">✅ OK（文を分ける）</div>
+          <div class="script-text">「本日お送りいただいた資料を確認したところ、〇〇の記載に誤りがございました。<br />お手数ですが、修正版を再度ご送付いただけますでしょうか。<br />また、先方への共有は今週中にお願いできますと幸いです。」</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mt-24">
+      <div class="card-header"><span class="icon">4️⃣</span><h3>指示語（これ・それ・その件）の多用に注意</h3></div>
+      <div class="card-body">
+        <p style="font-size:13px;color:var(--text-secondary);margin-bottom:14px;">「これ」「それ」「そちら」は書いている本人にはわかっても、読み手が何を指しているか毎回考える必要が出てしまいます。特にメールは時間が経ってから読まれることも多いため注意が必要です。</p>
+        <div class="script-block bad">
+          <div class="script-label">❌ NG（何を指しているか不明）</div>
+          <div class="script-text">「その件について、それを確認してから、そちらにご連絡します。」</div>
+        </div>
+        <div class="script-block">
+          <div class="script-label">✅ OK（具体的な名称に置き換える）</div>
+          <div class="script-text">「〇〇の見積りについて、内容を確認してから、〇〇様にご連絡します。」</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mt-24">
+      <div class="card-header"><span class="icon">5️⃣</span><h3>5W1Hで抜け漏れを確認する</h3></div>
+      <div class="card-body">
+        <p style="font-size:13px;color:var(--text-secondary);margin-bottom:14px;">送信前にこの6つが文章に入っているかを確認すると、「詳細を教えてください」と聞き返されるやり取りが減ります。</p>
+        <table style="width:100%;border-collapse:collapse;font-size:13px;">
+          <tbody>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:8px 6px;font-weight:700;color:var(--primary);width:32%;">Who（誰が・誰に）</td>
+              <td style="padding:8px 6px;color:var(--text-secondary);">依頼主・宛先・関係者の氏名や会社名</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:8px 6px;font-weight:700;color:var(--primary);">What（何を）</td>
+              <td style="padding:8px 6px;color:var(--text-secondary);">依頼・確認したい内容そのもの</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:8px 6px;font-weight:700;color:var(--primary);">When（いつまでに）</td>
+              <td style="padding:8px 6px;color:var(--text-secondary);">期限・希望日時</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:8px 6px;font-weight:700;color:var(--primary);">Where（どの資料・場所で）</td>
+              <td style="padding:8px 6px;color:var(--text-secondary);">対象のファイル名・URL・打ち合わせ場所</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:8px 6px;font-weight:700;color:var(--primary);">Why（なぜ）</td>
+              <td style="padding:8px 6px;color:var(--text-secondary);">依頼・連絡の背景や理由</td>
+            </tr>
+            <tr>
+              <td style="padding:8px 6px;font-weight:700;color:var(--primary);">How（どのように）</td>
+              <td style="padding:8px 6px;color:var(--text-secondary);">対応方法・手段（返信／電話／訪問など）</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="info-box yellow" style="margin-top:16px;">
+          <span class="info-icon">⚠️</span>
+          <p>すべてを毎回書く必要はありません。ただし抜けていると聞き返しが発生し、双方の時間を消費します。特に<strong>When（期限）とWhat（要件）</strong>の2つは省略しないようにしましょう。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 1. 敬語・言い換え ─── -->
+  <section id="section-keigo" class="section">
+    <div class="section-header">
+      <div class="section-number">🗣️</div>
+      <div class="section-title-wrap">
+        <h2>よく使う敬語・言い換え表現</h2>
+        <p>無意識に使ってしまいがちなカジュアル表現を、正しいビジネス言葉に直しましょう</p>
+      </div>
+    </div>
+
+    <div class="compare-wrap">
+      <div>
+        <div class="compare-col-label ng">❌ カジュアル・NG表現</div>
+        <div class="phrase-line ng">「了解です」</div>
+        <div class="phrase-line ng">「なるほどです」</div>
+        <div class="phrase-line ng">「すみませんが」</div>
+        <div class="phrase-line ng">「〜でよろしかったでしょうか」</div>
+        <div class="phrase-line ng">「〜してもらえますか」</div>
+        <div class="phrase-line ng">「ご苦労さまです」</div>
+        <div class="phrase-line ng">「〜になります」</div>
+      </div>
+      <div>
+        <div class="compare-col-label ok">✅ OK表現（言い換え）</div>
+        <div class="phrase-line ok">「承知いたしました」「かしこまりました」</div>
+        <div class="phrase-line ok">「おっしゃる通りでございます」</div>
+        <div class="phrase-line ok">「恐れ入りますが」「申し訳ございませんが」</div>
+        <div class="phrase-line ok">「〜でよろしいでしょうか」</div>
+        <div class="phrase-line ok">「〜していただけますでしょうか」</div>
+        <div class="phrase-line ok">「お疲れさまです」（社内のみ）</div>
+        <div class="phrase-line ok">「〜でございます」「〜です」</div>
+      </div>
+    </div>
+
+    <div class="card mt-24">
+      <div class="card-header"><span class="icon">📖</span><h3>シーン別 頻出フレーズ集</h3></div>
+      <div class="card-body">
+        <table style="width:100%;border-collapse:collapse;font-size:13px;">
+          <thead>
+            <tr style="background:var(--primary-light);">
+              <th style="padding:10px 12px;text-align:left;font-weight:700;color:var(--primary-dark);">場面</th>
+              <th style="padding:10px 12px;text-align:left;font-weight:700;color:var(--primary-dark);">フレーズ</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:10px 12px;font-weight:600;">依頼する</td>
+              <td style="padding:10px 12px;color:var(--text-secondary);">「お手数をおかけいたしますが、〜していただけますでしょうか。」</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);background:var(--surface-2);">
+              <td style="padding:10px 12px;font-weight:600;">確認する</td>
+              <td style="padding:10px 12px;color:var(--text-secondary);">「ご確認いただけますと幸いです。」</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:10px 12px;font-weight:600;">お礼を伝える</td>
+              <td style="padding:10px 12px;color:var(--text-secondary);">「ご対応いただき、誠にありがとうございます。」</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);background:var(--surface-2);">
+              <td style="padding:10px 12px;font-weight:600;">お詫びする</td>
+              <td style="padding:10px 12px;color:var(--text-secondary);">「ご迷惑をおかけし、深くお詫び申し上げます。」</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:10px 12px;font-weight:600;">断る・保留する</td>
+              <td style="padding:10px 12px;color:var(--text-secondary);">「大変恐縮ですが、〜については対応いたしかねます。」</td>
+            </tr>
+            <tr style="background:var(--surface-2);">
+              <td style="padding:10px 12px;font-weight:600;">急ぎを伝える</td>
+              <td style="padding:10px 12px;color:var(--text-secondary);">「お忙しいところ恐れ入りますが、〇日までにご確認いただけますと幸いです。」</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="info-box yellow mt-24">
+      <span class="info-icon">⚠️</span>
+      <p><strong>二重敬語に注意：</strong>「おっしゃられる」「拝見させていただく」のような、敬語を重ねすぎた表現は誤りです。「おっしゃる」「拝見する」で十分丁寧です。</p>
+    </div>
+  </section>
+
+  <!-- ─── 2. シーン別テンプレ ─── -->
+  <section id="section-scene" class="section">
+    <div class="section-header">
+      <div class="section-number">📝</div>
+      <div class="section-title-wrap">
+        <h2>シーン別メールテンプレート</h2>
+        <p>よく発生する場面ごとの文例です。〇〇部分を状況に合わせて置き換えて使いましょう</p>
+      </div>
+    </div>
+
+    <div class="script-block">
+      <div class="script-label">✅ 初めてご連絡する場合</div>
+      <div class="script-text">
+        「初めてご連絡いたします。株式会社ランバードの <span class="placeholder">〇〇</span> と申します。<br />
+        このたび <span class="placeholder">〇〇の件</span> でご連絡させていただきました。」
+      </div>
+    </div>
+
+    <div class="script-block mt-24">
+      <div class="script-label">✅ 日程調整をお願いする場合</div>
+      <div class="script-text">
+        「打ち合わせの日程についてご相談させてください。<br />
+        以下の日程でご都合のよいお時間はございますでしょうか。<br />
+        ・<span class="placeholder">〇月〇日（〇）〇時〜〇時</span><br />
+        ・<span class="placeholder">〇月〇日（〇）〇時〜〇時</span><br />
+        ご都合が合わない場合は、候補日時をいくつかいただけますと幸いです。」
+      </div>
+    </div>
+
+    <div class="script-block mt-24">
+      <div class="script-label">✅ お詫びする場合</div>
+      <div class="script-text">
+        「<span class="placeholder">〇〇</span> につきまして、ご迷惑をおかけし大変申し訳ございません。<br />
+        今後は<span class="placeholder">再発防止策</span>のうえ、同様の事態が起きないよう注意いたします。」
+      </div>
+    </div>
+
+    <div class="script-block mt-24">
+      <div class="script-label">✅ 返信・回答を催促する場合</div>
+      <div class="script-text">
+        「たびたびのご連絡となり恐れ入ります。<br />
+        <span class="placeholder">〇月〇日</span>にお送りした<span class="placeholder">〇〇の件</span>について、<br />
+        ご確認いただけておりますでしょうか。お手数ですがご確認をお願いいたします。」
+      </div>
+    </div>
+
+    <div class="script-block mt-24">
+      <div class="script-label">✅ 添付ファイルを送付する場合</div>
+      <div class="script-text">
+        「<span class="placeholder">〇〇資料</span>を添付いたしましたので、ご確認いただけますでしょうか。<br />
+        ご不明な点がございましたら、お気軽にお申し付けください。」
+      </div>
+    </div>
+
+    <div class="info-box teal mt-24">
+      <span class="info-icon">📎</span>
+      <p><strong>添付ファイルのマナー：</strong>本文中で必ず添付の存在に触れる（「添付いたしましたので」等）。ファイル名は内容がわかる名称にし、送信前に添付漏れ・ファイルの取り違えがないか必ず確認する。</p>
+    </div>
+  </section>
+
+  <!-- ─── 3. LINE WORKSマナー ─── -->
+  <section id="section-chat" class="section">
+    <div class="section-header">
+      <div class="section-number">💬</div>
+      <div class="section-title-wrap">
+        <h2>LINE WORKSチャットのマナー</h2>
+        <p>社内チャットはメールよりカジュアルですが、最低限守るべきルールがあります</p>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header"><span class="icon">👎</span><h3>NG例</h3></div>
+        <div class="card-body">
+          <div class="chat-mock">
+            <div class="chat-bubble in">お疲れさまです。〇〇の件、確認お願いします</div>
+            <div class="chat-bubble out bad">了解</div>
+          </div>
+          <p style="font-size:12px;color:var(--text-secondary);margin-top:8px;">「了解」だけの一言返信は、確認したのか・対応するのかが伝わらず不十分です。</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="icon">👍</span><h3>OK例</h3></div>
+        <div class="card-body">
+          <div class="chat-mock">
+            <div class="chat-bubble in">お疲れさまです。〇〇の件、確認お願いします</div>
+            <div class="chat-bubble out">承知しました、確認して〇時までにご連絡します</div>
+          </div>
+          <p style="font-size:12px;color:var(--text-secondary);margin-top:8px;">「何を」「いつまでに」対応するかが伝わる一言を添えると、相手が安心できます。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mt-24">
+      <div class="card-header"><span class="icon">📋</span><h3>基本ルール</h3></div>
+      <div class="card-body">
+        <div class="step-list">
+          <div class="step-item">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>気づいたらすぐ既読・すぐ一言返す</h4>
+              <p>すぐに結論が出せなくても、「確認します」「後ほど返信します」と一言返す。既読無視・放置は最も避けたい対応。</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>「了解」だけで終わらせない</h4>
+              <p>対応内容や完了予定を一言添える。「承知しました。〇時までに対応します。」のように具体的にする。</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>要件は最初の一言に詰め込む</h4>
+              <p>「ちょっといいですか？」だけ送って相手の反応を待つ「一言だけ送信」は避け、要件も一緒に送る。</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>グループチャットでは宛先を明確にする</h4>
+              <p>複数人がいる場では「〇〇さん、」と宛先を書くか@メンションを使い、誰への発言かをはっきりさせる。</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">5</div>
+            <div class="step-content">
+              <h4>スタンプ・絵文字は相手・場面に合わせる</h4>
+              <p>社内の親しい間柄では軽いスタンプもOKだが、上長への報告や重要な連絡ではスタンプのみの返信は避ける。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box yellow mt-24">
+      <span class="info-icon">⚠️</span>
+      <p><strong>報告・連絡・相談（報連相）はチャットでも文字で残す：</strong>口頭やスタンプだけで済ませず、決定事項・依頼内容は必ずテキストで送る。後から見返せる記録として残すことが重要です。</p>
+    </div>
+  </section>
+
+  <!-- ─── 4. 使い分け ─── -->
+  <section id="section-usage" class="section">
+    <div class="section-header">
+      <div class="section-number">🔀</div>
+      <div class="section-title-wrap">
+        <h2>メールとチャットの使い分け</h2>
+        <p>連絡手段を誤ると相手に伝わらなかったり、失礼な印象を与えることがあります</p>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header"><span class="icon">📧</span><h3>メールを使う場面</h3></div>
+        <div class="card-body">
+          <div class="step-list">
+            <div class="step-item">
+              <div style="font-size:20px;flex-shrink:0;">🏢</div>
+              <div class="step-content">
+                <h4>社外（クライアント・取引先）とのやり取り</h4>
+                <p>特別な事情がない限り、社外連絡は基本的にメールを使う。</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div style="font-size:20px;flex-shrink:0;">📄</div>
+              <div class="step-content">
+                <h4>記録として残す必要がある連絡</h4>
+                <p>契約・見積り・正式な依頼など、後から確認できる形で残したい内容。</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div style="font-size:20px;flex-shrink:0;">📎</div>
+              <div class="step-content">
+                <h4>資料やファイルを送付する場合</h4>
+                <p>フォーマルな体裁で送付する必要がある資料はメールに添付する。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="icon">💬</span><h3>チャットを使う場面</h3></div>
+        <div class="card-body">
+          <div class="step-list">
+            <div class="step-item">
+              <div style="font-size:20px;flex-shrink:0;">⚡</div>
+              <div class="step-content">
+                <h4>社内の簡単な確認・共有</h4>
+                <p>すぐに返事が欲しい社内向けの短い確認事項はLINE WORKSで。</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div style="font-size:20px;flex-shrink:0;">🕐</div>
+              <div class="step-content">
+                <h4>スピード重視の連絡</h4>
+                <p>会議の開始時刻変更など、今すぐ伝わってほしい連絡。</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div style="font-size:20px;flex-shrink:0;">🙋</div>
+              <div class="step-content">
+                <h4>ちょっとした相談・質問</h4>
+                <p>メールほど形式を整えなくてよい、日常的なやり取り。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box blue mt-24">
+      <span class="info-icon">💡</span>
+      <p><strong>迷ったらメール：</strong>社外の相手や、重要度・正式さが求められる内容は迷わずメールを選ぶ。チャットで済ませて後から「言った言わない」にならないよう注意する。</p>
+    </div>
+  </section>
+
+  <!-- ─── SUMMARY ─── -->
+  <div class="summary-box">
+    <h2>ビジネスメール・チャット チェックリスト</h2>
+    <p>送信前・返信前に確認しておきたいポイントです</p>
+    <div class="check-list">
+      <div class="check-item">☑️ 件名だけで要件がわかるようになっているか</div>
+      <div class="check-item">☑️ 宛名・敬称（様）を正しく書けているか</div>
+      <div class="check-item">☑️ 結論・要件を先に書けているか</div>
+      <div class="check-item">☑️ 主語と述語がねじれていないか（読み直して確認したか）</div>
+      <div class="check-item">☑️ 指示語（それ・その件）の多用でわかりにくくなっていないか</div>
+      <div class="check-item">☑️ 二重敬語・カジュアル表現が混ざっていないか</div>
+      <div class="check-item">☑️ 添付ファイルの漏れ・取り違えがないか</div>
+      <div class="check-item">☑️ チャットで「了解」だけの返信になっていないか</div>
+      <div class="check-item">☑️ 社外向けの内容をチャットで済ませていないか</div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <p>ビジネスメール・LINE WORKSチャットマナー 新人研修資料 &copy; 2025 | 社内研修用・社外秘</p>
+</footer>
+
+<script>
+  const sections = document.querySelectorAll('section[id]');
+  const navItems = document.querySelectorAll('.nav-item');
+
+  function updateActiveNav() {
+    let current = '';
+    sections.forEach(section => {
+      if (window.scrollY >= section.offsetTop - 100) {
+        current = section.getAttribute('id');
+      }
+    });
+    navItems.forEach(item => {
+      item.classList.remove('active');
+      if (item.getAttribute('href') === '#' + current) {
+        item.classList.add('active');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', updateActiveNav, { passive: true });
+  updateActiveNav();
+
+  navItems.forEach(item => {
+    item.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(item.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.animationPlayState = 'running';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.section').forEach(section => {
+    section.style.animationPlayState = 'paused';
+    observer.observe(section);
+  });
+</script>
+</body>
+</html>
