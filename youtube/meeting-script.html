@@ -118,8 +118,9 @@
     #main {
       margin-left: var(--sidebar-w);
       flex: 1;
-      max-width: 860px;
       padding: 32px 40px 100px;
+      /* 本文幅780pxを、メニューを除いた残りの幅の中央に置く */
+      padding-inline: max(40px, calc((100% - var(--sidebar-w) - 780px) / 2));
     }
 
     /* PAGE HEADER */
@@ -728,13 +729,10 @@
       <span class="nav-step-num">5</span>変更提案
     </a>
     <a href="#step6" class="nav-item">
-      <span class="nav-step-num">6</span>日切り
+      <span class="nav-step-num">6</span>締め
     </a>
     <a href="#step7" class="nav-item">
-      <span class="nav-step-num">7</span>締め
-    </a>
-    <a href="#step8" class="nav-item">
-      <span class="nav-step-num">8</span>終話後の作業
+      <span class="nav-step-num">7</span>終話後の作業
     </a>
     <div class="nav-section-label" style="margin-top:8px;">参考</div>
     <a href="#example" class="nav-item">
@@ -814,8 +812,7 @@
           </div>
           <div class="tip-box">
             <strong>電話がつながらない場合：</strong><br>
-            留守番電話になったら「株式会社ランバードの◯◯です。本日◯時からの定例会のお電話でした。改めてご連絡いたします。」と残す。<br>
-            少し時間をおいてもう一度かけ、それでもつながらなければ、上長に確認のうえ日程再調整のメールを送る。
+            留守番電話になったら「株式会社ランバードの◯◯です。本日◯時からの定例会のお電話をいたしました。後ほど日程調整のメールをお送りいたしますので、ご返信をいただくか、本メッセージにご返信いただけますと幸いです。それでは失礼いたします。」と残す。
           </div>
         </div>
       </div>
@@ -889,16 +886,6 @@
             </div>
           </div>
 
-          <!-- 配信地域 -->
-          <div class="sub-section">
-            <div class="sub-title"><span class="sub-dot"></span>配信地域（複数エリアの場合のみ）</div>
-            <div class="script-main" style="border-color:#0e7490;">
-              「現在、複数箇所に配信をしていますが、配信傾向として◯の方が配信傾向は高かったです。<br>
-              一方で、◇の地域は◯よりも少ないという結果でございます。」
-            </div>
-            <div class="arrow-note">※単一エリアの場合はスキップ可</div>
-          </div>
-
           <!-- 視聴維持率 -->
           <div class="sub-section">
             <div class="sub-title"><span class="sub-dot"></span>視聴維持率</div>
@@ -910,6 +897,16 @@
               視聴率（どれだけ見られたか）と視聴維持率（どこまで見続けられたか）は別の指標なので、混ぜて話さないこと。<br>
               業界平均の数字は公式な出典がなく、資料によってばらつきがあるため使わない。良し悪しは、同じお店の前回・前々回の数字と比べて伝える。
             </div>
+          </div>
+
+          <!-- 配信地域 -->
+          <div class="sub-section">
+            <div class="sub-title"><span class="sub-dot"></span>配信地域（複数エリアの場合のみ）</div>
+            <div class="script-main" style="border-color:#0e7490;">
+              「現在、複数箇所に配信をしていますが、配信傾向として◯の方が配信傾向は高かったです。<br>
+              一方で、◇の地域は◯よりも少ないという結果でございます。」
+            </div>
+            <div class="arrow-note">※単一エリアの場合はスキップ可</div>
           </div>
 
           <!-- 配信時間 -->
@@ -983,40 +980,15 @@
             提案するときは、変える理由（どの数字を見てそう考えたか）を一言添える。<br>
             数字が良いときは、無理に変更を提案しなくてよい。「今の設定がうまくいっているので、このまま続けましょう」も立派な提案。
           </div>
-          <div class="arrow-note">※提案がない場合はスキップしてSTEP 6へ進む</div>
+          <div class="arrow-note">※提案がない場合はスキップしてSTEP 6（クロージング）へ進む</div>
         </div>
       </div>
     </div>
 
     <!-- ===== STEP 6 ===== -->
-    <div class="step s-red" id="step6">
+    <div class="step s-slate" id="step6">
       <div class="step-left">
         <div class="step-circle">6</div>
-      </div>
-      <div class="step-body">
-        <div class="step-label">
-          <span class="step-tag">日切り</span>
-          <span class="step-title">次回アポイントを取る</span>
-        </div>
-        <div class="step-card">
-          <p class="body-text">「日切り」＝その場で次回の定例会の日時を決めること。</p>
-          <div class="script-main" style="border-color:#dc2626;">
-            「この設定で2ヶ月運用するので、また2ヶ月後にお電話してもよろしいでしょうか？<br>
-            そうしましたら、次回の日時をお約束してもよろしいでしょうか？」<br><br>
-            （カレンダー確認）「お電話する際に、ご都合の良い曜日やお時間帯はございますか？」<br><br>
-            「◯月◯日◯曜日の◯時でございますね〜お約束させていただきます。」
-          </div>
-          <div class="note-box">
-            次回アポは必ず取る。日切りなしで終わると次回の定例会設定が困難になる。
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ===== STEP 7 ===== -->
-    <div class="step s-slate" id="step7">
-      <div class="step-left">
-        <div class="step-circle">7</div>
       </div>
       <div class="step-body">
         <div class="step-label">
@@ -1039,14 +1011,18 @@
               対応後、再度締めに戻る。
             </div>
           </div>
+          <div class="note-box">
+            <strong>定例会の頻度について：</strong>定例会は、運用開始から半年間は2ヶ月に1度の頻度で開催する。その後は、お問い合わせベース（ご相談・ご不明点があったときに実施）になる。クロージングの際に、この流れをお客様へ案内しておく。<br>
+            案内の例：「定例会は、運用開始から半年間は2ヶ月に1度のペースでお電話させていただきます。その後は、ご不明点やご相談がございましたら、お問い合わせいただく形になります。」
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- ===== STEP 8 ===== -->
-    <div class="step s-slate" id="step8">
+    <!-- ===== STEP 7 ===== -->
+    <div class="step s-slate" id="step7">
       <div class="step-left">
-        <div class="step-circle">8</div>
+        <div class="step-circle">7</div>
       </div>
       <div class="step-body">
         <div class="step-label">
@@ -1136,17 +1112,7 @@
       </div>
 
       <div class="ex-step">
-        <div class="ex-step-title">STEP 6：日切り</div>
-        <div class="ex-script">
-          「この設定で運用するので、また2ヶ月後にお電話してもよろしいでしょうか？<br>
-          そうしましたら、次回の日時をお約束してもよろしいでしょうか？<br>
-          お電話する際に、ご都合の良い曜日やお時間帯はございますか？<br>
-          ◯月◯日◯曜日の◯時でございますね〜お約束させていただきます。」
-        </div>
-      </div>
-
-      <div class="ex-step">
-        <div class="ex-step-title">STEP 7：締め</div>
+        <div class="ex-step-title">STEP 6：締め</div>
         <div class="ex-script">
           「本日は以上となります。<br>
           最後にオーナー様から何かご確認したい点・ご不明点はございますでしょうか？<br>
