@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>【新人研修】YouTube広告 KW・ターゲティング</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --yt-red: #c4302b;
+      --yt-red-dark: #8b1a17;
+      --yt-red-light: #fef3f3;
+      --primary: #c4302b;
+      --primary-dark: #8b1a17;
+      --primary-light: #fef3f3;
+      --surface: #ffffff;
+      --surface-2: #f8f9fa;
+      --surface-3: #f1f3f4;
+      --text-primary: #202124;
+      --text-secondary: #5f6368;
+      --text-tertiary: #80868b;
+      --border: #e0e0e0;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.08);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.06);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background: #f9f0f0;
+      color: var(--text-primary);
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      background: linear-gradient(135deg, #1a0000 0%, #7b0000 40%, #c4302b 75%, #ff6b6b 100%);
+      padding: 80px 24px 100px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%; left: -20%;
+      width: 60%; height: 200%;
+      background: rgba(255,255,255,0.04);
+      border-radius: 50%;
+      animation: float1 8s ease-in-out infinite;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -30%; right: -10%;
+      width: 50%; height: 150%;
+      background: rgba(255,255,255,0.05);
+      border-radius: 50%;
+      animation: float2 10s ease-in-out infinite;
+    }
+    @keyframes float1 { 0%,100%{transform:translateY(0) rotate(0deg);} 50%{transform:translateY(-30px) rotate(5deg);} }
+    @keyframes float2 { 0%,100%{transform:translateY(0) rotate(0deg);} 50%{transform:translateY(20px) rotate(-5deg);} }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #fff;
+      font-size: 13px; font-weight: 500;
+      padding: 6px 16px;
+      border-radius: 100px;
+      margin-bottom: 24px;
+      backdrop-filter: blur(10px);
+      position: relative; z-index: 1;
+    }
+    .hero h1 {
+      font-size: clamp(28px, 5vw, 52px);
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -0.5px;
+      margin-bottom: 16px;
+      position: relative; z-index: 1;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+    }
+    .hero h1 span {
+      background: linear-gradient(90deg, #FBBC05, #FF6D00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: clamp(14px, 2vw, 18px);
+      color: rgba(255,255,255,0.85);
+      max-width: 600px;
+      margin: 0 auto 32px;
+      position: relative; z-index: 1;
+    }
+    .hero-meta {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      position: relative; z-index: 1;
+    }
+    .hero-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255,255,255,0.8);
+      font-size: 14px; font-weight: 500;
+    }
+    .hero-meta-item .icon {
+      width: 32px; height: 32px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+    }
+
+    /* ─── NAV ─── */
+    .nav-wrapper {
+      position: sticky;
+      top: 0; z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+    }
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .nav-inner::-webkit-scrollbar { display: none; }
+    .nav-item {
+      display: flex; align-items: center; gap: 6px;
+      padding: 14px 16px;
+      font-size: 13px; font-weight: 600;
+      color: var(--text-secondary);
+      text-decoration: none;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s ease;
+    }
+    .nav-item:hover { color: var(--primary); border-bottom-color: var(--primary); }
+    .nav-item.active { color: var(--primary); border-bottom-color: var(--primary); }
+
+    /* ─── MAIN ─── */
+    .main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    /* ─── SECTION ─── */
+    .section {
+      margin-bottom: 64px;
+      animation: fadeUp 0.5s ease both;
+    }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(24px);} to{opacity:1;transform:translateY(0);} }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 28px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid var(--border);
+    }
+    .section-number {
+      width: 44px; height: 44px;
+      background: linear-gradient(135deg, var(--yt-red), #ff6b6b);
+      color: white;
+      font-size: 18px; font-weight: 700;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(196,48,43,0.4);
+    }
+    .section-title-wrap h2 { font-size: 22px; font-weight: 700; color: var(--text-primary); }
+    .section-title-wrap p { font-size: 13px; color: var(--text-secondary); margin-top: 2px; }
+
+    /* ─── CARD ─── */
+    .card {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .card-header {
+      background: linear-gradient(135deg, #fff5f5, #ffe8e8);
+      padding: 16px 24px;
+      border-bottom: 1px solid #f8c8c5;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .card-header .icon { font-size: 20px; }
+    .card-header h3 { font-size: 16px; font-weight: 700; color: var(--yt-red-dark); }
+    .card-body { padding: 24px; }
+    /* プルダウン（開閉）カード */
+    .card-details > summary { cursor: pointer; list-style: none; }
+    .card-details > summary::-webkit-details-marker { display: none; }
+    .card-details > summary::after { content: "▼"; margin-left: auto; font-size: 12px; color: var(--yt-red-dark); transition: transform .2s; }
+    .card-details[open] > summary::after { transform: rotate(180deg); }
+
+    /* ─── GRID ─── */
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+
+    /* ─── HIERARCHY ─── */
+    .hierarchy { display: flex; flex-direction: column; gap: 0; margin: 8px 0; }
+    .hierarchy-box {
+      flex: 1;
+      border-radius: var(--radius-sm);
+      padding: 14px 20px;
+      margin: 4px 0;
+    }
+    .h-lv1 { background: linear-gradient(135deg, #fef3f3, #fde0df); border-left: 4px solid #c4302b; }
+    .h-lv2 { background: linear-gradient(135deg, #fff8e1, #fde68a); border-left: 4px solid #FBBC05; margin-left: 24px; }
+    .h-lv3 { background: linear-gradient(135deg, #e6f4ea, #ceead6); border-left: 4px solid #34A853; margin-left: 48px; }
+    .h-lv4 { background: linear-gradient(135deg, #e8f0fe, #d2e3fc); border-left: 4px solid #4285F4; margin-left: 72px; }
+    .hierarchy-box .level-label {
+      font-size: 11px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.8px;
+      opacity: 0.6; margin-bottom: 4px;
+    }
+    .hierarchy-box h4 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+    .hierarchy-box p { font-size: 13px; color: var(--text-secondary); }
+
+    /* ─── STEP LIST ─── */
+    .step-list { display: flex; flex-direction: column; gap: 16px; }
+    .step-item {
+      display: flex; gap: 16px; align-items: flex-start;
+      padding: 16px 20px;
+      background: var(--surface-2);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      transition: all 0.2s ease;
+    }
+    .step-item:hover {
+      border-color: #f8c8c5;
+      box-shadow: var(--shadow-sm);
+      background: #fff8f8;
+      transform: translateX(4px);
+    }
+    .step-num {
+      width: 32px; height: 32px;
+      background: linear-gradient(135deg, var(--yt-red), #ff6b6b);
+      color: white;
+      font-size: 14px; font-weight: 700;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(196,48,43,0.35);
+    }
+    .step-content h4 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+    .step-content p, .step-content ul { font-size: 14px; color: var(--text-secondary); }
+    .step-content ul { padding-left: 18px; margin-top: 6px; }
+    .step-content ul li { margin-bottom: 3px; }
+
+    /* ─── INFO BOX ─── */
+    .info-box {
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      display: flex; gap: 12px; align-items: flex-start;
+      margin: 16px 0; font-size: 14px;
+    }
+    .info-box.red    { background: #fce8e6; border-left: 4px solid #c4302b; color: #7f0000; }
+    .info-box.yellow { background: #fff8e1; border-left: 4px solid #FBBC05; color: #6d4c00; }
+    .info-box.green  { background: #e6f4ea; border-left: 4px solid #34A853; color: #1b5e20; }
+    .info-box.blue   { background: #e8f0fe; border-left: 4px solid #4285F4; color: #1a237e; }
+    .info-box .info-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+
+    /* ─── SETTING TABLE ─── */
+    .setting-table {
+      width: 100%; border-collapse: collapse;
+      font-size: 14px; border-radius: var(--radius-md); overflow: hidden;
+    }
+    .setting-table th {
+      background: linear-gradient(135deg, var(--yt-red), #ff6b6b);
+      color: white; padding: 12px 16px;
+      text-align: left; font-weight: 600; font-size: 13px;
+    }
+    .setting-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    .setting-table tr:nth-child(even) td { background: var(--surface-2); }
+    .setting-table tr:hover td { background: #fff5f5; }
+    .setting-table .label { font-weight: 600; color: var(--text-primary); }
+    .setting-table .value { color: var(--text-secondary); }
+    .setting-table .example { font-size: 13px; color: var(--yt-red); font-style: italic; }
+
+    /* ─── TARGET CARD ─── */
+    .target-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; }
+    .target-card {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 20px; text-align: center;
+      transition: all 0.2s ease;
+    }
+    .target-card:hover {
+      border-color: #f8c8c5;
+      box-shadow: var(--shadow-md);
+      transform: translateY(-4px);
+      background: var(--surface);
+    }
+    .target-card .t-icon { font-size: 36px; margin-bottom: 12px; }
+    .target-card h4 { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+    .target-card p { font-size: 12px; color: var(--text-secondary); }
+
+    /* ─── COMPARISON TABLE ─── */
+    .compare-table {
+      width: 100%; border-collapse: collapse; font-size: 14px;
+      border-radius: var(--radius-md); overflow: hidden;
+    }
+    .compare-table th {
+      padding: 12px 16px; text-align: center;
+      font-weight: 700; font-size: 13px;
+    }
+    .compare-table th:first-child { background: #f1f3f4; color: var(--text-secondary); }
+    .compare-table th.yt { background: linear-gradient(135deg, var(--yt-red), #ff6b6b); color: white; }
+    .compare-table th.gs { background: linear-gradient(135deg, #4285F4, #42a5f5); color: white; }
+    .compare-table th.sns { background: linear-gradient(135deg, #7c3aed, #a78bfa); color: white; }
+    .compare-table td { padding: 12px 16px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+    .compare-table td:first-child { font-weight: 600; background: var(--surface-2); color: var(--text-primary); }
+    .compare-table td.center { text-align: center; }
+    .compare-table tr:hover td { background: #fafafa; }
+
+    /* ─── TAG ─── */
+    .tag {
+      display: inline-flex; align-items: center;
+      padding: 3px 10px; border-radius: 100px;
+      font-size: 12px; font-weight: 600;
+    }
+    .tag-red    { background: #fce8e6; color: #c4302b; }
+    .tag-green  { background: #e6f4ea; color: #137333; }
+    .tag-yellow { background: #fff8e1; color: #f57f17; }
+    .tag-blue   { background: #e8f0fe; color: #1a73e8; }
+    .tag-gray   { background: #f1f3f4; color: var(--text-secondary); }
+
+    /* ─── KW EXAMPLE BLOCK ─── */
+    .kw-block {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      margin-top: 12px;
+    }
+    .kw-tag {
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 13px; font-weight: 500;
+    }
+    .kw-good  { background: #e6f4ea; color: #137333; border: 1px solid #a8d5b5; }
+    .kw-bad   { background: #fce8e6; color: #c4302b; border: 1px solid #f5b4b1; }
+    .kw-caution { background: #fff8e1; color: #b07d00; border: 1px solid #fde68a; }
+
+    /* ─── MERIT/DEMERIT ─── */
+    .merit-demerit {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+      margin-top: 16px;
+    }
+    .merit-box, .demerit-box {
+      border-radius: var(--radius-md);
+      padding: 16px;
+    }
+    .merit-box { background: #e6f4ea; border: 1px solid #a8d5b5; }
+    .demerit-box { background: #fce8e6; border: 1px solid #f5b4b1; }
+    .merit-box h4 { color: #137333; font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+    .demerit-box h4 { color: #c4302b; font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+    .merit-box ul, .demerit-box ul {
+      padding-left: 16px; font-size: 13px;
+    }
+    .merit-box ul li { color: #1b5e20; margin-bottom: 4px; }
+    .demerit-box ul li { color: #7f0000; margin-bottom: 4px; }
+
+    /* ─── SUMMARY BOX ─── */
+    .summary-box {
+      background: linear-gradient(135deg, #7b0000, #c4302b);
+      color: white;
+      border-radius: var(--radius-xl);
+      padding: 40px; text-align: center;
+      margin-top: 64px;
+      position: relative; overflow: hidden;
+    }
+    .summary-box::before {
+      content: '';
+      position: absolute;
+      top: -40%; right: -10%;
+      width: 40%; height: 200%;
+      background: rgba(255,255,255,0.05);
+      border-radius: 50%;
+    }
+    .summary-box h2 { font-size: 24px; font-weight: 700; margin-bottom: 12px; }
+    .summary-box p { font-size: 15px; color: rgba(255,255,255,0.8); max-width: 600px; margin: 0 auto 24px; }
+
+    /* ─── UTIL ─── */
+    .mt-16 { margin-top: 16px; }
+    .mt-24 { margin-top: 24px; }
+    .mb-16 { margin-bottom: 16px; }
+    .mb-24 { margin-bottom: 24px; }
+    .flex-col { display: flex; flex-direction: column; gap: 12px; }
+
+    /* ─── PAGE TABS ─── */
+    .page-tabs { display:flex; gap:4px; background:#fff; border-bottom:2px solid #e0e0e0; padding:0 24px; overflow-x:auto; scrollbar-width:none; }
+    .page-tab { padding:12px 18px; font-size:13px; font-weight:600; color:#5f6368; text-decoration:none; white-space:nowrap; border-bottom:3px solid transparent; margin-bottom:-2px; transition:all 0.2s; }
+    .page-tab:hover { color:#c62828; border-bottom-color:#c62828; }
+    .page-tab.active { color:#c62828; border-bottom-color:#c62828; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      text-align: center;
+      padding: 32px 24px;
+      color: var(--text-tertiary);
+      font-size: 13px;
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 640px) {
+      .hero { padding: 56px 16px 72px; }
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      .merit-demerit { grid-template-columns: 1fr; }
+      .summary-box { padding: 28px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── HERO ─── -->
+<header class="hero">
+  <div class="hero-badge">▶ 新人研修資料</div>
+  <h1>YouTube広告<br /><span>KW・ターゲティング</span></h1>
+  <p class="hero-sub">配信先を決めるキーワード（KW）の選び方と、コンテンツKW・カスタムセグメントKWの使い分けをまとめた研修テキストです。設定の練習のときに読みます。先に「基礎概念」ページを読んでおくと進めやすくなります。</p>
+  <div class="hero-meta">
+    <div class="hero-meta-item"><div class="icon">📌</div>対象：入社1〜3ヶ月の新人</div>
+    <div class="hero-meta-item"><div class="icon">⏱️</div>所要時間：約15〜20分</div>
+    <div class="hero-meta-item"><div class="icon">🎯</div>目標：KWの良し悪しを判断し、2種類のKWを使い分けられる</div>
+  </div>
+</header>
+
+<!-- ─── NAVIGATION ─── -->
+<nav class="nav-wrapper">
+  <div class="nav-inner">
+    <a href="operation-basics.html" class="nav-item">◀ 基礎概念へ</a>
+    <a href="#section-kw" class="nav-item">🔍 KW選定のコツ</a>
+    <a href="#section-kw-type" class="nav-item">🔑 KWの種類と使い分け</a>
+  </div>
+</nav>
+
+<main class="main">
+
+  <!-- ─── 4. KW選定のコツ ─── -->
+  <section id="section-kw" class="section">
+    <div class="section-header">
+      <div class="section-number">1</div>
+      <div class="section-title-wrap">
+        <h2>キーワード選定のコツ</h2>
+        <p>顕在層向けのKWを例に、良いKWと避けるべきKWを判断できるようになることが目標</p>
+      </div>
+    </div>
+
+    <div class="info-box blue mb-24">
+      <span class="info-icon">📌</span>
+      <p><strong>このセクションは「顕在層」向けの例です：</strong>ここでは、今まさにお店を探している人（顕在層）に届けるKWの選び方を例に説明します。悩みはあるが、まだお店を探していない人（潜在層）に向けたKW（例：「腰の違和感」「病院に行っても治らない」）は、考え方が違います。ここで「除外」としている種類のKWでも、潜在層向けでは使うことがあります。潜在層のKWの例は、定例会アウト集の「ターゲット再設定のための具体的なヒアリング集（業種別）」を見てください。</p>
+    </div>
+
+    <div class="card mb-24">
+      <div class="card-header"><span class="icon">🔎</span><h3>KWを見つける手法</h3></div>
+      <div class="card-body">
+        <div class="grid-2">
+          <div class="step-item" style="align-items:flex-start;">
+            <div style="font-size:24px;flex-shrink:0;">🌐</div>
+            <div class="step-content">
+              <h4>ウェブで検索する</h4>
+              <p>軸KWをGoogleで実際に検索し、<strong>関連ワード・サジェスト・「他の人はこちらも検索」</strong>を確認する。上位表示されているサービスや競合の言葉遣いもヒントにする。</p>
+            </div>
+          </div>
+          <div class="step-item" style="align-items:flex-start;">
+            <div style="font-size:24px;flex-shrink:0;">📊</div>
+            <div class="step-content">
+              <h4>キーワードプランナーで検索する</h4>
+              <p>Google広告のキーワードプランナーで月間検索ボリュームや<strong>関連KWの候補</strong>を確認できる。ボリュームが0に近いKWは除外し、実際に検索されているワードを採用する。</p>
+            </div>
+          </div>
+        </div>
+        <div class="info-box blue mt-16">
+          <span class="info-icon">💡</span>
+          <div>
+            <strong>軸KW → サブKWの順で考える</strong>
+            <p style="margin-top:4px;">まず業種・サービスの<strong>軸となるKW（例：焼肉 食べ放題）</strong>を1つ決める。そこから地域名・シーンワード・購買意思ワードを掛け合わせた<strong>サブKW</strong>を展開していくと効率よく選定できる。</p>
+            <div class="kw-block" style="margin-top:12px;">
+              <span class="kw-tag kw-good">軸KW：焼肉 食べ放題</span>
+              <span style="display:flex;align-items:center;color:var(--text-secondary);font-size:13px;">→ サブKW：</span>
+              <span class="kw-tag kw-good">焼肉 食べ放題 東京</span>
+              <span class="kw-tag kw-good">焼肉 食べ放題 ランチ</span>
+              <span class="kw-tag kw-good">焼肉 食べ放題 予約</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mb-24">
+      <div class="card-header"><span class="icon">💡</span><h3>KW選定の基本的な考え方（顕在層向け）</h3></div>
+      <div class="card-body">
+        <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px;">
+          KW選定の目的は「<strong>購買・来店意欲の高いユーザーが検索するキーワード</strong>を見つけること」です。関連性があるだけでは不十分で、実際に来店につながるニーズと一致しているかが重要です。（この考え方は、主にカスタムセグメントKW＝「検索した言葉」向けです。コンテンツKWは「どんな内容の動画に出したいか」で選びます。）
+        </p>
+        <div class="step-list">
+          <div class="step-item">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>業種・サービス名から広げる</h4>
+              <p>まず店舗の中心となるサービスをKWにする。例：「焼肉 食べ放題」など。</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>地域名を掛け合わせる</h4>
+              <p>サービス名＋地域名でより具体的にする。「焼肉 食べ放題 東京」など。エリアを絞ることで購買意欲の高いユーザーに届く。</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>シーン・ニーズワードを追加</h4>
+              <p>「記念日 ディナー」「接待 個室」など、利用シーンに紐づくKWは来店意欲と結びつきやすい。ただし情報収集目的のものは除外する。</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>実際にGoogleで検索して確認する</h4>
+              <p>候補KWをGoogleで検索し、表示される結果がターゲットユーザーのニーズと合っているか確認する。ハウツー記事ばかり出てくるKWは購買意欲が低い可能性が高い。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header"><span class="icon">✅</span><h3>推奨するキーワードの例（顕在層向け）</h3></div>
+        <div class="card-body">
+          <div class="step-list">
+            <div class="step-item">
+              <div style="font-size:20px;flex-shrink:0;">🎯</div>
+              <div class="step-content">
+                <h4>具体的なサービス名＋地域</h4>
+                <p>購買意欲が高く、今まさに探しているユーザーにリーチできる最も有効なKW。</p>
+                <div class="kw-block">
+                  <span class="kw-tag kw-good">焼肉 食べ放題 東京</span>
+                  <span class="kw-tag kw-good">個室 居酒屋 新宿</span>
+                </div>
+              </div>
+            </div>
+            <div class="step-item">
+              <div style="font-size:20px;flex-shrink:0;">🔑</div>
+              <div class="step-content">
+                <h4>購買意思が感じられるワード</h4>
+                <p>「予約」「おすすめ」「近く」「料金」などを含むKWは、今すぐ探しているユーザーのシグナル。</p>
+                <div class="kw-block">
+                  <span class="kw-tag kw-good">焼肉 食べ放題 予約</span>
+                </div>
+              </div>
+            </div>
+            <div class="step-item">
+              <div style="font-size:20px;flex-shrink:0;">💡</div>
+              <div class="step-content">
+                <h4>シーン・ニーズワード（要確認）</h4>
+                <p>来店意欲と結びつくか確認しながら追加する。</p>
+                <div class="kw-block">
+                  <span class="kw-tag kw-caution">記念日 ディナー 東京</span>
+                  <span class="kw-tag kw-caution">接待 個室 新宿</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="icon">🚫</span><h3>顕在層向けで避けるキーワードの例</h3></div>
+        <div class="card-body">
+          <div class="step-list">
+            <div class="step-item">
+              <div style="font-size:20px;flex-shrink:0;">🔨</div>
+              <div class="step-content">
+                <h4>情報収集・DIY系のKW</h4>
+                <p>「自分でやる」意図が強く、来店につながらない。</p>
+                <div class="kw-block">
+                  <span class="kw-tag kw-bad">焼肉 レシピ</span>
+                  <span class="kw-tag kw-bad">居酒屋 メニュー 作り方</span>
+                </div>
+              </div>
+            </div>
+            <div class="step-item">
+              <div style="font-size:20px;flex-shrink:0;">🆓</div>
+              <div class="step-content">
+                <h4>無料・節約系のKW</h4>
+                <p>支払い意欲が低いユーザーが多く、来店率が下がりやすい。</p>
+                <div class="kw-block">
+                  <span class="kw-tag kw-bad">ランチ 無料</span>
+                  <span class="kw-tag kw-bad">居酒屋 激安</span>
+                </div>
+              </div>
+            </div>
+            <div class="step-item">
+              <div style="font-size:20px;flex-shrink:0;">📚</div>
+              <div class="step-content">
+                <h4>幅広すぎる一般ワード</h4>
+                <p>ターゲット外ユーザーが大量に含まれ、費用対効果が悪くなる。</p>
+                <div class="kw-block">
+                  <span class="kw-tag kw-bad">居酒屋</span>
+                  <span class="kw-tag kw-bad">レストラン</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box blue mt-24">
+      <span class="info-icon">💡</span>
+      <div>
+        <strong>KW選定の目安：5〜15個に絞る</strong>
+        <p style="margin-top:4px;">KWは多ければ良いわけではない。具体性が高く購買意欲の高いものを優先的に5〜15個選ぶ。ヒアリングでオーナーの意見を聞きながら調整する。</p>
+      </div>
+    </div>
+
+    <div class="info-box yellow mb-24">
+      <span class="info-icon">⚠️</span>
+      <p><strong>KWによっては、Google広告のポリシーに抵触する可能性があります：</strong>Googleは、「健康」「アルコール」「避妊」「ギャンブル」「性的なコンテンツ」などの「デリケートな情報に該当するカテゴリ」の商品・サービスを、<strong>広告主が選んだオーディエンス（カスタムセグメントのKWなど）</strong>に向けて宣伝することを認めていません。該当すると、審査で承認されなかったり、配信されなかったりします。健康に関わる業種（整体・クリニックなど）や、お酒・ギャンブル・アダルトに近い内容のKWを入れるときは、該当するかどうかを、設定の前に上長に確認してください。（確認元：Google広告ポリシーヘルプ「制限付きターゲティング（パーソナライズド広告の場合）」）</p>
+    </div>
+
+    <div class="card mt-24">
+      <div class="card-header"><span class="icon">🗺️</span><h3>KW選定に迷ったときのフロー（顕在層向け）</h3></div>
+      <div class="card-body">
+        <p style="font-size:14px;color:var(--text-secondary);margin-bottom:20px;">「このKWを使うべきか迷う」という場面では、以下のステップで整理すると判断しやすくなります。</p>
+        <div class="step-list">
+          <div class="step-item">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>思いつくKWをすべて書き出す</h4>
+              <p>まず良し悪しを考えず、業種・サービス・地域・ターゲットの悩みなど、関連しそうなものを全部リストアップする。この段階では絞らなくてOK。</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>「今すぐ来店・予約したい人が検索するか？」で振り分ける</h4>
+              <p>各KWに対してこの1問でYes / Noに分ける。Noに近いものは除外候補。迷ったら実際にGoogleで検索して、上位に出てくる結果が店舗系かどうか確認する。</p>
+              <div style="display:flex;gap:12px;margin-top:12px;flex-wrap:wrap;">
+                <div style="flex:1;min-width:160px;background:#e6f4ea;border:1px solid #a8d5b5;border-radius:8px;padding:12px;">
+                  <div style="font-size:12px;font-weight:700;color:#137333;margin-bottom:6px;">✅ Yes → 採用候補</div>
+                  <div class="kw-block">
+                    <span class="kw-tag kw-good">焼肉 食べ放題 東京</span>
+                  </div>
+                </div>
+                <div style="flex:1;min-width:160px;background:#fce8e6;border:1px solid #f5b4b1;border-radius:8px;padding:12px;">
+                  <div style="font-size:12px;font-weight:700;color:#c4302b;margin-bottom:6px;">❌ No → 除外候補</div>
+                  <div class="kw-block">
+                    <span class="kw-tag kw-bad">焼肉 レシピ</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>採用候補に地域・シーン・購買ワードを掛け合わせる</h4>
+              <p>Yesに残ったKWを軸にして、地域名・「予約」「おすすめ」「ランチ」などのサブワードを組み合わせてリストを広げる。</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>5〜15個に絞って完成</h4>
+              <p>サブKWまで広げたら、重複や似たもの同士を整理して最終的に5〜15個に絞る。迷うものはヒアリングでオーナーに確認してから決める。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 5. KWの種類と使い分け ─── -->
+  <section id="section-kw-type" class="section">
+    <div class="section-header">
+      <div class="section-number">2</div>
+      <div class="section-title-wrap">
+        <h2>コンテンツKW・カスタムセグメントKWの使い分け</h2>
+        <p>YouTube広告のKWターゲティング2種類と、KW以外の設定を理解する</p>
+      </div>
+    </div>
+
+    <div class="info-box yellow mb-24">
+      <span class="info-icon">⚠️</span>
+      <p>YouTube広告でのKWは検索広告とは意味が違います。<strong>「どの動画に出すか」（コンテンツKW）や「誰に出すか」（カスタムセグメントKW）を決める手段</strong>として使います。KWを使うターゲティングには、目的に応じて使い分ける2種類があります。</p>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header"><span class="icon">📰</span><h3>コンテンツKW（コンテンツターゲティング）</h3></div>
+        <div class="card-body">
+          <div class="info-box red" style="margin-bottom:16px;">
+            <span class="info-icon">📺</span>
+            <p><strong>「どんな動画を見ているユーザーか」に基づく配信</strong></p>
+          </div>
+          <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px;">
+            指定したキーワードに関連するYouTube動画・チャンネルに広告を表示する。関連コンテンツを見ているユーザーに届けるため、<strong>テーマ・話題で絞り込む</strong>イメージ。
+          </p>
+          <div class="step-list">
+            <div class="step-item">
+              <div style="font-size:20px;flex-shrink:0;">▶️</div>
+              <div class="step-content">
+                <h4>使用イメージ</h4>
+                <p>「焼肉」「食べ放題」などのKWを設定 → それらに関連する動画を見ているユーザーへ広告が表示される</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div style="font-size:20px;flex-shrink:0;">👍</div>
+              <div class="step-content">
+                <h4>向いているケース</h4>
+                <p>関連テーマを視聴中の興味関心層（潜在層）に広くリーチしたい場合。認知拡大フェーズで有効。</p>
+              </div>
+            </div>
+          </div>
+          <div class="info-box blue mt-16">
+            <span class="info-icon">💡</span>
+            <p>例：焼肉・グルメ関連の動画を見ているユーザー全般に「焼肉食べ放題」の広告を表示。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="icon">🔍</span><h3>カスタムセグメントKW（カスタム検索KW）</h3></div>
+        <div class="card-body">
+          <div class="info-box red" style="margin-bottom:16px;">
+            <span class="info-icon">🔎</span>
+            <p><strong>「Googleで何を検索したことがあるユーザーか」に基づく配信</strong></p>
+          </div>
+          <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px;">
+            カスタムセグメントを「Googleでこれらのいずれかのキーワードを検索したユーザー」で作ると、そのKWやそれに近い言葉を、最近GoogleやYouTubeで検索した人に広告を表示できる。検索に基づくため、<strong>より購買意欲の高いユーザー</strong>に届けやすい。※初期設定は「興味・購買意向」型なので、作成時に検索型を選び忘れないこと。
+          </p>
+          <div class="step-list">
+            <div class="step-item">
+              <div style="font-size:20px;flex-shrink:0;">🔎</div>
+              <div class="step-content">
+                <h4>使用イメージ</h4>
+                <p>「焼肉 食べ放題 東京」などのKWを設定 → それらを最近検索したことがあるユーザーへ表示される</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div style="font-size:20px;flex-shrink:0;">👍</div>
+              <div class="step-content">
+                <h4>向いているケース</h4>
+                <p>すでに探し始めているユーザー（顕在層）に届けたい場合。コンテンツKWより購買意欲が高いユーザーに絞れる。</p>
+              </div>
+            </div>
+          </div>
+          <div class="info-box green mt-16">
+            <span class="info-icon">✅</span>
+            <p>例：「焼肉 食べ放題 東京」を最近検索したことがあるユーザーにYouTube上で広告を表示。検索広告で使うような「探している言葉」をそのまま使える。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mt-24">
+      <div class="card-header"><span class="icon">⚖️</span><h3>使い分けの判断基準</h3></div>
+      <div class="card-body">
+        <table class="setting-table">
+          <thead>
+            <tr><th>比較項目</th><th>コンテンツKW</th><th>カスタムセグメントKW</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="label">ターゲットのフェーズ</td>
+              <td class="value">潜在層（まだ探していない）</td>
+              <td class="value">顕在層（すでに探している）</td>
+            </tr>
+            <tr>
+              <td class="label">リーチの広さ</td>
+              <td class="value">広い</td>
+              <td class="value">絞られる</td>
+            </tr>
+            <tr>
+              <td class="label">購買意欲</td>
+              <td class="value">低〜中</td>
+              <td class="value">中〜高</td>
+            </tr>
+            <tr>
+              <td class="label">使う場面</td>
+              <td class="value">認知拡大・新規獲得</td>
+              <td class="value">検討層へのリーチ強化</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="info-box blue mt-16">
+          <span class="info-icon">💡</span>
+          <p><strong>実務では：</strong>両方を組み合わせて使うことが多い。認知拡大にはコンテンツKW、購買意欲の高いユーザーへの追い打ちにカスタムセグメントKWを使うイメージ。設定はヒアリングで聞いた情報をもとに判断する。</p>
+        </div>
+        <div class="info-box yellow mt-16">
+          <span class="info-icon">🧩</span>
+          <p><strong>KW以外の設定もあります：</strong>KWのほかに、<strong>Googleのセグメント</strong>（興味関心・購買意向など、Googleが用意した視聴者のグループ）や、<strong>プレースメント</strong>（広告を出すチャンネル・動画・サイトを指定する方法）を設定する案件もあります。組み合わせは案件ごとに違うので、設定は案件資料とヒアリングで確認します。用語は<a href="operation-basics.html#section-glossary">基礎概念ページの広告用語集</a>（アフィニティ セグメント・購買意向の強いセグメント・プレースメント）も見てください。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mt-24">
+      <div class="card-header"><span class="icon">🗂️</span><h3>カスタムセグメントKWのニーズ別グループ分け</h3></div>
+      <div class="card-body">
+        <p style="font-size:14px;color:var(--text-secondary);margin-bottom:20px;">カスタムセグメントのKWは「ニーズ（検索意図）」ごとにグループに分けて設定すると管理しやすくなります。グループごとに広告グループを分けると、どのニーズからの視聴が多いか比べやすくなります（ただし、分けすぎないこと）。</p>
+
+        <div class="step-list">
+          <div class="step-item">
+            <div style="background:linear-gradient(135deg,#c4302b,#ff6b6b);color:white;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;">A</div>
+            <div class="step-content">
+              <h4>購買・予約意図グループ <span class="tag tag-red" style="margin-left:8px;">購買意欲：高</span></h4>
+              <p>「今すぐ予約したい・行きたい」というユーザーのKW。最も成果に近いグループ。</p>
+              <div class="kw-block" style="margin-top:10px;">
+                <span class="kw-tag kw-good">焼肉 食べ放題 予約</span>
+                <span class="kw-tag kw-good">焼肉 食べ放題 当日予約</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="step-item">
+            <div style="background:linear-gradient(135deg,#FBBC05,#FFD54F);color:white;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;">B</div>
+            <div class="step-content">
+              <h4>比較・検討グループ <span class="tag tag-yellow" style="margin-left:8px;">購買意欲：中</span></h4>
+              <p>「どこがいいか比べている」段階のユーザー。おすすめ・ランキング系のKW。</p>
+              <div class="kw-block" style="margin-top:10px;">
+                <span class="kw-tag kw-caution">焼肉 食べ放題 おすすめ 東京</span>
+                <span class="kw-tag kw-caution">個室 居酒屋 ランキング 新宿</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="step-item">
+            <div style="background:linear-gradient(135deg,#34A853,#66BB6A);color:white;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;">C</div>
+            <div class="step-content">
+              <h4>シーン・目的グループ <span class="tag tag-green" style="margin-left:8px;">購買意欲：中</span></h4>
+              <p>「記念日に」「接待で」など特定の目的から探しているユーザー。ターゲットと動画内容が合うと刺さりやすい。</p>
+              <div class="kw-block" style="margin-top:10px;">
+                <span class="kw-tag kw-caution">記念日 ディナー 東京</span>
+                <span class="kw-tag kw-caution">接待 個室 新宿</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="step-item">
+            <div style="background:linear-gradient(135deg,#4285F4,#64B5F6);color:white;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;">D</div>
+            <div class="step-content">
+              <h4>エリア・地域グループ <span class="tag tag-blue" style="margin-left:8px;">購買意欲：中〜低</span></h4>
+              <p>エリアから飲食店を探しているユーザー。幅広くリーチできるが、ターゲット外も含まれやすい。</p>
+              <div class="kw-block" style="margin-top:10px;">
+                <span class="kw-tag kw-caution">新宿 焼肉</span>
+                <span class="kw-tag kw-caution">渋谷 居酒屋 個室</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-box yellow mt-24">
+          <span class="info-icon">⚠️</span>
+          <div>
+            <strong>グループ分けの活用方法</strong>
+            <p style="margin-top:4px;">すべてを1つの広告グループにまとめるより、ニーズごとに分けて設定した方が、どのニーズからの視聴が多いか分析しやすくなります。まずは<strong>A（購買意図）とB（比較検討）</strong>の2グループから始めるのが現実的です。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+</main>
+
+<footer>
+  <p>YouTube広告 KW・ターゲティング 新人研修資料 &copy; 2026 | 社内研修用・社外秘</p>
+</footer>
+
+<script>
+  const sections = document.querySelectorAll('section[id]');
+  const navItems = document.querySelectorAll('.nav-item');
+
+  function updateActiveNav() {
+    let current = '';
+    sections.forEach(section => {
+      if (window.scrollY >= section.offsetTop - 100) {
+        current = section.getAttribute('id');
+      }
+    });
+    navItems.forEach(item => {
+      item.classList.remove('active');
+      if (item.getAttribute('href') === '#' + current) {
+        item.classList.add('active');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', updateActiveNav, { passive: true });
+  updateActiveNav();
+
+  navItems.forEach(item => {
+    item.addEventListener('click', e => {
+      if (!item.getAttribute('href').startsWith('#')) return;
+      e.preventDefault();
+      const target = document.querySelector(item.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.animationPlayState = 'running';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.section').forEach(section => {
+    section.style.animationPlayState = 'paused';
+    observer.observe(section);
+  });
+</script>
+</body>
+</html>

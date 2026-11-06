@@ -438,6 +438,24 @@
     .icebreak-topics ul { padding-left: 16px; }
     .icebreak-topics li { margin-bottom: 6px; }
 
+    .pp-tag {
+      display: inline-block; margin-left: 6px;
+      font-size: 11px; font-weight: 700;
+      background: #e0e7ff; color: #3730a3;
+      border-radius: 999px; padding: 1px 8px;
+    }
+
+    .pp-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+
+    .pp-link {
+      display: inline-block; font-size: 13px; font-weight: 700;
+      color: var(--primary); text-decoration: none;
+      border: 1px solid #bfdbfe; background: #eff6ff;
+      border-radius: 6px; padding: 6px 12px;
+    }
+
+    .pp-link:hover { background: #dbeafe; }
+
     .sub-section {
       margin-top: 16px; padding-top: 14px;
       border-top: 1px dashed var(--border);
@@ -600,7 +618,7 @@
   <div class="page-header">
     <div class="tag">🎧 ヒアリング</div>
     <h1>ヒアリングスクリプト</h1>
-    <p>広告開始前の初回ヒアリング用です。<strong>必須項目</strong>を必ず埋めた上で、余裕があれば任意項目も確認してください。</p>
+    <p>広告開始前の初回ヒアリング用です。最初に<strong>設定案（提案書）</strong>を作ってお客様へ送り、電話では設定案を一緒に見ながら進めます。<strong>必須項目</strong>を必ず埋めた上で、余裕があれば任意項目も確認してください。</p>
   </div>
 
   <div class="timeline">
@@ -611,17 +629,26 @@
       <div class="step-body">
         <div class="step-label">
           <span class="step-tag">事前準備</span>
-          <span class="step-title">電話前の準備</span>
+          <span class="step-title">設定案（提案書）を作って送る</span>
         </div>
         <div class="step-card">
           <div class="sub-section" style="padding-top:0; border-top:none;">
+            <div class="sub-title"><span class="sub-dot"></span>まず設定案を作る</div>
+            <p class="body-text">リンク先・ターゲット・配信地域・時間帯・デバイス・キーワードの案を、1枚の設定案（提案書）にまとめます。電話ではこの設定案を一緒に見ながら確認するので、ヒアリングの準備はここが中心です。作り方は「設定案の作り方」のページを見てください。初めて作る人は、先にそのページの「導入する（初回のみ）」を済ませておきます。</p>
+            <div class="pp-links">
+              <a class="pp-link" href="ads-proposal.html">設定案の作り方 →</a>
+              <a class="pp-link" href="https://claude.ai/artifact/D47hd5JU23XAKoq2Vfr9mH" target="_blank" rel="noopener">設定案の完成見本 ↗</a>
+            </div>
+          </div>
+
+          <div class="sub-section">
             <div class="sub-title"><span class="sub-dot"></span>電話前の準備チェック</div>
             <ul class="checklist">
-              <li onclick="this.classList.toggle('checked')"><span class="check-box"></span><span>提案KWリストを用意する（10個程度）</span></li>
-              <li onclick="this.classList.toggle('checked')"><span class="check-box"></span><span>配信地域案を確認する</span></li>
+              <li onclick="this.classList.toggle('checked')"><span class="check-box"></span><span>オーナーのインスタ・Googleマップを確認しておく（設定案のリンク先・ターゲット・キーワードを考える材料にする）</span></li>
+              <li onclick="this.classList.toggle('checked')"><span class="check-box"></span><span>設定案を作る（キーワードは5〜15個・配信地域は地図付き）</span></li>
+              <li onclick="this.classList.toggle('checked')"><span class="check-box"></span><span>お客様に確認したい項目に【ご確認ください】を付けておく</span></li>
               <li onclick="this.classList.toggle('checked')"><span class="check-box"></span><span>納品動画を視聴しておく（アイスブレイクで感想を言えるように）</span></li>
-              <li onclick="this.classList.toggle('checked')"><span class="check-box"></span><span>オーナーのインスタ・Googleマップを事前に確認しておく</span></li>
-              <li onclick="this.classList.toggle('checked')"><span class="check-box"></span><span>ヒアリングメールを送る（前日までに）</span></li>
+              <li onclick="this.classList.toggle('checked')"><span class="check-box"></span><span>設定案をAloomに保存し、そのURLをメールまたはLINEで送る（前日までに）</span></li>
             </ul>
             <button class="email-toggle" onclick="const b=this.nextElementSibling;b.classList.toggle('open');this.textContent=b.classList.contains('open')?'▲ メールサンプルを閉じる':'▼ メールサンプルを見る'">▼ メールサンプルを見る</button>
             <div class="email-body">
@@ -634,36 +661,16 @@
 明日<span class="email-placeholder">【日付・時間】</span>よりお時間をいただいております、
 ヒアリングの件でご連絡をいたしました。
 
-下記に運用にあたってのご提案内容を記載しております。
-ご確認のほど、よろしくお願い致します。
+運用にあたっての設定案を、下記のページにまとめております。
+当日はこちらのページを一緒にご覧いただきながら進めますので、
+事前にご確認いただけますと幸いです。
 
-【ご連絡シート】
-<span class="email-placeholder">【ご連絡シートURL】</span>
-※こちらのシートは月次の報告書となり、毎月更新いたします。
+【運用設定案】
+<span class="email-placeholder">【設定案のURL（Aloom）】</span>
+
+※設定案の中にある「ご連絡・レポートシート」は月次の報告書となり、毎月更新いたします。
 　必ずブックマークに登録ください。
-
-【広告運用開始予定日】
-媒体審査通過次第
-
-【広告のリンク先】
-<span class="email-placeholder">【HP・インスタ・ホットペッパーなど候補URL（いずれか1つのみ選択可能）】</span>
-
-【広告を流すユーザー属性】
-性別（<span class="email-placeholder">【例：女性】</span>）
-年齢（<span class="email-placeholder">【例：25-34・35-44】</span>）
-※ご相談させてください
-
-【広告を流す地域】
-店舗様から<span class="email-placeholder">【◯キロ】</span>
-※ご相談させてください
-
-【広告を流す時間】
-7時〜24時
-※ご相談させてください
-
-【広告の関連キーワード】
-<span class="email-placeholder">【提案KWを箇条書きで記載】</span>
-※ご相談させてください
+※「ご確認ください」と記載している項目は、当日ご相談させてください。
 
 ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 株式会社ランバード
@@ -696,10 +703,13 @@ Mail   creative.yt@runbird.net
           </div>
 
           <div class="sub-section">
-            <div class="sub-title"><span class="sub-dot"></span>メール確認</div>
+            <div class="sub-title"><span class="sub-dot"></span>設定案（提案書）の確認</div>
             <div class="script-main">
-              「◯日にお送りしたメール内容をご確認いただけましたでしょうか？<br>
-              本日はそのメール内容を基に進行致しますので、ご確認いただけますと幸いです。」
+              「◯日にお送りした設定案はご覧いただけましたでしょうか？<br>
+              本日はその設定案を一緒に見ながら進めますので、お手元で開いていただけますと幸いです。」
+            </div>
+            <div class="tip-box">
+              お客様が開けていないときは、メールまたはLINEで送ったリンクをその場で開いてもらう。こちらも同じ設定案を開き、「1番の〜」と番号で場所を伝えると迷わせない。
             </div>
           </div>
 
@@ -741,29 +751,30 @@ Mail   creative.yt@runbird.net
           <span class="must-badge">全5項目</span>
         </div>
         <div class="step-card">
+          <p class="body-text" style="margin-bottom:10px;">設定案の項目を見せながら確認する。青いラベルは設定案の項目番号。お客様の答えで変わった内容はメモし、電話後に設定案へ反映する。</p>
 
           <!-- 広告リンク先 -->
           <div class="sub-section">
-            <div class="sub-title"><span class="sub-dot"></span>① 広告のリンク先</div>
+            <div class="sub-title"><span class="sub-dot"></span>① 広告のリンク先<span class="pp-tag">設定案 1</span></div>
             <div class="script-main">
-              「広告にサイトURLを1つ紐づける必要があるのですが、ご希望のリンク先などございますか？<br>
-              Google側に広告を配信する店舗の承認を通過する必要がございます。」
+              「設定案の1番のリンク先で考えておりますが、こちらでよろしいでしょうか？<br>
+              リンク先のページは、Googleの審査を通る必要がございます。」
             </div>
           </div>
 
           <!-- ご連絡シート -->
           <div class="sub-section">
-            <div class="sub-title"><span class="sub-dot"></span>② ご連絡シート</div>
+            <div class="sub-title"><span class="sub-dot"></span>② ご連絡シート<span class="pp-tag">設定案 7</span></div>
             <div class="script-main">
-              「メールでお送りした【ご連絡シート】を開いて頂くと、各月のデータと広告設定内容を確認できますのでブックマークのほどお願いいたします。」
+              「設定案の7番にある【ご連絡・レポートシート】を開いて頂くと、各月のデータと広告設定内容を確認できますのでブックマークのほどお願いいたします。」
             </div>
           </div>
 
           <!-- オーディエンス -->
           <div class="sub-section">
-            <div class="sub-title"><span class="sub-dot"></span>③ オーディエンス（性別・年齢）</div>
+            <div class="sub-title"><span class="sub-dot"></span>③ オーディエンス（性別・年齢）<span class="pp-tag">設定案 2</span></div>
             <div class="script-main">
-              「広告の配信ターゲット（性別・年齢）なんですが、狙いたい性別などはございますか？」
+              「設定案の2番で、〇〇・〇代で考えておりますが、実際の客層と合っていますでしょうか？」
             </div>
             <div class="hearing-list">
               <ul>
@@ -772,32 +783,34 @@ Mail   creative.yt@runbird.net
               </ul>
             </div>
             <div class="result-box">
-              「ターゲットは〜◯代へ配信致します。」
+              「ターゲットは〜◯代へ配信いたします。」
             </div>
           </div>
 
           <!-- KW -->
           <div class="sub-section">
-            <div class="sub-title"><span class="sub-dot"></span>④ キーワード（KW）</div>
+            <div class="sub-title"><span class="sub-dot"></span>④ キーワード（KW）<span class="pp-tag">設定案 6</span></div>
             <div class="script-main">
               「お次にキーワードについて決めていきます。<br>
-              このKWの使い方なのですが、Google上で設定したKWを検索した人に対して配信する設定です。<br>
-              ご提案したKWの中で、オーナー様で『このキーワード追加したい、除去したい〜』などございますでしょうか。<br>
-              10個ほどいただけると幸いです。」
+              このKWの使い方なのですが、KWを使って、広告を配信する先を決める設定です。<br>
+              設定案の6番のキーワードで考えておりますが、追加したい・外したいものはございますか？」
             </div>
           </div>
 
           <!-- 配信地域 -->
           <div class="sub-section">
-            <div class="sub-title"><span class="sub-dot"></span>⑤ 配信地域</div>
+            <div class="sub-title"><span class="sub-dot"></span>⑤ 配信地域<span class="pp-tag">設定案 3</span></div>
             <div class="script-main">
-              「お次が配信地域についてですが、提案した地域で考えておりますが、提案した地域だと狭い・広いなどございますか？」
+              「お次が配信地域についてですが、設定案3番の地図の範囲で考えております。狭い・広いなどございますか？」
             </div>
             <div class="hearing-list">
               <ul>
                 <li>「近隣の方の認知度って結構ありますか？」</li>
                 <li>「広告はどこらへんで配信したいなどのお考えはございますか？」</li>
               </ul>
+            </div>
+            <div class="script-main" style="margin-top:12px;">
+              「まずはこの設定で始めます。もし表示が出なかった場合は、少し緩和して広げた設定に変えることがあります。絞りすぎると、Google側が配信してくれないこともあるためです。」
             </div>
           </div>
 
@@ -824,11 +837,11 @@ Mail   creative.yt@runbird.net
 
           <!-- 配信時間 -->
           <div class="sub-section">
-            <div class="sub-title"><span class="sub-dot"></span>配信時間</div>
+            <div class="sub-title"><span class="sub-dot"></span>配信時間<span class="pp-tag">設定案 4</span></div>
             <div class="script-main">
               「お次は配信時間についてですが、深夜帯をカットし人が活動する7時〜24時の配信時間にするのはいかがでしょうか？<br>
-              実はこのご提案の背景として、今YouTubeを見ながら寝てしまう人が増えております。<br>
-              その影響で広告も寝てる人に配信されることが増える傾向があります。<br>
+              実はこのご提案の背景として、YouTubeを見ながら寝てしまう方もいらっしゃいます。<br>
+              その影響で、広告も寝ている方に配信されることがある傾向がございます。<br>
               有効的な配信のために、深夜帯カットのご提案ですがいかがいたしましょうか？」
             </div>
             <div class="tip-box">
@@ -838,11 +851,11 @@ Mail   creative.yt@runbird.net
 
           <!-- デバイス -->
           <div class="sub-section">
-            <div class="sub-title"><span class="sub-dot"></span>デバイス（TV除外）</div>
+            <div class="sub-title"><span class="sub-dot"></span>デバイス（TV除外）<span class="pp-tag">設定案 5</span></div>
             <div class="script-main">
               「実はテレビは基本的に配信しないように考えております。<br>
-              というのも、意図した視聴者に届かない事例が増えているようで、、、<br>
-              例えば30代男性向けの整体広告を配信していたら、実際に見ていたのが男性のお子さんだったという事例もあるようなのです。<br>
+              というのも、意図した視聴者に届きにくい傾向もあるためです。<br>
+              例えば30代男性向けの整体広告を配信していても、実際に見ているのが男性のお子さんだった、ということも起こりえます。<br>
               このような背景から、テレビへの配信をカットするご提案をいたしました。<br>
               オーナー様的にTV配信をしない設定はいかがでしょうか？」
             </div>
@@ -853,7 +866,7 @@ Mail   creative.yt@runbird.net
             <div class="sub-title"><span class="sub-dot"></span>フリークエンシーキャップ</div>
             <div class="script-main">
               「フリークエンシーキャップというのがあるんですが、これまで聞かれたことはありますか？<br>
-              ざっくり言うと『指定期間内に1人あたりにどれだけの回数を見れるように上限を設けるか？』という設定です。<br>
+              ざっくり言うと『指定期間内に1人あたりにどれだけの回数を見られるように上限を設けるか？』という設定です。<br>
               例えばですが、1人に100回も広告見せるよりも100人に1回ずつ見せる方が、より広く認知拡大に貢献しやすくなる可能性があります。<br>
               その為に、広告に上限を設けることができるものなんです。<br>
               有効的に広告配信をするため、設定させて頂ければと思うのですが、こちらの設定いかがいたしますか？」
@@ -876,19 +889,19 @@ Mail   creative.yt@runbird.net
       <div class="step-body">
         <div class="step-label">
           <span class="step-tag">協力依頼</span>
-          <span class="step-title">オーナーへお願いする2点</span>
+          <span class="step-title">オーナーへの共有事項</span>
         </div>
         <div class="step-card">
           <p class="body-text" style="margin-bottom:10px;">「必須事項のヒアリングは以上となります。いくつかオーナー様に共有したい事項があります。」</p>
 
           <div class="sub-section">
-            <div class="sub-title"><span class="sub-dot"></span>① マップ・SNS・HPの更新・口コミ投稿</div>
+            <div class="sub-title"><span class="sub-dot"></span>① マップ・SNS・HPの更新・口コミ投稿<span class="pp-tag">設定案 最後に</span></div>
             <div class="script-main">
-              「オーナー様へご協力をお願いしたい点がございます。
-              というのが、マップやサイトの情報更新・口コミ投稿でございます。<br>
-              実は今のユーザーは広告を見た後に、HPやサイトを検索して最終的に行くか・行かないか判断する傾向が非常に強くなっております。<br>
-              そこで広告を見た方が、店舗さんへ来ていただけるようにサイトなどの更新をお願いしておりました。<br><br>
-              今回始まるYouTube広告は認知拡大が強い広告タイプでして、店舗さんのサービスなどを知るきっかけ作りにはすごく強いんです。」
+              「オーナー様へご協力をお願いしたい点がございます。<br>
+              1つ目がマップやサイトの情報更新・口コミ投稿でございます。<br><br>
+              今回始まるYouTube広告は認知拡大が強い広告タイプでして、店舗さんのサービスなどを知るきっかけ作りにはすごく強いんです。<br><br>
+              実は今のユーザーは広告を見た後に、Web情報を検索して最終的に行くか・行かないか判断する傾向が非常に強くなっております。<br><br>
+              そこで広告を見た方が、店舗さんへ来ていただけるようにGoogleマップやHPなどの更新をお願いしております。」
             </div>
           </div>
 
@@ -896,7 +909,7 @@ Mail   creative.yt@runbird.net
             <div class="sub-title"><span class="sub-dot"></span>② 長期施策であることの説明</div>
             <div class="script-main">
               「広告はすぐに効果が出るわけではなく、適切な配信先と背中を押すようなHP・SNSなどが揃って初めて効果が見えてくるようになります。<br>
-              なので、この2点のご協力をお願い致しました。」
+              なので、GoogleマップやHPの更新・口コミ投稿のご協力をお願いいたしました。」
             </div>
           </div>
 
@@ -914,7 +927,7 @@ Mail   creative.yt@runbird.net
         </div>
         <div class="step-card">
           <div class="script-main">
-            「今回の設定内容で◯年◯月◯日から運用を開始致します。<br>
+            「今回の設定内容で、◯月◯日以降、媒体の審査が通過次第、運用を開始いたします。<br>
             それにあたり、初回のお打ち合わせは2ヶ月後の◯月を予定しております。<br>
             もしよろしければ、初回定例会のお約束をさせていただいてもよろしいでしょうか？」<br><br>
             （カレンダーを見ながら）「◯月◯日の◯時ならご案内ができますが、いかがでしょうか？」<br><br>
@@ -936,9 +949,25 @@ Mail   creative.yt@runbird.net
           <span class="step-title">クロージング</span>
         </div>
         <div class="step-card">
-          <div class="script-main">
-            「以上でヒアリングは終了となりますが、本日のご案内でご質問等はございますでしょうか？」<br><br>
-            「本日はありがとうございました！失礼致します！」
+          <div class="sub-section">
+            <div class="sub-title"><span class="sub-dot"></span>毎月のレポートと定例会のご案内</div>
+            <div class="script-main">
+              「最後に、今後の流れをご案内いたします。<br>
+              広告の運用が始まりましたら、毎月、配信結果をまとめたレポートをお送りいたします。設定案の8番にあるレポートサンプルと同じ形のものです。初回は運用開始の1ヶ月後にお届けいたします。」<br><br>
+              「定例会は、運用開始から半年間は2ヶ月に1度のペースでお電話させていただきます。<br>
+              その後は、毎月お送りするレポートをご覧いただき、ご相談やご不明点がございましたらお問い合わせください。その際に日程を調整させていただきます。」
+            </div>
+            <div class="note-box">
+              半年を過ぎたら、こちらから定例会の日程は決めない。お客様からお問い合わせがあったときに日程調整する。最初にこの流れを伝えておくと、あとで「定例会がなくなった」と思われずに済む。
+            </div>
+          </div>
+
+          <div class="sub-section">
+            <div class="sub-title"><span class="sub-dot"></span>締めのあいさつ</div>
+            <div class="script-main">
+              「以上でヒアリングは終了となりますが、本日のご案内でご質問等はございますでしょうか？」<br><br>
+              「本日はありがとうございました！失礼いたします！」
+            </div>
           </div>
 
           <div class="sub-section">
@@ -967,62 +996,64 @@ Mail   creative.yt@runbird.net
       <div class="qa-card">
         <div class="qa-question" onclick="this.closest('.qa-card').classList.toggle('open')">
           <span class="q-badge">Q</span>
-          <span class="qa-question-text">「効果はいつ頃から出ますか？」</span>
+          <span class="qa-question-text">「広告の表示回数はどこで確認できますか？」</span>
           <span class="chevron-sm">▼</span>
         </div>
         <div class="qa-answer">
           <span class="a-label">A</span>
-          <p class="answer-main">YouTube広告は認知拡大が得意な広告です。すぐに問い合わせが増えるというより、まず「知ってもらう」ところから始まります。HP・マップなどの情報が整っていると効果が出やすくなりますので、2ヶ月単位で数値を見ながら一緒に改善していきましょう。</p>
+          <p class="answer-main">「広告の視聴回数は、毎月のレポートでお伝えします。アナリティクスは、動画全体の動きを見る画面です。」</p>
         </div>
       </div>
 
       <div class="qa-card">
         <div class="qa-question" onclick="this.closest('.qa-card').classList.toggle('open')">
           <span class="q-badge">Q</span>
-          <span class="qa-question-text">「今ちょっと忙しいんですけど…」</span>
+          <span class="qa-question-text">「保証の再生回数を超えたらどうなるの？」</span>
           <span class="chevron-sm">▼</span>
         </div>
         <div class="qa-answer">
           <span class="a-label">A</span>
-          <p class="answer-main">「かしこまりました！必須項目のみであれば15〜20分ほどで完了できますが、いかがでしょうか？もし難しければ改めてお時間いただけますか？」と伝えて調整する。無理に進めず、別日に再設定しても問題ない。</p>
+          <p class="answer-main">案件ファイルの「回数」欄で、保証か推定かを確認してから答える（「年数＋総回数」の書き方は保証、「月◯回」「ペース」の書き方は推定）。<br><br>保証の案件：「〈3万回〉は保証の回数ですので、超えても追加料金は発生しません。ご安心ください。」<br><br>推定の案件：「推定で月〈回数欄の数字〉回前後以上を目標に運用しています。回数が多くなっても、追加料金は発生しません。」</p>
+        </div>
+      </div>
+
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="this.closest('.qa-card').classList.toggle('open')">
+          <span class="q-badge">Q</span>
+          <span class="qa-question-text">「配信する地域をもっと広げたい（絞りたい）」</span>
+          <span class="chevron-sm">▼</span>
+        </div>
+        <div class="qa-answer">
+          <span class="a-label">A</span>
+          <p class="answer-main">地域は変えられる。設定案の3番の地図を見ながら、まず理由を聞く。<br>「地域を変えたいと思われたのは、どういった理由からでしょうか？実際のお客様はどのあたりから来られることが多いですか？」<br><br>広げると見てもらえる人数は増えるが、1つの地域あたりで見てもらえる回数が薄くなる。絞ると来店につながりやすい地域に集中できるが、対象の人数が減って再生回数が伸びにくくなる。絞りすぎると契約の再生回数のペースを下回ることがあるので、その点も一言伝える。</p>
         </div>
       </div>
 
       <div class="qa-card">
         <div class="qa-question" onclick="this.closest('.qa-card').classList.toggle('open')">
           <span class="q-badge">Q</span>
-          <span class="qa-question-text">「キーワードってどうやって決めるんですか？」</span>
+          <span class="qa-question-text">「定例会は毎月やってくれないの？Zoomでできないの？」</span>
           <span class="chevron-sm">▼</span>
         </div>
         <div class="qa-answer">
           <span class="a-label">A</span>
-          <p class="answer-main">「こちらで業種・サービス・地域名などをもとに候補を事前に用意しています。本日はその中からオーナー様のご意向も聞きながら、最終的に10個ほどに絞る形で進めさせてください。」と説明する。</p>
+          <p class="answer-main">「定例会は、運用開始から半年間は2ヶ月に1度、お電話で行っています。その後は、毎月お送りするレポートをご覧いただいて、ご相談があればお問い合わせいただく形です。」<br><br>毎月を希望されたら：「毎月をご希望でしたら、営業と相談して決めることになります。設定を2ヶ月ほど変えずに集計しているので、毎月だとお話しできることが少なくなる点もございます。」<br>Zoomを希望されたら：「定例会は基本的にお電話でお受けしております。他のお客様も皆様お電話で対応させていただいております。」</p>
         </div>
       </div>
 
       <div class="qa-card">
         <div class="qa-question" onclick="this.closest('.qa-card').classList.toggle('open')">
           <span class="q-badge">Q</span>
-          <span class="qa-question-text">「広告って本当に効果あるんですか？」</span>
+          <span class="qa-question-text">「広告の管理画面を見せてもらえますか？」</span>
           <span class="chevron-sm">▼</span>
         </div>
         <div class="qa-answer">
           <span class="a-label">A</span>
-          <p class="answer-main">「広告単体ですぐに集客、というよりも、まず認知を広げるための施策です。広告を見た方がその後HPやマップを検索して来店を判断する流れが一般的です。広告・HP・マップが揃うことで成果が出やすくなります。」と長期施策であることを丁寧に説明する。</p>
+          <p class="answer-main">管理画面は基本的にお見せしていない。<br>「他のお客様の情報も一緒に表示される可能性があるため、お見せすることができません。代わりに、毎月のレポートで配信の状況をお伝えいたします。」</p>
         </div>
       </div>
 
-      <div class="qa-card">
-        <div class="qa-question" onclick="this.closest('.qa-card').classList.toggle('open')">
-          <span class="q-badge">Q</span>
-          <span class="qa-question-text">「Google広告やSNS広告と何が違うんですか？」</span>
-          <span class="chevron-sm">▼</span>
-        </div>
-        <div class="qa-answer">
-          <span class="a-label">A</span>
-          <p class="answer-main">「Google検索広告は『今すぐ探している人』に届ける広告です。YouTube広告は『まだ知らない人』に動画で認知してもらう広告で、それぞれ役割が違います。SNS広告はフォロワーへのリーチが中心で、拡散力が強みです。YouTube広告は動画で強い印象を残せる点が特徴です。」</p>
-        </div>
-      </div>
 
     </div>
   </section>

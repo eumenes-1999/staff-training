@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>【新人研修】Google広告 基礎概念</title>
+  <title>【新人研修】YouTube広告 基礎概念</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
@@ -211,6 +211,18 @@
     .card-header .icon { font-size: 20px; }
     .card-header h3 { font-size: 16px; font-weight: 700; color: var(--yt-red-dark); }
     .card-body { padding: 24px; }
+    /* フォーマット比較：補足の開閉 */
+    .fmt-more { margin-top: 16px; border: 1px solid var(--border); border-radius: var(--radius-lg); background: #fafafa; }
+    .fmt-more > summary { cursor: pointer; list-style: none; padding: 12px 16px; font-size: 14px; font-weight: 700; color: var(--text-secondary); display: flex; align-items: center; }
+    .fmt-more > summary::-webkit-details-marker { display: none; }
+    .fmt-more > summary::after { content: "▼"; margin-left: auto; font-size: 12px; transition: transform .2s; }
+    .fmt-more[open] > summary::after { transform: rotate(180deg); }
+    .fmt-more > table { margin: 0 16px 16px; width: calc(100% - 32px); }
+    /* プルダウン（開閉）カード */
+    .card-details > summary { cursor: pointer; list-style: none; }
+    .card-details > summary::-webkit-details-marker { display: none; }
+    .card-details > summary::after { content: "▼"; margin-left: auto; font-size: 12px; color: var(--yt-red-dark); transition: transform .2s; }
+    .card-details[open] > summary::after { transform: rotate(180deg); }
 
     /* ─── GRID ─── */
     .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
@@ -440,11 +452,11 @@
 <!-- ─── HERO ─── -->
 <header class="hero">
   <div class="hero-badge">▶ 新人研修資料</div>
-  <h1>Google広告<br /><span>基礎概念</span></h1>
-  <p class="hero-sub">YouTube・リスティング・ディスプレイの仕組み・指標・用語集まで、Google広告運用に必要な基礎知識をまとめた研修テキストです。</p>
+  <h1>YouTube広告<br /><span>基礎概念</span></h1>
+  <p class="hero-sub">YouTube広告の仕組み・指標から、リスティング・ディスプレイを含む広告用語集まで、YouTube広告運用に必要な基礎知識をまとめた研修テキストです。KWの選び方は別ページ（KW・ターゲティング）にあります。</p>
   <div class="hero-meta">
     <div class="hero-meta-item"><div class="icon">📌</div>対象：入社1〜3ヶ月の新人</div>
-    <div class="hero-meta-item"><div class="icon">⏱️</div>所要時間：約30〜45分</div>
+    <div class="hero-meta-item"><div class="icon">⏱️</div>所要時間：約20〜30分</div>
     <div class="hero-meta-item"><div class="icon">🎯</div>目標：広告設定の「なぜ」を説明できる</div>
   </div>
 </header>
@@ -455,11 +467,9 @@
     <a href="#section-yt-feature" class="nav-item">▶️ YouTube広告の特性</a>
     <a href="#section-instream" class="nav-item">⏩ インストリーム広告</a>
     <a href="#section-mechanism" class="nav-item">⚙️ 配信メカニズム</a>
-    <a href="#section-kw" class="nav-item">🔍 KW選定のコツ</a>
-    <a href="#section-kw-type" class="nav-item">🔑 KWの種類と使い分け</a>
+    <a href="#section-kw-link" class="nav-item">🔑 KW・ターゲティング（別ページ）</a>
     <a href="#section-region" class="nav-item">📍 配信地域の調整</a>
     <a href="#section-target" class="nav-item">🎯 ターゲット選定</a>
-    <a href="#section-google-mechanism" class="nav-item">⚙️ Google広告の仕組み</a>
     <a href="#section-metrics" class="nav-item">📈 指標の読み方</a>
     <a href="#section-glossary" class="nav-item">📖 広告用語集</a>
   </div>
@@ -500,7 +510,7 @@
               <div style="font-size:24px;flex-shrink:0;">💴</div>
               <div class="step-content">
                 <h4>低コストで大量リーチ</h4>
-                <p>CPV（1視聴あたり）10円前後という低単価で、多くのユーザーへ広告を届けられる。テレビCMと比較してコストが圧倒的に低い。</p>
+                <p>CPV（1視聴あたり）は10円前後を目標に設定していて、実際の単価はそれより低くなることが多い。低単価で、多くのユーザーへ広告を届けられる。テレビCMと比較してコストが圧倒的に低い。</p>
               </div>
             </div>
           </div>
@@ -528,13 +538,13 @@
               </tr>
               <tr>
                 <td>ターゲット</td>
-                <td class="center">潜在層</td>
+                <td class="center">潜在層〜顕在層</td>
                 <td class="center">顕在層</td>
                 <td class="center">興味関心層</td>
               </tr>
               <tr>
                 <td>課金方式</td>
-                <td class="center">CPV（視聴ごと）</td>
+                <td class="center">CPV（視聴ごと）<br><span style="font-size:11px;color:var(--text-tertiary);">スキップ可能なインストリーム広告の場合</span></td>
                 <td class="center">CPC（クリックごと）</td>
                 <td class="center">CPM・CPC</td>
               </tr>
@@ -577,7 +587,7 @@
         </div>
         <div class="info-box blue mt-16">
           <span class="info-icon">💡</span>
-          <p>オーナーへの説明例：「広告はまず認知を広げます。見た方がマップやHPを検索して来店につながる流れです。成果は2ヶ月単位で評価します。」</p>
+          <p>オーナーへの説明例：「広告はまず認知を広げます。見た方がマップやHPを検索して来店につながる流れです。広告・HP・マップが揃うことで成果が出やすくなります。成果は2ヶ月単位で評価します。」</p>
         </div>
       </div>
     </div>
@@ -616,7 +626,7 @@
               <div class="step-num">3</div>
               <div class="step-content">
                 <h4>課金タイミング（CPV）</h4>
-                <p><strong>30秒以上視聴</strong>した場合、または<strong>動画の最後まで</strong>視聴した場合のみ課金。5秒でスキップされた場合は費用が発生しない。</p>
+                <p>CPV（広告視聴単価）で入札している場合、<strong>30秒（短い動画は最後まで）</strong>見られたとき、またはその前に広告が<strong>クリックなどで操作</strong>されたときに費用がかかる。何も操作されずに途中でスキップされた場合は、費用がかからない。</p>
               </div>
             </div>
           </div>
@@ -672,22 +682,8 @@
               <td class="label">スキップ可能なインストリーム ★</td>
               <td class="value">5秒後に可能</td>
               <td class="value">制限なし（15秒〜3分程度が一般的）</td>
-              <td class="value">CPV（30秒以上視聴）</td>
+              <td class="value">CPV（30秒視聴〈短い動画は最後まで〉、またはクリックなどの操作）</td>
               <td class="value">認知拡大・ブランディング</td>
-            </tr>
-            <tr>
-              <td class="label">スキップ不可のインストリーム</td>
-              <td class="value">不可</td>
-              <td class="value">60秒以内（キャンペーンの種類により15〜60秒）</td>
-              <td class="value">CPM（1,000回表示）</td>
-              <td class="value">確実に見せたいメッセージ</td>
-            </tr>
-            <tr>
-              <td class="label">バンパー広告</td>
-              <td class="value">不可</td>
-              <td class="value">6秒以内</td>
-              <td class="value">CPM</td>
-              <td class="value">短いインパクト・リマインド</td>
             </tr>
           </tbody>
         </table>
@@ -695,6 +691,30 @@
           <span class="info-icon">📌</span>
           <p>社内では原則<strong>スキップ可能なインストリーム広告</strong>を使用する。</p>
         </div>
+        <details class="fmt-more">
+          <summary>他のフォーマット（スキップ不可のインストリーム・バンパー広告）を見る</summary>
+          <table class="setting-table">
+            <thead>
+            <tr><th>フォーマット</th><th>スキップ</th><th>動画の長さ</th><th>課金方式</th><th>用途</th></tr>
+          </thead>
+            <tbody>
+              <tr>
+                <td class="label">スキップ不可のインストリーム</td>
+                <td class="value">不可</td>
+                <td class="value">60秒以内（キャンペーンの種類により15〜60秒）</td>
+                <td class="value">CPM（1,000回表示）</td>
+                <td class="value">確実に見せたいメッセージ</td>
+              </tr>
+              <tr>
+                <td class="label">バンパー広告</td>
+                <td class="value">不可</td>
+                <td class="value">6秒以内</td>
+                <td class="value">CPM</td>
+                <td class="value">短いインパクト・リマインド</td>
+              </tr>
+            </tbody>
+          </table>
+        </details>
       </div>
     </div>
   </section>
@@ -705,7 +725,7 @@
       <div class="section-number">3</div>
       <div class="section-title-wrap">
         <h2>広告配信のメカニズム</h2>
-        <p>オークションの仕組みと品質スコアを理解することで、設定の意味が見えてくる</p>
+        <p>オークションの仕組みを理解することで、設定の意味が見えてくる</p>
       </div>
     </div>
 
@@ -714,55 +734,62 @@
         <div class="card-header"><span class="icon">🏆</span><h3>広告オークションの仕組み</h3></div>
         <div class="card-body">
           <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px;">
-            ユーザーがYouTubeを開くたびに、広告枠をめぐる<strong>オークション</strong>が自動で行われます。入札額が高ければ必ず勝てるわけではなく、<strong>品質スコアとの掛け算</strong>で順位が決まります。
+            YouTubeで広告を出せるタイミング（動画の再生前など）が来るたびに、広告枠をめぐる<strong>オークション</strong>が自動で行われます。入札額が高ければ必ず勝てるわけではなく、<strong>入札額と広告の品質などを合わせて</strong>、表示される広告が決まります。
           </p>
           <div class="hierarchy">
             <div class="hierarchy-box h-lv1">
               <div class="level-label">Factor 1</div>
               <h4>💴 入札額（Bid）</h4>
-              <p>「1視聴あたりいくらまで払うか」の上限（CPV）。社内目安は10円/視聴。</p>
+              <p>1視聴あたりに払ってよい金額の平均の目安（目標広告視聴単価）。社内の目標は10円/視聴で、実際の単価はこれより低くなることが多い。高いほど有利だが、それだけでは決まらない。</p>
             </div>
             <div class="hierarchy-box h-lv2">
               <div class="level-label">Factor 2</div>
-              <h4>⭐ 品質スコア（検索広告の指標）</h4>
-              <p>Googleが広告の「関連性・品質」を評価した数値。高品質な広告は低い入札額でも上位に表示される。</p>
+              <h4>⭐ 広告の品質</h4>
+              <p>広告がユーザーにとって関連性が高く、見てもらいやすいか。品質が高い広告は、少ない費用でも表示されやすくなる。</p>
             </div>
             <div class="hierarchy-box h-lv3">
               <div class="level-label">Result</div>
-              <h4>🏆 広告ランク ＝ 入札額 × 品質スコア</h4>
-              <p>この掛け合わせが高い広告が優先表示される。設定の精度＝コスト効率に直結する。</p>
+              <h4>🏆 広告ランク（表示の優先順位）</h4>
+              <p>入札額と広告の品質などをもとにGoogleが算出し、ランクが高い広告が優先して表示される。設定の精度＝コスト効率に直結する。</p>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="card">
-        <div class="card-header"><span class="icon">⭐</span><h3>参考：品質スコアの3つの要素（検索広告の考え方。YouTube動画広告には当てはまりません）</h3></div>
+      <div class="card" style="align-self:start;">
+        <details class="card-details">
+        <summary class="card-header"><span class="icon">⭐</span><h3>参考：「品質スコア」は検索広告の診断ツール</h3></summary>
         <div class="card-body">
+          <p style="font-size:14px;color:var(--text-secondary);margin-bottom:12px;">
+            「品質スコア」（1〜10）は<strong>検索キャンペーン向けの診断ツール</strong>です。Google広告ヘルプでも、品質スコアは広告オークションの評価材料にはなっていないと説明されています。YouTube広告の運用では使いません。
+          </p>
           <div class="step-list">
             <div class="step-item">
               <div style="font-size:24px;flex-shrink:0;">🖱️</div>
               <div class="step-content">
-                <h4>① 期待クリック率（CTR）</h4>
-                <p>広告が表示されたとき、どれだけ視聴・クリックされやすいか。動画の最初5秒の魅力度が重要になる。</p>
+                <h4>① 推定クリック率</h4>
+                <p>広告が表示されたとき、どれだけクリックされやすいか。</p>
               </div>
             </div>
             <div class="step-item">
               <div style="font-size:24px;flex-shrink:0;">🎯</div>
               <div class="step-content">
                 <h4>② 広告の関連性</h4>
-                <p>ユーザーの興味・検索意図と広告内容が一致しているか。ターゲット設定とKWの整合性が鍵。</p>
+                <p>ユーザーの検索意図と広告内容が一致しているか。</p>
               </div>
             </div>
             <div class="step-item">
               <div style="font-size:24px;flex-shrink:0;">🌐</div>
               <div class="step-content">
-                <h4>③ ランディングページ（LP）の品質</h4>
-                <p>広告クリック後のHP・マップの情報充実度・読み込み速度。HPやマップの更新を依頼する理由の一つ。</p>
+                <h4>③ ランディングページの利便性</h4>
+                <p>広告のクリック後に開くページが、使いやすく役に立つか。</p>
               </div>
             </div>
           </div>
-          <div class="info-box yellow mt-16">
+        </div>
+        </details>
+        <div class="card-body">
+          <div class="info-box yellow">
             <span class="info-icon">⚠️</span>
             <p>HP・マップの更新をお願いするのは、動画を見た方が、そのあとお店の名前を検索したり、マップやHPを見たりして来店を決めるからです（動画は入り口で、HP・マップがその先の受け皿）。広告の費用や品質の評価とは結びつけて話しません。</p>
           </div>
@@ -771,440 +798,14 @@
     </div>
   </section>
 
-  <!-- ─── 4. KW選定のコツ ─── -->
-  <section id="section-kw" class="section">
-    <div class="section-header">
-      <div class="section-number">4</div>
-      <div class="section-title-wrap">
-        <h2>キーワード選定のコツ</h2>
-        <p>良いKWと避けるべきKWを判断できるようになることが目標</p>
-      </div>
-    </div>
-
-    <div class="card mb-24">
-      <div class="card-header"><span class="icon">🔎</span><h3>KWを見つける手法</h3></div>
-      <div class="card-body">
-        <div class="grid-2">
-          <div class="step-item" style="align-items:flex-start;">
-            <div style="font-size:24px;flex-shrink:0;">🌐</div>
-            <div class="step-content">
-              <h4>ウェブで検索する</h4>
-              <p>軸KWをGoogleで実際に検索し、<strong>関連ワード・サジェスト・「他の人はこちらも検索」</strong>を確認する。上位表示されているサービスや競合の言葉遣いもヒントにする。</p>
-            </div>
-          </div>
-          <div class="step-item" style="align-items:flex-start;">
-            <div style="font-size:24px;flex-shrink:0;">📊</div>
-            <div class="step-content">
-              <h4>キーワードプランナーで検索する</h4>
-              <p>Google広告のキーワードプランナーで月間検索ボリュームや<strong>関連KWの候補</strong>を確認できる。ボリュームが0に近いKWは除外し、実際に検索されているワードを採用する。</p>
-            </div>
-          </div>
-        </div>
-        <div class="info-box blue mt-16">
-          <span class="info-icon">💡</span>
-          <div>
-            <strong>軸KW → サブKWの順で考える</strong>
-            <p style="margin-top:4px;">まず業種・サービスの<strong>軸となるKW（例：焼肉 食べ放題）</strong>を1つ決める。そこから地域名・シーンワード・購買意思ワードを掛け合わせた<strong>サブKW</strong>を展開していくと効率よく選定できる。</p>
-            <div class="kw-block" style="margin-top:12px;">
-              <span class="kw-tag kw-good">軸KW：焼肉 食べ放題</span>
-              <span style="display:flex;align-items:center;color:var(--text-secondary);font-size:13px;">→ サブKW：</span>
-              <span class="kw-tag kw-good">焼肉 食べ放題 東京</span>
-              <span class="kw-tag kw-good">焼肉 食べ放題 ランチ</span>
-              <span class="kw-tag kw-good">焼肉 食べ放題 予約</span>
-              <span class="kw-tag kw-caution">焼肉 安い 東京</span>
-              <span class="kw-tag kw-caution">ランチ 食べ放題</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="card mb-24">
-      <div class="card-header"><span class="icon">💡</span><h3>KW選定の基本的な考え方</h3></div>
-      <div class="card-body">
-        <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px;">
-          KW選定の目的は「<strong>購買・来店意欲の高いユーザーが検索するキーワード</strong>を見つけること」です。関連性があるだけでは不十分で、実際に来店につながるニーズと一致しているかが重要です。
-        </p>
-        <div class="step-list">
-          <div class="step-item">
-            <div class="step-num">1</div>
-            <div class="step-content">
-              <h4>業種・サービス名から広げる</h4>
-              <p>まず店舗の中心となるサービスをKWにする。例：「焼肉 食べ放題」「個室 居酒屋」「ランチ ビュッフェ」など。</p>
-            </div>
-          </div>
-          <div class="step-item">
-            <div class="step-num">2</div>
-            <div class="step-content">
-              <h4>地域名を掛け合わせる</h4>
-              <p>サービス名＋地域名でより具体的にする。「焼肉 食べ放題 東京」「個室 居酒屋 新宿」など。エリアを絞ることで購買意欲の高いユーザーに届く。</p>
-            </div>
-          </div>
-          <div class="step-item">
-            <div class="step-num">3</div>
-            <div class="step-content">
-              <h4>シーン・ニーズワードを追加</h4>
-              <p>「記念日 ディナー」「接待 個室」「子連れ ランチ」など、利用シーンに紐づくKWは来店意欲と結びつきやすい。ただし情報収集目的のものは除外する。</p>
-            </div>
-          </div>
-          <div class="step-item">
-            <div class="step-num">4</div>
-            <div class="step-content">
-              <h4>実際にGoogleで検索して確認する</h4>
-              <p>候補KWをGoogleで検索し、表示される結果がターゲットユーザーのニーズと合っているか確認する。ハウツー記事ばかり出てくるKWは購買意欲が低い可能性が高い。</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="grid-2">
-      <div class="card">
-        <div class="card-header"><span class="icon">✅</span><h3>推奨するキーワードの例</h3></div>
-        <div class="card-body">
-          <div class="step-list">
-            <div class="step-item">
-              <div style="font-size:20px;flex-shrink:0;">🎯</div>
-              <div class="step-content">
-                <h4>具体的なサービス名＋地域</h4>
-                <p>購買意欲が高く、今まさに探しているユーザーにリーチできる最も有効なKW。</p>
-                <div class="kw-block">
-                  <span class="kw-tag kw-good">焼肉 食べ放題 東京</span>
-                  <span class="kw-tag kw-good">個室 居酒屋 新宿</span>
-                  <span class="kw-tag kw-good">ランチ ビュッフェ 渋谷</span>
-                </div>
-              </div>
-            </div>
-            <div class="step-item">
-              <div style="font-size:20px;flex-shrink:0;">🔑</div>
-              <div class="step-content">
-                <h4>購買意思が感じられるワード</h4>
-                <p>「予約」「おすすめ」「近く」「料金」などを含むKWは、今すぐ探しているユーザーのシグナル。</p>
-                <div class="kw-block">
-                  <span class="kw-tag kw-good">焼肉 食べ放題 予約</span>
-                  <span class="kw-tag kw-good">個室 居酒屋 おすすめ 東京</span>
-                </div>
-              </div>
-            </div>
-            <div class="step-item">
-              <div style="font-size:20px;flex-shrink:0;">💡</div>
-              <div class="step-content">
-                <h4>シーン・ニーズワード（要確認）</h4>
-                <p>来店意欲と結びつくか確認しながら追加する。</p>
-                <div class="kw-block">
-                  <span class="kw-tag kw-caution">記念日 ディナー 東京</span>
-                  <span class="kw-tag kw-caution">接待 個室 新宿</span>
-                  <span class="kw-tag kw-caution">子連れ ランチ 渋谷</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-header"><span class="icon">🚫</span><h3>避けるべきキーワードの例</h3></div>
-        <div class="card-body">
-          <div class="step-list">
-            <div class="step-item">
-              <div style="font-size:20px;flex-shrink:0;">🔨</div>
-              <div class="step-content">
-                <h4>情報収集・DIY系のKW</h4>
-                <p>「自分でやる」意図が強く、来店につながらない。</p>
-                <div class="kw-block">
-                  <span class="kw-tag kw-bad">焼肉 レシピ</span>
-                  <span class="kw-tag kw-bad">食べ放題 自宅</span>
-                  <span class="kw-tag kw-bad">居酒屋 メニュー 作り方</span>
-                </div>
-              </div>
-            </div>
-            <div class="step-item">
-              <div style="font-size:20px;flex-shrink:0;">🆓</div>
-              <div class="step-content">
-                <h4>無料・節約系のKW</h4>
-                <p>支払い意欲が低いユーザーが多く、来店率が下がりやすい。</p>
-                <div class="kw-block">
-                  <span class="kw-tag kw-bad">ランチ 無料</span>
-                  <span class="kw-tag kw-bad">居酒屋 激安</span>
-                </div>
-              </div>
-            </div>
-            <div class="step-item">
-              <div style="font-size:20px;flex-shrink:0;">📚</div>
-              <div class="step-content">
-                <h4>幅広すぎる一般ワード</h4>
-                <p>ターゲット外ユーザーが大量に含まれ、費用対効果が悪くなる。</p>
-                <div class="kw-block">
-                  <span class="kw-tag kw-bad">居酒屋</span>
-                  <span class="kw-tag kw-bad">レストラン</span>
-                  <span class="kw-tag kw-bad">東京 グルメ</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="info-box blue mt-24">
-      <span class="info-icon">💡</span>
+  <!-- ─── KW・ターゲティング（別ページ） ─── -->
+  <section id="section-kw-link" class="section">
+    <div class="info-box blue">
+      <span class="info-icon">🔑</span>
       <div>
-        <strong>KW選定の目安：10個程度に絞る</strong>
-        <p style="margin-top:4px;">KWは多ければ良いわけではない。具体性が高く購買意欲の高いものを優先的に10個程度選ぶ。ヒアリングでオーナーの意見を聞きながら調整する。</p>
-      </div>
-    </div>
-
-    <div class="card mt-24">
-      <div class="card-header"><span class="icon">🗺️</span><h3>KW選定に迷ったときのフロー</h3></div>
-      <div class="card-body">
-        <p style="font-size:14px;color:var(--text-secondary);margin-bottom:20px;">「このKWを使うべきか迷う」という場面では、以下のステップで整理すると判断しやすくなります。</p>
-        <div class="step-list">
-          <div class="step-item">
-            <div class="step-num">1</div>
-            <div class="step-content">
-              <h4>思いつくKWをすべて書き出す</h4>
-              <p>まず良し悪しを考えず、業種・サービス・地域・ターゲットの悩みなど、関連しそうなものを全部リストアップする。この段階では絞らなくてOK。</p>
-            </div>
-          </div>
-          <div class="step-item">
-            <div class="step-num">2</div>
-            <div class="step-content">
-              <h4>「今すぐ来店・予約したい人が検索するか？」で振り分ける</h4>
-              <p>各KWに対してこの1問でYes / Noに分ける。Noに近いものは除外候補。迷ったら実際にGoogleで検索して、上位に出てくる結果が店舗系かどうか確認する。</p>
-              <div style="display:flex;gap:12px;margin-top:12px;flex-wrap:wrap;">
-                <div style="flex:1;min-width:160px;background:#e6f4ea;border:1px solid #a8d5b5;border-radius:8px;padding:12px;">
-                  <div style="font-size:12px;font-weight:700;color:#137333;margin-bottom:6px;">✅ Yes → 採用候補</div>
-                  <div class="kw-block">
-                    <span class="kw-tag kw-good">焼肉 食べ放題 東京</span>
-                    <span class="kw-tag kw-good">個室 居酒屋 予約</span>
-                  </div>
-                </div>
-                <div style="flex:1;min-width:160px;background:#fce8e6;border:1px solid #f5b4b1;border-radius:8px;padding:12px;">
-                  <div style="font-size:12px;font-weight:700;color:#c4302b;margin-bottom:6px;">❌ No → 除外候補</div>
-                  <div class="kw-block">
-                    <span class="kw-tag kw-bad">焼肉 レシピ</span>
-                    <span class="kw-tag kw-bad">居酒屋 メニュー 作り方</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="step-item">
-            <div class="step-num">3</div>
-            <div class="step-content">
-              <h4>採用候補に地域・シーン・購買ワードを掛け合わせる</h4>
-              <p>Yesに残ったKWを軸にして、地域名・「予約」「おすすめ」「ランチ」などのサブワードを組み合わせてリストを広げる。</p>
-              <div class="kw-block" style="margin-top:10px;">
-                <span class="kw-tag kw-good">焼肉 食べ放題 東京</span>
-                <span style="font-size:13px;color:var(--text-secondary);display:flex;align-items:center;">＋地域・シーン →</span>
-                <span class="kw-tag kw-good">焼肉 食べ放題 新宿</span>
-                <span class="kw-tag kw-good">焼肉 食べ放題 ランチ</span>
-                <span class="kw-tag kw-good">焼肉 食べ放題 予約</span>
-              </div>
-            </div>
-          </div>
-          <div class="step-item">
-            <div class="step-num">4</div>
-            <div class="step-content">
-              <h4>10個程度に絞って完成</h4>
-              <p>サブKWまで広げたら、重複や似たもの同士を整理して最終的に10個前後に絞る。迷うものはヒアリングでオーナーに確認してから決める。</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ─── 5. KWの種類と使い分け ─── -->
-  <section id="section-kw-type" class="section">
-    <div class="section-header">
-      <div class="section-number">5</div>
-      <div class="section-title-wrap">
-        <h2>コンテンツKW・カスタムセグメントKWの使い分け</h2>
-        <p>YouTube広告における2種類のKWターゲティングを理解する</p>
-      </div>
-    </div>
-
-    <div class="info-box yellow mb-24">
-      <span class="info-icon">⚠️</span>
-      <p>YouTube広告でのKWは検索広告とは意味が違います。<strong>「誰に表示するか」のターゲティング手段</strong>として使います。目的に応じて2種類を使い分けることが重要です。</p>
-    </div>
-
-    <div class="grid-2">
-      <div class="card">
-        <div class="card-header"><span class="icon">📰</span><h3>コンテンツKW（コンテンツターゲティング）</h3></div>
-        <div class="card-body">
-          <div class="info-box red" style="margin-bottom:16px;">
-            <span class="info-icon">📺</span>
-            <p><strong>「どんな動画を見ているユーザーか」に基づく配信</strong></p>
-          </div>
-          <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px;">
-            指定したキーワードに関連するYouTube動画・チャンネルに広告を表示する。関連コンテンツを見ているユーザーに届けるため、<strong>テーマ・話題で絞り込む</strong>イメージ。
-          </p>
-          <div class="step-list">
-            <div class="step-item">
-              <div style="font-size:20px;flex-shrink:0;">▶️</div>
-              <div class="step-content">
-                <h4>使用イメージ</h4>
-                <p>「焼肉」「食べ放題」「グルメ 東京」などのKWを設定 → それらに関連する動画を見ているユーザーへ広告が表示される</p>
-              </div>
-            </div>
-            <div class="step-item">
-              <div style="font-size:20px;flex-shrink:0;">👍</div>
-              <div class="step-content">
-                <h4>向いているケース</h4>
-                <p>関連テーマを視聴中の興味関心層（潜在層）に広くリーチしたい場合。認知拡大フェーズで有効。</p>
-              </div>
-            </div>
-          </div>
-          <div class="info-box blue mt-16">
-            <span class="info-icon">💡</span>
-            <p>例：焼肉・グルメ関連の動画を見ているユーザー全般に「焼肉食べ放題」の広告を表示。</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-header"><span class="icon">🔍</span><h3>カスタムセグメントKW（カスタム検索KW）</h3></div>
-        <div class="card-body">
-          <div class="info-box red" style="margin-bottom:16px;">
-            <span class="info-icon">🔎</span>
-            <p><strong>「Googleで何を検索したことがあるユーザーか」に基づく配信</strong></p>
-          </div>
-          <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px;">
-            指定したキーワードをGoogleで検索したことがあるユーザーに広告を表示する。過去の検索履歴に基づくため、<strong>より購買意欲の高いユーザー</strong>に届けやすい。
-          </p>
-          <div class="step-list">
-            <div class="step-item">
-              <div style="font-size:20px;flex-shrink:0;">🔎</div>
-              <div class="step-content">
-                <h4>使用イメージ</h4>
-                <p>「焼肉 食べ放題 東京」「個室 居酒屋 予約」などのKWを設定 → それらを過去に検索したことがあるユーザーへ表示される</p>
-              </div>
-            </div>
-            <div class="step-item">
-              <div style="font-size:20px;flex-shrink:0;">👍</div>
-              <div class="step-content">
-                <h4>向いているケース</h4>
-                <p>すでに探し始めているユーザー（顕在層）に届けたい場合。コンテンツKWより購買意欲が高いユーザーに絞れる。</p>
-              </div>
-            </div>
-          </div>
-          <div class="info-box green mt-16">
-            <span class="info-icon">✅</span>
-            <p>例：「焼肉 食べ放題 東京」を過去に検索したことがあるユーザーにYouTube上で広告を表示。検索広告と相性が良い。</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="card mt-24">
-      <div class="card-header"><span class="icon">⚖️</span><h3>使い分けの判断基準</h3></div>
-      <div class="card-body">
-        <table class="setting-table">
-          <thead>
-            <tr><th>比較項目</th><th>コンテンツKW</th><th>カスタムセグメントKW</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="label">ターゲットのフェーズ</td>
-              <td class="value">潜在層（まだ探していない）</td>
-              <td class="value">顕在層（すでに探している）</td>
-            </tr>
-            <tr>
-              <td class="label">リーチの広さ</td>
-              <td class="value">広い</td>
-              <td class="value">絞られる</td>
-            </tr>
-            <tr>
-              <td class="label">購買意欲</td>
-              <td class="value">低〜中</td>
-              <td class="value">中〜高</td>
-            </tr>
-            <tr>
-              <td class="label">使う場面</td>
-              <td class="value">認知拡大・新規獲得</td>
-              <td class="value">検討層へのリーチ強化</td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="info-box blue mt-16">
-          <span class="info-icon">💡</span>
-          <p><strong>実務では：</strong>両方を組み合わせて使うことが多い。認知拡大にはコンテンツKW、購買意欲の高いユーザーへの追い打ちにカスタムセグメントKWを使うイメージ。設定はヒアリングで聞いた情報をもとに判断する。</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="card mt-24">
-      <div class="card-header"><span class="icon">🗂️</span><h3>カスタムセグメントKWのニーズ別グループ分け</h3></div>
-      <div class="card-body">
-        <p style="font-size:14px;color:var(--text-secondary);margin-bottom:20px;">カスタムセグメントのKWは「ニーズ（検索意図）」ごとにグループに分けて設定すると管理しやすくなります。グループごとに広告グループを分けることで、配信の精度も上がります。</p>
-
-        <div class="step-list">
-          <div class="step-item">
-            <div style="background:linear-gradient(135deg,#c4302b,#ff6b6b);color:white;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;">A</div>
-            <div class="step-content">
-              <h4>購買・予約意図グループ <span class="tag tag-red" style="margin-left:8px;">購買意欲：高</span></h4>
-              <p>「今すぐ予約したい・行きたい」というユーザーのKW。最も成果に近いグループ。</p>
-              <div class="kw-block" style="margin-top:10px;">
-                <span class="kw-tag kw-good">焼肉 食べ放題 予約</span>
-                <span class="kw-tag kw-good">個室 居酒屋 予約 東京</span>
-                <span class="kw-tag kw-good">ディナー 予約 新宿</span>
-                <span class="kw-tag kw-good">焼肉 食べ放題 当日予約</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="step-item">
-            <div style="background:linear-gradient(135deg,#FBBC05,#FFD54F);color:white;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;">B</div>
-            <div class="step-content">
-              <h4>比較・検討グループ <span class="tag tag-yellow" style="margin-left:8px;">購買意欲：中</span></h4>
-              <p>「どこがいいか比べている」段階のユーザー。おすすめ・ランキング系のKW。</p>
-              <div class="kw-block" style="margin-top:10px;">
-                <span class="kw-tag kw-caution">焼肉 食べ放題 おすすめ 東京</span>
-                <span class="kw-tag kw-caution">個室 居酒屋 ランキング 新宿</span>
-                <span class="kw-tag kw-caution">焼肉 コスパ 東京</span>
-                <span class="kw-tag kw-caution">居酒屋 人気 渋谷</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="step-item">
-            <div style="background:linear-gradient(135deg,#34A853,#66BB6A);color:white;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;">C</div>
-            <div class="step-content">
-              <h4>シーン・目的グループ <span class="tag tag-green" style="margin-left:8px;">購買意欲：中</span></h4>
-              <p>「記念日に」「接待で」など特定の目的から探しているユーザー。ターゲットと動画内容が合うと刺さりやすい。</p>
-              <div class="kw-block" style="margin-top:10px;">
-                <span class="kw-tag kw-caution">記念日 ディナー 東京</span>
-                <span class="kw-tag kw-caution">接待 個室 新宿</span>
-                <span class="kw-tag kw-caution">誕生日 サプライズ 居酒屋</span>
-                <span class="kw-tag kw-caution">子連れ ランチ 渋谷</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="step-item">
-            <div style="background:linear-gradient(135deg,#4285F4,#64B5F6);color:white;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;">D</div>
-            <div class="step-content">
-              <h4>エリア・地域グループ <span class="tag tag-blue" style="margin-left:8px;">購買意欲：中〜低</span></h4>
-              <p>エリアから飲食店を探しているユーザー。幅広くリーチできるが、ターゲット外も含まれやすい。</p>
-              <div class="kw-block" style="margin-top:10px;">
-                <span class="kw-tag kw-caution">新宿 焼肉</span>
-                <span class="kw-tag kw-caution">渋谷 居酒屋 個室</span>
-                <span class="kw-tag kw-caution">東京 食べ放題</span>
-                <span class="kw-tag kw-caution">池袋 ディナー</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="info-box yellow mt-24">
-          <span class="info-icon">⚠️</span>
-          <div>
-            <strong>グループ分けの活用方法</strong>
-            <p style="margin-top:4px;">すべてを1つの広告グループにまとめるより、ニーズごとに分けて設定した方が、どのニーズからの視聴が多いか分析しやすくなります。まずは<strong>A（購買意図）とB（比較検討）</strong>の2グループから始めるのが現実的です。</p>
-          </div>
-        </div>
+        <strong>キーワード（KW）の選び方と、コンテンツKW・カスタムセグメントKWの使い分けは、別のページにまとめています。</strong>
+        <p style="margin-top:6px;">設定の練習のときに読みます。このページを読み終えてから進んでください。</p>
+        <p style="margin-top:8px;"><a href="kw-targeting.html" style="font-weight:700;">▶ YouTube広告 KW・ターゲティング（約15〜20分）を開く</a></p>
       </div>
     </div>
   </section>
@@ -1212,7 +813,7 @@
   <!-- ─── 6. 配信地域の調整 ─── -->
   <section id="section-region" class="section">
     <div class="section-header">
-      <div class="section-number">6</div>
+      <div class="section-number">4</div>
       <div class="section-title-wrap">
         <h2>配信地域の調整：メリット・デメリット</h2>
         <p>地域設定は「広すぎ」も「狭すぎ」も問題。バランスを理解する</p>
@@ -1228,7 +829,7 @@
               <div style="font-size:20px;flex-shrink:0;">🎯</div>
               <div class="step-content">
                 <h4>半径指定（実店舗向け）</h4>
-                <p>店舗の住所を中心に<strong>半径○km以内</strong>のユーザーに配信。最小1km、最大800km。実店舗には半径指定が最も効果的。</p>
+                <p>店舗の住所を中心に<strong>半径○km以内</strong>のユーザーに配信。最小1km、最大800km。実店舗では半径指定がよく合います（商圏が市区町村ではっきり分かれるなら、市区町村や郵便番号での指定も選べます）。</p>
               </div>
             </div>
             <div class="step-item">
@@ -1254,7 +855,6 @@
               <h4>✅ 絞るメリット</h4>
               <ul>
                 <li>商圏外への無駄な配信が減る</li>
-                <li>CPVが下がりやすい</li>
                 <li>来店可能性の高いユーザーに届く</li>
                 <li>予算を効率的に使える</li>
               </ul>
@@ -1266,6 +866,7 @@
                 <li>認知拡大の効果が出にくくなる</li>
                 <li>データが溜まりにくくなる</li>
                 <li>予算が消化されにくくなる</li>
+                <li>CPVが上がりやすい（競争が高くなる）</li>
               </ul>
             </div>
           </div>
@@ -1276,6 +877,7 @@
                 <li>インプレッション数が増える</li>
                 <li>認知拡大の範囲が広がる</li>
                 <li>データが早く溜まる</li>
+                <li>CPVが下がりやすい</li>
               </ul>
             </div>
             <div class="demerit-box">
@@ -1283,7 +885,6 @@
               <ul>
                 <li>来店できないユーザーにも配信</li>
                 <li>費用対効果が下がる</li>
-                <li>CPVが上がりやすい</li>
               </ul>
             </div>
           </div>
@@ -1306,14 +907,14 @@
             <div class="step-num">2</div>
             <div class="step-content">
               <h4>初期設定は5〜10kmで始める</h4>
-              <p>一般的な実店舗ビジネスは店舗から5〜10kmが商圏の目安。交通手段・業種によって適切な範囲は変わるので、オーナーの意見を優先する。</p>
+              <p>一般的な実店舗ビジネスは店舗から5〜10kmが商圏の目安。交通手段・業種によって適切な範囲は変わるので、オーナーの意見を伺うこと。</p>
             </div>
           </div>
           <div class="step-item">
             <div class="step-num">3</div>
             <div class="step-content">
               <h4>2ヶ月後の定例会でデータを見て調整</h4>
-              <p>インプレッション数が極端に少ない場合は広げる。CPVが高すぎる・予算消化が悪い場合も範囲を見直す判断材料にする。</p>
+              <p>インプレッション数が少ない・CPVが高い・予算消化が悪いときは、地域やターゲット（年齢・KW・セグメントなど）を絞りすぎていることも原因の一つです。ただし、原因はそれだけとは限りません（動画、入札単価、審査状況、季節による需要の増減など）。ほかの原因も確認したうえで、広げるかどうかを決める。</p>
             </div>
           </div>
         </div>
@@ -1328,7 +929,7 @@
   <!-- ─── 7. ターゲット選定の重要度 ─── -->
   <section id="section-target" class="section">
     <div class="section-header">
-      <div class="section-number">7</div>
+      <div class="section-number">5</div>
       <div class="section-title-wrap">
         <h2>ターゲット選定の重要度</h2>
         <p>誰に届けるかを間違えると、良い動画でも成果が出ない</p>
@@ -1344,7 +945,7 @@
             <tbody>
               <tr>
                 <td class="label">年齢</td>
-                <td class="value">18〜24 / 25〜34 / 35〜44<br>45〜54 / 55〜64 / 65歳以上</td>
+                <td class="value">18〜24 / 25〜34 / 35〜44<br>45〜54 / 55〜64 / 65歳以上 / 不明</td>
                 <td class="value">ヒアリングで来客の年代を確認してから選ぶ</td>
               </tr>
               <tr>
@@ -1354,19 +955,19 @@
               </tr>
               <tr>
                 <td class="label">子供の有無</td>
-                <td class="value">有 / 無</td>
+                <td class="value">子供あり / 子供なし / 不明</td>
                 <td class="value">子育て関連のサービスで有効に使える</td>
               </tr>
               <tr>
                 <td class="label">世帯収入</td>
-                <td class="value">上位10%〜</td>
+                <td class="value">上位10% / 11〜20% / 21〜30%<br>31〜40% / 41〜50% / 下位50% / 不明</td>
                 <td class="value">高価格帯サービスで絞り込む際に参考程度に使用</td>
               </tr>
             </tbody>
           </table>
           <div class="info-box yellow">
             <span class="info-icon">⚠️</span>
-            <p><strong>「不明」を含めるかどうか：</strong>性別「不明」はGoogleがデータを持てていないユーザー。除外すると取りこぼしが増えるため、基本的には<strong>含める</strong>ことを推奨。精度より量を優先する初期段階は特に。</p>
+            <p><strong>「不明」を含めるかどうか：</strong>「不明」は、Googleが年齢・性別・子供の有無・世帯収入などのデータを持てていないユーザー。除外すると取りこぼしが増えるため、基本的には<strong>含める</strong>ことを推奨。精度より量を優先する初期段階は特に。</p>
           </div>
         </div>
       </div>
@@ -1387,7 +988,7 @@
               <div style="font-size:20px;flex-shrink:0;">❌</div>
               <div class="step-content">
                 <h4>動画内容とターゲットのズレ</h4>
-                <p>「女性向けサービスの動画なのに全性別に配信」「高齢者向けなのに18〜24歳に配信」のようなズレは品質スコアを下げ、費用対効果を悪化させる。</p>
+                <p>「女性向けサービスの動画なのに全性別に配信」「高齢者向けなのに18〜24歳に配信」のようなズレは、費用対効果を悪化させる。</p>
                 <span class="tag tag-red" style="margin-top:4px;">費用の無駄</span>
               </div>
             </div>
@@ -1446,17 +1047,12 @@
       <div style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:12px;padding:16px 20px;text-align:center;">
         <div style="font-size:28px;margin-bottom:6px;">⚙️</div>
         <div style="font-size:12px;color:rgba(255,255,255,0.7);">課金方式</div>
-        <div style="font-size:15px;font-weight:700;">CPV（30秒以上視聴）</div>
+        <div style="font-size:15px;font-weight:700;">CPV（30秒視聴、またはクリック等）</div>
       </div>
       <div style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:12px;padding:16px 20px;text-align:center;">
         <div style="font-size:28px;margin-bottom:6px;">⏱️</div>
         <div style="font-size:12px;color:rgba(255,255,255,0.7);">最重要ポイント</div>
         <div style="font-size:15px;font-weight:700;">最初の5秒で勝負</div>
-      </div>
-      <div style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:12px;padding:16px 20px;text-align:center;">
-        <div style="font-size:28px;margin-bottom:6px;">🔍</div>
-        <div style="font-size:12px;color:rgba(255,255,255,0.7);">KW目安</div>
-        <div style="font-size:15px;font-weight:700;">10個程度・具体的に</div>
       </div>
       <div style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:12px;padding:16px 20px;text-align:center;">
         <div style="font-size:28px;margin-bottom:6px;">📍</div>
@@ -1472,115 +1068,12 @@
   </div>
 
 
-  <!-- ─── Google広告の仕組み ─── -->
-  <section id="section-google-mechanism" class="section">
-    <div class="section-header">
-      <div class="section-number" style="background:linear-gradient(135deg,#7c3aed,#4285F4);">⚙</div>
-      <div class="section-title-wrap">
-        <h2>Google広告が動く仕組み</h2>
-        <p>設定の「なぜ」を理解することで、適切な判断と説明ができるようになります</p>
-      </div>
-    </div>
-
-    <div class="grid-2">
-      <div class="card">
-        <div class="card-header"><span class="icon">🏆</span><h3>広告オークションの仕組み</h3></div>
-        <div class="card-body">
-          <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px;">
-            ユーザーがYouTubeを開くたびに、広告枠をめぐる<strong>オークション</strong>が自動で行われます。単に入札額が高い広告が表示されるわけではなく、<strong>品質スコアとの掛け算</strong>で順位が決まります。
-          </p>
-          <div class="hierarchy">
-            <div class="hierarchy-box h-lv1">
-              <div class="level-label">Factor 1</div>
-              <h4>💴 入札額（Bid）</h4>
-              <p>「1視聴あたりいくらまで払うか」の上限金額（CPV）。高いほど有利だが、それだけでは決まらない。</p>
-            </div>
-            <div class="hierarchy-box h-lv2">
-              <div class="level-label">Factor 2</div>
-              <h4>⭐ 品質スコア（検索広告の指標）</h4>
-              <p>Googleが広告の「関連性・品質」を評価した数値。高品質な広告は少ない費用でも上位に表示される。</p>
-            </div>
-            <div class="hierarchy-box h-lv3">
-              <div class="level-label">Result</div>
-              <h4>🏆 広告ランク ＝ 入札額 × 品質スコア</h4>
-              <p>この掛け合わせで算出したスコアが高い広告が優先表示される。</p>
-            </div>
-          </div>
-          <div class="info-box blue mt-16">
-            <span class="info-icon">💡</span>
-            <p><strong>ポイント：</strong>品質スコアが高ければ入札額が低くても上位表示が可能。設定の精度を上げることがコスト削減に直結します。</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-header"><span class="icon">⭐</span><h3>参考：品質スコアの3つの要素（検索広告の考え方。YouTube動画広告には当てはまりません）</h3></div>
-        <div class="card-body">
-          <div class="step-list">
-            <div class="step-item">
-              <div style="font-size:24px;flex-shrink:0;">🖱️</div>
-              <div class="step-content">
-                <h4>① 期待クリック率（CTR）</h4>
-                <p>広告が表示されたとき、どれだけクリック・視聴されやすいか。動画の最初5秒で興味を引けるかが重要。</p>
-              </div>
-            </div>
-            <div class="step-item">
-              <div style="font-size:24px;flex-shrink:0;">🎯</div>
-              <div class="step-content">
-                <h4>② 広告の関連性</h4>
-                <p>ユーザーの検索意図や興味と広告内容が一致しているか。KWと広告内容の整合性が鍵。</p>
-              </div>
-            </div>
-            <div class="step-item">
-              <div style="font-size:24px;flex-shrink:0;">🌐</div>
-              <div class="step-content">
-                <h4>③ ランディングページ（LP）の品質</h4>
-                <p>広告クリック後に遷移するHP・マップの利便性・情報の充実度・読み込み速度。</p>
-              </div>
-            </div>
-          </div>
-          <div class="info-box yellow mt-16">
-            <span class="info-icon">⚠️</span>
-            <p>HP・マップの更新をお願いするのは、動画を見た方が、そのあとお店の名前を検索したり、マップやHPを見たりして来店を決めるからです（動画は入り口で、HP・マップがその先の受け皿）。広告の費用や品質の評価とは結びつけて話しません。</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="card mt-24">
-      <div class="card-header"><span class="icon">▶️</span><h3>YouTube広告特有の課金の仕組み（CPV方式）</h3></div>
-      <div class="card-body">
-        <div class="grid-3">
-          <div class="target-card">
-            <div class="t-icon">⏱️</div>
-            <h4>課金タイミング</h4>
-            <p><strong>30秒以上視聴</strong>した場合、または<strong>動画の最後まで</strong>視聴した場合のみ課金される（CPV方式）。</p>
-          </div>
-          <div class="target-card">
-            <div class="t-icon">⏩</div>
-            <h4>スキップされたら？</h4>
-            <p>5秒でスキップされた場合は<strong>課金なし</strong>。興味のないユーザーへの無駄な費用が発生しない設計。</p>
-          </div>
-          <div class="target-card">
-            <div class="t-icon">👁️</div>
-            <h4>インプレッション</h4>
-            <p>広告が画面に表示された回数。視聴・クリックがなくても「見た」として計上される。<strong>認知度の指標</strong>になる。</p>
-          </div>
-        </div>
-        <div class="info-box green mt-16">
-          <span class="info-icon">✅</span>
-          <p><strong>だから動画の最初5秒が最重要：</strong>5秒以内にスキップされると費用はかかりませんが、認知の機会も失われます。最初のカットで「誰向けか」を明確に見せることが大切です。</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- ─── 主要指標の読み方 ─── -->
   <section id="section-metrics" class="section">
     <div class="section-header">
       <div class="section-number" style="background:linear-gradient(135deg,#1565c0,#1976d2);">📈</div>
       <div class="section-title-wrap">
-        <h2>主要指標の読み方とマーケティングの考え方</h2>
+        <h2>主要指標の読み方</h2>
         <p>数字の意味を理解することで、定例会でオーナーに正確な説明ができるようになります</p>
       </div>
     </div>
@@ -1600,95 +1093,34 @@
               <td class="value">多いほど認知が広がっている</td>
             </tr>
             <tr>
-              <td class="label">視聴回数</td>
-              <td class="value">30秒以上（または最後まで）視聴された回数</td>
+              <td class="label">TrueView 視聴回数<br><span style="font-size:11px;color:var(--text-tertiary);">旧：視聴回数</span></td>
+              <td class="value">30秒（短い動画は最後まで）見られた回数、またはその前に広告がクリックされた回数</td>
               <td class="value">—</td>
               <td class="value">課金対象となる回数。費用に直結する</td>
             </tr>
             <tr>
-              <td class="label">VTR<br><span style="font-size:11px;color:var(--text-tertiary);">ビュースルーレート</span></td>
-              <td class="value">表示された中で視聴完了した割合</td>
+              <td class="label">TrueView 視聴率<br><span style="font-size:11px;color:var(--text-tertiary);">旧称 VTR</span></td>
+              <td class="value">広告が表示された回数のうち、視聴として数えられた割合</td>
               <td class="example">視聴回数 ÷ インプレッション × 100</td>
-              <td class="value">20〜30%以上が目安。低い場合は動画の最初5秒を見直す</td>
+              <td class="value">社内の目安は20〜30%以上</td>
             </tr>
             <tr>
               <td class="label">CPV<br><span style="font-size:11px;color:var(--text-tertiary);">コストパービュー</span></td>
               <td class="value">1視聴あたりのコスト</td>
               <td class="example">費用 ÷ 視聴回数</td>
-              <td class="value">社内目安は10円/視聴。低いほど効率が良い</td>
+              <td class="value">社内の目標は10円/視聴（目標の設定値）。実際の単価はこれより低くなることが多い。低いほど効率が良い</td>
             </tr>
             <tr>
-              <td class="label">再生率<br><span style="font-size:11px;color:var(--text-tertiary);">25/50/75/100%</span></td>
-              <td class="value">動画をどこまで視聴したかの割合</td>
+              <td class="label">動画再生時間の割合<br><span style="font-size:11px;color:var(--text-tertiary);">25/50/75/100%</span></td>
+              <td class="value">広告の再生が始まった回数のうち、動画の25%・50%・75%・最後まで見られた割合</td>
               <td class="value">—</td>
-              <td class="value">どこで離脱が多いかを把握し、動画改善のヒントにする</td>
+              <td class="value">動画のどこまで見られているかを把握する</td>
             </tr>
           </tbody>
         </table>
         <div class="info-box green mt-16">
           <span class="info-icon">✅</span>
-          <p><strong>まとめ：</strong>VTRが高い＝動画が魅力的。CPVが低い＝費用効率が良い。この2つが改善されていれば広告は健全に動いています。</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="grid-2">
-      <div class="card">
-        <div class="card-header"><span class="icon">🔺</span><h3>マーケティングファネルとは</h3></div>
-        <div class="card-body">
-          <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px;">
-            顧客が「知る→興味を持つ→検討する→行動する」という段階を経て来店・購買に至るプロセスを<strong>マーケティングファネル</strong>と呼びます。広告はフェーズごとに役割が異なります。
-          </p>
-          <div class="hierarchy">
-            <div class="hierarchy-box h-lv1">
-              <div class="level-label">Top of Funnel</div>
-              <h4>👁️ 認知（Awareness）</h4>
-              <p>「こんなお店がある」と知ってもらう段階。<strong>YouTube広告はここに最も強い。</strong>まず存在を知ってもらう。</p>
-            </div>
-            <div class="hierarchy-box h-lv2">
-              <div class="level-label">Middle of Funnel</div>
-              <h4>🤔 興味・検討（Consideration）</h4>
-              <p>「どんなお店だろう」とHPやGoogleマップで調べる段階。口コミ・写真・情報の充実が鍵。</p>
-            </div>
-            <div class="hierarchy-box h-lv3">
-              <div class="level-label">Bottom of Funnel</div>
-              <h4>✅ 行動（Action）</h4>
-              <p>「予約する」「来店する」という最終アクション。ここはHP・マップが受け止める。</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-header"><span class="icon">🎯</span><h3>YouTube広告の役割と限界</h3></div>
-        <div class="card-body">
-          <div class="step-list">
-            <div class="step-item">
-              <div style="font-size:24px;flex-shrink:0;">📺</div>
-              <div class="step-content">
-                <h4>YouTube広告は「認知」に強い</h4>
-                <p>動画で強い印象を残し「知らなかった人」に届けるのが最大の強み。即時の問い合わせ増加は期待しにくい。</p>
-              </div>
-            </div>
-            <div class="step-item">
-              <div style="font-size:24px;flex-shrink:0;">🔍</div>
-              <div class="step-content">
-                <h4>認知後は「検討」フェーズへ</h4>
-                <p>広告を見た人はGoogleマップやHPを検索して来店を判断する。HP・マップの整備がセットで必要な理由はここにある。</p>
-              </div>
-            </div>
-            <div class="step-item">
-              <div style="font-size:24px;flex-shrink:0;">📈</div>
-              <div class="step-content">
-                <h4>成果は「2ヶ月単位」で見る</h4>
-                <p>認知→検討→来店のサイクルには時間がかかる。短期で判断せず、積み上げで評価することをオーナーにも伝える。</p>
-              </div>
-            </div>
-          </div>
-          <div class="info-box blue mt-16">
-            <span class="info-icon">💡</span>
-            <p><strong>オーナーへの説明例：</strong>「広告はまず認知を広げます。見た方がマップやHPを検索して来店につながる流れです。広告・HP・マップが揃うことで成果が出やすくなります。」</p>
-          </div>
+          <p><strong>まとめ：</strong>TrueView 視聴率（VTR）が高い＝動画が魅力的。CPVが低い＝費用効率が良い。この2つが改善されていれば広告は健全に動いています。</p>
         </div>
       </div>
     </div>
@@ -1706,16 +1138,22 @@
 
     <div class="info-box blue mb-24">
       <span class="info-icon">💡</span>
-      <p><strong>使い方：</strong>上司やクライアントとの会話・レポートで「この言葉、何だっけ？」と思ったらこのページを確認してください。定例会の前に一度流し読みしておくと理解度が上がります。</p>
+      <p><strong>使い方：</strong>最初は見出しだけが見えます。上司やクライアントとの会話・レポートで「この言葉、何だっけ？」と思ったら、該当するカテゴリをクリックして開いて確認してください。通読は不要です。定例会の前に一度開いて流し読みしておくと理解度が上がります。</p>
+    </div>
+
+    <div class="info-box green mb-24">
+      <span class="info-icon">✅</span>
+      <p><strong>まずこれだけ覚えよう：</strong>YouTube広告の運用で毎回見るのは、<strong>表示回数・TrueView 視聴回数・TrueView 視聴率・動画再生時間の割合（25〜100%）</strong>と、契約の回数に対する進み具合です。お客様へのご報告は回数が基本です。CPV・CPA・コンバージョン数・費用など、お金や成果1件あたりの数字は社内で確かめるためのもので、お客様には出しません。クリック数は聞かれたら出してよいですが、「クリック数だけで判断するのは危ないので、指針にはしていません」と一緒に伝えます。</p>
     </div>
 
     <!-- ① 広告フォーマット -->
     <div class="card mb-24">
-      <div class="card-header" style="background:linear-gradient(135deg,#fce4ec,#fce4ec);border-bottom-color:#f48fb1;">
+        <details class="card-details">
+        <summary class="card-header" style="background:linear-gradient(135deg,#fce4ec,#fce4ec);border-bottom-color:#f48fb1;">
         <span class="icon">🎬</span>
-        <h3 style="color:#880e4f;">① 広告フォーマット・種類</h3>
-      </div>
-      <div class="card-body">
+        <h3 style="color:#880e4f;">① 広告フォーマット・種類（9語）</h3>
+      </summary>
+        <div class="card-body">
         <table class="setting-table">
           <thead>
             <tr><th style="width:22%">用語</th><th style="width:10%">略称</th><th>意味・ポイント</th></tr>
@@ -1734,7 +1172,7 @@
             <tr>
               <td class="label"><strong>動的検索広告</strong></td>
               <td class="value">DSA</td>
-              <td class="value">キーワードを設定しなくても、サイトのコンテンツを自動スキャンして広告を配信。ページ数が多いECサイト向き。</td>
+              <td class="value">キーワードを設定しなくても、サイトのコンテンツを自動スキャンして広告を配信。ページや商品が多いサイト向き。※2027年2月から、AI Max（AI 最大化設定）に自動で切り替わる予定と案内されています。</td>
             </tr>
             <tr>
               <td class="label"><strong>ディスプレイ広告</strong></td>
@@ -1747,9 +1185,9 @@
               <td class="value">見出し・説明文・画像・動画を入稿すると、配信面のサイズに合わせてAIが自動で組み合わせを最適化するディスプレイ広告。</td>
             </tr>
             <tr>
-              <td class="label"><strong>リマーケティング広告</strong></td>
+              <td class="label"><strong>リマーケティング広告</strong>（データ セグメント）</td>
               <td class="value">—</td>
-              <td class="value">過去にサイトを訪れたことがあるユーザーに再度広告を配信する手法。「一度見たはずの広告がまた表示される」のはこれ。</td>
+              <td class="value">今の画面では「データ セグメント（広告主様のデータ）」と呼ぶ。サイト・アプリ・YouTubeチャンネルなどに一度ふれた人に、もう一度広告を出す方法。「一度見たお店の広告が、別のサイトやYouTubeでまた出てくる」のはこれ。</td>
             </tr>
             <tr>
               <td class="label"><strong>ショッピング広告</strong></td>
@@ -1759,7 +1197,7 @@
             <tr>
               <td class="label"><strong>アセット（広告表示オプション）</strong></td>
               <td class="value">—</td>
-              <td class="value">広告の見出し・説明文に追加で表示できる情報。電話番号・サイトリンク・住所・コールアウトなどの種類がある。</td>
+              <td class="value">広告を組み立てる素材の総称（見出し・説明文・画像・動画など）。旧「広告表示オプション」（電話番号・サイトリンク・住所・コールアウトなど）も、今はアセットと呼ぶ。</td>
             </tr>
             <tr>
               <td class="label"><strong>TD</strong></td>
@@ -1769,15 +1207,17 @@
           </tbody>
         </table>
       </div>
+        </details>
     </div>
 
-    <!-- ② ターゲティング -->
+    <!-- ② ターゲティング（7語） -->
     <div class="card mb-24">
-      <div class="card-header" style="background:linear-gradient(135deg,#e8f5e9,#e8f5e9);border-bottom-color:#a5d6a7;">
+        <details class="card-details">
+        <summary class="card-header" style="background:linear-gradient(135deg,#e8f5e9,#e8f5e9);border-bottom-color:#a5d6a7;">
         <span class="icon">🎯</span>
         <h3 style="color:#1b5e20;">② ターゲティング</h3>
-      </div>
-      <div class="card-body">
+      </summary>
+        <div class="card-body">
         <table class="setting-table">
           <thead>
             <tr><th style="width:22%">用語</th><th style="width:10%">略称</th><th>意味・ポイント</th></tr>
@@ -1786,27 +1226,27 @@
             <tr>
               <td class="label"><strong>オーディエンスターゲティング</strong></td>
               <td class="value">—</td>
-              <td class="value">年齢・性別・興味関心・行動履歴など「人」の属性に基づいて広告を届ける方法。ディスプレイ広告で主に使用。</td>
+              <td class="value">年齢・性別・興味関心・行動履歴など「人」の属性に基づいて広告を届ける方法。ディスプレイだけでなく、YouTube（動画）や検索でも使う。</td>
             </tr>
             <tr>
-              <td class="label"><strong>購買意向の強いオーディエンス</strong></td>
+              <td class="label"><strong>購買意向の強いセグメント</strong>（旧：購買意向の強いオーディエンス）</td>
               <td class="value">—</td>
-              <td class="value">Googleが「今まさに購入を検討している」と判断したユーザー層。コンバージョン率が高く費用対効果が出やすい。</td>
+              <td class="value">Googleが「今まさに購入を検討している」と判断したユーザー層。購入に近い人に届けやすいが、成果が出るかは案件しだい。</td>
             </tr>
             <tr>
-              <td class="label"><strong>アフィニティカテゴリー</strong></td>
+              <td class="label"><strong>アフィニティ セグメント</strong>（旧：アフィニティ カテゴリ）</td>
               <td class="value">—</td>
               <td class="value">趣味・ライフスタイルなど中長期的な興味関心でターゲティング。認知拡大フェーズで活用。購買意向より母数が広い。</td>
             </tr>
             <tr>
               <td class="label"><strong>カスタムセグメント</strong></td>
               <td class="value">—</td>
-              <td class="value">URL・キーワード・アプリを指定して、それに関連するサイトを訪問したユーザーに広告を配信する上級ターゲティング。</td>
+              <td class="value">キーワードは「その興味がある人」か「Google・YouTubeでその言葉を検索した人」、URL・アプリは「似たサイトを見る人・似たアプリを使う人」に広告を届ける上級ターゲティング（指定したURLに広告が出るわけではない）。</td>
             </tr>
             <tr>
               <td class="label"><strong>カスタマーマッチ</strong></td>
               <td class="value">—</td>
-              <td class="value">メールアドレスや電話番号などの顧客情報をGoogleにアップロードし、既存顧客への広告配信や類似ユーザー拡張に活用。</td>
+              <td class="value">メールアドレスや電話番号などの顧客情報をGoogleにアップロードし、既存のお客様に広告を出したり、似た人へ広げる手がかりにしたりする（旧「類似ユーザー」は2023年に終了。今は「最適化されたターゲティング」などで広げる）。</td>
             </tr>
             <tr>
               <td class="label"><strong>プレースメント</strong></td>
@@ -1816,20 +1256,22 @@
             <tr>
               <td class="label"><strong>デバイス</strong></td>
               <td class="value">—</td>
-              <td class="value">PC・スマートフォン・タブレット別に広告の配信量や入札単価を調整できる。スマホ比率が高い場合はモバイル優先設定。</td>
+              <td class="value">PC・スマホ・タブレット・テレビ画面のどこに出すかを選べる。手動系の入札なら端末ごとに単価を上げ下げできるが、自動入札では「その端末に出さない」以外の調整は効かない。</td>
             </tr>
           </tbody>
         </table>
       </div>
+        </details>
     </div>
 
     <!-- ③ 主要指標 -->
     <div class="card mb-24">
-      <div class="card-header" style="background:linear-gradient(135deg,#e3f2fd,#e3f2fd);border-bottom-color:#90caf9;">
+        <details class="card-details">
+        <summary class="card-header" style="background:linear-gradient(135deg,#e3f2fd,#e3f2fd);border-bottom-color:#90caf9;">
         <span class="icon">📊</span>
-        <h3 style="color:#0d47a1;">③ 主要指標（数字の読み方）</h3>
-      </div>
-      <div class="card-body">
+        <h3 style="color:#0d47a1;">③ 主要指標（数字の読み方）（12語）</h3>
+      </summary>
+        <div class="card-body">
         <table class="setting-table">
           <thead>
             <tr><th style="width:22%">用語</th><th style="width:10%">略称</th><th>意味・計算式・社内目安</th></tr>
@@ -1843,7 +1285,7 @@
             <tr>
               <td class="label"><strong>クリック率</strong></td>
               <td class="value">CTR</td>
-              <td class="value">クリック数 ÷ 表示回数 × 100（%）。検索広告の目安は3〜10%。低い場合は広告文の見直しサイン。</td>
+              <td class="value">クリック数 ÷ 表示回数 × 100（%）。検索広告の社内目安は3〜10%。低い場合は広告文の見直しサイン。</td>
             </tr>
             <tr>
               <td class="label"><strong>平均クリック単価</strong></td>
@@ -1863,7 +1305,7 @@
             <tr>
               <td class="label"><strong>コンバージョン率</strong></td>
               <td class="value">CVR</td>
-              <td class="value">CV数 ÷ クリック数 × 100（%）。LPの品質や商品の訴求力を示す。低い場合はLP改善を検討。</td>
+              <td class="value">CV数 ÷ 広告へのインタラクション数 × 100（%）。検索広告ならクリック、動画広告なら視聴なども含む。LPの品質や商品の訴求力を示す。低い場合はLP改善を検討。</td>
             </tr>
             <tr>
               <td class="label"><strong>コンバージョン単価</strong></td>
@@ -1878,7 +1320,7 @@
             <tr>
               <td class="label"><strong>インプレッションシェア</strong></td>
               <td class="value">IS</td>
-              <td class="value">実際の表示回数 ÷ 表示できたはずの回数。低い場合は予算か品質スコアが足りていないサイン。</td>
+              <td class="value">実際の表示回数 ÷ 表示できたはずの回数。低い場合は予算か広告ランクが足りていないサイン。</td>
             </tr>
             <tr>
               <td class="label"><strong>検索クエリ（検索語句）</strong></td>
@@ -1898,15 +1340,17 @@
           </tbody>
         </table>
       </div>
+        </details>
     </div>
 
     <!-- ④ 入札・予算 -->
     <div class="card mb-24">
-      <div class="card-header" style="background:linear-gradient(135deg,#fff8e1,#fff8e1);border-bottom-color:#ffe082;">
+        <details class="card-details">
+        <summary class="card-header" style="background:linear-gradient(135deg,#fff8e1,#fff8e1);border-bottom-color:#ffe082;">
         <span class="icon">💰</span>
-        <h3 style="color:#e65100;">④ 入札・予算・その他</h3>
-      </div>
-      <div class="card-body">
+        <h3 style="color:#e65100;">④ 入札・予算・その他（7語）</h3>
+      </summary>
+        <div class="card-body">
         <table class="setting-table">
           <thead>
             <tr><th style="width:22%">用語</th><th style="width:10%">略称</th><th>意味・ポイント</th></tr>
@@ -1925,12 +1369,12 @@
             <tr>
               <td class="label"><strong>目標CPA</strong></td>
               <td class="value">tCPA</td>
-              <td class="value">「1件あたりの獲得コストをXX円以内に収める」という目標を設定すると、Googleが自動入札で調整してくれる戦略。</td>
+              <td class="value">「1件あたりの獲得費用の"平均"の目標」を決めると、Googleが自動で入札を調整してくれる戦略（画面では「目標アクション単価」）。1件ずつは目標を上回ることもある。</td>
             </tr>
             <tr>
               <td class="label"><strong>日予算</strong></td>
               <td class="value">—</td>
-              <td class="value">1日に使う広告費の上限額。実際の消化は最大2倍になる日もある（月間合計は設定×30.4日を超えない）。</td>
+              <td class="value">1日あたりの"平均"の予算。日によっては最大2倍まで使われることがあるが、月の合計は日予算×30.4日を超えない。</td>
             </tr>
             <tr>
               <td class="label"><strong>アトリビューション</strong></td>
@@ -1940,21 +1384,17 @@
             <tr>
               <td class="label"><strong>パラメータ（UTMパラメータ）</strong></td>
               <td class="value">—</td>
-              <td class="value">広告のURLの末尾に付ける計測用の文字列。どの広告からサイトに来たかをGoogleアナリティクスで追跡するために使用。</td>
+              <td class="value">広告のURLの末尾に付ける計測用の文字列。どこから来たかをGoogleアナリティクスで見分ける文字列。Google広告からの流入は「自動タグ設定」で自動計測されるので、主にメール・SNSなどGoogle広告以外で使う。</td>
             </tr>
             <tr>
               <td class="label"><strong>品質スコア</strong>（検索広告の指標）</td>
               <td class="value">QS</td>
-              <td class="value">Googleが広告の「関連性・品質」を1〜10で評価した数値。高いほど少ない入札額でも上位表示できる。最重要スコア。</td>
+              <td class="value">検索広告の診断ツール。広告の「関連性・品質」の目安を1〜10で表示する。広告オークションの評価材料ではなく、KPIでもない。YouTube広告では使わない。</td>
             </tr>
           </tbody>
         </table>
-
-        <div class="info-box green mt-16">
-          <span class="info-icon">✅</span>
-          <p><strong>まずこれだけ覚えよう：</strong>YouTube広告の運用で毎回見るのは、<strong>表示回数・視聴回数・視聴率・視聴維持率</strong>と、契約の回数に対する進み具合です。お客様へのご報告は回数が基本です。CPV・CPA・コンバージョン数・費用など、お金や成果1件あたりの数字は社内で確かめるためのもので、お客様には出しません。クリック数は聞かれたら出してよいですが、「クリック数だけで判断するのは危ないので、指針にはしていません」と一緒に伝えます。</p>
-        </div>
       </div>
+        </details>
     </div>
 
   </section>
@@ -1962,7 +1402,7 @@
 </main>
 
 <footer>
-  <p>Google広告 基礎概念 新人研修資料 &copy; 2025 | 社内研修用・社外秘</p>
+  <p>YouTube広告 基礎概念 新人研修資料 &copy; 2026 | 社内研修用・社外秘</p>
 </footer>
 
 <script>
@@ -1989,6 +1429,7 @@
 
   navItems.forEach(item => {
     item.addEventListener('click', e => {
+      if (!item.getAttribute('href').startsWith('#')) return;
       e.preventDefault();
       const target = document.querySelector(item.getAttribute('href'));
       if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });

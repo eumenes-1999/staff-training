@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>YouTubeチャンネル開設・オーナー権限付与 トークスクリプト</title>
+  <title>YouTubeチャンネル開設・管理者権限付与 トークスクリプト</title>
   <style>
     * {
       box-sizing: border-box;
@@ -391,6 +391,9 @@
       .qa-answer { display: block !important; }
       .scroll-top { display: none !important; }
     }
+    .doc-links { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 12px; }
+    .doc-link { display: inline-block; font-size: 13px; font-weight: 700; color: #1565c0; text-decoration: none; background: #e3f2fd; border: 1px solid #90caf9; border-radius: 6px; padding: 6px 12px; }
+    .doc-link:hover { background: #bbdefb; }
   </style>
 </head>
 <body>
@@ -404,7 +407,7 @@
 
   <!-- ページヘッダー -->
   <div class="page-header">
-    <h1>📺 YouTubeチャンネル開設・オーナー権限付与 トークスクリプト</h1>
+    <h1>📺 YouTubeチャンネル開設・管理者権限付与 トークスクリプト</h1>
     <div class="subtitle">株式会社ランバード｜広告運用サポート用｜2026年版（最新UI対応）</div>
   </div>
 
@@ -414,7 +417,7 @@
     <ul>
       <li><a href="#intro">① 冒頭あいさつ</a></li>
       <li><a href="#channel-create">② チャンネル開設</a></li>
-      <li><a href="#permission">③ オーナー権限付与</a></li>
+      <li><a href="#permission">③ 管理者権限付与</a></li>
       <li><a href="#upload">④ 動画アップロード</a></li>
       <li><a href="#analytics">⑤ アナリティクス案内</a></li>
       <li><a href="#closing">⑥ クロージング</a></li>
@@ -435,7 +438,7 @@
         <div class="branch-body">
           <div class="talk">
             ありがとうございます！<br>
-            本日は広告運用開始に向けて、オーナー様に<strong>【チャンネル開設】</strong>と、納品した動画をアップロードできるよう<strong>【オーナー権限の付与】</strong>の2つの操作をしていただきますので、よろしくお願いいたします。
+            本日は広告運用開始に向けて、オーナー様に<strong>【チャンネル開設】</strong>と、納品した動画をアップロードできるよう<strong>【管理者権限の付与】</strong>の2つの操作をしていただきます。最後に今後の流れもご案内いたしますので、よろしくお願いいたします。
           </div>
         </div>
       </div>
@@ -461,6 +464,7 @@
 
         <!-- PCタブ -->
         <div id="pc-create" class="tab-content active">
+          <div class="doc-links"><a class="doc-link" href="https://aloom.runbird.net/api/files/cmvhvr0u1001nvblj2tct0q4a/content" target="_blank" rel="noopener">📎 チャンネル開設（パソコン版）の手順資料を開く ↗</a></div>
           <div class="talk">
             パソコンでYouTubeのホーム画面を開いていただいてもよろしいでしょうか？
           </div>
@@ -475,7 +479,7 @@
           </ol>
 
           <div class="note">
-            ハンドルネームはGoogleが末尾にランダムな英数字を付与することがあります。変更可能な場合は屋号名に合わせて修正をお願いします。
+            ハンドルネームはGoogleが末尾にランダムな英数字を付与することがあります。ランダムな英数字が付いたら、屋号名に直してもらうようお願いする。
           </div>
 
           <div class="talk">
@@ -504,6 +508,7 @@
 
         <!-- スマホタブ -->
         <div id="sp-create" class="tab-content">
+          <div class="doc-links"><a class="doc-link" href="https://aloom.runbird.net/api/files/cmvhv4mf0001mvbljp8vg1tia/content" target="_blank" rel="noopener">📎 チャンネル開設（スマホ版）の手順資料を開く ↗</a></div>
           <div class="talk">
             スマホかタブレットに<strong>YouTubeアプリ</strong>はダウンロードされていますでしょうか？
           </div>
@@ -527,7 +532,7 @@
           </ol>
 
           <div class="note">
-            ハンドルネームはGoogleが末尾にランダムな英数字を付与することがあります。変更可能な場合は屋号名に合わせて修正をお願いします。
+            ハンドルネームはGoogleが末尾にランダムな英数字を付与することがあります。ランダムな英数字が付いたら、屋号名に直してもらうようお願いする。
           </div>
 
           <hr class="divider">
@@ -540,13 +545,13 @@
     </div>
   </div>
 
-  <!-- ③ オーナー権限付与 -->
+  <!-- ③ 管理者権限付与 -->
   <div class="section" id="permission">
-    <div class="section-header red">③ オーナー権限の付与 <span class="badge badge-updated">2026 UI更新</span></div>
+    <div class="section-header red">③ 管理者権限の付与 <span class="badge badge-updated">2026 UI更新</span></div>
     <div class="section-body">
 
       <div class="talk">
-        お次は、納品した動画を弊社でアップロードできるよう、<strong>【オーナー権限の付与】</strong>をご案内いたします。
+        お次は、納品した動画を弊社でアップロードできるよう、<strong>【管理者権限の付与】</strong>をご案内いたします。
       </div>
 
       <div class="account-box">
@@ -563,6 +568,7 @@
 
         <!-- PC版権限付与 -->
         <div id="pc-perm" class="tab-content active">
+          <div class="doc-links"><a class="doc-link" href="https://aloom.runbird.net/api/files/cmviuuesh001xvbljx9aui78v/content" target="_blank" rel="noopener">📎 権限付与（パソコン版）の手順資料を開く ↗</a></div>
           <div class="talk">
             YouTubeのホーム画面から、<strong>「YouTube Studio」</strong>へ移動していただいてもよろしいでしょうか？<br>
             （画面右上のアイコンをクリックすると「YouTube Studio」のリンクがございます）
@@ -574,7 +580,7 @@
             <li>メールアドレス欄に <strong>runbird.ads@gmail.com</strong> を入力してください</li>
             <li>役割の欄で<strong>「管理者」</strong>を選択してください</li>
             <li>右下の<strong>「完了」または「保存」</strong>ボタンをクリックしてください</li>
-            <li>Googleアカウントのパスワードを求められた場合は入力してください</li>
+            <li>Googleアカウントのパスワード・本人確認を求められた場合は入力してください。</li>
           </ol>
 
           <div class="info">
@@ -589,6 +595,7 @@
 
         <!-- スマホ版権限付与 -->
         <div id="sp-perm" class="tab-content">
+          <div class="doc-links"><a class="doc-link" href="https://aloom.runbird.net/api/files/cmviukjms001vvbljbgnwl1a0/content" target="_blank" rel="noopener">📎 権限付与（スマホ版）の手順資料を開く ↗</a></div>
           <div class="talk">
             <strong>「YouTube Studio」アプリ</strong>はお持ちでしょうか？<br>
             お持ちでなければ、ダウンロードをお願いいたします。
@@ -601,6 +608,7 @@
             <li><strong>「招待」</strong>をタップしてください</li>
             <li>メールアドレス欄に <strong>runbird.ads@gmail.com</strong> を入力し、役割で<strong>「管理者」</strong>を選択してください</li>
             <li><strong>「招待」ボタン</strong>をタップしてください</li>
+            <li>Googleアカウントのパスワード・本人確認を求められた場合は入力してください。</li>
           </ol>
 
           <div class="info">
@@ -628,6 +636,7 @@
       <div class="info">
         以下は社内（弊社側）で行う作業です。オーナー様をお待たせしながら実施します。
       </div>
+      <div class="doc-links"><a class="doc-link" href="https://aloom.runbird.net/api/files/cmvhxpwsu001qvblj4w2dhqhe/content" target="_blank" rel="noopener">📎 アップロード（パソコン版）の手順資料を開く ↗</a> <a class="doc-link" href="https://aloom.runbird.net/api/files/cmviunqsm001wvbljlyufr13a/content" target="_blank" rel="noopener">📎 アップロード（スマホ版）の手順資料を開く ↗</a></div>
 
       <ol class="steps">
         <li>弊社アカウントでオーナー様のチャンネルへ移動し、YouTube Studioにログイン</li>
@@ -647,7 +656,12 @@
       <div class="talk">
         お待たせいたしました。こちらでアップロードが完了いたしました！<br>
         オーナー様の画面にも表示されているかご確認いただけますか？<br>
-        おそらく反映に少し時間がかかる場合がありますので、画面の再読み込みをしていただいてもよろしいですか？
+        反映に少し時間がかかる場合がございますので、画面を新しくしていただいてもよろしいですか？<br>
+        （パソコンの場合）画面左上の<strong>「YouTube Studio」</strong>のボタンを押していただけますか？<br>
+        （スマホの場合）画面下の<strong>「ダッシュボード」</strong>か<strong>「コンテンツ」</strong>をタップしていただけますか？
+      </div>
+      <div class="note">
+        こちらでアップロードが完了しても、オーナー様の画面ではすぐに確認できないことがあります。その際は画面の再読み込みか、画面左上の「YouTube Studio」ボタンを押すようにお願いしてください。スマホの場合は、YouTube Studioアプリの画面下の「ダッシュボード」「コンテンツ」などのいずれかをタップしてもらいます。
       </div>
 
       <div class="branch">
@@ -661,15 +675,16 @@
 
       <!-- タイトル・説明文の案内 -->
       <div class="talk">
-        アップロードした動画の<strong>タイトル文と説明文</strong>についてご案内いたします。<br>
+        アップロードした動画の<strong>タイトルと説明</strong>についてご案内いたします。<br>
         動画にカーソルを合わせると<strong>ペンマーク（編集）</strong>が表示されます。そちらをクリックしてください。<br>
-        画面が切り替わりましたら、上から<strong>「タイトル」「概要」</strong>の項目がございます。
+        画面が切り替わりましたら、上から<strong>「タイトル」「説明」</strong>の項目がございます。<br>
+        （スマホの場合）YouTube Studioアプリの画面下の<strong>「コンテンツ」</strong>をタップし、アップロードした動画をタップしてください。<strong>【もっと見る】</strong>をタップしてください。表示される<strong>ペンマーク（編集）</strong>をタップしていただくと、<strong>「タイトル」「説明」</strong>の項目がございます。
       </div>
 
       <div class="talk">
-        本日のお電話が終わりましたら、弊社のほうでタイトルと概要を入力いたします。<br>
+        本日のお電話が終わりましたら、弊社のほうでタイトルと説明を入力いたします。<br>
         一点オーナー様にお願いがございまして、<strong>明日以降にこちらの文章をご確認</strong>いただけますでしょうか？<br>
-        手順としては、再度YouTube Studioにお入りいただきまして、動画のクリックからタイトルと説明文の内容が間違っていないか確認をしていただきたく思います。<br>
+        手順としては、再度YouTube Studioにお入りいただきまして、先ほどご案内した手順で動画の編集画面を開き、タイトルと説明の内容が間違っていないか確認をしていただきたく思います。<br>
         もし修正したい箇所などありましたら、修正していただいても差し支えございません。
       </div>
 
@@ -683,7 +698,7 @@
       </div>
       <div class="check-item">
         <input type="checkbox" id="check3">
-        <label for="check3">タイトル・説明文の確認依頼を伝えた</label>
+        <label for="check3">タイトル・説明の確認依頼を伝えた</label>
       </div>
     </div>
   </div>
@@ -693,14 +708,16 @@
     <div class="section-header purple">⑤ アナリティクス案内</div>
     <div class="section-body">
       <div class="talk">
-        お次は<strong>「YouTube Studio」</strong>という、アップロードした動画の視聴回数などを確認できるツールについてご説明させていただきます。<br>
+        先ほどの<strong>「YouTube Studio」</strong>では、動画の視聴回数なども確認できます。<br>
         一度、YouTube Studioの最初のページに戻っていただいてよろしいでしょうか？
       </div>
       <div class="talk">
         画面の左側に<strong>「ダッシュボード」「コンテンツ」「アナリティクス」</strong>などの項目はございますか？<br>
         その中の<strong>「アナリティクス」</strong>をクリックしてください。<br>
-        こちらでアップロードした動画を確認いただくと、どれくらい視聴されているかご確認が可能です。<br>
-        視聴回数などが気になる際は、アナリティクスからご確認いただければと思います。
+        （スマホの場合）YouTube Studioアプリの画面下の<strong>「アナリティクス」</strong>をタップしていただけますか？<br>
+        この画面でアップロードした動画を見ていただくと、どれくらい視聴されているか確認できます。<br>
+        なお、広告の視聴回数は、毎月のレポートでお伝えします。アナリティクスは、動画全体の動きを見る画面です。<br>
+        動画全体の動きが気になる際は、アナリティクスからご確認いただければと思います。
       </div>
     </div>
   </div>
@@ -710,7 +727,7 @@
     <div class="section-header orange">⑥ クロージング・今後の流れ</div>
     <div class="section-body">
       <div class="talk">
-        以上で<strong>【チャンネル開設とオーナー権限のご案内】</strong>が終了となります。
+        <strong>チャンネル開設と管理者権限のご案内</strong>は以上です。
       </div>
 
       <hr class="divider">
@@ -719,6 +736,7 @@
         今後の流れについてご案内させていただきます。<br>
         こちらで開始日に向けてYouTube広告の運用準備をいたします。<br>
         その際には広告の細かい設定等をヒアリングさせていただきまして、<strong>〇月から広告運用がスタート</strong>となります。<br>
+        ヒアリングの前日までに、広告の設定案をお送りいたします。当日はそちらを一緒に見ながら進めます。<br>
         もしよろしければ、そのヒアリングの日程を決めさせていただきたいのですが、よろしいでしょうか？
       </div>
 
