@@ -438,7 +438,198 @@
       .merit-demerit { grid-template-columns: 1fr; }
       .summary-box { padding: 28px 20px; }
     }
-  </style>
+  /* ── 定例会アウト集から移動したセクション用（.mq-scope内だけに効く） ── */
+.mq-scope {
+--card: #ffffff;
+--text-muted: #64748b;
+--border: #e2e8f0;
+}
+.mq-scope .qa-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 12px;
+      overflow: hidden;
+      transition: box-shadow 0.2s;
+    }
+.mq-scope .qa-card:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+.mq-scope .qa-question {
+      padding: 14px 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      user-select: none;
+    }
+.mq-scope .q-badge {
+      background: #fef3c7;
+      color: #92400e;
+      font-size: 11px; font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 4px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+.mq-scope .qa-question-text {
+      font-size: 14px; font-weight: 600; flex: 1; line-height: 1.5;
+    }
+.mq-scope .chevron {
+      color: var(--text-muted);
+      font-size: 12px;
+      flex-shrink: 0;
+      margin-top: 3px;
+      transition: transform 0.2s;
+    }
+.mq-scope .qa-card.open .chevron { transform: rotate(180deg); }
+.mq-scope .qa-answer {
+      display: none;
+      padding: 0 18px 16px 18px;
+      border-top: 1px solid var(--border);
+    }
+.mq-scope .qa-card.open .qa-answer { display: block; }
+.mq-scope .a-label {
+      display: inline-block;
+      background: #dcfce7;
+      color: #166534;
+      font-size: 11px; font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 4px;
+      margin: 12px 0 8px;
+    }
+.mq-scope .answer-main {
+      font-size: 14px; line-height: 1.75; color: #334155;
+    }
+.mq-scope .qa-card.open .qa-answer { display: flex; align-items: flex-start; gap: 12px; }
+.mq-scope .qa-answer .a-label { flex: none; margin: 20px 0 0; }
+.mq-scope .qa-answer .answer-main { flex: 1; min-width: 0; padding-top: 12px; }
+.mq-scope .answer-main strong { color: #1e293b; }
+.mq-scope .script-box {
+      background: #f0f9ff;
+      border-left: 3px solid #0ea5e9;
+      border-radius: 0 6px 6px 0;
+      padding: 10px 14px;
+      margin: 8px 0;
+      font-size: 13px; line-height: 1.7; color: #0c4a6e;
+    }
+.mq-scope .script-box::before {
+      content: '💬 回答例';
+      display: block;
+      font-size: 11px; font-weight: 700; color: #0ea5e9;
+      margin-bottom: 4px;
+    }
+.mq-scope .warning-box {
+      background: #fffbeb;
+      border: 1px solid #fcd34d;
+      border-radius: 6px;
+      padding: 10px 14px;
+      margin: 8px 0;
+      font-size: 13px; line-height: 1.7; color: #78350f;
+    }
+.mq-scope .warning-box::before {
+      content: '⚠️ 注意';
+      display: block;
+      font-size: 11px; font-weight: 700; color: #d97706;
+      margin-bottom: 4px;
+    }
+.mq-scope .list-plain { padding-left: 18px; }
+.mq-scope .list-plain li { font-size: 13px; line-height: 1.8; color: #334155; }
+.mq-scope .hearing-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+.mq-scope .hearing-card-header {
+      padding: 12px 16px;
+      background: #f8fafc;
+      font-size: 14px; font-weight: 700;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      display: flex; align-items: center; gap: 8px;
+    }
+.mq-scope .hearing-card-body {
+      padding: 14px 16px;
+    }
+.mq-scope .hearing-item {
+      margin-bottom: 10px;
+      font-size: 13px; line-height: 1.7;
+    }
+.mq-scope .hearing-label {
+      display: inline-block;
+      background: #e0f2fe;
+      color: #0369a1;
+      font-size: 11px; font-weight: 700;
+      padding: 1px 6px; border-radius: 4px;
+      margin-bottom: 4px;
+    }
+.mq-scope .tag-list { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+.mq-scope .tag {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      color: #475569;
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 20px;
+    }
+.mq-scope .tag.core { background: #eff6ff; border-color: #bfdbfe; color: #1d4ed8; }
+.mq-scope .tag.niche { background: #f5f3ff; border-color: #ddd6fe; color: #6d28d9; }
+.mq-scope .tag.potential { background: #fff7ed; border-color: #fed7aa; color: #c2410c; }
+.mq-scope .flow-steps {
+      display: flex; flex-direction: column; gap: 0;
+      margin: 12px 0;
+    }
+.mq-scope .flow-step {
+      display: flex; gap: 12px; align-items: flex-start;
+    }
+.mq-scope .flow-line {
+      display: flex; flex-direction: column; align-items: center;
+      flex-shrink: 0;
+    }
+.mq-scope .flow-circle {
+      width: 28px; height: 28px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 800; color: white;
+      flex-shrink: 0;
+    }
+.mq-scope .flow-connector {
+      width: 2px; height: 20px; background: var(--border);
+      margin: 2px 0;
+    }
+.mq-scope .flow-content {
+      padding-bottom: 16px; flex: 1;
+    }
+.mq-scope .flow-title { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+.mq-scope .flow-desc { font-size: 12px; color: var(--text-muted); line-height: 1.6; }
+.mq-scope .flow-example { font-size: 12px; color: #0369a1; font-style: italic; margin-top: 4px; }
+.mq-scope .matsu-take-ume {
+      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;
+      margin: 12px 0;
+    }
+.mq-scope .mtm-card {
+      border-radius: 8px; padding: 12px;
+      font-size: 12px; line-height: 1.6;
+    }
+.mq-scope .mtm-card.matsu { background: #fef9ee; border: 1px solid #fcd34d; }
+.mq-scope .mtm-card.take { background: #f0fdf4; border: 1px solid #86efac; }
+.mq-scope .mtm-card.ume { background: #fdf4ff; border: 1px solid #e9d5ff; }
+.mq-scope .mtm-label {
+      font-size: 13px; font-weight: 800; margin-bottom: 6px;
+    }
+.mq-scope .matsu .mtm-label { color: #92400e; }
+.mq-scope .take  .mtm-label { color: #166534; }
+.mq-scope .ume   .mtm-label { color: #6b21a8; }
+@media (max-width: 600px) {
+.mq-scope .qa-card.open .qa-answer { display: block; }
+.mq-scope .qa-answer .a-label { margin: 12px 0 0; }
+.mq-scope .qa-answer .answer-main { padding-top: 4px; }
+}
+@media (max-width: 768px) {
+.mq-scope #sidebar { width: 100%; height: auto; position: relative; }
+.mq-scope #main { margin-left: 0; padding: 20px 16px 60px; }
+.mq-scope .matsu-take-ume { grid-template-columns: 1fr; }
+}
+</style>
 </head>
 <body>
 
@@ -460,6 +651,7 @@
     <a href="operation-basics.html" class="nav-item">◀ 基礎概念へ</a>
     <a href="#section-kw" class="nav-item">🔍 KW選定のコツ</a>
     <a href="#section-kw-type" class="nav-item">🔑 KWの種類と使い分け</a>
+    <a href="#section-hearing" class="nav-item">🗣️ 業種別ヒアリング</a>
   </div>
 </nav>
 
@@ -477,7 +669,7 @@
 
     <div class="info-box blue mb-24">
       <span class="info-icon">📌</span>
-      <p><strong>このセクションは「顕在層」向けの例です：</strong>ここでは、今まさにお店を探している人（顕在層）に届けるKWの選び方を例に説明します。悩みはあるが、まだお店を探していない人（潜在層）に向けたKW（例：「腰の違和感」「病院に行っても治らない」）は、考え方が違います。ここで「除外」としている種類のKWでも、潜在層向けでは使うことがあります。潜在層のKWの例は、定例会アウト集の「ターゲット再設定のための具体的なヒアリング集（業種別）」を見てください。</p>
+      <p><strong>このセクションは「顕在層」向けの例です：</strong>ここでは、今まさにお店を探している人（顕在層）に届けるKWの選び方を例に説明します。悩みはあるが、まだお店を探していない人（潜在層）に向けたKW（例：「腰の違和感」「病院に行っても治らない」）は、考え方が違います。ここで「除外」としている種類のKWでも、潜在層向けでは使うことがあります。潜在層のKWの例は、このページの下の<a href="#section-hearing">「業種別：ターゲット再設定のためのヒアリング」</a>を見てください。</p>
     </div>
 
     <div class="card mb-24">
@@ -892,6 +1084,209 @@
       </div>
     </div>
   </section>
+
+  <!-- ─── 3. 業種別：ターゲット再設定のヒアリング ─── -->
+  <section id="section-hearing" class="section">
+    <div class="section-header">
+      <div class="section-number">3</div>
+      <div class="section-title-wrap">
+        <h2>業種別：ターゲット再設定のためのヒアリング</h2>
+        <p>KWを見直すとき、お客様に何を聞けばよいか。業種ごとのコア層・ニッチ層・潜在層のKW例もあります</p>
+      </div>
+    </div>
+
+    <div class="info-box yellow mb-24">
+      <span class="info-icon">⚠️</span>
+      <p><strong>整体・クリニックなど、健康に関わる業種の症状のKW</strong>は、Google広告のポリシーに抵触する可能性があります。症状のKWを設定に入れるときは、設定の前に上長に確認してください（くわしくは、上の「KW選定のコツ」の注意を見てください）。</p>
+    </div>
+
+    <div class="mq-scope">
+
+
+    <div style="background:#f0fdf4;border:1px solid #86efac;border-radius:8px;padding:14px 16px;margin-bottom:16px;font-size:13px;line-height:1.7;color:#14532d;">
+      <strong>共通のゴール：</strong>「動画のメッセージとサービスの強み、利用傾向を加味したキーワード設定が必要になる。もしズレている可能性があるなら、再提案していいですか？」と繋げること。
+    </div>
+
+    <!-- 共通項目 -->
+    <div class="hearing-card">
+      <div class="hearing-card-header">
+        📋 全業種共通で深掘りする基本項目
+      </div>
+      <div class="hearing-card-body">
+        <div class="hearing-item">
+          <div class="hearing-label">性別・年齢・職業</div>
+          <div>学生？デスクワーク？夜職？パート？専業主婦？</div>
+        </div>
+        <div class="hearing-item">
+          <div class="hearing-label">いつ利用？</div>
+          <div>平日？土日？時間帯は？</div>
+        </div>
+        <div class="hearing-item">
+          <div class="hearing-label">決め手は？</div>
+          <div>近いから？安いから？人柄？リピートされる理由は？</div>
+        </div>
+        <div class="hearing-item">
+          <div class="hearing-label">どこから・移動手段は？</div>
+          <div>近隣？遠方？都内？ 車で10分＝6km圏内、車で30分＝20km圏内</div>
+        </div>
+        <div class="hearing-item">
+          <div class="hearing-label">サービスの利用傾向・悩みは？</div>
+          <div>潜在的な悩みは何か？</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 整体系 -->
+    <div class="hearing-card">
+      <div class="hearing-card-header">
+        🏥 整体系のヒアリング
+      </div>
+      <div class="hearing-card-body">
+        <div class="hearing-item">
+          <div class="hearing-label">性別・年齢</div>
+          <div>女性ならではの悩み（産前産後、生理痛など）はあるか？高齢の方の利用傾向が多いか？</div>
+        </div>
+        <div class="hearing-item">
+          <div class="hearing-label">職業</div>
+          <div>デスクワークか？立ち仕事か？</div>
+        </div>
+        <div class="hearing-item">
+          <div class="hearing-label">何時利用</div>
+          <div>会社員なら「仕事終わり」や「土日」が多いか？（仕事終わりが多いなら「仕事終わり 〇〇」のKWもあり）</div>
+        </div>
+        <div class="hearing-item">
+          <div class="hearing-label">決め手</div>
+          <div>近いから？特定の施術に特化してるから？口コミが良いから？</div>
+        </div>
+        <div class="hearing-item">
+          <div class="hearing-label">利用傾向（悩み）</div>
+          <div>
+            <div class="tag-list">
+              <span class="tag core">コア層</span>
+              <span class="tag">腰痛</span><span class="tag">頭痛</span><span class="tag">肩こり</span><span class="tag">首こり</span><span class="tag">猫背</span><span class="tag">整体院</span><span class="tag">接骨院</span><span class="tag">骨盤矯正</span>
+            </div>
+            <div class="tag-list" style="margin-top:4px;">
+              <span class="tag niche">ニッチ層</span>
+              <span class="tag">坐骨神経痛</span><span class="tag">頚椎椎間板ヘルニア</span>
+            </div>
+            <div class="tag-list" style="margin-top:4px;">
+              <span class="tag potential">潜在層</span>
+              <span class="tag">腰の違和感</span><span class="tag">病院に行っても治らない</span><span class="tag">セカンドオピニオン</span><span class="tag">背中の痺れ</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 車系 -->
+    <div class="hearing-card">
+      <div class="hearing-card-header">
+        🚗 車系のヒアリング
+      </div>
+      <div class="hearing-card-body">
+        <div class="hearing-item">
+          <div class="hearing-label">性別・年齢</div>
+          <div>車文化の地域なら老若男女（20代〜）満遍なくか？男性が多いか？</div>
+        </div>
+        <div class="hearing-item">
+          <div class="hearing-label">職業</div>
+          <div>会社員が多い？</div>
+        </div>
+        <div class="hearing-item">
+          <div class="hearing-label">何時利用</div>
+          <div>休日の朝などに予約・来店が集中するか？</div>
+        </div>
+        <div class="hearing-item">
+          <div class="hearing-label">決め手</div>
+          <div>品質？立地？車種の取り扱い（ホンダ・スバル等に強いか）？板金の修理が早い？安いから？</div>
+        </div>
+        <div class="hearing-item">
+          <div class="hearing-label">利用傾向（悩み）</div>
+          <div>
+            <div class="tag-list">
+              <span class="tag core">コア層</span>
+              <span class="tag">板金</span><span class="tag">ホイール</span><span class="tag">傷</span><span class="tag">エンジン修理</span><span class="tag">メンテナンス</span>
+            </div>
+            <div class="tag-list" style="margin-top:4px;">
+              <span class="tag potential">潜在層</span>
+              <span class="tag">車の不具合</span><span class="tag">エンジンがかからない</span><span class="tag">変な音がする</span><span class="tag">乗り換えを検討中</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 美容系 -->
+    <div class="hearing-card">
+      <div class="hearing-card-header">
+        💄 美容系のヒアリング
+      </div>
+      <div class="hearing-card-body">
+        <div class="hearing-item">
+          <div class="hearing-label">性別・年齢</div>
+          <div>女性が多いか？女性特有のライフスタイル（生理、産前産後、専業主婦）等にアプローチできるか？ 20代〜？</div>
+        </div>
+        <div class="hearing-item">
+          <div class="hearing-label">何時利用</div>
+          <div>平日夕方以降が多い？休日が多い？</div>
+        </div>
+        <div class="hearing-item">
+          <div class="hearing-label">決め手</div>
+          <div>
+            <div class="tag-list">
+              <span class="tag core">施術内容</span>
+              <span class="tag">カット</span><span class="tag">トリートメント</span><span class="tag">ブリーチ</span><span class="tag">メンズカット</span>
+            </div>
+            <div class="tag-list" style="margin-top:4px;">
+              <span class="tag potential">潜在的欲求</span>
+              <span class="tag">垢抜けたい</span><span class="tag">可愛くなりたい</span><span class="tag">イメチェンしたい</span><span class="tag">似合わせ</span>
+            </div>
+            <div class="tag-list" style="margin-top:4px;">
+              <span class="tag niche">その他</span>
+              <span class="tag">深夜帯OK</span><span class="tag">クーポン・割引</span><span class="tag">完全プライベート空間</span><span class="tag">スタッフが優しい</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ペット系 -->
+    <div class="hearing-card">
+      <div class="hearing-card-header">
+        🐾 ペット系のヒアリング
+      </div>
+      <div class="hearing-card-body">
+        <div class="hearing-item">
+          <div class="hearing-label">職業</div>
+          <div>会社員？専業主婦？</div>
+        </div>
+        <div class="hearing-item">
+          <div class="hearing-label">決め手</div>
+          <div>犬種を幅広く扱えるスキル？スタッフの人柄が良い？</div>
+        </div>
+        <div class="hearing-item">
+          <div class="hearing-label">利用傾向（目的・悩み）</div>
+          <div>
+            <div class="tag-list">
+              <span class="tag core">サービス内容</span>
+              <span class="tag">しつけ特化</span><span class="tag">ホテル特化</span><span class="tag">ブリーディング</span>
+            </div>
+            <div class="tag-list" style="margin-top:4px;">
+              <span class="tag potential">潜在層の悩み</span>
+              <span class="tag">ペットを預けたいけど場所がない</span><span class="tag">しつけがうまくいかない</span><span class="tag">初めてで不安</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="warning-box" style="margin-top:12px;">
+      ヒアリングの際、「潜在的な悩み」は誰もが持っているものです。そこをいきなり指摘すると警戒されるため、聞き出し方に注意を払ってください。
+    </div>
+  
+    </div>
+  </section>
+
 
 
 </main>

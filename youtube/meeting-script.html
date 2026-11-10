@@ -691,7 +691,198 @@
       #main { margin-left: 0; padding: 20px 16px 60px; }
       .branch-wrap { grid-template-columns: 1fr; }
     }
-  </style>
+  /* ── 定例会アウト集から移動したセクション用（.mq-scope内だけに効く） ── */
+.mq-scope {
+--card: #ffffff;
+--text-muted: #64748b;
+--border: #e2e8f0;
+}
+.mq-scope .qa-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 12px;
+      overflow: hidden;
+      transition: box-shadow 0.2s;
+    }
+.mq-scope .qa-card:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+.mq-scope .qa-question {
+      padding: 14px 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      user-select: none;
+    }
+.mq-scope .q-badge {
+      background: #fef3c7;
+      color: #92400e;
+      font-size: 11px; font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 4px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+.mq-scope .qa-question-text {
+      font-size: 14px; font-weight: 600; flex: 1; line-height: 1.5;
+    }
+.mq-scope .chevron {
+      color: var(--text-muted);
+      font-size: 12px;
+      flex-shrink: 0;
+      margin-top: 3px;
+      transition: transform 0.2s;
+    }
+.mq-scope .qa-card.open .chevron { transform: rotate(180deg); }
+.mq-scope .qa-answer {
+      display: none;
+      padding: 0 18px 16px 18px;
+      border-top: 1px solid var(--border);
+    }
+.mq-scope .qa-card.open .qa-answer { display: block; }
+.mq-scope .a-label {
+      display: inline-block;
+      background: #dcfce7;
+      color: #166534;
+      font-size: 11px; font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 4px;
+      margin: 12px 0 8px;
+    }
+.mq-scope .answer-main {
+      font-size: 14px; line-height: 1.75; color: #334155;
+    }
+.mq-scope .qa-card.open .qa-answer { display: flex; align-items: flex-start; gap: 12px; }
+.mq-scope .qa-answer .a-label { flex: none; margin: 20px 0 0; }
+.mq-scope .qa-answer .answer-main { flex: 1; min-width: 0; padding-top: 12px; }
+.mq-scope .answer-main strong { color: #1e293b; }
+.mq-scope .script-box {
+      background: #f0f9ff;
+      border-left: 3px solid #0ea5e9;
+      border-radius: 0 6px 6px 0;
+      padding: 10px 14px;
+      margin: 8px 0;
+      font-size: 13px; line-height: 1.7; color: #0c4a6e;
+    }
+.mq-scope .script-box::before {
+      content: '💬 回答例';
+      display: block;
+      font-size: 11px; font-weight: 700; color: #0ea5e9;
+      margin-bottom: 4px;
+    }
+.mq-scope .warning-box {
+      background: #fffbeb;
+      border: 1px solid #fcd34d;
+      border-radius: 6px;
+      padding: 10px 14px;
+      margin: 8px 0;
+      font-size: 13px; line-height: 1.7; color: #78350f;
+    }
+.mq-scope .warning-box::before {
+      content: '⚠️ 注意';
+      display: block;
+      font-size: 11px; font-weight: 700; color: #d97706;
+      margin-bottom: 4px;
+    }
+.mq-scope .list-plain { padding-left: 18px; }
+.mq-scope .list-plain li { font-size: 13px; line-height: 1.8; color: #334155; }
+.mq-scope .hearing-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+.mq-scope .hearing-card-header {
+      padding: 12px 16px;
+      background: #f8fafc;
+      font-size: 14px; font-weight: 700;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      display: flex; align-items: center; gap: 8px;
+    }
+.mq-scope .hearing-card-body {
+      padding: 14px 16px;
+    }
+.mq-scope .hearing-item {
+      margin-bottom: 10px;
+      font-size: 13px; line-height: 1.7;
+    }
+.mq-scope .hearing-label {
+      display: inline-block;
+      background: #e0f2fe;
+      color: #0369a1;
+      font-size: 11px; font-weight: 700;
+      padding: 1px 6px; border-radius: 4px;
+      margin-bottom: 4px;
+    }
+.mq-scope .tag-list { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+.mq-scope .tag {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      color: #475569;
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 20px;
+    }
+.mq-scope .tag.core { background: #eff6ff; border-color: #bfdbfe; color: #1d4ed8; }
+.mq-scope .tag.niche { background: #f5f3ff; border-color: #ddd6fe; color: #6d28d9; }
+.mq-scope .tag.potential { background: #fff7ed; border-color: #fed7aa; color: #c2410c; }
+.mq-scope .flow-steps {
+      display: flex; flex-direction: column; gap: 0;
+      margin: 12px 0;
+    }
+.mq-scope .flow-step {
+      display: flex; gap: 12px; align-items: flex-start;
+    }
+.mq-scope .flow-line {
+      display: flex; flex-direction: column; align-items: center;
+      flex-shrink: 0;
+    }
+.mq-scope .flow-circle {
+      width: 28px; height: 28px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 800; color: white;
+      flex-shrink: 0;
+    }
+.mq-scope .flow-connector {
+      width: 2px; height: 20px; background: var(--border);
+      margin: 2px 0;
+    }
+.mq-scope .flow-content {
+      padding-bottom: 16px; flex: 1;
+    }
+.mq-scope .flow-title { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+.mq-scope .flow-desc { font-size: 12px; color: var(--text-muted); line-height: 1.6; }
+.mq-scope .flow-example { font-size: 12px; color: #0369a1; font-style: italic; margin-top: 4px; }
+.mq-scope .matsu-take-ume {
+      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;
+      margin: 12px 0;
+    }
+.mq-scope .mtm-card {
+      border-radius: 8px; padding: 12px;
+      font-size: 12px; line-height: 1.6;
+    }
+.mq-scope .mtm-card.matsu { background: #fef9ee; border: 1px solid #fcd34d; }
+.mq-scope .mtm-card.take { background: #f0fdf4; border: 1px solid #86efac; }
+.mq-scope .mtm-card.ume { background: #fdf4ff; border: 1px solid #e9d5ff; }
+.mq-scope .mtm-label {
+      font-size: 13px; font-weight: 800; margin-bottom: 6px;
+    }
+.mq-scope .matsu .mtm-label { color: #92400e; }
+.mq-scope .take  .mtm-label { color: #166534; }
+.mq-scope .ume   .mtm-label { color: #6b21a8; }
+@media (max-width: 600px) {
+.mq-scope .qa-card.open .qa-answer { display: block; }
+.mq-scope .qa-answer .a-label { margin: 12px 0 0; }
+.mq-scope .qa-answer .answer-main { padding-top: 4px; }
+}
+@media (max-width: 768px) {
+.mq-scope #sidebar { width: 100%; height: auto; position: relative; }
+.mq-scope #main { margin-left: 0; padding: 20px 16px 60px; }
+.mq-scope .matsu-take-ume { grid-template-columns: 1fr; }
+}
+</style>
 </head>
 <body>
 <script>
@@ -738,6 +929,9 @@
     <a href="#example" class="nav-item">
       <span class="nav-step-num" style="font-size:9px;">例</span>実例トーク
     </a>
+    <a href="#tips" class="nav-item">
+      <span class="nav-step-num" style="font-size:9px;">コ</span>話し方のコツ
+    </a>
     <a href="meeting-qa.html" class="nav-item">
       <span class="nav-step-num" style="font-size:9px;">Q</span>アウト集（別ページ）
     </a>
@@ -768,13 +962,13 @@
           <span class="step-title">電話の前に確認しておくこと</span>
         </div>
         <div class="step-card">
-          <p class="body-text">定例会の前に、次の項目を確認してメモしておく。準備ができていれば、STEP 2〜5で話すことに困らない。</p>
+          <p class="body-text">定例会の前に、次の項目を確認してメモしておく。準備ができていれば、STEP 2〜5で話すことに困らない。定例会は<strong>30分を目安</strong>にする。</p>
           <ul class="check-list">
             <li>前回の定例会で決めた設定変更の内容（案件ファイルの対応ログ）</li>
             <li>今回報告する数字：表示回数・視聴回数・視聴率・視聴維持率・性別年齢・配信地域・配信時間</li>
             <li>前回の数字（良くなったか・下がったかを比べて伝えるため）</li>
             <li>お客様に送った今回のレポートを、手元で開いておく（同じ画面を見ながら話すため）</li>
-            <li>お店のGoogleマップ・ホットペッパービューティー・HPの口コミや更新（増えていれば導入で触れる）</li>
+            <li>お店のGoogleマップ・各種の口コミサイト・HPの口コミや更新（増えていれば導入で触れる）</li>
             <li>今回、設定変更の提案をするかどうか（提案がなければ「今の設定を続ける」でOK）</li>
           </ul>
         </div>
@@ -812,7 +1006,8 @@
           </div>
           <div class="tip-box">
             <strong>電話がつながらない場合：</strong><br>
-            留守番電話になったら「株式会社ランバードの◯◯です。本日◯時からの定例会のお電話をいたしました。後ほど日程調整のご連絡をお送りいたしますので、ご返信いただけますと幸いです。それでは失礼いたします。」と残す。
+            留守番電話になったら「株式会社ランバードの◯◯です。本日◯時からの定例会のお電話をいたしました。後ほど日程調整のご連絡をお送りいたしますので、ご返信いただけますと幸いです。それでは失礼いたします。」と残す。<br>
+            留守番電話を残したあと、日程調整のメッセージ（メールまたはLINE）を送る。
           </div>
         </div>
       </div>
@@ -919,7 +1114,7 @@
               「設定しているキーワードの中では、◯◯に関心のある方への配信が多い傾向でした。」
             </div>
             <div class="note-box">
-              オーディエンス・カスタムセグメント・カスタムインタレストなど運用方法によっては、設定KWやセグメント毎にデータが詳細に表示されないことがある。データがある場合のみ共有する。
+              オーディエンス・カスタムセグメントなど運用方法によっては、設定KWやセグメント毎にデータが詳細に表示されないことがある。データがある場合のみ共有する。
             </div>
           </div>
 
@@ -942,7 +1137,8 @@
             「直近の店舗様の状態はいかがでしたか？ご新規様などは、いらっしゃいましたか？」
           </div>
           <div class="tip-box">
-            広告のデータを見ながらヒアリングを進める。反論・懸念が出た場合は「アウト集」を参照して対応する。
+            広告のデータを見ながらヒアリングを進める。反論・懸念が出た場合は「アウト集」を参照して対応する。<br>
+            解約の話や強いクレームが出たときは、その場で答えを出さず、終話後すぐに上長へ共有する（クレームやその予備軍は、察知した時点で上長へ報告する決まり）。
           </div>
         </div>
       </div>
@@ -968,7 +1164,9 @@
           </div>
           <div class="tip-box">
             提案するときは、変える理由（どの数字を見てそう考えたか）を一言添える。<br>
-            数字が良いときは、無理に変更を提案しなくてよい。「今の設定がうまくいっているので、このまま続けましょう」も立派な提案。
+            数字が良いときは、無理に変更を提案しなくてよい。「今の設定がうまくいっているので、このまま続けましょう」も立派な提案。<br>
+            日予算を変える提案は、自分で決めず、上長に相談したうえで行う。<br>
+            動画の差し替えは提案しない。ただし、2本納品の案件など、差し替えられる動画がある場合は除く（動画は1本納品の案件が多い）。
           </div>
           <div class="arrow-note">※提案がない場合はスキップしてSTEP 6（クロージング）へ進む</div>
         </div>
@@ -1024,6 +1222,7 @@
             <li>案件ファイルの対応ログに、話した内容・決まった設定変更を記録する</li>
             <li>決まった設定変更を管理画面に反映し、正しく変わったかを確認する</li>
             <li>その場で答えられず「確認してご連絡します」とした質問は、期限を決めて返答する</li>
+            <li>解約の話や強いクレームが出た場合は、終話後すぐに上長へ共有し、案件ファイルの対応ログにも記録する</li>
           </ul>
         </div>
       </div>
@@ -1058,7 +1257,7 @@
         <div class="ex-step-title">STEP 2：導入</div>
         <div class="ex-script">
           「前回のお打ち合わせをした際には、配信方法を変えてみるというところで、<br>
-          ①カスタムインタレストへの切り替え、②配信地域の追加、③配信時間の調整などを行いました。<br>
+          ①カスタムセグメントへの切り替え、②配信地域の追加、③配信時間の調整などを行いました。<br>
           調整を加えたので、広告停止されるか心配ではありましたが、停止せずに配信ができておりました。」
         </div>
       </div>
@@ -1096,7 +1295,7 @@
       <div class="ex-step">
         <div class="ex-step-title">STEP 5：変更提案</div>
         <div class="ex-script">
-          「前回では深夜帯も配信する戦法にしていましたが、夏休みも明けたので、また配信時間を調整してはいかがでしょうか？」
+          「前回は、夏休みで夜遅くまで起きている若い方が多いと考えて、深夜帯も配信する設定にしていましたが、夏休みも明けたので、また配信時間を調整してはいかがでしょうか？」
         </div>
       </div>
 
@@ -1112,11 +1311,205 @@
     </div>
   </div>
 
+  <!-- ===== 話し方のコツ（アウト集から移動） ===== -->
+  <div id="tips" class="mq-scope" style="margin:28px 0 8px;">
+    <div style="font-size:11px;color:#94a3b8;margin-bottom:2px;">参考</div>
+    <h2 style="font-size:16px;font-weight:700;margin-bottom:14px;">話し方のコツ（新人向け）</h2>
+
+
+    <!-- 基本の流れ -->
+    <div class="qa-card" style="border-top: 3px solid #7c3aed;">
+      <div class="qa-question" onclick="this.closest('.qa-card').classList.toggle('open')">
+        <span class="q-badge" style="background:#ede9fe;color:#5b21b6;">コツ</span>
+        <span class="qa-question-text">基本の流れ（共感 → 事実 → 提案）</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="a-label">ポイント</span>
+        <div class="answer-main">
+          <p style="margin:0 0 8px;">人によって雑談の量は変えてよい。アイスブレイクは無理にしなくてよい。</p>
+          <div class="flow-steps">
+            <div class="flow-step">
+              <div class="flow-line">
+                <div class="flow-circle" style="background:#7c3aed;">共</div>
+                <div class="flow-connector"></div>
+              </div>
+              <div class="flow-content">
+                <div class="flow-title">① まず共感する</div>
+                <div class="flow-desc">いきなり反論せず、相手の不安や不満に共感する</div>
+                <div class="flow-example">例：「なるほど、承知いたしました。」</div>
+              </div>
+            </div>
+            <div class="flow-step">
+              <div class="flow-line">
+                <div class="flow-circle" style="background:#0ea5e9;">事</div>
+                <div class="flow-connector"></div>
+              </div>
+              <div class="flow-content">
+                <div class="flow-title">② 事実（数値・期間・実績）で現状を共有する</div>
+                <div class="flow-desc">感覚ではなく数値で話す</div>
+                <div class="flow-example">例：「〇月は広告が〇〇回表示され、そのうち〇〇回しっかり見ていただけています。前回と比べても〇〇です。」</div>
+              </div>
+            </div>
+            <div class="flow-step">
+              <div class="flow-line">
+                <div class="flow-circle" style="background:#059669;">提</div>
+              </div>
+              <div class="flow-content">
+                <div class="flow-title">③ 次の一手を具体的に提案して会話を終える</div>
+                <div class="flow-desc">漠然と終わらせず、具体的なアクションで締める</div>
+                <div class="flow-example">例：「数字は前回と比べて〇〇なので、このまま配信を続けて、次回の数字を見て判断しましょう。」<br>下がっている場合の例：「前回より〇〇が下がっているので、〈変更内容〉を試してみるのはいかがでしょうか？」</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 決めるときの聞き方 -->
+    <div class="qa-card" style="border-top: 3px solid #1a56db;">
+      <div class="qa-question" onclick="this.closest('.qa-card').classList.toggle('open')">
+        <span class="q-badge" style="background:#e8f0fe;color:#1e40af;">コツ</span>
+        <span class="qa-question-text">決めるときの聞き方（お客様のテンションが下がるのを防ぐ）</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="a-label">ポイント</span>
+        <div class="answer-main">
+          <ul class="list-plain" style="margin: 8px 0;">
+            <li>✕「これで設定していきますね。」</li>
+            <li>○「ここまでのご要望をまとめて、今日の変更点を最後にお伝えしてもいいですか？」→「〈変更点〉の内容で進めたいのですが、これで合っていますか？」</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- オープン -->
+    <div class="qa-card" style="border-top: 3px solid #0ea5e9;">
+      <div class="qa-question" onclick="this.closest('.qa-card').classList.toggle('open')">
+        <span class="q-badge" style="background:#e0f2fe;color:#075985;">コツ</span>
+        <span class="qa-question-text">オープンクエスチョン（相手に話してもらう質問）</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="a-label">目的</span>
+        <div class="answer-main">
+          背景・本音・判断基準を引き出す。使いどころ：初回ヒアリング、状況整理、課題の深掘り。
+          <ul class="list-plain" style="margin: 8px 0;">
+            <li>「最近のお客様は、どんな悩みで来店されることが多いですか？」</li>
+            <li>「問い合わせにつながった方は、最終的に何を見て決めていましたか？」</li>
+            <li>「オーナー様としては、まず何が改善されると一番うれしいですか？」</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- クローズド -->
+    <div class="qa-card" style="border-top: 3px solid #22c55e;">
+      <div class="qa-question" onclick="this.closest('.qa-card').classList.toggle('open')">
+        <span class="q-badge" style="background:#dcfce7;color:#166534;">コツ</span>
+        <span class="qa-question-text">クローズドクエスチョン（Yes/Noや短く答えられる質問）</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="a-label">目的</span>
+        <div class="answer-main">
+          認識をそろえる、条件確認を素早く行う。使いどころ：合意形成、実施判断、会話の締め。
+          <ul class="list-plain" style="margin: 8px 0;">
+            <li>「最近、お客さんの流れは変わったりありますか？」</li>
+            <li>「今日お話しした〈変更内容〉で進めてもよろしいですか？」</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2択 -->
+    <div class="qa-card" style="border-top: 3px solid #f97316;">
+      <div class="qa-question" onclick="this.closest('.qa-card').classList.toggle('open')">
+        <span class="q-badge" style="background:#fff7ed;color:#9a3412;">コツ</span>
+        <span class="qa-question-text">2択の選択肢提示（迷っている相手に決めてもらう）</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="a-label">目的</span>
+        <div class="answer-main">
+          相手の意思決定を助ける。考える負担を減らす。
+          <div class="script-box">
+            「このまま広く配信を続ける方法」と「配信する対象を絞って試してみる方法」なら、どちらで進めますか？
+          </div>
+          ポイント：どちらを選んでも前進する選択肢を提示する。選択後に「では今回はこちらで進めます」と明確に合意する。
+        </div>
+      </div>
+    </div>
+
+    <!-- 松竹梅 -->
+    <div class="qa-card" style="border-top: 3px solid #a855f7;">
+      <div class="qa-question" onclick="this.closest('.qa-card').classList.toggle('open')">
+        <span class="q-badge" style="background:#faf5ff;color:#6b21a8;">コツ</span>
+        <span class="qa-question-text">松竹梅の選択肢提示（3段階で選んでもらう）</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="a-label">目的</span>
+        <div class="answer-main">
+          変更への温度感が異なる相手でも選びやすくする。「どれだけ変えるか」の大きさで3段階に分ける。
+          <div class="matsu-take-ume">
+            <div class="mtm-card matsu">
+              <div class="mtm-label">松（大きく見直す）</div>
+              変化は大きいが、何が効いたか分かりにくい<br><br>
+              ターゲット設定と配信地域・時間帯をまとめて見直す
+            </div>
+            <div class="mtm-card take">
+              <div class="mtm-label">竹（一部を見直す）</div>
+              バランス重視。数字が下がっているときにすすめる<br><br>
+              反応が弱い部分（KW1〜2個・時間帯など）だけ入れ替え、前回と比べて効果を確かめる
+            </div>
+            <div class="mtm-card ume">
+              <div class="mtm-label">梅（このまま続ける）</div>
+              変化は小さいが、リスクも少ない。数字が良い・前回と変わらないときにすすめる<br><br>
+              設定は変えずに配信を続け、次回の数字を見て判断する
+            </div>
+          </div>
+          <div class="script-box">
+            数字が下がっているとき：「おすすめは竹です。変えた部分の効果を、前回と比べて確かめやすいためです。」<br>数字が良い・変わらないとき：「おすすめは梅です。今の設定でしっかり見ていただけているので、このまま続けて次回の数字を見て判断するのがよいと思います。」<br>このように、おすすめと理由を一緒に伝える。
+          </div>
+          <div class="warning-box">
+            配信地域を広げる提案は、見てもらえる人数が増える一方で、1つの地域あたりで見てもらえる回数が薄くなる（アウト集の「配信対象を広げたい」の回答を参照）。「広げるほど効果が大きい」とは説明しないこと。
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 逆質問のあとの受け方 -->
+    <div class="qa-card" style="border-top: 3px solid #14b8a6;">
+      <div class="qa-question" onclick="this.closest('.qa-card').classList.toggle('open')">
+        <span class="q-badge" style="background:#f0fdfa;color:#115e59;">コツ</span>
+        <span class="qa-question-text">逆質問のあとの受け方（相手の言い分を否定せず、考えてもらう）</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="a-label">目的</span>
+        <div class="answer-main">
+          逆質問をして、相手が「そんなことないよ」と返してきたときの受け方。反論せず、相手に考えてもらう。
+          <div class="script-box">
+            「今のままで大丈夫ということでしたら、看板で来られる方の理由が分かったら、私たちにも教えていただけますか？」<br>
+            （例：「看板からは来ているのに、YouTubeからは一人も来ていない」と言われ、配信地域が広すぎるのでは？と逆質問したあと）
+          </div>
+          ポイント：「ただの希望」を言われているだけなので、相手の理論は否定せず、逆質問して考えてもらう。逆質問の例は、<a href="meeting-qa.html#q1-10">アウト集の「認知なんて意味ないよね」</a>にあります。
+          <div class="warning-box">
+            相手の状態を見て使う。イライラしているときは、先に受け止めてから逆質問する。
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
   <!-- ===== アウト集へのリンク ===== -->
   <a class="qa-link-card" href="meeting-qa.html">
     <div class="qa-link-sub">定例会中に反論・質問が来たら参照</div>
     <div class="qa-link-title">アウト集を開く →</div>
-    <div class="qa-link-desc">よくある質問への回答例・開示してよい数字の早見表・業種別ヒアリング集は、アウト集のページにまとめています。</div>
+    <div class="qa-link-desc">よくある質問への回答例・開示してよい数字の早見表は、アウト集のページにまとめています。業種別のヒアリング集は、「KW・ターゲティング」のページにあります。</div>
   </a>
 
   <div class="page-footer" style="margin-top:24px;">
